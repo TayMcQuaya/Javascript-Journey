@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Journey - Learn JavaScript Interactively</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="styles/grid-utilities.css">
+    <link rel="stylesheet" href="styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="styles/header-enhanced.css">
+    <link rel="stylesheet" href="styles/modal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-code"></i>
+                <span>JavaScript Journey</span>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1 class="hero-title">Welcome to Your JavaScript Journey!</h1>
+            <p class="hero-subtitle">Learn JavaScript from zero to hero with interactive lessons, real-time coding, and fun exercises</p>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <i class="fas fa-book"></i>
+                    <h3>10 Modules</h3>
+                    <p>Comprehensive curriculum</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-code"></i>
+                    <h3>50+ Exercises</h3>
+                    <p>Hands-on practice</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-trophy"></i>
+                    <h3>4 Projects</h3>
+                    <p>Real-world applications</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>40-60 Hours</h3>
+                    <p>Of content</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="progress-overview">
+            <h2>Your Progress</h2>
+            <div class="overall-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overallProgress"></div>
+                </div>
+                <span class="progress-text" id="progressText">0% Complete</span>
+            </div>
+        </section>
+
+        <section class="modules">
+            <h2>Course Modules</h2>
+            <div class="modules-grid">
+                <div class="module-card" data-module="1">
+                    <div class="module-header">
+                        <i class="fas fa-play-circle"></i>
+                        <h3>Module 1: Introduction & Setup</h3>
+                    </div>
+                    <p>Start your journey with JavaScript basics and environment setup</p>
+                    <ul class="module-topics">
+                        <li>What is JavaScript?</li>
+                        <li>Setting up your environment</li>
+                        <li>Your first "Hello World"</li>
+                        <li>Browser console basics</li>
+                    </ul>
+                    <div class="module-footer">
+                        <div class="module-progress">
+                            <div class="progress-bar small">
+                                <div class="progress-fill" data-module-progress="1"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary start-module" data-module="1">
+                            Start Learning <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="module-card" data-module="2">
+                    <div class="module-header">
+                        <i class="fas fa-database"></i>
+                        <h3>Module 2: Variables & Data Types</h3>
+                    </div>
+                    <p>Master the building blocks of JavaScript programming</p>
+                    <ul class="module-topics">
+                        <li>let, const, and var</li>
+                        <li>Numbers and strings</li>
+                        <li>Booleans and null/undefined</li>
+                        <li>Type conversion</li>
+                    </ul>
+                    <div class="module-footer">
+                        <div class="module-progress">
+                            <div class="progress-bar small">
+                                <div class="progress-fill" data-module-progress="2"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary start-module" data-module="2">
+                            Start Learning <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="module-card" data-module="3">
+                    <div class="module-header">
+                        <i class="fas fa-calculator"></i>
+                        <h3>Module 3: Operators & Expressions</h3>
+                    </div>
+                    <p>Learn how to perform operations and create expressions</p>
+                    <ul class="module-topics">
+                        <li>Arithmetic operators</li>
+                        <li>Comparison operators</li>
+                        <li>Logical operators</li>
+                        <li>Assignment operators</li>
+                    </ul>
+                    <div class="module-footer">
+                        <div class="module-progress">
+                            <div class="progress-bar small">
+                                <div class="progress-fill" data-module-progress="3"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary start-module" data-module="3">
+                            Start Learning <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="module-card" data-module="4">
+                    <div class="module-header">
+                        <i class="fas fa-code-branch"></i>
+                        <h3>Module 4: Control Flow</h3>
+                    </div>
+                    <p>Control your program's execution with conditions and loops</p>
+                    <ul class="module-topics">
+                        <li>if/else statements</li>
+                        <li>switch statements</li>
+                        <li>for and while loops</li>
+                        <li>break and continue</li>
+                    </ul>
+                    <div class="module-footer">
+                        <div class="module-progress">
+                            <div class="progress-bar small">
+                                <div class="progress-fill" data-module-progress="4"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary start-module" data-module="4">
+                            Start Learning <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="module-card" data-module="5">
+                    <div class="module-header">
+                        <i class="fas fa-code"></i>
+                        <h3>Module 5: Functions</h3>
+                    </div>
+                    <p>Create reusable code blocks and understand scope</p>
+                    <ul class="module-topics">
+                        <li>Function declaration</li>
+                        <li>Parameters and returns</li>
+                        <li>Arrow functions</li>
+                        <li>Scope and closures</li>
+                    </ul>
+                    <div class="module-footer">
+                        <div class="module-progress">
+                            <div class="progress-bar small">
+                                <div class="progress-fill" data-module-progress="5"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary start-module" data-module="5">
+                            Start Learning <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="module-card" data-module="6">
+                    <div class="module-header">
+                        <i class="fas fa-list"></i>
+                        <h3>Module 6: Arrays</h3>
+                    </div>
+                    <p>Work with collections of data efficiently</p>
+                    <ul class="module-topics">
+                        <li>Creating arrays</li>
+                        <li>Array methods</li>
+                        <li>Iterating arrays</li>
+                        <li>Array transformations</li>
+                    </ul>
+                    <div class="module-footer">
+                        <div class="module-progress">
+                            <div class="progress-bar small">
+                                <div class="progress-fill" data-module-progress="6"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary start-module" data-module="6">
+                            Start Learning <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="module-card" data-module="7">
+                    <div class="module-header">
+                        <i class="fas fa-cube"></i>
+                        <h3>Module 7: Objects</h3>
+                    </div>
+                    <p>Master JavaScript's powerful object system</p>
+                    <ul class="module-topics">
+                        <li>Object literals</li>
+                        <li>Properties and methods</li>
+                        <li>this keyword</li>
+                        <li>Destructuring</li>
+                    </ul>
+                    <div class="module-footer">
+                        <div class="module-progress">
+                            <div class="progress-bar small">
+                                <div class="progress-fill" data-module-progress="7"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary start-module" data-module="7">
+                            Start Learning <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="module-card" data-module="8">
+                    <div class="module-header">
+                        <i class="fas fa-file-code"></i>
+                        <h3>Module 8: DOM Manipulation</h3>
+                    </div>
+                    <p>Interact with web pages dynamically</p>
+                    <ul class="module-topics">
+                        <li>Selecting elements</li>
+                        <li>Modifying content</li>
+                        <li>Styling with JS</li>
+                        <li>Creating elements</li>
+                    </ul>
+                    <div class="module-footer">
+                        <div class="module-progress">
+                            <div class="progress-bar small">
+                                <div class="progress-fill" data-module-progress="8"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary start-module" data-module="8">
+                            Start Learning <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="module-card" data-module="9">
+                    <div class="module-header">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <h3>Module 9: Events</h3>
+                    </div>
+                    <p>Make your web pages interactive</p>
+                    <ul class="module-topics">
+                        <li>Event listeners</li>
+                        <li>Event types</li>
+                        <li>Event object</li>
+                        <li>Event delegation</li>
+                    </ul>
+                    <div class="module-footer">
+                        <div class="module-progress">
+                            <div class="progress-bar small">
+                                <div class="progress-fill" data-module-progress="9"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary start-module" data-module="9">
+                            Start Learning <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="module-card" data-module="10">
+                    <div class="module-header">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Module 10: Final Projects</h3>
+                    </div>
+                    <p>Build real-world applications</p>
+                    <ul class="module-topics">
+                        <li>Todo List App</li>
+                        <li>Calculator</li>
+                        <li>Quiz Game</li>
+                        <li>Weather App</li>
+                    </ul>
+                    <div class="module-footer">
+                        <div class="module-progress">
+                            <div class="progress-bar small">
+                                <div class="progress-fill" data-module-progress="10"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary start-module" data-module="10">
+                            Start Learning <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/modal.js"></script>
+</body>
+</html>

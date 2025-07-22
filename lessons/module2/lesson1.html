@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 1: Understanding Variables - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='index.html'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Module 2</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="lesson-container">
+            <div class="lesson-header">
+                <h1>Lesson 1: Understanding Variables</h1>
+                <p class="lesson-subtitle">The building blocks of every JavaScript program</p>
+            </div>
+
+            <div class="lesson-content">
+                <section class="content-section">
+                    <h2>What Are Variables?</h2>
+                    <p>
+                        Think of variables as labeled boxes where you can store information. Just like you might 
+                        have a box labeled "toys" or "books" at home, variables in programming let you store data 
+                        with meaningful names.
+                    </p>
+                    
+                    <div class="analogy-box">
+                        <div class="analogy-visual">
+                            <div class="box-container">
+                                <div class="storage-box">
+                                    <div class="box-label">userName</div>
+                                    <div class="box-content">"Alice"</div>
+                                </div>
+                                <div class="storage-box">
+                                    <div class="box-label">age</div>
+                                    <div class="box-content">25</div>
+                                </div>
+                                <div class="storage-box">
+                                    <div class="box-label">isStudent</div>
+                                    <div class="box-content">true</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="analogy-explanation">
+                            Variables are like labeled containers that hold your data!
+                        </p>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Why Do We Need Variables?</h2>
+                    <div class="reason-cards">
+                        <div class="reason-card">
+                            <i class="fas fa-save"></i>
+                            <h3>Store Information</h3>
+                            <p>Keep data for later use in your program</p>
+                        </div>
+                        <div class="reason-card">
+                            <i class="fas fa-redo"></i>
+                            <h3>Reuse Values</h3>
+                            <p>Use the same value multiple times without repetition</p>
+                        </div>
+                        <div class="reason-card">
+                            <i class="fas fa-edit"></i>
+                            <h3>Change Values</h3>
+                            <p>Update information as your program runs</p>
+                        </div>
+                        <div class="reason-card">
+                            <i class="fas fa-tag"></i>
+                            <h3>Meaningful Names</h3>
+                            <p>Make your code readable and understandable</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Creating Your First Variable</h2>
+                    <p>In JavaScript, we create variables using keywords. The most modern way is using <code>let</code>:</p>
+                    
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span>Basic Variable Declaration</span>
+                        </div>
+                        <pre><code>// Declaring a variable
+let myFirstVariable;
+
+// Declaring and assigning a value
+let message = "Hello, World!";
+let age = 25;
+let price = 19.99;
+let isHappy = true;</code></pre>
+                    </div>
+
+                    <div class="code-editor" id="editor1">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Try It Yourself</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor1')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor1-code">// Create your own variables!
+let myName = "Your Name";
+let myAge = 20;
+let myCity = "New York";
+
+// Print them out
+console.log("Name:", myName);
+console.log("Age:", myAge);
+console.log("City:", myCity);
+
+// Change the values
+myAge = 21;
+myCity = "Los Angeles";
+
+console.log("Updated Age:", myAge);
+console.log("New City:", myCity);</textarea>
+                            <div class="code-output" id="editor1-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Variable Naming Rules</h2>
+                    <div class="rules-container">
+                        <div class="rule-section">
+                            <h3>✅ Valid Variable Names</h3>
+                            <ul class="valid-list">
+                                <li><code>userName</code> - camelCase (recommended)</li>
+                                <li><code>first_name</code> - snake_case</li>
+                                <li><code>age2</code> - can contain numbers</li>
+                                <li><code>$price</code> - can start with $</li>
+                                <li><code>_private</code> - can start with _</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="rule-section">
+                            <h3>❌ Invalid Variable Names</h3>
+                            <ul class="invalid-list">
+                                <li><code>2fast</code> - can't start with number</li>
+                                <li><code>my-name</code> - no hyphens allowed</li>
+                                <li><code>let</code> - can't use reserved words</li>
+                                <li><code>my name</code> - no spaces allowed</li>
+                                <li><code>user@email</code> - no special characters</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="best-practices">
+                        <h3>💡 Best Practices</h3>
+                        <ul>
+                            <li>Use descriptive names: <code>userEmail</code> not <code>e</code></li>
+                            <li>Use camelCase: <code>firstName</code> not <code>firstname</code></li>
+                            <li>Be consistent: stick to one naming style</li>
+                            <li>Avoid single letters except in loops</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Changing Variable Values</h2>
+                    <p>Variables can change their values - that's why they're called "variables"!</p>
+                    
+                    <div class="code-editor" id="editor2">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Interactive Example</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor2')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor2-code">// Variables can change!
+let score = 0;
+console.log("Starting score:", score);
+
+// Player gets points
+score = 10;
+console.log("After first round:", score);
+
+// More points!
+score = score + 5;
+console.log("After bonus:", score);
+
+// Double the score
+score = score * 2;
+console.log("After multiplier:", score);
+
+// You can also use shortcuts
+let lives = 3;
+console.log("Starting lives:", lives);
+
+lives = lives - 1;  // Lost a life
+console.log("Oops! Lives left:", lives);</textarea>
+                            <div class="code-output" id="editor2-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Variable Declaration vs Assignment</h2>
+                    <div class="concept-comparison">
+                        <div class="concept-box">
+                            <h3>Declaration</h3>
+                            <p>Creating a new variable</p>
+                            <code>let userName;</code>
+                            <p class="concept-note">Creates the "box" but it's empty</p>
+                        </div>
+                        
+                        <div class="concept-box">
+                            <h3>Assignment</h3>
+                            <p>Putting a value in the variable</p>
+                            <code>userName = "Alice";</code>
+                            <p class="concept-note">Puts "Alice" in the box</p>
+                        </div>
+                        
+                        <div class="concept-box">
+                            <h3>Both Together</h3>
+                            <p>Declare and assign at once</p>
+                            <code>let userName = "Alice";</code>
+                            <p class="concept-note">Create box and fill it immediately</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="exercise-section">
+                    <div class="exercise-header">
+                        <i class="fas fa-laptop-code"></i>
+                        <h2>Practice Exercises</h2>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <h3>Exercise 1: Create a Personal Profile</h3>
+                        <p>Create variables to store information about yourself:</p>
+                        
+                        <div class="code-editor" id="editor3">
+                            <div class="editor-header">
+                                <div class="editor-tabs">
+                                    <button class="editor-tab active">Your Code</button>
+                                </div>
+                                <div class="editor-actions">
+                                    <button class="editor-btn" onclick="checkExercise1()">
+                                        <i class="fas fa-check"></i> Check Solution
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="editor-content">
+                                <textarea class="code-input" id="editor3-code">// TODO: Create these variables with your information
+// 1. Create a variable called 'fullName' with your name
+// 2. Create a variable called 'birthYear' with your birth year
+// 3. Create a variable called 'currentYear' with 2024
+// 4. Create a variable called 'age' that calculates your age
+// 5. Create a variable called 'favoriteColor'
+// 6. Print all variables using console.log()
+
+// Start coding below:
+</textarea>
+                                <div class="code-output" id="editor3-output">
+                                    <div class="output-label">Complete the exercise...</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feedback" id="exercise1-feedback"></div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <h3>Exercise 2: Fix the Variable Names</h3>
+                        <p>Some of these variable names are invalid. Fix them!</p>
+                        
+                        <div class="code-editor" id="editor4">
+                            <div class="editor-header">
+                                <div class="editor-tabs">
+                                    <button class="editor-tab active">Fix the Code</button>
+                                </div>
+                                <div class="editor-actions">
+                                    <button class="editor-btn" onclick="runCode('editor4')">
+                                        <i class="fas fa-play"></i> Run Code
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="editor-content">
+                                <textarea class="code-input" id="editor4-code">// Fix these invalid variable names!
+
+let 1stPlace = "Gold Medal";        // Can't start with number
+let my-score = 100;                 // No hyphens allowed
+let user name = "John";             // No spaces allowed
+let class = "JavaScript";           // Reserved word
+let email@address = "test@test.com"; // Special characters
+
+console.log("All variables fixed!");</textarea>
+                                <div class="code-output" id="editor4-output">
+                                    <div class="output-label">Fix the errors...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Common Mistakes to Avoid</h2>
+                    <div class="mistakes-grid">
+                        <div class="mistake-card">
+                            <div class="mistake-header wrong">❌ Forgetting to declare</div>
+                            <code>myVariable = 10;  // No let/const/var</code>
+                            <p>Always declare variables before using them</p>
+                        </div>
+                        
+                        <div class="mistake-card">
+                            <div class="mistake-header wrong">❌ Using before declaring</div>
+                            <code>console.log(x);
+let x = 5;</code>
+                            <p>Declare variables before you use them</p>
+                        </div>
+                        
+                        <div class="mistake-card">
+                            <div class="mistake-header wrong">❌ Typos in variable names</div>
+                            <code>let userName = "Alice";
+console.log(username);  // lowercase 'n'</code>
+                            <p>JavaScript is case-sensitive!</p>
+                        </div>
+                        <div style="margin: 2rem 0;"></div>
+                    </div>
+                </section>
+
+                <div class="lesson-navigation">
+                    <button class="btn btn-secondary" onclick="window.location.href='../module1/lesson4.html'">
+                        <i class="fas fa-arrow-left"></i> Previous Module
+                    </button>
+                    
+                    <button class="btn btn-primary" onclick="completeLesson()">
+                        Complete Lesson <i class="fas fa-check"></i>
+                    </button>
+                    
+                    <button class="btn btn-secondary" onclick="window.location.href='lesson2.html'">
+                        Next Lesson <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .analogy-box {
+            background-color: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .box-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .storage-box {
+            background-color: var(--bg-primary);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            width: 120px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .box-label {
+            background-color: var(--primary-color);
+            color: var(--bg-primary);
+            padding: 0.5rem;
+            margin: -1rem -1rem 1rem -1rem;
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+
+        .box-content {
+            font-family: monospace;
+            color: var(--text-primary);
+            font-size: 1.125rem;
+        }
+
+        .analogy-explanation {
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 1rem;
+        }
+
+        .reason-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .reason-card {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .reason-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .reason-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .reason-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .reason-card p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .rules-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .rule-section {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+        }
+
+        .rule-section h3 {
+            margin-bottom: 1rem;
+        }
+
+        .valid-list li, .invalid-list li {
+            padding: 0.5rem 0;
+            list-style: none;
+        }
+
+        .valid-list li::before {
+            content: "✓ ";
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .invalid-list li::before {
+            content: "✗ ";
+            color: var(--danger-color);
+            font-weight: bold;
+        }
+
+        .best-practices {
+            background-color: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: var(--radius-md);
+        }
+
+        .best-practices h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .concept-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .concept-box {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .concept-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .concept-box code {
+            display: block;
+            background-color: var(--bg-tertiary);
+            padding: 0.75rem;
+            margin: 1rem 0;
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+        }
+
+        .concept-note {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-style: italic;
+        }
+
+        .exercise-item {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+        }
+
+        .exercise-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .rules-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .box-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            outputPane.innerHTML = '';
+            
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+            };
+            
+            try {
+                eval(code);
+                
+                if (logs.length > 0) {
+                    outputPane.innerHTML = logs.map(log => 
+                        `<div class="output-line">${escapeHtml(log)}</div>`
+                    ).join('');
+                } else {
+                    outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function checkExercise1() {
+            const code = document.getElementById('editor3-code').value;
+            const feedback = document.getElementById('exercise1-feedback');
+            
+            runCode('editor3');
+            
+            const hasFullName = code.includes('let fullName') || code.includes('const fullName');
+            const hasBirthYear = code.includes('let birthYear') || code.includes('const birthYear');
+            const hasCurrentYear = code.includes('let currentYear') || code.includes('const currentYear');
+            const hasAge = code.includes('let age') || code.includes('const age');
+            const hasFavoriteColor = code.includes('let favoriteColor') || code.includes('const favoriteColor');
+            const hasConsoleLogs = code.includes('console.log');
+            
+            if (hasFullName && hasBirthYear && hasCurrentYear && hasAge && hasFavoriteColor && hasConsoleLogs) {
+                feedback.className = 'feedback show success';
+                feedback.textContent = 'Excellent! You\'ve created all the required variables!';
+            } else {
+                feedback.className = 'feedback show error';
+                let missing = [];
+                if (!hasFullName) missing.push('fullName');
+                if (!hasBirthYear) missing.push('birthYear');
+                if (!hasCurrentYear) missing.push('currentYear');
+                if (!hasAge) missing.push('age');
+                if (!hasFavoriteColor) missing.push('favoriteColor');
+                if (!hasConsoleLogs) missing.push('console.log statements');
+                
+                feedback.textContent = `Missing: ${missing.join(', ')}`;
+            }
+        }
+
+        function completeLesson() {
+            Storage.saveProgress(2, 1, true);
+            
+            const message = document.createElement('div');
+            message.className = 'completion-message';
+            message.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <h3>Lesson Complete!</h3>
+                <p>You now understand variables! Let's learn about let, const, and var.</p>
+            `;
+            message.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: var(--success-color);
+                color: white;
+                padding: 2rem 3rem;
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow-lg);
+                text-align: center;
+                z-index: 1000;
+                animation: scaleIn 0.3s ease-out;
+            `;
+            
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                window.location.href = 'lesson2.html';
+            }, 2000);
+        }
+    </script>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

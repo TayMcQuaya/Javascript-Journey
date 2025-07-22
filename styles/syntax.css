@@ -1,0 +1,231 @@
+/* Syntax Highlighting for Code Blocks */
+
+/* Base code styling */
+.code-block {
+    background-color: var(--code-bg);
+    color: var(--code-text);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Keywords: let, const, var, function, if, else, for, while, return, etc. */
+.token-keyword {
+    color: var(--code-keyword);
+    font-weight: bold;
+}
+
+/* Strings */
+.token-string {
+    color: var(--code-string);
+}
+
+/* Numbers */
+.token-number {
+    color: var(--code-number);
+}
+
+/* Comments */
+.token-comment {
+    color: var(--code-comment);
+    font-style: italic;
+}
+
+/* Function names */
+.token-function {
+    color: var(--code-function);
+}
+
+/* Variables and parameters */
+.token-variable {
+    color: var(--code-variable);
+}
+
+/* Operators */
+.token-operator {
+    color: var(--code-text);
+}
+
+/* Punctuation */
+.token-punctuation {
+    color: #808080;
+}
+
+/* Boolean values */
+.token-boolean {
+    color: var(--code-keyword);
+    font-weight: bold;
+}
+
+/* Null and undefined */
+.token-null {
+    color: var(--code-keyword);
+    font-weight: bold;
+}
+
+/* Class names */
+.token-class {
+    color: #4EC9B0;
+}
+
+/* Properties */
+.token-property {
+    color: var(--code-variable);
+}
+
+/* HTML in template literals */
+.token-tag {
+    color: var(--code-keyword);
+}
+
+.token-attr-name {
+    color: var(--code-variable);
+}
+
+.token-attr-value {
+    color: var(--code-string);
+}
+
+/* Highlighted line */
+.highlight-line {
+    background-color: rgba(247, 223, 30, 0.1);
+    display: block;
+    margin: 0 -1rem;
+    padding: 0 1rem;
+    border-left: 3px solid var(--js-yellow);
+}
+
+/* Line numbers */
+.line-numbers {
+    counter-reset: linenumber;
+    padding-left: 3.5rem;
+    position: relative;
+}
+
+.line-numbers > code > span {
+    counter-increment: linenumber;
+    position: relative;
+    display: block;
+}
+
+.line-numbers > code > span::before {
+    content: counter(linenumber);
+    position: absolute;
+    left: -3rem;
+    width: 2rem;
+    text-align: right;
+    color: #858585;
+    font-size: 0.875em;
+}
+
+/* Inline code */
+code:not([class]) {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    padding: 0.2rem 0.4rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.875em;
+    font-family: 'Monaco', 'Courier New', monospace;
+}
+
+/* Code output styling */
+.code-output {
+    background-color: #1a1a1a;
+    color: #d4d4d4;
+    border-top: 2px solid var(--js-yellow);
+}
+
+.output-line {
+    padding: 0.25rem 0;
+    font-family: 'Monaco', 'Courier New', monospace;
+}
+
+.output-line.error {
+    color: #ff6b6b;
+}
+
+.output-line.warning {
+    color: var(--js-yellow);
+}
+
+.output-line.success {
+    color: #51cf66;
+}
+
+.output-line.info {
+    color: #339af0;
+}
+
+/* Copy button for code blocks */
+.code-copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: var(--js-yellow);
+    color: var(--js-black);
+    border: none;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.code-block-wrapper:hover .code-copy-btn {
+    opacity: 1;
+}
+
+.code-copy-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+/* JavaScript logo in code blocks */
+.code-js-badge {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background-color: var(--js-yellow);
+    color: var(--js-black);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+/* Terminal/console styling */
+.terminal {
+    background-color: #0c0c0c;
+    color: #00ff00;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    font-family: 'Monaco', 'Courier New', monospace;
+    position: relative;
+    overflow-x: auto;
+}
+
+.terminal::before {
+    content: "$ ";
+    color: #00ff00;
+}
+
+.terminal-output {
+    color: #ffffff;
+    margin-top: 0.5rem;
+}
+
+/* Error highlighting */
+.error-highlight {
+    background-color: rgba(239, 68, 68, 0.2);
+    border-bottom: 2px wavy #ef4444;
+    cursor: help;
+}
+
+/* Success highlighting */
+.success-highlight {
+    background-color: rgba(16, 185, 129, 0.2);
+    border-bottom: 2px solid #10b981;
+}

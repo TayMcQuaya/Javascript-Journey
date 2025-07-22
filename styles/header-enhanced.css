@@ -1,0 +1,65 @@
+/* Enhanced Header/Navbar Styles
+   Larger navbar elements for better visibility
+   Author: JavaScript Journey
+*/
+
+/* Enhanced Navbar */
+.navbar {
+    padding: 0.5rem 0; /* Add some vertical padding */
+}
+
+.nav-container {
+    padding: 1.25rem 2rem; /* Increased from 1rem 2rem */
+}
+
+/* Larger brand text */
+.nav-brand {
+    font-size: 1.875rem; /* Increased from 1.5rem */
+    font-weight: 800;
+    gap: 0.75rem; /* More space between icon and text */
+}
+
+.nav-brand i {
+    font-size: 2rem; /* Larger icon */
+}
+
+/* Larger nav buttons */
+.nav-btn {
+    padding: 0.75rem 1.5rem; /* Increased from 0.5rem 1rem */
+    font-size: 1.125rem; /* Larger text */
+    font-weight: 600;
+    gap: 0.75rem; /* More space between icon and text */
+}
+
+.nav-btn i {
+    font-size: 1.25rem; /* Larger icons */
+}
+
+/* Ensure proper hover states with new sizes */
+.nav-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 1rem 1.5rem;
+    }
+    
+    .nav-brand {
+        font-size: 1.5rem;
+    }
+    
+    .nav-brand i {
+        font-size: 1.75rem;
+    }
+    
+    .nav-btn {
+        padding: 0.625rem 1.25rem;
+        font-size: 1rem;
+    }
+    
+    .nav-btn span {
+        display: none; /* Hide text on mobile, keep icons only */
+    }
+}

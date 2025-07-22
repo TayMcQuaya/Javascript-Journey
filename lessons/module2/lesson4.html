@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 4: Booleans and Null/Undefined - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/syntax.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='index.html'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Module 2</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="lesson-container">
+            <div class="lesson-header">
+                <h1>Lesson 4: Booleans and Null/Undefined</h1>
+                <p class="lesson-subtitle">Understanding JavaScript's special values and true/false logic</p>
+            </div>
+
+            <div class="lesson-content">
+                <section class="content-section">
+                    <h2>Booleans: True or False</h2>
+                    <p>
+                        Booleans are the simplest data type in JavaScript. They can only have two values: 
+                        <code>true</code> or <code>false</code>. They're the foundation of all decision-making in programming.
+                    </p>
+                    
+                    <div class="boolean-visual">
+                        <div class="boolean-card true-card">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>true</h3>
+                            <p>Yes, on, 1, correct</p>
+                        </div>
+                        <div class="boolean-card false-card">
+                            <i class="fas fa-times-circle"></i>
+                            <h3>false</h3>
+                            <p>No, off, 0, incorrect</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Creating and Using Booleans</h2>
+                    <div class="code-editor" id="editor1">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Boolean Basics</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor1')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor1-code">// Direct boolean values
+let isJavaScriptFun = true;
+let isMathHard = false;
+
+console.log("Is JavaScript fun?", isJavaScriptFun);
+console.log("Is math hard?", isMathHard);
+
+// Booleans from comparisons
+let age = 25;
+let canVote = age >= 18;
+let isTeenager = age >= 13 && age <= 19;
+
+console.log("\nAge comparisons:");
+console.log("Age:", age);
+console.log("Can vote (>= 18)?", canVote);
+console.log("Is teenager (13-19)?", isTeenager);
+
+// Boolean operations
+let hasLicense = true;
+let hasInsurance = true;
+let canDrive = hasLicense && hasInsurance;
+
+console.log("\nDriving requirements:");
+console.log("Has license?", hasLicense);
+console.log("Has insurance?", hasInsurance);
+console.log("Can drive?", canDrive);
+
+// Negation (NOT operator)
+let isRaining = false;
+let isSunny = !isRaining;
+
+console.log("\nWeather:");
+console.log("Is raining?", isRaining);
+console.log("Is sunny?", isSunny);</textarea>
+                            <div class="code-output" id="editor1-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Truthy and Falsy Values</h2>
+                    <p>
+                        In JavaScript, every value can be treated as either "truthy" or "falsy" when used in a boolean context.
+                        Understanding this concept is crucial for writing effective JavaScript code.
+                    </p>
+                    
+                    <div class="truthy-falsy-table">
+                        <div class="tf-column falsy-column">
+                            <h3>Falsy Values (only 8!)</h3>
+                            <ul>
+                                <li><code>false</code></li>
+                                <li><code>0</code> (zero)</li>
+                                <li><code>-0</code> (negative zero)</li>
+                                <li><code>0n</code> (BigInt zero)</li>
+                                <li><code>""</code> (empty string)</li>
+                                <li><code>null</code></li>
+                                <li><code>undefined</code></li>
+                                <li><code>NaN</code></li>
+                            </ul>
+                        </div>
+                        <div class="tf-column truthy-column">
+                            <h3>Truthy Values (everything else!)</h3>
+                            <ul>
+                                <li><code>true</code></li>
+                                <li>Any number (except 0)</li>
+                                <li>Any string (except "")</li>
+                                <li>All objects</li>
+                                <li>All arrays (even empty!)</li>
+                                <li>Functions</li>
+                                <li><code>"0"</code> (string zero)</li>
+                                <li><code>"false"</code> (string)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Testing Truthy and Falsy</h2>
+                    <div class="code-editor" id="editor2">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Truthy/Falsy Examples</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor2')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor2-code">// Testing falsy values
+console.log("=== Falsy Values ===");
+console.log("Boolean(false):", Boolean(false));
+console.log("Boolean(0):", Boolean(0));
+console.log("Boolean(''):", Boolean(''));
+console.log("Boolean(null):", Boolean(null));
+console.log("Boolean(undefined):", Boolean(undefined));
+console.log("Boolean(NaN):", Boolean(NaN));
+
+// Testing truthy values
+console.log("\n=== Truthy Values ===");
+console.log("Boolean(true):", Boolean(true));
+console.log("Boolean(1):", Boolean(1));
+console.log("Boolean('hello'):", Boolean('hello'));
+console.log("Boolean('0'):", Boolean('0')); // String "0" is truthy!
+console.log("Boolean('false'):", Boolean('false')); // String "false" is truthy!
+console.log("Boolean([]):", Boolean([])); // Empty array is truthy!
+console.log("Boolean({}):", Boolean({})); // Empty object is truthy!
+
+// Practical examples
+console.log("\n=== Practical Examples ===");
+let userName = "";
+if (userName) {
+    console.log("User has a name:", userName);
+} else {
+    console.log("User has no name");
+}
+
+let score = 0;
+if (score) {
+    console.log("Player has scored:", score);
+} else {
+    console.log("Player hasn't scored yet");
+}
+
+// Using || for default values
+let userInput = "";
+let defaultName = userInput || "Anonymous";
+console.log("Name:", defaultName);
+
+// Using && for conditional execution
+let user = { name: "Alice" };
+user && console.log("User exists:", user.name);</textarea>
+                            <div class="code-output" id="editor2-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Understanding null</h2>
+                    <p>
+                        <code>null</code> represents an intentional absence of any object value. 
+                        It's a way to explicitly say "this has no value" or "this is empty on purpose."
+                    </p>
+                    
+                    <div class="null-undefined-comparison">
+                        <div class="nu-card">
+                            <h3>null</h3>
+                            <p>Intentionally empty</p>
+                            <code>let data = null;</code>
+                            <p class="nu-usage">Use when you want to explicitly set "no value"</p>
+                        </div>
+                    </div>
+
+                    <div class="code-editor" id="editor3">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">null Examples</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor3')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor3-code">// Using null
+let selectedUser = null; // No user selected yet
+console.log("Selected user:", selectedUser);
+
+// Checking for null
+if (selectedUser === null) {
+    console.log("No user is selected");
+}
+
+// null in objects
+let person = {
+    name: "John",
+    age: 30,
+    spouse: null // Not married
+};
+console.log("\nPerson:", person);
+
+// null vs empty
+let emptyString = "";
+let nullValue = null;
+console.log("\nEmpty string == null?", emptyString == null); // false
+console.log("null == null?", nullValue == null); // true
+
+// typeof null (JavaScript quirk!)
+console.log("\ntypeof null:", typeof null); // "object" (this is a bug!)
+
+// Practical example: Clearing data
+let gameScore = 100;
+console.log("\nGame score:", gameScore);
+
+// Game over - clear the score
+gameScore = null;
+console.log("Score after game over:", gameScore);</textarea>
+                            <div class="code-output" id="editor3-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Understanding undefined</h2>
+                    <p>
+                        <code>undefined</code> means a variable has been declared but hasn't been assigned a value yet.
+                        It's JavaScript's way of saying "I don't know what this is."
+                    </p>
+                    
+                    <div class="null-undefined-comparison">
+                        <div class="nu-card">
+                            <h3>undefined</h3>
+                            <p>Not yet defined</p>
+                            <code>let data; // undefined</code>
+                            <p class="nu-usage">Automatically assigned to uninitialized variables</p>
+                        </div>
+                    </div>
+
+                    <div class="code-editor" id="editor4">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">undefined Examples</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor4')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor4-code">// Variables without values are undefined
+let myVariable;
+console.log("Uninitialized variable:", myVariable);
+console.log("Type:", typeof myVariable);
+
+// Function parameters
+function greet(name) {
+    console.log("Hello, " + name);
+}
+greet(); // No argument passed - name is undefined
+
+// Object properties
+let user = {
+    name: "Alice",
+    age: 25
+};
+console.log("\nUser email:", user.email); // undefined (property doesn't exist)
+
+// Array elements
+let numbers = [1, 2, 3];
+console.log("4th element:", numbers[3]); // undefined (index out of bounds)
+
+// Function with no return
+function doSomething() {
+    console.log("Doing something...");
+    // No return statement
+}
+let result = doSomething();
+console.log("Function result:", result); // undefined
+
+// Checking for undefined
+let score;
+if (score === undefined) {
+    console.log("\nScore hasn't been set yet");
+    score = 0;
+}
+console.log("Score is now:", score);
+
+// undefined vs not declared
+try {
+    console.log(completelyUndeclaredVariable); // Error!
+} catch (error) {
+    console.log("\nError:", error.message);
+}</textarea>
+                            <div class="code-output" id="editor4-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>null vs undefined</h2>
+                    <p>While both represent "no value", they have different meanings and uses:</p>
+                    
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Aspect</th>
+                                    <th>null</th>
+                                    <th>undefined</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Meaning</td>
+                                    <td>Intentionally empty</td>
+                                    <td>Not yet assigned</td>
+                                </tr>
+                                <tr>
+                                    <td>Type</td>
+                                    <td>object (bug!)</td>
+                                    <td>undefined</td>
+                                </tr>
+                                <tr>
+                                    <td>Default for</td>
+                                    <td>Nothing (must be assigned)</td>
+                                    <td>Uninitialized variables</td>
+                                </tr>
+                                <tr>
+                                    <td>== null</td>
+                                    <td>true</td>
+                                    <td>true</td>
+                                </tr>
+                                <tr>
+                                    <td>=== null</td>
+                                    <td>true</td>
+                                    <td>false</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="code-editor" id="editor5">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">null vs undefined</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor5')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor5-code">// Comparing null and undefined
+console.log("null == undefined:", null == undefined);   // true (loose equality)
+console.log("null === undefined:", null === undefined); // false (strict equality)
+
+// Type checking
+console.log("\nTypes:");
+console.log("typeof null:", typeof null);           // "object"
+console.log("typeof undefined:", typeof undefined); // "undefined"
+
+// Converting to numbers
+console.log("\nNumber conversion:");
+console.log("Number(null):", Number(null));         // 0
+console.log("Number(undefined):", Number(undefined)); // NaN
+
+// In boolean context
+console.log("\nBoolean conversion:");
+console.log("Boolean(null):", Boolean(null));         // false
+console.log("Boolean(undefined):", Boolean(undefined)); // false
+
+// Practical example: API response
+function getUserData(userId) {
+    // Simulating API responses
+    if (userId === 1) {
+        return { name: "Alice", age: 25 };
+    } else if (userId === 2) {
+        return null; // User deleted
+    }
+    // undefined returned if userId not found
+}
+
+console.log("\nAPI responses:");
+console.log("User 1:", getUserData(1));      // Object
+console.log("User 2:", getUserData(2));      // null (explicitly no data)
+console.log("User 3:", getUserData(3));      // undefined (not found)
+
+// Best practice: Use null for intentional emptiness
+let currentTask = null; // No task assigned
+let futureTask; // undefined - haven't decided yet
+
+console.log("\nTask management:");
+console.log("Current task:", currentTask);
+console.log("Future task:", futureTask);</textarea>
+                            <div class="code-output" id="editor5-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Type Checking</h2>
+                    <p>JavaScript provides several ways to check the type of a value:</p>
+                    
+                    <div class="code-editor" id="editor6">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Type Checking Methods</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor6')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor6-code">// Using typeof operator
+console.log("=== typeof operator ===");
+console.log("typeof true:", typeof true);               // "boolean"
+console.log("typeof false:", typeof false);             // "boolean"
+console.log("typeof null:", typeof null);               // "object" (bug!)
+console.log("typeof undefined:", typeof undefined);     // "undefined"
+console.log("typeof 42:", typeof 42);                   // "number"
+console.log("typeof 'hello':", typeof 'hello');         // "string"
+console.log("typeof {}:", typeof {});                   // "object"
+console.log("typeof []:", typeof []);                   // "object"
+console.log("typeof function(){}:", typeof function(){}); // "function"
+
+// Checking for null specifically
+console.log("\n=== Checking for null ===");
+let value = null;
+console.log("value === null:", value === null);         // true
+console.log("value == null:", value == null);           // true (also true for undefined!)
+
+// Checking for undefined
+console.log("\n=== Checking for undefined ===");
+let notSet;
+console.log("notSet === undefined:", notSet === undefined);
+console.log("typeof notSet === 'undefined':", typeof notSet === 'undefined');
+
+// Safe checking for null or undefined
+console.log("\n=== Safe checking ===");
+function isNullOrUndefined(value) {
+    return value == null; // Checks both null and undefined
+}
+
+console.log("isNullOrUndefined(null):", isNullOrUndefined(null));
+console.log("isNullOrUndefined(undefined):", isNullOrUndefined(undefined));
+console.log("isNullOrUndefined(0):", isNullOrUndefined(0));
+console.log("isNullOrUndefined(''):", isNullOrUndefined(''));
+
+// Checking if a value exists
+function exists(value) {
+    return value !== null && value !== undefined;
+}
+
+console.log("\n=== Existence check ===");
+console.log("exists(null):", exists(null));
+console.log("exists(undefined):", exists(undefined));
+console.log("exists(0):", exists(0));
+console.log("exists(''):", exists(''));
+console.log("exists(false):", exists(false));</textarea>
+                            <div class="code-output" id="editor6-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="exercise-section">
+                    <div class="exercise-header">
+                        <i class="fas fa-laptop-code"></i>
+                        <h2>Practice Exercises</h2>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <h3>Exercise 1: Boolean Logic</h3>
+                        <p>Complete the boolean expressions to make the console log the correct results:</p>
+                        
+                        <div class="code-editor" id="editor7">
+                            <div class="editor-header">
+                                <div class="editor-tabs">
+                                    <button class="editor-tab active">Boolean Exercise</button>
+                                </div>
+                                <div class="editor-actions">
+                                    <button class="editor-btn" onclick="checkExercise1()">
+                                        <i class="fas fa-check"></i> Check Solution
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="editor-content">
+                                <textarea class="code-input" id="editor7-code">// Complete these boolean expressions
+
+let age = 20;
+let hasID = true;
+let isMember = false;
+
+// 1. Can enter club (18+ AND has ID)
+let canEnterClub = // YOUR CODE HERE
+
+// 2. Gets discount (is member OR age 65+)
+let getsDiscount = // YOUR CODE HERE
+
+// 3. Can't vote (under 18)
+let cantVote = // YOUR CODE HERE
+
+// 4. Is adult but not senior (18-64)
+let isAdultNotSenior = // YOUR CODE HERE
+
+// Test your answers
+console.log("Can enter club:", canEnterClub); // Should be true
+console.log("Gets discount:", getsDiscount);   // Should be false
+console.log("Can't vote:", cantVote);         // Should be false
+console.log("Adult not senior:", isAdultNotSenior); // Should be true</textarea>
+                                <div class="code-output" id="editor7-output">
+                                    <div class="output-label">Complete the expressions...</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feedback" id="exercise1-feedback"></div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <h3>Exercise 2: Truthy/Falsy Checker</h3>
+                        <p>Create a function that checks if a value is truthy or falsy:</p>
+                        
+                        <div class="code-editor" id="editor8">
+                            <div class="editor-header">
+                                <div class="editor-tabs">
+                                    <button class="editor-tab active">Truthy/Falsy Exercise</button>
+                                </div>
+                                <div class="editor-actions">
+                                    <button class="editor-btn" onclick="checkExercise2()">
+                                        <i class="fas fa-check"></i> Check Solution
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="editor-content">
+                                <textarea class="code-input" id="editor8-code">// Create a function that returns a description of the value
+
+function describeValue(value) {
+    // YOUR CODE HERE
+    // Return one of these strings based on the value:
+    // - "falsy: false" for false
+    // - "falsy: zero" for 0
+    // - "falsy: empty string" for ""
+    // - "falsy: null" for null
+    // - "falsy: undefined" for undefined
+    // - "falsy: NaN" for NaN
+    // - "truthy" for all other values
+}
+
+// Test cases - don't modify these
+console.log(describeValue(false));      // "falsy: false"
+console.log(describeValue(0));          // "falsy: zero"
+console.log(describeValue(""));         // "falsy: empty string"
+console.log(describeValue(null));       // "falsy: null"
+console.log(describeValue(undefined));  // "falsy: undefined"
+console.log(describeValue(NaN));        // "falsy: NaN"
+console.log(describeValue(true));       // "truthy"
+console.log(describeValue(1));          // "truthy"
+console.log(describeValue("hello"));    // "truthy"
+console.log(describeValue([]));         // "truthy"</textarea>
+                                <div class="code-output" id="editor8-output">
+                                    <div class="output-label">Implement the function...</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feedback" id="exercise2-feedback"></div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <h3>Quiz: Test Your Knowledge</h3>
+                        <div class="quiz-container">
+                            <div class="quiz-question">
+                                <p>1. What is the result of <code>null == undefined</code>?</p>
+                                <div class="quiz-options">
+                                    <button class="option-btn" onclick="checkAnswer(this, true)">true</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">false</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">null</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">undefined</button>
+                                </div>
+                            </div>
+
+                            <div class="quiz-question">
+                                <p>2. Which of these is NOT a falsy value?</p>
+                                <div class="quiz-options">
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">0</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">""</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, true)">"0"</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">null</button>
+                                </div>
+                            </div>
+
+                            <div class="quiz-question">
+                                <p>3. What does <code>typeof null</code> return?</p>
+                                <div class="quiz-options">
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">"null"</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, true)">"object"</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">"undefined"</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">"boolean"</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Best Practices</h2>
+                    <div class="best-practices-grid">
+                        <div class="practice-card">
+                            <h3>✅ Use === for comparisons</h3>
+                            <code>if (value === null) { }</code>
+                            <p>Strict equality avoids type coercion surprises</p>
+                        </div>
+                        
+                        <div class="practice-card">
+                            <h3>✅ Check for null/undefined together</h3>
+                            <code>if (value == null) { }</code>
+                            <p>This checks both null and undefined</p>
+                        </div>
+                        
+                        <div class="practice-card">
+                            <h3>✅ Use meaningful defaults</h3>
+                            <code>name = name || "Anonymous"</code>
+                            <p>Provide fallback values for falsy inputs</p>
+                        </div>
+                        
+                        <div class="practice-card">
+                            <h3>✅ Initialize variables</h3>
+                            <code>let data = null;</code>
+                            <p>Better than leaving undefined</p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="lesson-navigation">
+                    <button class="btn btn-secondary" onclick="window.location.href='lesson3.html'">
+                        <i class="fas fa-arrow-left"></i> Previous Lesson
+                    </button>
+                    
+                    <button class="btn btn-primary" onclick="completeLesson()">
+                        Complete Lesson <i class="fas fa-check"></i>
+                    </button>
+                    
+                    <button class="btn btn-secondary" onclick="window.location.href='lesson5.html'">
+                        Next Lesson <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .lesson-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .boolean-visual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .boolean-card {
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .true-card {
+            background-color: rgba(13, 124, 13, 0.1);
+            border: 2px solid var(--success-color);
+        }
+
+        .false-card {
+            background-color: rgba(220, 38, 38, 0.1);
+            border: 2px solid var(--danger-color);
+        }
+
+        .boolean-card i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .true-card i {
+            color: var(--success-color);
+        }
+
+        .false-card i {
+            color: var(--danger-color);
+        }
+
+        .truthy-falsy-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .tf-column {
+            background-color: var(--bg-tertiary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            border: 2px solid var(--border-color);
+        }
+
+        .falsy-column {
+            border-color: var(--danger-color);
+        }
+
+        .truthy-column {
+            border-color: var(--success-color);
+        }
+
+        .tf-column h3 {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .falsy-column h3 {
+            color: var(--danger-color);
+        }
+
+        .truthy-column h3 {
+            color: var(--success-color);
+        }
+
+        .tf-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tf-column li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tf-column li:last-child {
+            border-bottom: none;
+        }
+
+        .tf-column code {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 0.2rem 0.4rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+        }
+
+        .null-undefined-comparison {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .nu-card {
+            background-color: var(--bg-tertiary);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            border: 2px solid var(--border-color);
+            max-width: 300px;
+        }
+
+        .nu-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .nu-card code {
+            display: block;
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: var(--radius-sm);
+        }
+
+        .nu-usage {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .comparison-table {
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background-color: var(--bg-secondary);
+            padding: 1rem;
+            text-align: left;
+            font-weight: bold;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table code {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 0.2rem 0.4rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+        }
+
+        .best-practices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .practice-card {
+            background-color: var(--bg-tertiary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--success-color);
+        }
+
+        .practice-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .practice-card code {
+            display: block;
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 0.75rem;
+            margin: 1rem 0;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+        }
+
+        .practice-card p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .boolean-visual,
+            .truthy-falsy-table {
+                grid-template-columns: 1fr;
+            }
+            
+            .lesson-container {
+                padding: 1rem;
+            }
+        }
+    </style>
+
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script>
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            outputPane.innerHTML = '';
+            
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+            };
+            
+            try {
+                eval(code);
+                
+                if (logs.length > 0) {
+                    outputPane.innerHTML = logs.map(log => 
+                        `<div class="output-line">${escapeHtml(log)}</div>`
+                    ).join('');
+                } else {
+                    outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function checkAnswer(button, isCorrect) {
+            const options = button.parentElement.querySelectorAll('.option-btn');
+            
+            options.forEach(opt => {
+                opt.disabled = true;
+            });
+            
+            if (isCorrect) {
+                button.classList.add('correct');
+            } else {
+                button.classList.add('incorrect');
+            }
+        }
+
+        function checkExercise1() {
+            const code = document.getElementById('editor7-code').value;
+            const feedback = document.getElementById('exercise1-feedback');
+            
+            runCode('editor7');
+            
+            // Check if the expressions are correct
+            const hasCanEnter = code.includes('age >= 18 && hasID');
+            const hasDiscount = code.includes('isMember || age >= 65');
+            const hasCantVote = code.includes('age < 18') || code.includes('!(age >= 18)');
+            const hasAdultNotSenior = code.includes('age >= 18 && age < 65') || code.includes('age >= 18 && age <= 64');
+            
+            if (hasCanEnter && hasDiscount && hasCantVote && hasAdultNotSenior) {
+                feedback.className = 'feedback show success';
+                feedback.textContent = 'Perfect! You understand boolean logic!';
+            } else {
+                feedback.className = 'feedback show error';
+                let missing = [];
+                if (!hasCanEnter) missing.push('canEnterClub');
+                if (!hasDiscount) missing.push('getsDiscount');
+                if (!hasCantVote) missing.push('cantVote');
+                if (!hasAdultNotSenior) missing.push('isAdultNotSenior');
+                feedback.textContent = `Incorrect expressions: ${missing.join(', ')}`;
+            }
+        }
+
+        function checkExercise2() {
+            const code = document.getElementById('editor8-code').value;
+            const feedback = document.getElementById('exercise2-feedback');
+            
+            runCode('editor8');
+            
+            // Check if function is implemented correctly
+            const hasFunction = code.includes('function describeValue');
+            const hasConditions = code.includes('if') || code.includes('switch');
+            const hasReturns = code.includes('return');
+            
+            // Simple check for basic structure
+            if (hasFunction && hasConditions && hasReturns) {
+                feedback.className = 'feedback show success';
+                feedback.textContent = 'Great job! Check the console to see if all test cases pass.';
+            } else {
+                feedback.className = 'feedback show error';
+                feedback.textContent = 'Make sure to implement the function with proper conditions and return statements.';
+            }
+        }
+
+        function completeLesson() {
+            Storage.saveProgress(2, 4, true);
+            
+            const message = document.createElement('div');
+            message.className = 'completion-message';
+            message.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <h3>Lesson Complete!</h3>
+                <p>You understand booleans, null, and undefined!</p>
+            `;
+            message.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: var(--success-color);
+                color: white;
+                padding: 2rem 3rem;
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow-lg);
+                text-align: center;
+                z-index: 1000;
+                animation: scaleIn 0.3s ease-out;
+            `;
+            
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                window.location.href = 'lesson5.html';
+            }, 2000);
+        }
+    </script>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

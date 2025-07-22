@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3: Numbers and Strings - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/syntax.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='index.html'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Module 2</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="lesson-container">
+            <div class="lesson-header">
+                <h1>Lesson 3: Numbers and Strings</h1>
+                <p class="lesson-subtitle">The two most fundamental data types in JavaScript</p>
+            </div>
+
+            <div class="lesson-content">
+                <section class="content-section">
+                    <h2>Numbers in JavaScript</h2>
+                    <p>
+                        Unlike many programming languages, JavaScript has only one type of number. 
+                        It can represent integers, decimals (floats), and even special values.
+                    </p>
+                    
+                    <div class="number-types">
+                        <div class="type-card">
+                            <h3>Integers</h3>
+                            <code>42</code>
+                            <code>-17</code>
+                            <code>0</code>
+                        </div>
+                        <div class="type-card">
+                            <h3>Decimals</h3>
+                            <code>3.14</code>
+                            <code>-0.5</code>
+                            <code>99.99</code>
+                        </div>
+                        <div class="type-card">
+                            <h3>Scientific</h3>
+                            <code>1.5e6</code>
+                            <code>2e-4</code>
+                            <code>5.67e10</code>
+                        </div>
+                        <div class="type-card">
+                            <h3>Special</h3>
+                            <code>Infinity</code>
+                            <code>-Infinity</code>
+                            <code>NaN</code>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Working with Numbers</h2>
+                    <div class="code-editor" id="editor1">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Number Examples</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor1')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor1-code">// Creating numbers
+let age = 25;
+let price = 19.99;
+let temperature = -5;
+let bigNumber = 1_000_000; // Underscores for readability
+
+console.log("Age:", age);
+console.log("Price:", price);
+console.log("Temperature:", temperature);
+console.log("Big number:", bigNumber);
+
+// Number operations
+let sum = 10 + 5;
+let difference = 20 - 8;
+let product = 6 * 7;
+let quotient = 15 / 3;
+let remainder = 17 % 5;
+let power = 2 ** 8;
+
+console.log("\nOperations:");
+console.log("10 + 5 =", sum);
+console.log("20 - 8 =", difference);
+console.log("6 * 7 =", product);
+console.log("15 / 3 =", quotient);
+console.log("17 % 5 =", remainder);
+console.log("2 ** 8 =", power);
+
+// Special values
+console.log("\nSpecial values:");
+console.log("10 / 0 =", 10 / 0);  // Infinity
+console.log("-10 / 0 =", -10 / 0); // -Infinity
+console.log("0 / 0 =", 0 / 0);    // NaN
+console.log("'hello' * 5 =", 'hello' * 5); // NaN</textarea>
+                            <div class="code-output" id="editor1-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Useful Number Methods</h2>
+                    <div class="code-editor" id="editor2">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Number Methods</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor2')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor2-code">// Rounding numbers
+let pi = 3.14159;
+console.log("Original:", pi);
+console.log("toFixed(2):", pi.toFixed(2));       // "3.14" (string!)
+console.log("Math.round():", Math.round(pi));    // 3
+console.log("Math.floor():", Math.floor(pi));    // 3
+console.log("Math.ceil():", Math.ceil(pi));      // 4
+
+// Converting strings to numbers
+let strNum = "42";
+let strFloat = "3.14";
+let strBad = "hello";
+
+console.log("\nString to Number:");
+console.log("parseInt('42'):", parseInt(strNum));
+console.log("parseFloat('3.14'):", parseFloat(strFloat));
+console.log("Number('42'):", Number(strNum));
+console.log("+'42':", +strNum);  // Unary plus operator
+console.log("parseInt('hello'):", parseInt(strBad)); // NaN
+
+// Checking if something is a number
+console.log("\nNumber checks:");
+console.log("isNaN(42):", isNaN(42));           // false
+console.log("isNaN('hello'):", isNaN('hello')); // true
+console.log("Number.isInteger(42):", Number.isInteger(42));     // true
+console.log("Number.isInteger(42.5):", Number.isInteger(42.5)); // false
+
+// Math object methods
+console.log("\nMath methods:");
+console.log("Math.abs(-10):", Math.abs(-10));
+console.log("Math.max(5, 10, 3):", Math.max(5, 10, 3));
+console.log("Math.min(5, 10, 3):", Math.min(5, 10, 3));
+console.log("Math.random():", Math.random());
+console.log("Random 1-10:", Math.floor(Math.random() * 10) + 1);</textarea>
+                            <div class="code-output" id="editor2-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Strings in JavaScript</h2>
+                    <p>
+                        Strings are sequences of characters used to represent text. JavaScript offers 
+                        three ways to create strings, each with its own advantages.
+                    </p>
+                    
+                    <div class="string-types">
+                        <div class="string-card">
+                            <h3>Single Quotes</h3>
+                            <code>'Hello World'</code>
+                            <p>Simple and clean</p>
+                        </div>
+                        <div class="string-card">
+                            <h3>Double Quotes</h3>
+                            <code>"Hello World"</code>
+                            <p>Functionally identical to single</p>
+                        </div>
+                        <div class="string-card">
+                            <h3>Template Literals</h3>
+                            <code>`Hello World`</code>
+                            <p>Supports multi-line and interpolation</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Working with Strings</h2>
+                    <div class="code-editor" id="editor3">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">String Examples</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor3')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor3-code">// Creating strings
+let single = 'Hello with single quotes';
+let double = "Hello with double quotes";
+let template = `Hello with template literals`;
+
+console.log(single);
+console.log(double);
+console.log(template);
+
+// String concatenation
+let firstName = "John";
+let lastName = "Doe";
+let fullName = firstName + " " + lastName;
+console.log("\nConcatenation:", fullName);
+
+// Template literals (backticks)
+let age = 25;
+let message = `${firstName} is ${age} years old`;
+console.log("Template literal:", message);
+
+// Multi-line strings
+let poem = `Roses are red,
+Violets are blue,
+JavaScript is awesome,
+And so are you!`;
+console.log("\nMulti-line string:");
+console.log(poem);
+
+// Escaping characters
+let quote1 = 'It\'s a beautiful day';
+let quote2 = "She said \"Hello\"";
+let path = "C:\\Users\\Documents";
+console.log("\nEscaped characters:");
+console.log(quote1);
+console.log(quote2);
+console.log(path);
+
+// String length and accessing characters
+let text = "JavaScript";
+console.log("\nString properties:");
+console.log("Length:", text.length);
+console.log("First character:", text[0]);
+console.log("Last character:", text[text.length - 1]);
+console.log("Character at index 4:", text.charAt(4));</textarea>
+                            <div class="code-output" id="editor3-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>String Methods</h2>
+                    <p>JavaScript provides many built-in methods to work with strings:</p>
+                    
+                    <div class="code-editor" id="editor4">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">String Methods</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor4')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor4-code">let text = "  JavaScript is AWESOME!  ";
+
+// Case methods
+console.log("Original:", text);
+console.log("toUpperCase():", text.toUpperCase());
+console.log("toLowerCase():", text.toLowerCase());
+
+// Trimming whitespace
+console.log("\nTrimming:");
+console.log("trim():", text.trim());
+console.log("trimStart():", text.trimStart());
+console.log("trimEnd():", text.trimEnd());
+
+// Searching strings
+let sentence = "The quick brown fox jumps over the lazy dog";
+console.log("\nSearching in:", sentence);
+console.log("indexOf('fox'):", sentence.indexOf('fox'));
+console.log("includes('fox'):", sentence.includes('fox'));
+console.log("startsWith('The'):", sentence.startsWith('The'));
+console.log("endsWith('dog'):", sentence.endsWith('dog'));
+
+// Extracting parts of strings
+console.log("\nExtracting:");
+console.log("slice(4, 9):", sentence.slice(4, 9));
+console.log("substring(4, 9):", sentence.substring(4, 9));
+console.log("substr(4, 5):", sentence.substr(4, 5)); // deprecated
+
+// Replacing text
+console.log("\nReplacing:");
+console.log("replace('fox', 'cat'):", sentence.replace('fox', 'cat'));
+console.log("replaceAll('o', '0'):", sentence.replaceAll('o', '0'));
+
+// Splitting strings
+let csv = "apple,banana,orange,grape";
+console.log("\nSplitting:", csv);
+console.log("split(','):", csv.split(','));
+console.log("split(',', 2):", csv.split(',', 2)); // limit to 2
+
+// Repeating strings
+console.log("\nRepeating:");
+console.log("'Ha'.repeat(3):", 'Ha'.repeat(3));
+console.log("'*'.repeat(10):", '*'.repeat(10));</textarea>
+                            <div class="code-output" id="editor4-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Template Literals Deep Dive</h2>
+                    <p>Template literals (backticks) are the most powerful way to work with strings:</p>
+                    
+                    <div class="code-editor" id="editor5">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Template Literals</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor5')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor5-code">// Basic interpolation
+let name = "Alice";
+let score = 95;
+console.log(`${name} scored ${score} points!`);
+
+// Expressions in templates
+let a = 10;
+let b = 20;
+console.log(`${a} + ${b} = ${a + b}`);
+console.log(`Is ${a} > ${b}? ${a > b ? 'Yes' : 'No'}`);
+
+// Function calls in templates
+function getGreeting() {
+    return "Hello";
+}
+console.log(`${getGreeting()}, ${name}!`);
+
+// Multi-line templates
+let html = `
+<div class="card">
+    <h2>${name}'s Profile</h2>
+    <p>Score: ${score}</p>
+    <p>Grade: ${score >= 90 ? 'A' : 'B'}</p>
+</div>
+`;
+console.log("HTML template:", html);
+
+// Tagged templates (advanced)
+function highlight(strings, ...values) {
+    let result = '';
+    strings.forEach((str, i) => {
+        result += str;
+        if (i < values.length) {
+            result += `[${values[i]}]`;
+        }
+    });
+    return result;
+}
+
+let highlighted = highlight`Name: ${name}, Score: ${score}`;
+console.log("Tagged template:", highlighted);
+
+// Nesting templates
+let items = ['Apple', 'Banana', 'Orange'];
+let list = `
+<ul>
+    ${items.map(item => `<li>${item}</li>`).join('')}
+</ul>
+`;
+console.log("Nested template:", list);</textarea>
+                            <div class="code-output" id="editor5-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="exercise-section">
+                    <div class="exercise-header">
+                        <i class="fas fa-laptop-code"></i>
+                        <h2>Practice Exercises</h2>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <h3>Exercise 1: Number Calculator</h3>
+                        <p>Create a simple bill calculator that calculates tip and total:</p>
+                        
+                        <div class="code-editor" id="editor6">
+                            <div class="editor-header">
+                                <div class="editor-tabs">
+                                    <button class="editor-tab active">Complete the Code</button>
+                                </div>
+                                <div class="editor-actions">
+                                    <button class="editor-btn" onclick="checkExercise1()">
+                                        <i class="fas fa-check"></i> Check Solution
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="editor-content">
+                                <textarea class="code-input" id="editor6-code">// Bill Calculator
+// TODO: Complete the calculator
+
+let billAmount = 85.50;
+let tipPercentage = 18;
+
+// Calculate the tip amount
+let tipAmount = // YOUR CODE HERE
+
+// Calculate the total bill (bill + tip)
+let totalBill = // YOUR CODE HERE
+
+// Round to 2 decimal places
+tipAmount = // YOUR CODE HERE
+totalBill = // YOUR CODE HERE
+
+// Display the results using template literals
+console.log(`Bill: $${billAmount}`);
+console.log(`Tip (${tipPercentage}%): $${tipAmount}`);
+console.log(`Total: $${totalBill}`);</textarea>
+                                <div class="code-output" id="editor6-output">
+                                    <div class="output-label">Complete the calculator...</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feedback" id="exercise1-feedback"></div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <h3>Exercise 2: String Manipulator</h3>
+                        <p>Transform and analyze a string using various methods:</p>
+                        
+                        <div class="code-editor" id="editor7">
+                            <div class="editor-header">
+                                <div class="editor-tabs">
+                                    <button class="editor-tab active">String Challenge</button>
+                                </div>
+                                <div class="editor-actions">
+                                    <button class="editor-btn" onclick="checkExercise2()">
+                                        <i class="fas fa-check"></i> Check Solution
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="editor-content">
+                                <textarea class="code-input" id="editor7-code">// String Manipulator Challenge
+let userInput = "  JavaScript is the BEST language!  ";
+
+// 1. Remove whitespace from both ends
+let cleaned = // YOUR CODE HERE
+
+// 2. Convert to lowercase
+let lowercase = // YOUR CODE HERE
+
+// 3. Replace 'javascript' with 'JS'
+let shortened = // YOUR CODE HERE
+
+// 4. Check if it includes the word 'best'
+let hasBest = // YOUR CODE HERE
+
+// 5. Get the length of the final string
+let length = // YOUR CODE HERE
+
+// 6. Extract the first 10 characters
+let preview = // YOUR CODE HERE
+
+// Display all results
+console.log("Original:", userInput);
+console.log("Cleaned:", cleaned);
+console.log("Lowercase:", lowercase);
+console.log("Shortened:", shortened);
+console.log("Contains 'best'?", hasBest);
+console.log("Length:", length);
+console.log("Preview:", preview);</textarea>
+                                <div class="code-output" id="editor7-output">
+                                    <div class="output-label">Complete all transformations...</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feedback" id="exercise2-feedback"></div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <h3>Quiz: Numbers and Strings</h3>
+                        <div class="quiz-container">
+                            <div class="quiz-question">
+                                <p>1. What is the result of <code>typeof NaN</code>?</p>
+                                <div class="quiz-options">
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">"NaN"</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, true)">"number"</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">"undefined"</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">"string"</button>
+                                </div>
+                            </div>
+
+                            <div class="quiz-question">
+                                <p>2. Which method would you use to round 3.7 down to 3?</p>
+                                <div class="quiz-options">
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">Math.round()</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, true)">Math.floor()</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">Math.ceil()</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">toFixed()</button>
+                                </div>
+                            </div>
+
+                            <div class="quiz-question">
+                                <p>3. How do you create a multi-line string?</p>
+                                <div class="quiz-options">
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">Use \n in single quotes</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">Use multiple console.log()</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, true)">Use template literals (backticks)</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">Not possible in JavaScript</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Common Pitfalls</h2>
+                    <div class="pitfall-grid">
+                        <div class="pitfall-card">
+                            <h3>🚫 Floating Point Precision</h3>
+                            <code>0.1 + 0.2 === 0.3 // false!</code>
+                            <p>Use <code>toFixed()</code> or compare with tolerance</p>
+                        </div>
+                        
+                        <div class="pitfall-card">
+                            <h3>🚫 parseInt() Without Radix</h3>
+                            <code>parseInt("08") // Might not be 8!</code>
+                            <p>Always specify base: <code>parseInt("08", 10)</code></p>
+                        </div>
+                        
+                        <div class="pitfall-card">
+                            <h3>🚫 Strings are Immutable</h3>
+                            <code>str[0] = 'X' // Doesn't work!</code>
+                            <p>Create new string instead</p>
+                        </div>
+                        
+                        <div class="pitfall-card">
+                            <h3>🚫 Plus Operator Confusion</h3>
+                            <code>"3" + 4 // "34" not 7!</code>
+                            <p>Convert strings to numbers first</p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="lesson-navigation">
+                    <button class="btn btn-secondary" onclick="window.location.href='lesson2.html'">
+                        <i class="fas fa-arrow-left"></i> Previous Lesson
+                    </button>
+                    
+                    <button class="btn btn-primary" onclick="completeLesson()">
+                        Complete Lesson <i class="fas fa-check"></i>
+                    </button>
+                    
+                    <button class="btn btn-secondary" onclick="window.location.href='lesson4.html'">
+                        Next Lesson <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .lesson-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .lesson-header {
+            text-align: center;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .number-types, .string-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .type-card, .string-card {
+            background-color: var(--bg-tertiary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            border: 2px solid var(--border-color);
+        }
+
+        .type-card h3, .string-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .type-card code, .string-card code {
+            display: block;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+        }
+
+        .string-card p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .pitfall-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .pitfall-card {
+            background-color: var(--bg-tertiary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .pitfall-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .pitfall-card code {
+            display: block;
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 0.75rem;
+            margin: 1rem 0;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+        }
+
+        .pitfall-card p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .quiz-question {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+        }
+
+        .quiz-question p {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .option-btn {
+            padding: 1rem;
+            background-color: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: left;
+            color: var(--text-primary);
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background-color: var(--bg-primary);
+            transform: translateY(-2px);
+        }
+
+        .option-btn.correct {
+            border-color: var(--success-color);
+            background-color: rgba(13, 124, 13, 0.1);
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--danger-color);
+            background-color: rgba(220, 38, 38, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .lesson-container {
+                padding: 1rem;
+            }
+        }
+    </style>
+
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script>
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            outputPane.innerHTML = '';
+            
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+            };
+            
+            try {
+                eval(code);
+                
+                if (logs.length > 0) {
+                    outputPane.innerHTML = logs.map(log => 
+                        `<div class="output-line">${escapeHtml(log)}</div>`
+                    ).join('');
+                } else {
+                    outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function checkAnswer(button, isCorrect) {
+            const options = button.parentElement.querySelectorAll('.option-btn');
+            
+            options.forEach(opt => {
+                opt.disabled = true;
+            });
+            
+            if (isCorrect) {
+                button.classList.add('correct');
+            } else {
+                button.classList.add('incorrect');
+            }
+        }
+
+        function checkExercise1() {
+            const code = document.getElementById('editor6-code').value;
+            const feedback = document.getElementById('exercise1-feedback');
+            
+            runCode('editor6');
+            
+            const hasTipCalc = code.includes('billAmount * tipPercentage / 100') || 
+                               code.includes('billAmount * (tipPercentage / 100)');
+            const hasTotalCalc = code.includes('billAmount + tipAmount');
+            const hasToFixed = code.includes('.toFixed(2)');
+            
+            if (hasTipCalc && hasTotalCalc && hasToFixed) {
+                feedback.className = 'feedback show success';
+                feedback.textContent = 'Excellent! Your bill calculator works perfectly!';
+            } else {
+                feedback.className = 'feedback show error';
+                let missing = [];
+                if (!hasTipCalc) missing.push('tip calculation');
+                if (!hasTotalCalc) missing.push('total calculation');
+                if (!hasToFixed) missing.push('rounding to 2 decimals');
+                feedback.textContent = `Missing: ${missing.join(', ')}`;
+            }
+        }
+
+        function checkExercise2() {
+            const code = document.getElementById('editor7-code').value;
+            const feedback = document.getElementById('exercise2-feedback');
+            
+            runCode('editor7');
+            
+            const hasTrim = code.includes('.trim()');
+            const hasLowerCase = code.includes('.toLowerCase()');
+            const hasReplace = code.includes('.replace(');
+            const hasIncludes = code.includes('.includes(');
+            const hasLength = code.includes('.length');
+            const hasSlice = code.includes('.slice(') || code.includes('.substring(');
+            
+            if (hasTrim && hasLowerCase && hasReplace && hasIncludes && hasLength && hasSlice) {
+                feedback.className = 'feedback show success';
+                feedback.textContent = 'Perfect! You\'ve mastered string manipulation!';
+            } else {
+                feedback.className = 'feedback show error';
+                let missing = [];
+                if (!hasTrim) missing.push('trim()');
+                if (!hasLowerCase) missing.push('toLowerCase()');
+                if (!hasReplace) missing.push('replace()');
+                if (!hasIncludes) missing.push('includes()');
+                if (!hasLength) missing.push('length property');
+                if (!hasSlice) missing.push('slice() or substring()');
+                feedback.textContent = `Missing methods: ${missing.join(', ')}`;
+            }
+        }
+
+        function completeLesson() {
+            Storage.saveProgress(2, 3, true);
+            
+            const message = document.createElement('div');
+            message.className = 'completion-message';
+            message.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <h3>Lesson Complete!</h3>
+                <p>You've mastered Numbers and Strings!</p>
+            `;
+            message.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: var(--success-color);
+                color: white;
+                padding: 2rem 3rem;
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow-lg);
+                text-align: center;
+                z-index: 1000;
+                animation: scaleIn 0.3s ease-out;
+            `;
+            
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                window.location.href = 'lesson4.html';
+            }, 2000);
+        }
+    </script>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

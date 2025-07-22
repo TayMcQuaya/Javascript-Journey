@@ -1,0 +1,12 @@
+# Claude AI files
+.claude/
+
+# # Operating System Files
+# .DS_Store
+# Thumbs.db
+
+# # IDE Files
+# .vscode/
+# .idea/
+# *.swp
+# *.swo

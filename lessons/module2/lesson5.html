@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 5: Type Conversion - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/syntax.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='index.html'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Module 2</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="lesson-container">
+            <div class="lesson-header">
+                <h1>Lesson 5: Type Conversion</h1>
+                <p class="lesson-subtitle">Transform data types and avoid common pitfalls</p>
+            </div>
+
+            <div class="lesson-content">
+                <section class="content-section">
+                    <h2>Understanding Type Conversion</h2>
+                    <p>
+                        JavaScript is a dynamically typed language, which means variables can hold values of any type. 
+                        Sometimes we need to convert values from one type to another. This can happen automatically 
+                        (implicit conversion) or we can do it manually (explicit conversion).
+                    </p>
+                    
+                    <div class="analogy-box">
+                        <h3>🎭 Real-World Analogy</h3>
+                        <p>
+                            Think of type conversion like changing money between currencies. Just as $10 can be 
+                            converted to €8.50, the string "10" can be converted to the number 10. Sometimes this 
+                            happens automatically (like a card payment abroad), and sometimes you need to do it 
+                            manually (like visiting a currency exchange).
+                        </p>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Implicit Conversion (Type Coercion)</h2>
+                    <p>
+                        JavaScript automatically converts types in certain situations. This is called type coercion. 
+                        While convenient, it can lead to unexpected results if you're not careful!
+                    </p>
+                    
+                    <div class="code-editor" id="editor1">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Automatic Conversions</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor1')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor1-code">// String + Number = String (concatenation)
+console.log("5" + 3);        // "53" (string)
+console.log("Hello" + 123);  // "Hello123" (string)
+
+// Other operations convert to numbers
+console.log("5" - 3);        // 2 (number)
+console.log("5" * 3);        // 15 (number)
+console.log("10" / 2);       // 5 (number)
+
+// Boolean conversions
+console.log(true + 1);       // 2 (true becomes 1)
+console.log(false + 1);      // 1 (false becomes 0)
+
+// Comparison surprises
+console.log("5" == 5);       // true (coercion happens)
+console.log("5" === 5);      // false (no coercion)
+
+// The weird ones
+console.log([] + []);        // "" (empty string)
+console.log([] + {});        // "[object Object]"
+console.log({} + []);        // 0 (in console) or "[object Object]" (in script)</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output:</div>
+                                <pre id="editor1-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>String to Number Conversion</h2>
+                    <p>
+                        Converting strings to numbers is one of the most common conversions you'll need. 
+                        There are several ways to do this explicitly.
+                    </p>
+                    
+                    <div class="code-editor" id="editor2">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">String to Number Methods</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor2')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor2-code">// Method 1: Number() function
+console.log(Number("123"));      // 123
+console.log(Number("123.45"));   // 123.45
+console.log(Number(""));         // 0
+console.log(Number("hello"));    // NaN
+
+// Method 2: parseInt() - for whole numbers
+console.log(parseInt("123"));    // 123
+console.log(parseInt("123.45")); // 123 (decimal part removed)
+console.log(parseInt("123px"));  // 123 (stops at non-digit)
+
+// Method 3: parseFloat() - for decimals
+console.log(parseFloat("123.45"));   // 123.45
+console.log(parseFloat("123.45.67")); // 123.45 (stops at second dot)
+
+// Method 4: Unary plus operator
+console.log(+"123");         // 123
+console.log(+"123.45");      // 123.45
+console.log(+"");            // 0
+
+// Method 5: Multiply by 1
+console.log("123" * 1);      // 123
+
+// Handling special cases
+let userInput = "  123  ";
+console.log(Number(userInput.trim())); // 123 (remove spaces first)</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output:</div>
+                                <pre id="editor2-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Number to String Conversion</h2>
+                    <p>
+                        Converting numbers to strings is equally important, especially when you need to display 
+                        values or concatenate them with other text.
+                    </p>
+                    
+                    <div class="code-editor" id="editor3">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Number to String Methods</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor3')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor3-code">// Method 1: String() function
+console.log(String(123));        // "123"
+console.log(String(123.45));     // "123.45"
+console.log(String(true));       // "true"
+console.log(String(null));       // "null"
+
+// Method 2: toString() method
+let num = 123;
+console.log(num.toString());     // "123"
+console.log((123.45).toString()); // "123.45"
+
+// toString() with radix (base)
+console.log((15).toString(2));   // "1111" (binary)
+console.log((15).toString(16));  // "f" (hexadecimal)
+
+// Method 3: Template literals
+let score = 95;
+console.log(`Your score is ${score}`); // "Your score is 95"
+
+// Method 4: Concatenation with empty string
+console.log(123 + "");           // "123"
+
+// Formatting numbers as strings
+let price = 29.99;
+console.log(price.toFixed(2));   // "29.99"
+console.log(price.toFixed(0));   // "30"
+
+let bigNumber = 1234567;
+console.log(bigNumber.toLocaleString()); // "1,234,567"</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output:</div>
+                                <pre id="editor3-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Boolean Conversions</h2>
+                    <p>
+                        Understanding which values are "truthy" or "falsy" is crucial for working with conditions 
+                        in JavaScript. Any value can be converted to a boolean.
+                    </p>
+                    
+                    <div class="code-editor" id="editor4">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Boolean Conversions</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor4')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor4-code">// Boolean() function shows truthy/falsy values
+console.log("=== Falsy Values ===");
+console.log(Boolean(false));     // false
+console.log(Boolean(0));         // false
+console.log(Boolean(-0));        // false
+console.log(Boolean(""));        // false
+console.log(Boolean(null));      // false
+console.log(Boolean(undefined)); // false
+console.log(Boolean(NaN));       // false
+
+console.log("\n=== Truthy Values ===");
+console.log(Boolean(true));      // true
+console.log(Boolean(1));         // true
+console.log(Boolean("hello"));   // true
+console.log(Boolean("0"));       // true (string with content)
+console.log(Boolean([]));        // true (empty array)
+console.log(Boolean({}));        // true (empty object)
+console.log(Boolean(-1));        // true (any non-zero number)
+
+// Double NOT (!!) for quick boolean conversion
+console.log("\n=== Using !! operator ===");
+console.log(!!"hello");          // true
+console.log(!!"");               // false
+console.log(!!1);                // true
+console.log(!!0);                // false
+
+// Practical use in conditions
+let username = "";
+if (username) {
+    console.log("Username exists");
+} else {
+    console.log("No username provided");
+}</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output:</div>
+                                <pre id="editor4-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Common Pitfalls and Best Practices</h2>
+                    <div class="warning-box">
+                        <h3>⚠️ Watch Out For These!</h3>
+                        <ul>
+                            <li><strong>NaN is weird:</strong> NaN !== NaN is true! Use isNaN() to check.</li>
+                            <li><strong>Empty arrays:</strong> [] is truthy but [] == false is true!</li>
+                            <li><strong>null vs undefined:</strong> null == undefined but null !== undefined</li>
+                            <li><strong>Leading zeros:</strong> parseInt("08") might not give 8 in old browsers</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-editor" id="editor5">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Avoiding Pitfalls</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor5')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor5-code">// Checking for NaN
+let result = Number("hello");
+console.log(result);             // NaN
+console.log(result === NaN);     // false (NaN is never equal to itself!)
+console.log(isNaN(result));      // true (correct way)
+console.log(Number.isNaN(result)); // true (better - no type coercion)
+
+// Safe number parsing
+function safeParseNumber(value) {
+    const num = Number(value);
+    return isNaN(num) ? 0 : num;
+}
+
+console.log(safeParseNumber("123"));    // 123
+console.log(safeParseNumber("hello"));  // 0
+
+// Validating user input
+function validateAge(input) {
+    const age = parseInt(input);
+    if (isNaN(age) || age < 0 || age > 150) {
+        return "Please enter a valid age";
+    }
+    return `You are ${age} years old`;
+}
+
+console.log(validateAge("25"));      // "You are 25 years old"
+console.log(validateAge("abc"));     // "Please enter a valid age"
+console.log(validateAge("-5"));      // "Please enter a valid age"
+
+// Always use radix with parseInt for safety
+console.log(parseInt("010", 10));    // 10 (always specify base 10)
+
+// Type checking before conversion
+function convertSafely(value) {
+    console.log(`Converting: ${value} (type: ${typeof value})`);
+    if (typeof value === "string") {
+        return Number(value);
+    }
+    return value;
+}</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output:</div>
+                                <pre id="editor5-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="practice-section">
+                    <h2>Practice Exercises</h2>
+                    
+                    <div class="exercise-card">
+                        <h3>Exercise 1: Type Detective</h3>
+                        <p>What will each expression return? Think before you check!</p>
+                        <div class="exercise-content">
+                            <div class="quiz-question">
+                                <p>What is the result of: <code>"10" + 5</code></p>
+                                <div class="quiz-options">
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">15</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, true)">"105"</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">105</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">Error</button>
+                                </div>
+                            </div>
+                            
+                            <div class="quiz-question" style="margin-top: 2rem;">
+                                <p>What is the result of: <code>"10" - 5</code></p>
+                                <div class="quiz-options">
+                                    <button class="option-btn" onclick="checkAnswer(this, true)">5</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">"10-5"</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">NaN</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">Error</button>
+                                </div>
+                            </div>
+
+                            <div class="quiz-question" style="margin-top: 2rem;">
+                                <p>Which value is falsy?</p>
+                                <div class="quiz-options">
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">"0"</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">"false"</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, true)">0</button>
+                                    <button class="option-btn" onclick="checkAnswer(this, false)">[]</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-card">
+                        <h3>Exercise 2: Build a Converter</h3>
+                        <p>Create a temperature converter that handles different input types:</p>
+                        <div class="code-editor" id="exercise-editor">
+                            <div class="editor-header">
+                                <div class="editor-tabs">
+                                    <button class="editor-tab active">Temperature Converter</button>
+                                </div>
+                                <div class="editor-actions">
+                                    <button class="editor-btn" onclick="runCode('exercise-editor')">
+                                        <i class="fas fa-play"></i> Run Code
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="editor-content">
+                                <textarea class="code-input" id="exercise-editor-code">// TODO: Complete the temperature converter
+function celsiusToFahrenheit(celsius) {
+    // Convert input to number (handle strings)
+    // Formula: (C × 9/5) + 32
+    // Return "Invalid input" for non-numeric values
+    
+}
+
+// Test your function
+console.log(celsiusToFahrenheit(0));      // Should be 32
+console.log(celsiusToFahrenheit("25"));   // Should be 77
+console.log(celsiusToFahrenheit("abc"));  // Should be "Invalid input"
+console.log(celsiusToFahrenheit(null));   // Should be "Invalid input"</textarea>
+                                <div class="code-output">
+                                    <div class="output-label">Output:</div>
+                                    <pre id="exercise-editor-output"></pre>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="hint-btn" onclick="toggleHint('converter-hint')">
+                            <i class="fas fa-lightbulb"></i> Need a hint?
+                        </button>
+                        <div id="converter-hint" class="hint-content">
+                            <p>Use Number() to convert the input, then check with isNaN() before calculating!</p>
+                        </div>
+                    </div>
+
+                    <div class="exercise-card">
+                        <h3>Exercise 3: Input Validator</h3>
+                        <p>Build a function that validates and converts user input for age:</p>
+                        <div class="code-editor" id="validator-editor">
+                            <div class="editor-header">
+                                <div class="editor-tabs">
+                                    <button class="editor-tab active">Age Validator</button>
+                                </div>
+                                <div class="editor-actions">
+                                    <button class="editor-btn" onclick="runCode('validator-editor')">
+                                        <i class="fas fa-play"></i> Run Code
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="editor-content">
+                                <textarea class="code-input" id="validator-editor-code">// Create a robust age validator
+function validateAndConvertAge(input) {
+    // Requirements:
+    // 1. Convert string inputs to numbers
+    // 2. Return null for invalid inputs (non-numeric, negative, > 150)
+    // 3. Round decimal ages down to whole numbers
+    // 4. Handle edge cases (empty string, null, undefined)
+    
+}
+
+// Test cases
+console.log(validateAndConvertAge("25"));      // 25
+console.log(validateAndConvertAge("25.7"));    // 25
+console.log(validateAndConvertAge(""));        // null
+console.log(validateAndConvertAge("abc"));     // null
+console.log(validateAndConvertAge(-5));        // null
+console.log(validateAndConvertAge(200));       // null
+console.log(validateAndConvertAge(null));      // null</textarea>
+                                <div class="code-output">
+                                    <div class="output-label">Output:</div>
+                                    <pre id="validator-editor-output"></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Summary</h2>
+                    <div class="summary-box">
+                        <h3>Key Takeaways</h3>
+                        <ul>
+                            <li>JavaScript automatically converts types (coercion) in many situations</li>
+                            <li>Use === instead of == to avoid unexpected type coercion</li>
+                            <li>Number(), parseInt(), and parseFloat() for string to number conversion</li>
+                            <li>String() and toString() for number to string conversion</li>
+                            <li>Remember the falsy values: false, 0, "", null, undefined, NaN</li>
+                            <li>Always validate user input before converting types</li>
+                            <li>Use isNaN() or Number.isNaN() to check for NaN values</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="navigation-buttons">
+                    <button class="btn btn-secondary" onclick="window.location.href='lesson4.html'">
+                        <i class="fas fa-arrow-left"></i> Previous Lesson
+                    </button>
+                    <button class="btn btn-primary" onclick="window.location.href='../module3/index.html'">
+                        Next Module <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .lesson-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .analogy-box {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .warning-box {
+            background-color: var(--bg-secondary);
+            border: 2px solid var(--warning-color);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin: 1.5rem 0;
+        }
+
+        .warning-box h3 {
+            color: var(--warning-color);
+            margin-bottom: 1rem;
+        }
+
+        .practice-section {
+            margin-top: 3rem;
+        }
+
+        .exercise-card {
+            background-color: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 2rem;
+            border: 2px solid var(--border-color);
+        }
+
+        .quiz-question {
+            margin-bottom: 1rem;
+        }
+
+        .quiz-question code {
+            background-color: var(--bg-tertiary);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .summary-box {
+            background-color: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--primary-color);
+        }
+
+        .summary-box h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .summary-box ul {
+            list-style-position: inside;
+        }
+
+        .summary-box li {
+            margin-bottom: 0.5rem;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .navigation-buttons button {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Initialize theme
+        initializeTheme();
+
+        // Code execution function
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputElement = document.getElementById(`${editorId}-output`);
+            
+            // Clear previous output
+            outputElement.textContent = '';
+            
+            // Capture console.log output
+            const originalLog = console.log;
+            const logs = [];
+            
+            console.log = function(...args) {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg);
+                    }
+                    return String(arg);
+                }).join(' '));
+                originalLog.apply(console, args);
+            };
+            
+            try {
+                // Execute the code
+                eval(codeInput.value);
+                
+                // Display the output
+                outputElement.textContent = logs.join('\n') || 'No output';
+            } catch (error) {
+                outputElement.textContent = `Error: ${error.message}`;
+                outputElement.style.color = 'var(--danger-color)';
+            } finally {
+                // Restore original console.log
+                console.log = originalLog;
+            }
+        }
+
+        // Quiz answer checking
+        function checkAnswer(button, isCorrect) {
+            const options = button.parentElement.querySelectorAll('.option-btn');
+            options.forEach(opt => {
+                opt.disabled = true;
+                opt.classList.remove('correct', 'incorrect');
+            });
+            
+            if (isCorrect) {
+                button.classList.add('correct');
+                showFeedback('Correct! Great job! 🎉', 'success');
+            } else {
+                button.classList.add('incorrect');
+                showFeedback('Not quite. Think about how JavaScript handles type conversion!', 'error');
+            }
+        }
+
+        // Show feedback
+        function showFeedback(message, type) {
+            const feedback = document.createElement('div');
+            feedback.className = `feedback show ${type}`;
+            feedback.textContent = message;
+            
+            // Remove any existing feedback
+            const existingFeedback = document.querySelector('.feedback');
+            if (existingFeedback) {
+                existingFeedback.remove();
+            }
+            
+            // Add new feedback
+            event.target.closest('.quiz-question').appendChild(feedback);
+        }
+
+        // Toggle hint visibility
+        function toggleHint(hintId) {
+            const hint = document.getElementById(hintId);
+            hint.classList.toggle('show');
+        }
+
+        // Save progress
+        updateLessonProgress('module2', 'lesson5', 'completed');
+    </script>
+</body>
+</html>

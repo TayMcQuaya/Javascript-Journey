@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2: let, const, and var - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='index.html'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Module 2</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="lesson-container">
+            <div class="lesson-header">
+                <h1>Lesson 2: let, const, and var</h1>
+                <p class="lesson-subtitle">Three ways to declare variables, but which one should you use?</p>
+            </div>
+
+            <div class="lesson-content">
+                <section class="content-section">
+                    <h2>The Three Keywords</h2>
+                    <p>
+                        JavaScript gives us three keywords to declare variables: <code>let</code>, <code>const</code>, 
+                        and <code>var</code>. Each has its own rules and best use cases.
+                    </p>
+                    
+                    <div class="keyword-comparison">
+                        <div class="keyword-card">
+                            <div class="keyword-header let-header">let</div>
+                            <ul>
+                                <li>Can be reassigned ✓</li>
+                                <li>Block scoped</li>
+                                <li>Modern (ES6+)</li>
+                                <li>Most common choice</li>
+                            </ul>
+                            <code>let age = 25;
+age = 26; // OK!</code>
+                        </div>
+                        
+                        <div class="keyword-card">
+                            <div class="keyword-header const-header">const</div>
+                            <ul>
+                                <li>Cannot be reassigned ✗</li>
+                                <li>Block scoped</li>
+                                <li>Modern (ES6+)</li>
+                                <li>For values that don't change</li>
+                            </ul>
+                            <code>const PI = 3.14;
+PI = 3.15; // Error!</code>
+                        </div>
+                        
+                        <div class="keyword-card">
+                            <div class="keyword-header var-header">var</div>
+                            <ul>
+                                <li>Can be reassigned ✓</li>
+                                <li>Function scoped</li>
+                                <li>Old way (avoid)</li>
+                                <li>Has quirks</li>
+                            </ul>
+                            <code>var name = "old";
+name = "way"; // OK</code>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Understanding let</h2>
+                    <p>
+                        <code>let</code> is the go-to choice for variables that might change. 
+                        It's perfect for counters, user input, or any value that updates.
+                    </p>
+                    
+                    <div class="code-editor" id="editor1">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">let Examples</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor1')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor1-code">// let allows reassignment
+let score = 0;
+console.log("Initial score:", score);
+
+score = 10;
+console.log("After scoring:", score);
+
+score = score + 5;
+console.log("After bonus:", score);
+
+// let is block-scoped
+let globalMessage = "I'm global";
+
+if (true) {
+    let blockMessage = "I'm in a block";
+    console.log("Inside block:", blockMessage);
+    console.log("Can access global:", globalMessage);
+}
+
+// This would cause an error (uncomment to see):
+// console.log(blockMessage); // blockMessage is not defined
+
+// let prevents duplicate declarations
+let username = "Alice";
+// let username = "Bob"; // Error: already declared</textarea>
+                            <div class="code-output" id="editor1-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Understanding const</h2>
+                    <p>
+                        <code>const</code> creates constants - variables that cannot be reassigned. 
+                        Use it for values that should never change throughout your program.
+                    </p>
+                    
+                    <div class="code-editor" id="editor2">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">const Examples</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor2')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor2-code">// const for values that never change
+const PI = 3.14159;
+const DAYS_IN_WEEK = 7;
+const APP_NAME = "JavaScript Journey";
+
+console.log("PI:", PI);
+console.log("Days in a week:", DAYS_IN_WEEK);
+console.log("App name:", APP_NAME);
+
+// This would cause an error (uncomment to see):
+// PI = 3.14; // Error: Assignment to constant variable
+
+// const must be initialized when declared
+// const myValue; // Error: Missing initializer
+
+// IMPORTANT: const with objects and arrays
+const user = {
+    name: "Alice",
+    age: 25
+};
+
+// You CAN modify object properties
+user.age = 26;
+user.city = "New York";
+console.log("Modified user:", user);
+
+// But you CANNOT reassign the entire object
+// user = { name: "Bob" }; // Error!
+
+const colors = ["red", "green", "blue"];
+colors.push("yellow"); // This works!
+console.log("Modified array:", colors);
+// colors = ["orange"]; // This would error!</textarea>
+                            <div class="code-output" id="editor2-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <div>
+                            <strong>Important:</strong> <code>const</code> prevents reassignment, not modification. 
+                            You can still change the contents of objects and arrays declared with const.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Why var is Problematic</h2>
+                    <p>
+                        <code>var</code> is the old way of declaring variables. It has several issues 
+                        that make it confusing and error-prone.
+                    </p>
+                    
+                    <div class="code-editor" id="editor3">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">var Problems</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor3')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor3-code">// Problem 1: var is function-scoped, not block-scoped
+if (true) {
+    var leaked = "I leak outside the block!";
+    let contained = "I stay inside the block";
+}
+console.log(leaked); // This works (but shouldn't!)
+// console.log(contained); // Error (as expected)
+
+// Problem 2: var allows duplicate declarations
+var myName = "Alice";
+var myName = "Bob"; // No error!
+console.log("Duplicate var:", myName);
+
+// With let, this would error:
+// let myAge = 25;
+// let myAge = 30; // Error!
+
+// Problem 3: var has hoisting issues
+console.log("Before declaration:", hoistedVar); // undefined (not error!)
+var hoistedVar = "This is weird";
+
+// With let, you get a proper error:
+// console.log(notHoisted); // Error!
+// let notHoisted = "This makes sense";
+
+// Problem 4: var in loops
+console.log("Loop with var:");
+for (var i = 0; i < 3; i++) {
+    setTimeout(() => console.log("var loop:", i), 100);
+}
+// All print 3! Because var is function-scoped
+
+console.log("Loop with let:");
+for (let j = 0; j < 3; j++) {
+    setTimeout(() => console.log("let loop:", j), 200);
+}
+// Prints 0, 1, 2 as expected</textarea>
+                            <div class="code-output" id="editor3-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>When to Use Each</h2>
+                    <div class="usage-guide">
+                        <div class="usage-card">
+                            <h3>Use <code>const</code> by default</h3>
+                            <p>Start with const for all variables. This prevents accidental reassignment.</p>
+                            <div class="usage-examples">
+                                <code>const userName = "Alice";</code>
+                                <code>const MAX_ATTEMPTS = 3;</code>
+                                <code>const config = { theme: "dark" };</code>
+                            </div>
+                        </div>
+                        
+                        <div class="usage-card">
+                            <h3>Use <code>let</code> when you need to reassign</h3>
+                            <p>If the value needs to change, switch from const to let.</p>
+                            <div class="usage-examples">
+                                <code>let counter = 0;</code>
+                                <code>let currentUser = null;</code>
+                                <code>let isLoading = true;</code>
+                            </div>
+                        </div>
+                        
+                        <div class="usage-card">
+                            <h3>Never use <code>var</code></h3>
+                            <p>There's no good reason to use var in modern JavaScript. Always use let or const.</p>
+                            <div class="usage-examples">
+                                <code class="avoid">var oldWay = "avoid";</code>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Scope Visualization</h2>
+                    <div class="scope-demo">
+                        <div class="scope-level global-scope">
+                            <div class="scope-label">Global Scope</div>
+                            <code>const GLOBAL = "everywhere";</code>
+                            
+                            <div class="scope-level function-scope">
+                                <div class="scope-label">Function Scope</div>
+                                <code>function myFunction() {</code>
+                                <code>  const funcScoped = "in function";</code>
+                                
+                                <div class="scope-level block-scope">
+                                    <div class="scope-label">Block Scope</div>
+                                    <code>  if (true) {</code>
+                                    <code>    let blockScoped = "in block";</code>
+                                    <code>    const alsoBlock = "const too";</code>
+                                    <code>  }</code>
+                                </div>
+                                
+                                <code>}</code>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="exercise-section">
+                    <div class="exercise-header">
+                        <i class="fas fa-laptop-code"></i>
+                        <h2>Practice Exercises</h2>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <h3>Exercise 1: Choose the Right Keyword</h3>
+                        <p>For each scenario, decide whether to use let or const:</p>
+                        
+                        <div class="scenario-list">
+                            <div class="scenario-item">
+                                <p>1. User's age that updates each year</p>
+                                <select id="q1" class="answer-select">
+                                    <option value="">Choose...</option>
+                                    <option value="let">let</option>
+                                    <option value="const">const</option>
+                                </select>
+                            </div>
+                            
+                            <div class="scenario-item">
+                                <p>2. The value of PI (3.14159...)</p>
+                                <select id="q2" class="answer-select">
+                                    <option value="">Choose...</option>
+                                    <option value="let">let</option>
+                                    <option value="const">const</option>
+                                </select>
+                            </div>
+                            
+                            <div class="scenario-item">
+                                <p>3. A counter in a loop</p>
+                                <select id="q3" class="answer-select">
+                                    <option value="">Choose...</option>
+                                    <option value="let">let</option>
+                                    <option value="const">const</option>
+                                </select>
+                            </div>
+                            
+                            <div class="scenario-item">
+                                <p>4. Configuration object for an app</p>
+                                <select id="q4" class="answer-select">
+                                    <option value="">Choose...</option>
+                                    <option value="let">let</option>
+                                    <option value="const">const</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary" onclick="checkScenarios()">
+                            Check Answers
+                        </button>
+                        <div class="feedback" id="scenario-feedback"></div>
+                    </div>
+
+                    <div class="exercise-item">
+                        <h3>Exercise 2: Fix the Code</h3>
+                        <p>This code has errors. Fix them by using the correct keywords:</p>
+                        
+                        <div class="code-editor" id="editor4">
+                            <div class="editor-header">
+                                <div class="editor-tabs">
+                                    <button class="editor-tab active">Fix the Code</button>
+                                </div>
+                                <div class="editor-actions">
+                                    <button class="editor-btn" onclick="checkExercise2()">
+                                        <i class="fas fa-check"></i> Check Solution
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="editor-content">
+                                <textarea class="code-input" id="editor4-code">// Fix these variable declarations
+
+// 1. This should never change
+let COMPANY_NAME = "TechCorp";
+
+// 2. This needs to be reassigned
+const userScore = 0;
+userScore = userScore + 10;
+
+// 3. Replace var with modern syntax
+var isLoggedIn = false;
+
+// 4. This constant isn't initialized
+const API_KEY;
+API_KEY = "abc123";
+
+// 5. Fix the scope issue
+if (true) {
+    var message = "This shouldn't leak";
+}
+console.log(message); // Should error
+
+console.log("All fixed!");</textarea>
+                                <div class="code-output" id="editor4-output">
+                                    <div class="output-label">Fix the errors...</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feedback" id="exercise2-feedback"></div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Best Practices Summary</h2>
+                    <div class="best-practices-grid">
+                        <div class="practice-card do">
+                            <h3>✅ DO</h3>
+                            <ul>
+                                <li>Use <code>const</code> by default</li>
+                                <li>Use <code>let</code> only when reassignment is needed</li>
+                                <li>Declare variables at the top of their scope</li>
+                                <li>Use descriptive variable names</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="practice-card dont">
+                            <h3>❌ DON'T</h3>
+                            <ul>
+                                <li>Never use <code>var</code></li>
+                                <li>Don't reassign <code>const</code> variables</li>
+                                <li>Don't declare without <code>let</code> or <code>const</code></li>
+                                <li>Avoid global variables when possible</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="lesson-navigation">
+                    <button class="btn btn-secondary" onclick="window.location.href='lesson1.html'">
+                        <i class="fas fa-arrow-left"></i> Previous Lesson
+                    </button>
+                    
+                    <button class="btn btn-primary" onclick="completeLesson()">
+                        Complete Lesson <i class="fas fa-check"></i>
+                    </button>
+                    
+                    <button class="btn btn-secondary" onclick="window.location.href='lesson3.html'">
+                        Next Lesson <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .keyword-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .keyword-card {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .keyword-header {
+            padding: 1rem;
+            color: white;
+            font-weight: bold;
+            font-size: 1.25rem;
+            text-align: center;
+        }
+
+        .let-header {
+            background-color: #3b82f6;
+        }
+
+        .const-header {
+            background-color: #10b981;
+        }
+
+        .var-header {
+            background-color: #ef4444;
+        }
+
+        .keyword-card ul {
+            padding: 1.5rem;
+            list-style: none;
+        }
+
+        .keyword-card li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+        }
+
+        .keyword-card code {
+            display: block;
+            background-color: var(--bg-tertiary);
+            padding: 1rem;
+            margin: 0 1.5rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            white-space: pre;
+        }
+
+        .usage-guide {
+            display: grid;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .usage-card {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+        }
+
+        .usage-card h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .usage-card h3 code {
+            background-color: var(--bg-tertiary);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .usage-examples {
+            margin-top: 1rem;
+        }
+
+        .usage-examples code {
+            display: block;
+            background-color: var(--bg-tertiary);
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+        }
+
+        .usage-examples code.avoid {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .scope-demo {
+            margin: 2rem 0;
+        }
+
+        .scope-level {
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin: 0.5rem 0;
+            position: relative;
+        }
+
+        .global-scope {
+            border-color: #8b5cf6;
+            background-color: rgba(139, 92, 246, 0.05);
+        }
+
+        .function-scope {
+            border-color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.05);
+            margin-left: 2rem;
+        }
+
+        .block-scope {
+            border-color: #10b981;
+            background-color: rgba(16, 185, 129, 0.05);
+            margin-left: 2rem;
+        }
+
+        .scope-label {
+            position: absolute;
+            top: -12px;
+            left: 1rem;
+            background-color: var(--bg-primary);
+            padding: 0 0.5rem;
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+
+        .scope-level code {
+            display: block;
+            margin: 0.25rem 0;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .scenario-list {
+            margin: 1.5rem 0;
+        }
+
+        .scenario-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background-color: var(--bg-tertiary);
+            margin-bottom: 0.5rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .answer-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .best-practices-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .practice-card {
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+        }
+
+        .practice-card.do {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 2px solid var(--success-color);
+        }
+
+        .practice-card.dont {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 2px solid var(--danger-color);
+        }
+
+        .practice-card h3 {
+            margin-bottom: 1rem;
+        }
+
+        .practice-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .practice-card li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .best-practices-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .function-scope,
+            .block-scope {
+                margin-left: 1rem;
+            }
+        }
+    </style>
+
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            outputPane.innerHTML = '';
+            
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+            };
+            
+            try {
+                eval(code);
+                
+                if (logs.length > 0) {
+                    outputPane.innerHTML = logs.map(log => 
+                        `<div class="output-line">${escapeHtml(log)}</div>`
+                    ).join('');
+                } else {
+                    outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function checkScenarios() {
+            const answers = {
+                q1: 'let',
+                q2: 'const',
+                q3: 'let',
+                q4: 'const'
+            };
+            
+            let correct = 0;
+            let total = 4;
+            
+            for (let i = 1; i <= total; i++) {
+                const select = document.getElementById(`q${i}`);
+                if (select.value === answers[`q${i}`]) {
+                    correct++;
+                    select.style.borderColor = 'var(--success-color)';
+                } else {
+                    select.style.borderColor = 'var(--danger-color)';
+                }
+            }
+            
+            const feedback = document.getElementById('scenario-feedback');
+            if (correct === total) {
+                feedback.className = 'feedback show success';
+                feedback.textContent = 'Perfect! You understand when to use let and const!';
+            } else {
+                feedback.className = 'feedback show error';
+                feedback.textContent = `${correct}/${total} correct. Remember: const for values that don't change, let for values that do.`;
+            }
+        }
+
+        function checkExercise2() {
+            const code = document.getElementById('editor4-code').value;
+            const feedback = document.getElementById('exercise2-feedback');
+            
+            runCode('editor4');
+            
+            const hasConstCompany = code.includes('const COMPANY_NAME');
+            const hasLetScore = code.includes('let userScore');
+            const noVar = !code.includes('var ');
+            const hasConstWithValue = code.includes('const API_KEY = "abc123"');
+            const hasLetInBlock = code.includes('let message');
+            
+            if (hasConstCompany && hasLetScore && noVar && hasConstWithValue && hasLetInBlock) {
+                feedback.className = 'feedback show success';
+                feedback.textContent = 'Excellent! You\'ve fixed all the variable declarations correctly!';
+            } else {
+                feedback.className = 'feedback show error';
+                let issues = [];
+                if (!hasConstCompany) issues.push('COMPANY_NAME should use const');
+                if (!hasLetScore) issues.push('userScore should use let');
+                if (!noVar) issues.push('Replace var with let or const');
+                if (!hasConstWithValue) issues.push('Initialize const when declaring');
+                if (!hasLetInBlock) issues.push('Use let for block-scoped variables');
+                
+                feedback.textContent = 'Issues: ' + issues.join(', ');
+            }
+        }
+
+        function completeLesson() {
+            Storage.saveProgress(2, 2, true);
+            
+            const message = document.createElement('div');
+            message.className = 'completion-message';
+            message.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <h3>Lesson Complete!</h3>
+                <p>You now know when to use let, const, and why to avoid var!</p>
+            `;
+            message.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: var(--success-color);
+                color: white;
+                padding: 2rem 3rem;
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow-lg);
+                text-align: center;
+                z-index: 1000;
+                animation: scaleIn 0.3s ease-out;
+            `;
+            
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                window.location.href = 'lesson3.html';
+            }, 2000);
+        }
+    </script>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

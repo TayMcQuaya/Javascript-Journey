@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 1: What is JavaScript? - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='index.html'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Module 1</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="lesson-container">
+            <div class="lesson-header">
+                <h1>Lesson 1: What is JavaScript?</h1>
+                <p class="lesson-subtitle">Understanding the world's most popular programming language</p>
+            </div>
+
+            <div class="lesson-content">
+                <section class="content-section">
+                    <h2>Introduction</h2>
+                    <p>
+                        JavaScript is a high-level, interpreted programming language that makes websites interactive. 
+                        Created in 1995 by Brendan Eich in just 10 days, JavaScript has evolved from a simple scripting 
+                        language to one of the most powerful and versatile programming languages in the world.
+                    </p>
+                    
+                    <div class="info-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <div>
+                            <strong>Fun Fact:</strong> Despite its name, JavaScript has no relation to Java. 
+                            It was originally called "LiveScript" but was renamed for marketing reasons.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Why Learn JavaScript?</h2>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-globe"></i>
+                            <h3>Runs Everywhere</h3>
+                            <p>JavaScript runs in browsers, servers (Node.js), mobile apps, and even IoT devices.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-users"></i>
+                            <h3>Huge Community</h3>
+                            <p>Millions of developers use JavaScript, creating a vast ecosystem of libraries and tools.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-briefcase"></i>
+                            <h3>Career Opportunities</h3>
+                            <p>JavaScript developers are in high demand with excellent job prospects.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-rocket"></i>
+                            <h3>Easy to Start</h3>
+                            <p>You only need a web browser to start coding in JavaScript!</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>What Can You Build with JavaScript?</h2>
+                    <ul class="build-list">
+                        <li><strong>Interactive Websites:</strong> Add dynamic content, animations, and user interactions</li>
+                        <li><strong>Web Applications:</strong> Build complex apps like Gmail, Google Maps, or Facebook</li>
+                        <li><strong>Mobile Apps:</strong> Create native mobile apps using React Native or Ionic</li>
+                        <li><strong>Server Applications:</strong> Build backend services with Node.js</li>
+                        <li><strong>Desktop Applications:</strong> Create desktop apps with Electron (VS Code is built with it!)</li>
+                        <li><strong>Games:</strong> Develop 2D and 3D games that run in the browser</li>
+                        <li><strong>Machine Learning:</strong> Use TensorFlow.js for AI in the browser</li>
+                    </ul>
+                </section>
+
+                <section class="content-section">
+                    <h2>How JavaScript Works</h2>
+                    <p>
+                        JavaScript is an interpreted language, meaning it doesn't need to be compiled before running. 
+                        Here's a simple overview of how it works:
+                    </p>
+                    
+                    <div class="process-flow">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <h4>Write Code</h4>
+                            <p>You write JavaScript code in .js files or HTML</p>
+                        </div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <h4>Browser Loads</h4>
+                            <p>The browser loads and reads your code</p>
+                        </div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <h4>Engine Executes</h4>
+                            <p>The JavaScript engine runs your code</p>
+                        </div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <h4>See Results</h4>
+                            <p>Your code affects the webpage</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Your First Look at JavaScript</h2>
+                    <p>Here's what JavaScript code looks like:</p>
+                    
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span>example.js</span>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <pre><code class="language-javascript">// This is a comment - it doesn't run
+console.log("Hello, World!");
+
+// Variables store data
+let message = "Welcome to JavaScript!";
+let year = 2024;
+
+// Functions perform actions
+function greet(name) {
+    return "Hello, " + name + "!";
+}
+
+// Using the function
+console.log(greet("Student"));</code></pre>
+                    </div>
+                </section>
+
+                <section class="exercise-section">
+                    <div class="exercise-header">
+                        <i class="fas fa-brain"></i>
+                        <h2>Quick Quiz</h2>
+                    </div>
+                    
+                    <div class="quiz-container">
+                        <div class="quiz-question">
+                            <h3>Question 1: When was JavaScript created?</h3>
+                            <div class="quiz-options">
+                                <button class="option-btn" onclick="checkAnswer(this, false)">1990</button>
+                                <button class="option-btn" onclick="checkAnswer(this, true)">1995</button>
+                                <button class="option-btn" onclick="checkAnswer(this, false)">2000</button>
+                                <button class="option-btn" onclick="checkAnswer(this, false)">2005</button>
+                            </div>
+                            <div class="feedback" id="feedback1"></div>
+                        </div>
+
+                        <div class="quiz-question">
+                            <h3>Question 2: What can JavaScript be used for?</h3>
+                            <div class="quiz-options">
+                                <button class="option-btn" onclick="checkAnswer(this, false)">Only websites</button>
+                                <button class="option-btn" onclick="checkAnswer(this, false)">Only mobile apps</button>
+                                <button class="option-btn" onclick="checkAnswer(this, true)">Websites, mobile apps, servers, and more</button>
+                                <button class="option-btn" onclick="checkAnswer(this, false)">Only server applications</button>
+                            </div>
+                            <div class="feedback" id="feedback2"></div>
+                        </div>
+
+                        <div class="quiz-question">
+                            <h3>Question 3: Is JavaScript related to Java?</h3>
+                            <div class="quiz-options">
+                                <button class="option-btn" onclick="checkAnswer(this, false)">Yes, JavaScript is a version of Java</button>
+                                <button class="option-btn" onclick="checkAnswer(this, true)">No, they are completely different languages</button>
+                                <button class="option-btn" onclick="checkAnswer(this, false)">Yes, JavaScript is built on Java</button>
+                                <button class="option-btn" onclick="checkAnswer(this, false)">JavaScript is Java for scripts</button>
+                            </div>
+                            <div class="feedback" id="feedback3"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Key Takeaways</h2>
+                    <div class="takeaway-box">
+                        <ul>
+                            <li>JavaScript is a versatile programming language that runs everywhere</li>
+                            <li>It was created in 1995 and has become the most popular programming language</li>
+                            <li>You can build websites, apps, servers, games, and more with JavaScript</li>
+                            <li>JavaScript is beginner-friendly and has a huge, supportive community</li>
+                            <li>Despite the name, JavaScript and Java are completely different languages</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="lesson-navigation">
+                    <div></div>
+                    
+                    <button class="btn btn-primary" onclick="completeLesson()">
+                        Complete Lesson <i class="fas fa-check"></i>
+                    </button>
+                    
+                    <button class="btn btn-secondary" onclick="window.location.href='lesson2.html'">
+                        Next Lesson <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .lesson-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .content-section {
+            margin-bottom: 3rem;
+        }
+
+        .content-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section p {
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .info-box {
+            background-color: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: var(--radius-md);
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .info-box i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-card {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .build-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .build-list li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .build-list li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .process-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .process-step {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-md);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: bold;
+        }
+
+        .process-arrow {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .code-example {
+            background-color: #1e293b;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+
+        .code-header {
+            background-color: #0f172a;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #94a3b8;
+        }
+
+        .copy-btn {
+            background-color: #334155;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: var(--transition);
+        }
+
+        .copy-btn:hover {
+            background-color: #475569;
+        }
+
+        pre {
+            margin: 0;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #e2e8f0;
+        }
+
+        .quiz-container {
+            margin-top: 1.5rem;
+        }
+
+        .quiz-question {
+            margin-bottom: 2rem;
+        }
+
+        .quiz-question h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .takeaway-box {
+            background-color: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--success-color);
+        }
+
+        .takeaway-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .takeaway-box li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .takeaway-box li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .process-flow {
+                flex-direction: column;
+            }
+            
+            .process-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        function copyCode(button) {
+            const code = button.closest('.code-example').querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                }, 2000);
+            });
+        }
+
+        function checkAnswer(button, isCorrect) {
+            const options = button.parentElement.querySelectorAll('.option-btn');
+            const feedback = button.closest('.quiz-question').querySelector('.feedback');
+            
+            options.forEach(opt => {
+                opt.disabled = true;
+                opt.classList.remove('correct', 'incorrect');
+            });
+            
+            if (isCorrect) {
+                button.classList.add('correct');
+                feedback.className = 'feedback show success';
+                feedback.textContent = 'Correct! Well done!';
+            } else {
+                button.classList.add('incorrect');
+                feedback.className = 'feedback show error';
+                feedback.textContent = 'Not quite. Try reading the section again!';
+            }
+        }
+
+        function completeLesson() {
+            Storage.saveProgress(1, 1, true);
+            
+            const message = document.createElement('div');
+            message.className = 'completion-message';
+            message.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <h3>Lesson Complete!</h3>
+                <p>Great job! Moving to the next lesson...</p>
+            `;
+            message.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: var(--success-color);
+                color: white;
+                padding: 2rem 3rem;
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow-lg);
+                text-align: center;
+                z-index: 1000;
+                animation: scaleIn 0.3s ease-out;
+            `;
+            
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                window.location.href = 'lesson2.html';
+            }, 2000);
+        }
+    </script>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

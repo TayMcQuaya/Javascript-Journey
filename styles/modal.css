@@ -1,0 +1,336 @@
+/* Custom Modal Styles
+   Replaces default browser alerts with themed modals
+   Author: JavaScript Journey
+*/
+
+/* Modal overlay */
+.custom-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.custom-modal.active {
+    display: flex;
+}
+
+/* Modal content */
+.custom-modal-content {
+    background-color: var(--bg-primary);
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 90%;
+    border: 3px solid var(--border-color);
+    animation: slideIn 0.3s ease-out;
+    position: relative;
+}
+
+/* Modal types */
+.custom-modal-content.alert {
+    border-color: var(--primary-color);
+}
+
+.custom-modal-content.success {
+    border-color: var(--success-color);
+}
+
+.custom-modal-content.error {
+    border-color: var(--danger-color);
+}
+
+.custom-modal-content.warning {
+    border-color: var(--warning-color);
+}
+
+/* Modal header */
+.custom-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.custom-modal-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
+.custom-modal-content.success .custom-modal-icon {
+    color: var(--success-color);
+}
+
+.custom-modal-content.error .custom-modal-icon {
+    color: var(--danger-color);
+}
+
+.custom-modal-content.warning .custom-modal-icon {
+    color: var(--warning-color);
+}
+
+.custom-modal-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    flex: 1;
+}
+
+/* Modal body */
+.custom-modal-body {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+}
+
+/* Modal footer */
+.custom-modal-footer {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+/* Modal buttons */
+.custom-modal-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.custom-modal-btn-primary {
+    background-color: var(--js-black);
+    color: var(--js-yellow);
+    border: 2px solid var(--js-black);
+}
+
+.custom-modal-btn-primary:hover {
+    background-color: var(--js-yellow);
+    color: var(--js-black);
+    transform: translateY(-2px);
+}
+
+.custom-modal-btn-secondary {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+}
+
+.custom-modal-btn-secondary:hover {
+    background-color: var(--bg-tertiary);
+    transform: translateY(-2px);
+}
+
+/* Close button */
+.custom-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.custom-modal-close:hover {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+/* Dark theme adjustments */
+body.dark-theme .custom-modal-content {
+    background-color: var(--bg-primary);
+    border-color: var(--js-yellow);
+}
+
+body.dark-theme .custom-modal-btn-primary {
+    background-color: var(--js-yellow);
+    color: var(--js-black);
+    border-color: var(--js-yellow);
+}
+
+body.dark-theme .custom-modal-btn-primary:hover {
+    background-color: var(--js-black);
+    color: var(--js-yellow);
+    border-color: var(--js-yellow);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Confirm modal specific */
+.custom-modal-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    margin-top: 1rem;
+}
+
+.custom-modal-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Progress Modal Styles */
+.progress-modal-content {
+    padding: 0;
+}
+
+.progress-overview {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.progress-stat-card {
+    background-color: var(--bg-secondary);
+    padding: 1.5rem 1rem;
+    border-radius: var(--radius-md);
+    text-align: center;
+    border: 2px solid var(--border-color);
+    min-width: 0;
+}
+
+.progress-stat-card i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.progress-stat-card h3 {
+    font-size: 1.25rem;
+    margin: 0.5rem 0;
+    color: var(--text-primary);
+    word-break: break-word;
+}
+
+.progress-stat-card p {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin: 0;
+    word-break: break-word;
+}
+
+.module-progress-list {
+    margin-top: 2rem;
+}
+
+.module-progress-list h4 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.module-progress-item {
+    margin-bottom: 1rem;
+}
+
+.module-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.module-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.module-percent {
+    color: var(--text-secondary);
+}
+
+.progress-footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.last-accessed {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* Dark theme adjustments for progress modal */
+body.dark-theme .progress-stat-card {
+    background-color: var(--bg-secondary);
+    border-color: var(--js-yellow);
+}
+
+body.dark-theme .progress-stat-card i {
+    color: var(--js-yellow);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .custom-modal-content {
+        padding: 2rem;
+        width: 95%;
+    }
+    
+    .custom-modal-footer {
+        flex-direction: column;
+    }
+    
+    .custom-modal-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .progress-overview {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .progress-overview {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,201 @@
+/* Code Highlighting Styles
+   Consistent code block styling for both light and dark themes
+   Author: JavaScript Journey
+*/
+
+/* Code blocks with HTML content */
+pre code {
+    display: block;
+    background-color: #1e1e1e !important;
+    color: #d4d4d4 !important;
+    padding: 1.5rem !important;
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    border: 2px solid #333;
+}
+
+/* Inline code */
+code {
+    background-color: #1e1e1e !important;
+    color: #d4d4d4 !important;
+    padding: 0.2rem 0.4rem;
+    border-radius: var(--radius-sm);
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.875em;
+}
+
+/* Syntax highlighting for HTML */
+/* HTML tags */
+code .tag,
+code:has(>&lt;) {
+    color: #569CD6 !important;
+}
+
+/* HTML attributes */
+code .attr {
+    color: #9CDCFE !important;
+}
+
+/* HTML attribute values */
+code .string {
+    color: #CE9178 !important;
+}
+
+/* Comments */
+code .comment {
+    color: #6A9955 !important;
+    font-style: italic;
+}
+
+/* Apply basic highlighting to HTML entities */
+pre code {
+    /* Wrap long lines */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Style for code editor blocks that already exist */
+.code-editor .code-input {
+    background-color: #1e1e1e !important;
+    color: #d4d4d4 !important;
+    border: 1px solid #333 !important;
+}
+
+/* Keep the same styling in both light and dark modes */
+body.dark-theme pre code,
+body.dark-theme code {
+    background-color: #1e1e1e !important;
+    color: #d4d4d4 !important;
+    border-color: #333 !important;
+}
+
+/* Code block container styling */
+.code-example {
+    margin: 1.5rem 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+}
+
+.code-example-header {
+    background-color: #2d2d30;
+    color: #d4d4d4;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+}
+
+.code-example-header span {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+/* Copy button in code blocks */
+.copy-btn {
+    background-color: var(--js-black) !important;
+    color: var(--js-yellow) !important;
+    border: 1px solid var(--js-black) !important;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.copy-btn:hover {
+    background-color: var(--js-yellow) !important;
+    color: var(--js-black) !important;
+}
+
+/* Dark theme copy button */
+body.dark-theme .copy-btn {
+    background-color: var(--js-yellow) !important;
+    color: var(--js-black) !important;
+    border: 1px solid var(--js-yellow) !important;
+}
+
+body.dark-theme .copy-btn:hover {
+    background-color: var(--js-black) !important;
+    color: var(--js-yellow) !important;
+    border-color: var(--js-yellow) !important;
+}
+
+/* Editor styling consistency */
+.editor-content textarea {
+    background-color: #1e1e1e !important;
+    color: #d4d4d4 !important;
+}
+
+.editor-content .code-output {
+    background-color: #1e1e1e !important;
+    color: #d4d4d4 !important;
+    border-top: 1px solid #333;
+}
+
+/* Output label styling - consistent in both themes */
+.output-label {
+    color: #888 !important;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* Ensure code output has proper contrast */
+.code-output {
+    background-color: #1e1e1e !important;
+    color: #d4d4d4 !important;
+    border: 1px solid #333 !important;
+}
+
+/* Dark theme consistency */
+body.dark-theme .code-output {
+    background-color: #1e1e1e !important;
+    color: #d4d4d4 !important;
+    border: 1px solid #333 !important;
+}
+
+body.dark-theme .output-label {
+    color: #888 !important;
+}
+
+/* Prism.js override for consistency */
+pre[class*="language-"],
+code[class*="language-"] {
+    background-color: #1e1e1e !important;
+    color: #d4d4d4 !important;
+}
+
+/* Remove any default prism theme colors that conflict */
+.token.tag { color: #569CD6 !important; }
+.token.attr-name { color: #9CDCFE !important; }
+.token.attr-value { color: #CE9178 !important; }
+.token.string { color: #CE9178 !important; }
+.token.comment { color: #6A9955 !important; }
+.token.keyword { color: #C586C0 !important; }
+.token.function { color: #DCDCAA !important; }
+.token.number { color: #B5CEA8 !important; }
+.token.operator { color: #d4d4d4 !important; }
+.token.punctuation { color: #d4d4d4 !important; }
+
+/* Scrollbar styling for code blocks */
+pre code::-webkit-scrollbar {
+    height: 8px;
+    background-color: #1e1e1e;
+}
+
+pre code::-webkit-scrollbar-track {
+    background-color: #1e1e1e;
+}
+
+pre code::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 4px;
+}
+
+pre code::-webkit-scrollbar-thumb:hover {
+    background-color: #666;
+}

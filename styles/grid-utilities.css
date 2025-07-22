@@ -1,0 +1,167 @@
+/* Smart Grid Layout Utilities
+   Handles uneven grid items to create aesthetically pleasing layouts
+   Author: JavaScript Journey
+*/
+
+/* Base Grid System */
+.smart-grid {
+    display: grid;
+    gap: 2rem;
+}
+
+/* 3-column grid layouts */
+.smart-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Handle last item when total items = 3n + 1 (e.g., 4, 7, 10) */
+.smart-grid-3 > :nth-last-child(1):nth-child(3n + 1) {
+    grid-column: 2;
+}
+
+/* Handle last 2 items when total items = 3n + 2 (e.g., 5, 8, 11) */
+.smart-grid-3 > :nth-last-child(2):nth-child(3n + 2) {
+    grid-column: 1 / span 2;
+    justify-self: end;
+    max-width: calc(50% - 0.5rem);
+}
+
+.smart-grid-3 > :nth-last-child(1):nth-child(3n + 2) {
+    grid-column: 2 / span 2;
+    justify-self: start;
+    max-width: calc(50% - 0.5rem);
+}
+
+/* 4-column grid layouts */
+.smart-grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* Handle orphaned items in 4-column grid */
+.smart-grid-4 > :nth-last-child(1):nth-child(4n + 1) {
+    grid-column: 2 / span 2;
+}
+
+.smart-grid-4 > :nth-last-child(2):nth-child(4n + 2) {
+    grid-column: 2;
+}
+
+.smart-grid-4 > :nth-last-child(1):nth-child(4n + 2) {
+    grid-column: 3;
+}
+
+.smart-grid-4 > :nth-last-child(3):nth-child(4n + 3),
+.smart-grid-4 > :nth-last-child(2):nth-child(4n + 3),
+.smart-grid-4 > :nth-last-child(1):nth-child(4n + 3) {
+    margin-left: calc(16.666% + 0.333rem);
+}
+
+/* 2-column grid layouts */
+.smart-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* Center single orphaned item in 2-column grid */
+.smart-grid-2 > :nth-last-child(1):nth-child(2n + 1) {
+    grid-column: 1 / -1;
+    max-width: 50%;
+    margin: 0 auto;
+}
+
+/* Auto-fill grid with min width */
+.smart-grid-auto {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+/* Center alignment for orphaned items in auto grid */
+.smart-grid-auto.center-orphans {
+    justify-items: center;
+}
+
+.smart-grid-auto.center-orphans > * {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1024px) {
+    .smart-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .smart-grid-4 > :nth-last-child(1):nth-child(4n + 1),
+    .smart-grid-4 > :nth-last-child(2):nth-child(4n + 2),
+    .smart-grid-4 > :nth-last-child(1):nth-child(4n + 2),
+    .smart-grid-4 > :nth-last-child(3):nth-child(4n + 3),
+    .smart-grid-4 > :nth-last-child(2):nth-child(4n + 3),
+    .smart-grid-4 > :nth-last-child(1):nth-child(4n + 3) {
+        grid-column: initial;
+        margin-left: 0;
+    }
+    
+    .smart-grid-4 > :nth-last-child(1):nth-child(2n + 1) {
+        grid-column: 1 / -1;
+        max-width: 50%;
+        margin: 0 auto;
+    }
+    
+    .smart-grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .smart-grid-3 > :nth-last-child(1):nth-child(3n + 1),
+    .smart-grid-3 > :nth-last-child(2):nth-child(3n + 2),
+    .smart-grid-3 > :nth-last-child(1):nth-child(3n + 2) {
+        grid-column: initial;
+        max-width: 100%;
+        justify-self: initial;
+    }
+    
+    .smart-grid-3 > :nth-last-child(1):nth-child(2n + 1) {
+        grid-column: 1 / -1;
+        max-width: 50%;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .smart-grid-3,
+    .smart-grid-4,
+    .smart-grid-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    .smart-grid-3 > *,
+    .smart-grid-4 > *,
+    .smart-grid-2 > * {
+        grid-column: initial !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        justify-self: initial !important;
+    }
+}
+
+/* Utility classes for manual adjustments */
+.grid-center {
+    justify-self: center;
+}
+
+.grid-end {
+    justify-self: end;
+}
+
+.grid-start {
+    justify-self: start;
+}
+
+.grid-span-2 {
+    grid-column: span 2;
+}
+
+.grid-span-3 {
+    grid-column: span 3;
+}
+
+.grid-span-full {
+    grid-column: 1 / -1;
+}

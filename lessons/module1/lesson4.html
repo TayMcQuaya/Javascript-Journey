@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 4: Using the Browser Console - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='index.html'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Module 1</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="lesson-container">
+            <div class="lesson-header">
+                <h1>Lesson 4: Using the Browser Console</h1>
+                <p class="lesson-subtitle">Your most powerful JavaScript debugging tool</p>
+            </div>
+
+            <div class="lesson-content">
+                <section class="content-section">
+                    <h2>What is the Browser Console?</h2>
+                    <p>
+                        The browser console is a built-in tool that lets you run JavaScript code directly in your browser, 
+                        see error messages, and debug your programs. Think of it as your JavaScript playground and detective tool!
+                    </p>
+                    
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-terminal"></i>
+                            <h3>Run Code Instantly</h3>
+                            <p>Test JavaScript without creating files</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-bug"></i>
+                            <h3>Debug Errors</h3>
+                            <p>See what's wrong with your code</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-search"></i>
+                            <h3>Inspect Values</h3>
+                            <p>Check what your variables contain</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-history"></i>
+                            <h3>Command History</h3>
+                            <p>Access previous commands easily</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Opening the Console</h2>
+                    <div class="console-instructions">
+                        <div class="instruction-card">
+                            <h3><i class="fab fa-chrome"></i> Chrome / Edge</h3>
+                            <div class="shortcut-display">
+                                <kbd>F12</kbd> or <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd>
+                                <p>Mac: <kbd>Cmd</kbd> + <kbd>Option</kbd> + <kbd>J</kbd></p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction-card">
+                            <h3><i class="fab fa-firefox"></i> Firefox</h3>
+                            <div class="shortcut-display">
+                                <kbd>F12</kbd> or <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd>
+                                <p>Mac: <kbd>Cmd</kbd> + <kbd>Option</kbd> + <kbd>K</kbd></p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction-card">
+                            <h3><i class="fab fa-safari"></i> Safari</h3>
+                            <div class="shortcut-display">
+                                <kbd>Cmd</kbd> + <kbd>Option</kbd> + <kbd>C</kbd>
+                                <p>Enable Developer menu first in Preferences</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-box">
+                        <i class="fas fa-hand-pointer"></i>
+                        <p><strong>Try it now!</strong> Press F12 to open your browser's developer tools, then click on the "Console" tab.</p>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Console Methods</h2>
+                    <p>The console object has many useful methods beyond <code>console.log()</code>:</p>
+                    
+                    <div class="code-editor" id="editor1">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Try These Methods</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor1')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor1-code">// Different console methods
+
+// Regular log
+console.log("This is a regular log");
+
+// Informational message
+console.info("This is an info message");
+
+// Warning message
+console.warn("This is a warning!");
+
+// Error message
+console.error("This is an error!");
+
+// Clear the console (uncomment to try)
+// console.clear();
+
+// Group related logs
+console.group("User Details");
+console.log("Name: John Doe");
+console.log("Age: 25");
+console.log("City: New York");
+console.groupEnd();
+
+// Table for arrays/objects
+const fruits = ["Apple", "Banana", "Orange"];
+console.table(fruits);
+
+// Timing operations
+console.time("Loop timer");
+for(let i = 0; i < 1000; i++) {
+    // Do something
+}
+console.timeEnd("Loop timer");</textarea>
+                            <div class="code-output" id="editor1-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Console as a Calculator</h2>
+                    <p>You can use the console as a powerful calculator:</p>
+                    
+                    <div class="code-editor" id="editor2">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Math in Console</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor2')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor2-code">// Basic math
+console.log(5 + 3);
+console.log(10 - 4);
+console.log(6 * 7);
+console.log(20 / 4);
+
+// More complex calculations
+console.log(2 ** 8);  // 2 to the power of 8
+console.log(Math.sqrt(144));  // Square root
+console.log(Math.PI);  // Pi constant
+console.log(Math.random());  // Random number 0-1
+
+// Rounding numbers
+console.log(Math.round(4.7));
+console.log(Math.floor(4.9));
+console.log(Math.ceil(4.1));</textarea>
+                            <div class="code-output" id="editor2-output">
+                                <div class="output-label">Output will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Debugging with Console</h2>
+                    <p>The console shows you errors in your code with helpful information:</p>
+                    
+                    <div class="error-example">
+                        <div class="error-header">
+                            <i class="fas fa-exclamation-triangle"></i> Example Error
+                        </div>
+                        <div class="error-content">
+                            <code>Uncaught ReferenceError: myVariable is not defined</code>
+                            <p>at script.js:15:13</p>
+                        </div>
+                        <div class="error-explanation">
+                            This tells you:
+                            <ul>
+                                <li><strong>Error Type:</strong> ReferenceError</li>
+                                <li><strong>Problem:</strong> myVariable is not defined</li>
+                                <li><strong>Location:</strong> script.js file, line 15, character 13</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="code-editor" id="editor3">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Debug This Code</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="runCode('editor3')">
+                                    <i class="fas fa-play"></i> Run Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor3-code">// This code has errors - can you fix them?
+
+// Error 1: Undefined variable
+console.log(myName);  // myName is not defined
+
+// Error 2: Wrong method name
+console.logg("Hello");  // Should be log, not logg
+
+// Error 3: Missing quotes
+console.log(Hello World);  // Text needs quotes
+
+// Try fixing the errors above!</textarea>
+                            <div class="code-output" id="editor3-output">
+                                <div class="output-label">Fix the errors to see the output...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Console Tips & Tricks</h2>
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <h3>1. Use Arrow Keys</h3>
+                            <p>Press ↑ and ↓ to navigate through command history</p>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h3>2. Multi-line Code</h3>
+                            <p>Press Shift + Enter to write code on multiple lines</p>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h3>3. Auto-complete</h3>
+                            <p>Start typing and press Tab to auto-complete</p>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h3>4. $_ Variable</h3>
+                            <p>$_ holds the result of the last expression</p>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h3>5. Clear Console</h3>
+                            <p>Type clear() or press Ctrl + L</p>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h3>6. Copy Objects</h3>
+                            <p>Right-click on logged objects to copy them</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="exercise-section">
+                    <div class="exercise-header">
+                        <i class="fas fa-tasks"></i>
+                        <h2>Practice Exercises</h2>
+                    </div>
+                    
+                    <div class="exercise-list">
+                        <div class="exercise-item">
+                            <h3>Exercise 1: Console Exploration</h3>
+                            <p>Open your browser console and try these commands:</p>
+                            <ol>
+                                <li>Type <code>5 + 5</code> and press Enter</li>
+                                <li>Type <code>console.warn("This is a warning")</code></li>
+                                <li>Type <code>Math.random() * 100</code></li>
+                                <li>Press ↑ to repeat the last command</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="exercise-item">
+                            <h3>Exercise 2: Fix the Console Errors</h3>
+                            <div class="code-editor" id="editor4">
+                                <div class="editor-header">
+                                    <div class="editor-tabs">
+                                        <button class="editor-tab active">Fix All Errors</button>
+                                    </div>
+                                    <div class="editor-actions">
+                                        <button class="editor-btn" onclick="checkFinalExercise()">
+                                            <i class="fas fa-check"></i> Check Solution
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-input" id="editor4-code">// Fix all the errors in this code
+
+console.log("Starting program");
+
+// Error 1
+console.log(The answer is 42);
+
+// Error 2
+Console.log("JavaScript is awesome!");
+
+// Error 3
+console.log("My favorite number is" + );
+
+// Error 4
+console.table(["Apple", "Banana" "Orange"]);
+
+console.log("Program complete!");</textarea>
+                                    <div class="code-output" id="editor4-output">
+                                        <div class="output-label">Fix all errors to complete...</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="feedback" id="final-feedback"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Module 1 Complete! 🎉</h2>
+                    <div class="completion-summary">
+                        <h3>What You've Learned:</h3>
+                        <ul>
+                            <li>✅ What JavaScript is and why it's important</li>
+                            <li>✅ How to set up your development environment</li>
+                            <li>✅ Writing and running your first JavaScript code</li>
+                            <li>✅ Using the browser console for debugging</li>
+                        </ul>
+                        
+                        <p class="next-module-teaser">
+                            <strong>Next up:</strong> Module 2 - Variables & Data Types<br>
+                            You'll learn how to store and work with different types of data in JavaScript!
+                        </p>
+                    </div>
+                </section>
+
+                <div class="lesson-navigation">
+                    <button class="btn btn-secondary" onclick="window.location.href='lesson3.html'">
+                        <i class="fas fa-arrow-left"></i> Previous Lesson
+                    </button>
+                    
+                    <button class="btn btn-primary" onclick="completeModule()">
+                        Complete Module 1 <i class="fas fa-trophy"></i>
+                    </button>
+                    
+                    <button class="btn btn-secondary" onclick="window.location.href='../module2/index.html'">
+                        Start Module 2 <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .console-instructions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .instruction-card {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .instruction-card h3 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .shortcut-display {
+            font-size: 0.9rem;
+        }
+
+        .shortcut-display kbd {
+            display: inline-block;
+            background-color: var(--bg-tertiary);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-family: monospace;
+            margin: 0 0.25rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .shortcut-display p {
+            margin-top: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .action-box {
+            background-color: rgba(59, 130, 246, 0.1);
+            border: 2px dashed var(--primary-color);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .action-box i {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .error-example {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger-color);
+            border-radius: var(--radius-md);
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+
+        .error-header {
+            background-color: var(--danger-color);
+            color: white;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .error-content {
+            padding: 1rem;
+            font-family: monospace;
+            background-color: #1e293b;
+            color: #ef4444;
+        }
+
+        .error-content p {
+            color: #94a3b8;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .error-explanation {
+            padding: 1rem;
+            background-color: var(--bg-secondary);
+        }
+
+        .error-explanation ul {
+            margin: 0.5rem 0 0 1.5rem;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .tip-card {
+            background-color: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .tip-card h3 {
+            font-size: 1rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .tip-card p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .exercise-list {
+            margin-top: 1.5rem;
+        }
+
+        .exercise-item {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+        }
+
+        .exercise-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .exercise-item ol {
+            margin-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .exercise-item li {
+            margin: 0.5rem 0;
+        }
+
+        .completion-summary {
+            background-color: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--success-color);
+            margin: 2rem 0;
+        }
+
+        .completion-summary h3 {
+            color: var(--success-color);
+            margin-bottom: 1rem;
+        }
+
+        .completion-summary ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .completion-summary li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+        }
+
+        .next-module-teaser {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 768px) {
+            .action-box {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script>
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            outputPane.innerHTML = '';
+            
+            const originalConsole = {
+                log: console.log,
+                info: console.info,
+                warn: console.warn,
+                error: console.error,
+                table: console.table,
+                group: console.group,
+                groupEnd: console.groupEnd,
+                time: console.time,
+                timeEnd: console.timeEnd
+            };
+            
+            const logs = [];
+            
+            const captureOutput = (method, className = '') => (...args) => {
+                const message = args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' ');
+                
+                logs.push({ message, className, method });
+                originalConsole[method](...args);
+            };
+            
+            console.log = captureOutput('log');
+            console.info = captureOutput('info', 'info');
+            console.warn = captureOutput('warn', 'warning');
+            console.error = captureOutput('error', 'error');
+            console.table = captureOutput('log', 'table');
+            console.group = captureOutput('log', 'group');
+            console.groupEnd = () => logs.push({ message: '', className: 'groupEnd' });
+            console.time = (label) => logs.push({ message: `${label}: timer started...`, className: 'time' });
+            console.timeEnd = (label) => logs.push({ message: `${label}: 0.001ms`, className: 'time' });
+            
+            try {
+                eval(code);
+                
+                if (logs.length > 0) {
+                    outputPane.innerHTML = logs.map(log => {
+                        const className = log.className ? `output-line ${log.className}` : 'output-line';
+                        return `<div class="${className}">${escapeHtml(log.message)}</div>`;
+                    }).join('');
+                } else {
+                    outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                Object.assign(console, originalConsole);
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function checkFinalExercise() {
+            const code = document.getElementById('editor4-code').value;
+            const feedback = document.getElementById('final-feedback');
+            
+            runCode('editor4');
+            
+            const hasNoErrors = !code.includes('Console.log') && 
+                               code.includes('"The answer is 42"') && 
+                               code.includes('+ ') && !code.includes('+ )') &&
+                               code.includes('", "');
+            
+            if (hasNoErrors) {
+                feedback.className = 'feedback show success';
+                feedback.textContent = 'Perfect! You\'ve fixed all the errors. You\'re ready to complete Module 1!';
+            } else {
+                feedback.className = 'feedback show error';
+                feedback.textContent = 'There are still some errors. Check your quotes, commas, and capitalization.';
+            }
+        }
+
+        function completeModule() {
+            Storage.saveProgress(1, 4, true);
+            
+            const message = document.createElement('div');
+            message.className = 'module-completion';
+            message.innerHTML = `
+                <i class="fas fa-trophy"></i>
+                <h2>Module 1 Complete!</h2>
+                <p>Congratulations! You've completed Introduction & Setup!</p>
+                <button class="btn btn-primary" onclick="window.location.href='../module2/index.html'">
+                    Continue to Module 2 <i class="fas fa-arrow-right"></i>
+                </button>
+            `;
+            message.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: var(--bg-primary);
+                padding: 3rem;
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow-lg);
+                text-align: center;
+                z-index: 1000;
+                animation: scaleIn 0.5s ease-out;
+            `;
+            
+            document.body.appendChild(message);
+            
+            if (window.app && window.app.createConfetti) {
+                window.app.createConfetti();
+            }
+        }
+        
+        // Add output styling
+        const style = document.createElement('style');
+        style.textContent = `
+            .output-line.info { color: #3b82f6; }
+            .output-line.warning { color: #f59e0b; }
+            .output-line.error { color: #ef4444; }
+            .output-line.time { color: #8b5cf6; font-style: italic; }
+            .output-line.group { padding-left: 1rem; }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

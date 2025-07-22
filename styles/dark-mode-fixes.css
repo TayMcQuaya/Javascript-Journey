@@ -1,0 +1,193 @@
+/* Dark Mode Text Color Fixes
+   Ensures proper contrast for all components
+   Author: JavaScript Journey
+*/
+
+/* Fix lesson numbers - they have black background with white text in light mode */
+.lesson-number {
+    background-color: var(--primary-color) !important;
+    color: var(--bg-primary) !important;
+}
+
+/* Fix step numbers - same issue as lesson numbers */
+.step-number {
+    background-color: var(--primary-color) !important;
+    color: var(--bg-primary) !important;
+}
+
+/* Fix quiz option buttons */
+.quiz-option,
+.option-btn {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+.quiz-option:hover,
+.option-btn:hover {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* Fix exercise numbers if they exist */
+.exercise-number {
+    background-color: var(--primary-color) !important;
+    color: var(--bg-primary) !important;
+}
+
+/* Fix any badges or labels with primary background */
+.badge,
+.label,
+.tag {
+    background-color: var(--primary-color) !important;
+    color: var(--bg-primary) !important;
+}
+
+/* Fix code output sections */
+.code-output,
+.output-content,
+.console-output {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Fix info/warning/success boxes */
+.info-box,
+.warning-box,
+.success-box,
+.error-box {
+    color: var(--text-primary) !important;
+}
+
+/* Fix tooltip text */
+.tooltip-text {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Dark mode specific overrides */
+body.dark-theme .lesson-number,
+body.dark-theme .step-number,
+body.dark-theme .exercise-number {
+    background-color: var(--js-yellow) !important;
+    color: var(--js-black) !important;
+}
+
+body.dark-theme .quiz-option,
+body.dark-theme .option-btn {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+body.dark-theme .quiz-option:hover,
+body.dark-theme .option-btn:hover {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--js-yellow) !important;
+    border-color: var(--js-yellow) !important;
+}
+
+/* Fix selected/active states */
+body.dark-theme .quiz-option.selected,
+body.dark-theme .option-btn.selected,
+body.dark-theme .quiz-option.correct,
+body.dark-theme .option-btn.correct {
+    background-color: var(--success-color) !important;
+    color: white !important;
+    border-color: var(--success-color) !important;
+}
+
+body.dark-theme .quiz-option.incorrect,
+body.dark-theme .option-btn.incorrect {
+    background-color: var(--danger-color) !important;
+    color: white !important;
+    border-color: var(--danger-color) !important;
+}
+
+/* Fix any elements with inline styles using primary color */
+[style*="background-color: #000000"],
+[style*="background-color: black"] {
+    color: var(--js-yellow) !important;
+}
+
+[style*="color: white"],
+[style*="color: #ffffff"] {
+    color: var(--bg-primary) !important;
+}
+
+/* Ensure proper contrast for all text on colored backgrounds */
+.primary-bg,
+[class*="bg-primary"] {
+    background-color: var(--primary-color) !important;
+    color: var(--bg-primary) !important;
+}
+
+.secondary-bg,
+[class*="bg-secondary"] {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Fix progress indicators */
+.progress-indicator,
+.progress-step {
+    background-color: var(--primary-color) !important;
+    color: var(--bg-primary) !important;
+}
+
+body.dark-theme .progress-indicator,
+body.dark-theme .progress-step {
+    background-color: var(--js-yellow) !important;
+    color: var(--js-black) !important;
+}
+
+/* Fix card headers with primary background */
+.card-header,
+.section-header {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Fix navigation pills/tabs */
+.nav-pill,
+.nav-tab {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+.nav-pill.active,
+.nav-tab.active {
+    background-color: var(--primary-color) !important;
+    color: var(--bg-primary) !important;
+}
+
+body.dark-theme .nav-pill.active,
+body.dark-theme .nav-tab.active {
+    background-color: var(--js-yellow) !important;
+    color: var(--js-black) !important;
+}
+
+/* Fix boolean cards from lesson 4 */
+.boolean-card {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+.boolean-card.true-card {
+    border-color: var(--success-color) !important;
+}
+
+.boolean-card.false-card {
+    border-color: var(--danger-color) !important;
+}
+
+/* Fix any remaining white text on black backgrounds */
+body.dark-theme [style*="color: white"] {
+    color: var(--js-yellow) !important;
+}
+
+body.dark-theme [style*="background-color: white"] {
+    background-color: var(--js-black) !important;
+    color: var(--js-yellow) !important;
+}
