@@ -690,3 +690,32 @@ body {
 .hint-content.show {
     display: block;
 }
+
+/* Strong element spacing in content boxes */
+.info-box strong,
+.warning-box strong,
+.concept-card strong,
+.real-world-example strong,
+.mistake-box strong,
+.exercise-header strong,
+.summary-box strong {
+    display: inline-block;
+    margin-top: 0.25rem;
+}
+
+/* Heading spacing in content sections */
+.content-section > h1:first-child,
+.content-section > h2:first-child,
+.content-section > h3:first-child,
+.exercise-section > h1:first-child,
+.exercise-section > h2:first-child,
+.exercise-section > h3:first-child {
+    margin-top: 1.5rem;
+}
+
+/* Ensure consistent spacing for all headings that are first children */
+section > h1:first-child,
+section > h2:first-child,
+section > h3:first-child {
+    margin-top: 1.5rem;
+}

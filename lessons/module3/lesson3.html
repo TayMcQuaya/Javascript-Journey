@@ -45,14 +45,6 @@
     </nav>
 
     <main class="lesson-container">
-        <div class="breadcrumb">
-            <a href="../../index.html">Home</a>
-            <span class="separator">/</span>
-            <a href="index.html">Module 3: Operators & Expressions</a>
-            <span class="separator">/</span>
-            <span class="current">Lesson 3: Logical Operators</span>
-        </div>
-
         <article class="lesson-content">
             <div class="lesson-header">
                 <h1>Lesson 3: Logical Operators</h1>
@@ -71,9 +63,8 @@
                 <p>JavaScript has three logical operators that help you combine and manipulate boolean values:</p>
 
                 <div class="info-box">
-                    <i class="fas fa-project-diagram"></i>
                     <div>
-                        <strong>The Logic Toolkit:</strong>
+                        <i class="fas fa-project-diagram"></i> <strong> The Logic Toolkit:</strong>
                         <ul>
                             <li><code>&&</code> AND - Both conditions must be true</li>
                             <li><code>||</code> OR - At least one condition must be true</li>
@@ -129,8 +120,7 @@ console.log("!false:", !false); // true</textarea>
                 <p>The AND operator is perfect when ALL conditions must be met:</p>
 
                 <div class="real-world-example">
-                    <i class="fas fa-user-shield"></i>
-                    <h3>Example: Website Access Control</h3>
+                    <h3><i class="fas fa-user-shield"></i> Example: Website Access Control</h3>
                     <p>A user can access premium content if they are logged in AND have an active subscription.</p>
                 </div>
 
@@ -184,8 +174,7 @@ console.log("\nIs young adult?", isYoungAdult);</textarea>
                 <p>The OR operator is useful when ANY of the conditions being true is sufficient:</p>
 
                 <div class="real-world-example">
-                    <i class="fas fa-store"></i>
-                    <h3>Example: Store Hours</h3>
+                    <h3><i class="fas fa-store"></i> Example: Store Hours</h3>
                     <p>A store offers free shipping if the order is over $50 OR the customer is a VIP member.</p>
                 </div>
 
@@ -286,9 +275,8 @@ console.log("!!undefined:", !!undefined);     // false</textarea>
                 <p>You can combine logical operators to create complex conditions. Use parentheses to control the order:</p>
 
                 <div class="warning-box">
-                    <i class="fas fa-exclamation-triangle"></i>
                     <div>
-                        <strong>Operator Precedence:</strong>
+                        <i class="fas fa-exclamation-triangle"></i> <strong> Operator Precedence:</strong>
                         <p>NOT (!) has highest precedence, then AND (&&), then OR (||). Use parentheses to be explicit!</p>
                     </div>
                 </div>
@@ -408,8 +396,7 @@ console.log("Display score:", displayScore);</textarea>
 
             <section class="exercise-section">
                 <div class="exercise-header">
-                    <i class="fas fa-puzzle-piece"></i>
-                    <h3>Practice Exercise 1: Logic Puzzle</h3>
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Logic Puzzle</h3>
                 </div>
                 <div class="exercise-content">
                     <p>What is the result of: <code>(true || false) && !(false && true)</code></p>
@@ -425,8 +412,7 @@ console.log("Display score:", displayScore);</textarea>
 
             <section class="exercise-section">
                 <div class="exercise-header">
-                    <i class="fas fa-code"></i>
-                    <h3>Practice Exercise 2: Access Control</h3>
+                    <h3><i class="fas fa-code"></i> Practice Exercise 2: Access Control</h3>
                 </div>
                 <div class="exercise-content">
                     <p>Complete the code to implement proper access control:</p>
@@ -472,8 +458,7 @@ console.log("Final access granted?", finalAccess);</textarea>
 
             <section class="exercise-section">
                 <div class="exercise-header">
-                    <i class="fas fa-puzzle-piece"></i>
-                    <h3>Practice Exercise 3: Short-Circuit Value</h3>
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: Short-Circuit Value</h3>
                 </div>
                 <div class="exercise-content">
                     <p>What value is assigned to <code>result</code>?<br><code>let result = null || 0 || "default" || false;</code></p>
@@ -491,23 +476,20 @@ console.log("Final access granted?", finalAccess);</textarea>
                 <h2>Common Mistakes to Avoid</h2>
                 <div class="mistake-box">
                     <div class="mistake-item">
-                        <i class="fas fa-times-circle"></i>
                         <div>
-                            <strong>Confusing && and ||</strong>
+                            <i class="fas fa-times-circle"></i> <strong> Confusing && and ||</strong>
                             <p>Remember: && needs ALL true, || needs ANY true</p>
                         </div>
                     </div>
                     <div class="mistake-item">
-                        <i class="fas fa-times-circle"></i>
                         <div>
-                            <strong>Forgetting Operator Precedence</strong>
+                            <i class="fas fa-times-circle"></i> <strong> Forgetting Operator Precedence</strong>
                             <p>Use parentheses to make your intentions clear!</p>
                         </div>
                     </div>
                     <div class="mistake-item">
-                        <i class="fas fa-times-circle"></i>
                         <div>
-                            <strong>Not Understanding Truthy/Falsy</strong>
+                            <i class="fas fa-times-circle"></i> <strong> Not Understanding Truthy/Falsy</strong>
                             <p>Remember: 0, "", null, undefined, NaN are falsy</p>
                         </div>
                     </div>
@@ -529,6 +511,8 @@ console.log("Final access granted?", finalAccess);</textarea>
                 </div>
             </section>
 
+            <div style="margin: 2rem 0;"></div>
+            
             <div class="lesson-navigation">
                 <button class="btn btn-secondary" onclick="window.location.href='lesson2.html'">
                     <i class="fas fa-arrow-left"></i> Previous Lesson

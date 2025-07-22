@@ -112,6 +112,8 @@ When creating a new module/lesson:
 - `LESSON_PLAN.md` - Module progress tracker and technical notes
 - `UI_CONTENT_GUIDELINES.md` - Complete UI/UX standards and component guidelines
 - `COMPREHENSIVE_LESSON_PLAN.md` - Detailed curriculum for all 10 modules
+- `MODULE_PAGE_TEMPLATE.md` - Complete template and guidelines for creating module index pages
+- `LESSON_PAGE_TEMPLATE.md` - Complete template and guidelines for creating lesson pages with proper icon placement and spacing rules
 
 ## Important Patterns
 
