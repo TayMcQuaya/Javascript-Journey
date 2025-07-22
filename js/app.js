@@ -122,6 +122,15 @@ class App {
         this.currentModule = moduleId;
         Storage.save(Storage.KEYS.CURRENT_MODULE, moduleId);
         
+        // Show "coming soon" notification for modules 3-10
+        if (moduleId >= 3 && moduleId <= 10) {
+            customModal.alert('This module will be coming soon!', 'Coming Soon', {
+                icon: 'fas fa-clock',
+                confirmText: 'OK'
+            });
+            return;
+        }
+        
         window.location.href = `lessons/module${moduleId}/index.html`;
     }
 

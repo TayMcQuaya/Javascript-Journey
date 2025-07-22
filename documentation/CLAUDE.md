@@ -105,6 +105,7 @@ When creating a new module/lesson:
 - **Next Task**: Create Module 3 - Operators & Expressions
 - **Design System**: Fully established with yellow/black theme
 - **UI Components**: All standardized and documented
+- **Coming Soon Notice**: Modules 3-10 currently show a "coming soon" notification when clicked. To remove this once modules are implemented, edit the `startModule()` function in `js/app.js` and remove/modify the condition that checks for `moduleId >= 3 && moduleId <= 10`
 
 ## Key Documentation Files
 
