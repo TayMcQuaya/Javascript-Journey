@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 4: Ternary Operator - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <div class="lesson-header">
+                <h1>Lesson 4: Ternary Operator</h1>
+                <p class="lesson-subtitle">Write elegant conditional expressions in a single line</p>
+            </div>
+
+            <section class="content-section">
+                <h2>Introduction</h2>
+                <p>Sometimes you need a simple if-else decision, but writing 5 lines of code feels like overkill. Enter the ternary operator - JavaScript's shorthand for simple conditional expressions! It's called "ternary" because it takes three operands, making it the only JavaScript operator that does so.</p>
+                
+                <p>Think of the ternary operator as a compact way to choose between two values based on a condition. It's like asking a yes-or-no question and getting one answer if yes, another if no - all in one concise line!</p>
+            </section>
+
+            <section class="content-section">
+                <h2>Basic Ternary Syntax</h2>
+                <p>The ternary operator uses a question mark (?) and a colon (:) to create conditional expressions:</p>
+
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> The Ternary Pattern:</strong>
+                        <pre style="margin-top: 10px;">condition ? valueIfTrue : valueIfFalse</pre>
+                        <p style="margin-top: 10px;">Read it as: "Is condition true? If yes, use valueIfTrue, otherwise use valueIfFalse"</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Basic Ternary Examples</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">// Simple ternary operator
+let age = 20;
+let status = age >= 18 ? "adult" : "minor";
+console.log("Status:", status);
+
+// Compare with if-else
+let status2;
+if (age >= 18) {
+    status2 = "adult";
+} else {
+    status2 = "minor";
+}
+console.log("Same result with if-else:", status2);
+
+// More examples
+let score = 85;
+let grade = score >= 90 ? "A" : "B";
+console.log("\nScore:", score, "Grade:", grade);
+
+// Boolean example
+let isLoggedIn = true;
+let greeting = isLoggedIn ? "Welcome back!" : "Please log in";
+console.log("\n" + greeting);
+
+// Number comparison
+let temperature = 75;
+let weather = temperature > 70 ? "warm" : "cool";
+console.log("\nIt's", weather, "outside");
+
+// Direct output
+console.log("\nDirect usage:");
+console.log(10 > 5 ? "Ten is greater" : "Five is greater");</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Using Ternary for Assignments</h2>
+                <p>The ternary operator is perfect for conditional assignments - choosing what value to assign based on a condition:</p>
+
+                <div class="concept-card">
+                    <h3>Common Ternary Patterns:</h3>
+                    <ul>
+                        <li>Setting default values</li>
+                        <li>Conditional string building</li>
+                        <li>Choosing between two calculations</li>
+                        <li>Conditional function calls</li>
+                    </ul>
+                </div>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Conditional Assignments</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">// Setting default values
+let username = "";
+let displayName = username ? username : "Guest";
+console.log("Welcome,", displayName);
+
+// Even shorter with || operator
+let displayName2 = username || "Guest";
+console.log("Also works:", displayName2);
+
+// Conditional calculations
+let isMember = true;
+let price = 100;
+let finalPrice = isMember ? price * 0.9 : price;
+console.log("\nPrice: $" + finalPrice, isMember ? "(10% member discount)" : "(no discount)");
+
+// Pluralization
+let count = 1;
+let itemText = count === 1 ? "item" : "items";
+console.log("\nYou have", count, itemText);
+
+count = 5;
+itemText = count === 1 ? "item" : "items";
+console.log("You have", count, itemText);
+
+// Conditional styling
+let isError = false;
+let messageColor = isError ? "red" : "green";
+let icon = isError ? "❌" : "✅";
+console.log("\n" + icon + " Status:", messageColor);
+
+// Function selection
+let useMetric = true;
+let temperature2 = 20;
+let unit = useMetric ? "°C" : "°F";
+let convertedTemp = useMetric ? temperature2 : (temperature2 * 9/5) + 32;
+console.log("\nTemperature:", convertedTemp + unit);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Nested Ternary Operators</h2>
+                <p>You can chain ternary operators for multiple conditions, but be careful - readability matters!</p>
+
+                <div class="warning-box">
+                    <div>
+                        <i class="fas fa-exclamation-triangle"></i> <strong> Use Nested Ternaries Sparingly!</strong>
+                        <p>While possible, nested ternaries can quickly become hard to read. If you need more than 2 conditions, consider using if-else or switch instead.</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Nested Ternaries</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">// Simple nested ternary (still readable)
+let score = 85;
+let grade = score >= 90 ? "A" :
+            score >= 80 ? "B" :
+            score >= 70 ? "C" :
+            score >= 60 ? "D" : "F";
+
+console.log("Score:", score, "Grade:", grade);
+
+// Time-based greeting (formatted for readability)
+let hour = 14;
+let timeGreeting = hour < 12 ? "Good morning" :
+                   hour < 18 ? "Good afternoon" :
+                   hour < 22 ? "Good evening" : "Good night";
+
+console.log("\n" + timeGreeting + "!");
+
+// Age category (getting complex...)
+let age = 25;
+let ageGroup = age < 1 ? "baby" :
+               age < 4 ? "toddler" :
+               age < 13 ? "child" :
+               age < 20 ? "teenager" :
+               age < 60 ? "adult" : "senior";
+
+console.log("\nAge:", age, "Group:", ageGroup);
+
+// TOO COMPLEX - Don't do this!
+// This is hard to read and maintain
+let complexExample = true;
+let x = 5;
+let result = complexExample ? (x > 10 ? "big" : x > 5 ? "medium" : "small") : "none";
+console.log("\nOverly complex:", result);
+
+// Better approach for complex logic
+console.log("\nBetter approach:");
+if (!complexExample) {
+    console.log("none");
+} else if (x > 10) {
+    console.log("big");
+} else if (x > 5) {
+    console.log("medium");
+} else {
+    console.log("small");
+}</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Ternary in Different Contexts</h2>
+                <p>The ternary operator can be used in many places where expressions are expected:</p>
+
+                <div class="real-world-example">
+                    <h3><i class="fas fa-code"></i> Example: Dynamic UI Text</h3>
+                    <p>Using ternary operators to create dynamic user interface text and messages.</p>
+                </div>
+
+                <div class="code-editor" id="editor4">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Practical Uses</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor4')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor4')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor4-code">// In template strings
+let user = { name: "Alice", isPremium: true };
+let welcomeMsg = `Welcome ${user.isPremium ? "Premium Member" : "Guest"} ${user.name}!`;
+console.log(welcomeMsg);
+
+// Array methods
+let numbers = [1, 2, 3, 4, 5];
+let doubled = numbers.map(n => n % 2 === 0 ? n * 2 : n);
+console.log("\nOriginal:", numbers);
+console.log("Doubled evens:", doubled);
+
+// Object properties
+let theme = "dark";
+let config = {
+    backgroundColor: theme === "dark" ? "#000" : "#fff",
+    textColor: theme === "dark" ? "#fff" : "#000",
+    borderColor: theme === "dark" ? "#333" : "#ccc"
+};
+console.log("\nTheme config:", config);
+
+// Function arguments
+function greet(name, formal = false) {
+    console.log(formal ? `Good day, ${name}.` : `Hey ${name}!`);
+}
+
+greet("Bob", true);
+greet("Bob", false);
+
+// Shopping cart example
+let cartItems = 3;
+let shippingCost = cartItems > 0 ? (cartItems >= 5 ? 0 : 5) : 0;
+console.log(`\nCart has ${cartItems} ${cartItems === 1 ? "item" : "items"}`);
+console.log(`Shipping: $${shippingCost} ${shippingCost === 0 ? "(FREE!)" : ""}`);
+
+// Form validation message
+let email = "user@example";
+let isValidEmail = email.includes("@") && email.includes(".");
+let emailMessage = isValidEmail ? "✅ Email looks good!" : "❌ Please enter a valid email";
+console.log("\n" + emailMessage);
+
+// Game state
+let playerHealth = 30;
+let healthStatus = playerHealth > 70 ? "Healthy" :
+                   playerHealth > 30 ? "Injured" :
+                   playerHealth > 0 ? "Critical" : "Dead";
+let healthIcon = playerHealth > 70 ? "💚" :
+                 playerHealth > 30 ? "💛" :
+                 playerHealth > 0 ? "❤️" : "💀";
+console.log(`\nHealth: ${playerHealth} ${healthIcon} Status: ${healthStatus}`);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor4-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Ternary Best Practices</h2>
+                <p>While powerful, the ternary operator should be used wisely to maintain readable code:</p>
+
+                <div class="pro-tip">
+                    <h3><i class="fas fa-star"></i> Ternary Do's and Don'ts:</h3>
+                    <div style="display: flex; gap: 2rem;">
+                        <div>
+                            <h4>✅ DO:</h4>
+                            <ul>
+                                <li>Use for simple conditions</li>
+                                <li>Keep each part short</li>
+                                <li>Use for assignments</li>
+                                <li>Format nested ternaries clearly</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>❌ DON'T:</h4>
+                            <ul>
+                                <li>Nest more than 2 levels deep</li>
+                                <li>Use for complex logic</li>
+                                <li>Include side effects</li>
+                                <li>Sacrifice readability for brevity</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor5">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Best Practices</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor5')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor5')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor5-code">// GOOD: Simple, clear conditions
+let isWeekend = true;
+let dayType = isWeekend ? "weekend" : "weekday";
+console.log("Today is a", dayType);
+
+// GOOD: Short, readable values
+let score = 95;
+let result = score >= 70 ? "pass" : "fail";
+console.log("Result:", result);
+
+// BAD: Side effects in ternary
+let counter = 0;
+// Don't do this - ternary shouldn't have side effects
+// let bad = true ? counter++ : counter--;
+
+// GOOD: Use if-else for side effects
+if (true) {
+    counter++;
+} else {
+    counter--;
+}
+console.log("\nCounter:", counter);
+
+// BAD: Too complex
+let complexValue = 15;
+// This is hard to read:
+// let category = complexValue > 20 ? "high" : complexValue > 10 ? complexValue > 15 ? "medium-high" : "medium" : "low";
+
+// GOOD: Break down complex logic
+let category;
+if (complexValue > 20) {
+    category = "high";
+} else if (complexValue > 15) {
+    category = "medium-high";
+} else if (complexValue > 10) {
+    category = "medium";
+} else {
+    category = "low";
+}
+console.log("\nCategory:", category);
+
+// GOOD: Ternary in function returns
+function getDiscount(isMember, purchaseAmount) {
+    return isMember ? 
+        (purchaseAmount > 100 ? 0.20 : 0.10) : 
+        0;
+}
+
+console.log("\nMember $150 discount:", getDiscount(true, 150) * 100 + "%");
+console.log("Guest $150 discount:", getDiscount(false, 150) * 100 + "%");
+
+// GOOD: Clear formatting for nested ternaries
+let time = 15;
+let period = time < 6 ? "night" :
+             time < 12 ? "morning" :
+             time < 18 ? "afternoon" :
+             time < 22 ? "evening" : "night";
+
+console.log("\nTime period:", period);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor5-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Ternary Basics</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What value is assigned to `message`?</p>
+                    <pre>let age = 16;
+let message = age >= 18 ? "Can vote" : "Too young";</pre>
+                    <div class="exercise-options" id="exercise1">
+                        <button class="option-btn" data-answer="wrong">Can vote</button>
+                        <button class="option-btn" data-answer="correct">Too young</button>
+                        <button class="option-btn" data-answer="wrong">true</button>
+                        <button class="option-btn" data-answer="wrong">false</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-code"></i> Practice Exercise 2: Login Status</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Complete the ternary operator to display the correct button text:</p>
+                    <div class="code-editor" id="editor6">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Complete the Code</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('editor6')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise2()">
+                                    <i class="fas fa-check"></i> Check Answer
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor6-code">let isLoggedIn = false;
+let username = "Alice";
+
+// Complete the ternary operators:
+// If logged in: "Log Out"
+// If not logged in: "Log In"
+let buttonText = isLoggedIn ___ "Log Out" ___ "Log In";
+
+// If logged in: "Welcome, [username]!"  
+// If not logged in: "Welcome, Guest!"
+let welcomeText = isLoggedIn ? ___ : ___;
+
+console.log("Button:", buttonText);
+console.log(welcomeText);</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="editor6-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: Nested Ternary</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What will this nested ternary return if score = 75?</p>
+                    <pre>let grade = score >= 90 ? "A" :
+            score >= 80 ? "B" :
+            score >= 70 ? "C" : "F";</pre>
+                    <div class="exercise-options" id="exercise3">
+                        <button class="option-btn" data-answer="wrong">A</button>
+                        <button class="option-btn" data-answer="wrong">B</button>
+                        <button class="option-btn" data-answer="correct">C</button>
+                        <button class="option-btn" data-answer="wrong">F</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Forgetting the Colon</strong>
+                            <p>Remember: condition ? ifTrue : ifFalse - both ? and : are required!</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Over-Nesting</strong>
+                            <p>If you need more than 2-3 conditions, use if-else or switch instead.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Complex Expressions</strong>
+                            <p>Keep each part simple. If it doesn't fit on one line clearly, use if-else.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>The ternary operator is a concise way to write simple if-else logic</li>
+                        <li>Syntax: condition ? valueIfTrue : valueIfFalse</li>
+                        <li>Perfect for conditional assignments and simple decisions</li>
+                        <li>Can be nested, but keep it readable</li>
+                        <li>Use if-else for complex logic or side effects</li>
+                        <li>Always prioritize code readability over brevity</li>
+                    </ul>
+                </div>
+            </section>
+
+            <div style="margin: 2rem 0;"></div>
+            
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson3.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Module 4 <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='../module5/index.html'">
+                    Start Module 5 <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Exercise handlers
+        function checkExercise2() {
+            const code = document.getElementById('editor6-code').value;
+            const output = document.getElementById('editor6-output');
+            
+            // Check if the correct code is used
+            if (code.includes('isLoggedIn ? "Log Out" : "Log In"') && 
+                (code.includes('`Welcome, ${username}!`') || code.includes('"Welcome, " + username + "!"')) &&
+                (code.includes('"Welcome, Guest!"') || code.includes("'Welcome, Guest!'"))) {
+                // Run the code
+                try {
+                    // Fix the template literal or concatenation
+                    let correctedCode = code.replace(/___/g, '?').replace(/___/g, ':');
+                    if (correctedCode.includes('${username}')) {
+                        correctedCode = correctedCode.replace('___', '`Welcome, ${username}!`').replace('___', '"Welcome, Guest!"');
+                    } else {
+                        correctedCode = correctedCode.replace('___', '"Welcome, " + username + "!"').replace('___', '"Welcome, Guest!"');
+                    }
+                    
+                    const func = new Function(correctedCode);
+                    
+                    // Capture console output
+                    const oldLog = console.log;
+                    let result = '';
+                    console.log = function(...args) {
+                        result += args.join(' ') + '\n';
+                    };
+                    
+                    func();
+                    console.log = oldLog;
+                    
+                    output.textContent = result;
+                    output.style.color = 'var(--success-color)';
+                    customModal.success('Perfect! Your login status ternary operators are working correctly!', 'Success');
+                } catch (error) {
+                    output.textContent = 'Error: ' + error.message;
+                    output.style.color = 'var(--error-color)';
+                }
+            } else {
+                output.textContent = 'Not quite right. Remember:\n- Use ? and : for ternary\n- First: isLoggedIn ? "Log Out" : "Log In"\n- Second: Include the username in the welcome message when logged in';
+                output.style.color = 'var(--warning-color)';
+            }
+        }
+
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(4, 4, true);
+            customModal.success('Congratulations! You\'ve completed Module 4: Control Flow!', 'Module Complete! 🎉');
+            
+            app.createConfetti();
+            
+            setTimeout(() => {
+                window.location.href = '../module5/index.html';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

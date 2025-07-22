@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 1: If Statements - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <div class="lesson-header">
+                <h1>Lesson 1: If Statements</h1>
+                <p class="lesson-subtitle">Learn to make your code think and decide</p>
+            </div>
+
+            <section class="content-section">
+                <h2>Introduction</h2>
+                <p>Imagine you're a robot following instructions. So far, you've been following every instruction in order, no matter what. But what if you need to make a decision? What if you should only do something when it's raining, or when a user is logged in? That's where if statements come in!</p>
+                
+                <p>An if statement is like a bouncer at a club - it checks if a condition is met before allowing the code inside to run. It's the fundamental building block of decision-making in programming.</p>
+            </section>
+
+            <section class="content-section">
+                <h2>Basic If Statement</h2>
+                <p>The if statement has a simple structure: it checks a condition, and if that condition is true, it runs the code inside the curly braces.</p>
+
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> The If Statement Recipe:</strong>
+                        <pre style="margin-top: 10px;">if (condition) {
+    // Code to run if condition is true
+}</pre>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Basic If Examples</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">// Simple if statement
+let age = 18;
+
+if (age >= 18) {
+    console.log("You are an adult!");
+}
+
+// Another example
+let isRaining = true;
+
+if (isRaining) {
+    console.log("Don't forget your umbrella! ☔");
+}
+
+// Using comparison operators
+let score = 85;
+
+if (score > 80) {
+    console.log("Great job! You got a B or higher!");
+}
+
+// Checking equality
+let password = "secret123";
+
+if (password === "secret123") {
+    console.log("Access granted! Welcome!");
+}</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>If Statements with Expressions</h2>
+                <p>The condition in an if statement can be any expression that evaluates to true or false. You can use variables, comparisons, and even function calls!</p>
+
+                <div class="concept-card">
+                    <h3>What Makes a Condition?</h3>
+                    <ul>
+                        <li>Comparison expressions: <code>x > 5</code>, <code>name === "John"</code></li>
+                        <li>Boolean variables: <code>isLoggedIn</code>, <code>hasPermission</code></li>
+                        <li>Function calls that return boolean: <code>isValidEmail(email)</code></li>
+                        <li>Logical expressions: <code>age >= 18 && hasID</code></li>
+                    </ul>
+                </div>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Complex Conditions</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">// Using logical operators in conditions
+let temperature = 75;
+let isSunny = true;
+
+if (temperature > 70 && isSunny) {
+    console.log("Perfect weather for a picnic! 🌞");
+}
+
+// Checking multiple conditions
+let userAge = 25;
+let hasLicense = true;
+let hasInsurance = true;
+
+if (userAge >= 18 && hasLicense && hasInsurance) {
+    console.log("You can rent a car!");
+}
+
+// Using OR operator
+let day = "Saturday";
+
+if (day === "Saturday" || day === "Sunday") {
+    console.log("It's the weekend! Time to relax! 🎉");
+}
+
+// Negation with NOT operator
+let isWorkingDay = false;
+
+if (!isWorkingDay) {
+    console.log("No work today!");
+}</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Code Blocks and Scope</h2>
+                <p>The curly braces <code>{}</code> create a code block. Variables declared inside this block are only accessible within it - this is called "block scope".</p>
+
+                <div class="warning-box">
+                    <div>
+                        <i class="fas fa-exclamation-triangle"></i> <strong> Important: Always Use Braces!</strong>
+                        <p>While JavaScript allows single-line if statements without braces, always use them. It prevents bugs and makes code clearer.</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Code Blocks</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">// Multiple statements in an if block
+let accountBalance = 1500;
+let purchaseAmount = 200;
+
+if (accountBalance >= purchaseAmount) {
+    console.log("Processing purchase...");
+    accountBalance -= purchaseAmount;
+    console.log("Purchase complete!");
+    console.log("New balance: $" + accountBalance);
+}
+
+// Variables declared inside if block
+let temperature2 = 32;
+
+if (temperature2 <= 32) {
+    let warning = "⚠️ Freezing temperatures!";
+    let advice = "Roads may be icy.";
+    console.log(warning);
+    console.log(advice);
+}
+
+// This would cause an error - warning is not accessible here:
+// console.log(warning); // ReferenceError!
+
+// Empty if statement (valid but useless)
+if (true) {
+    // TODO: Add code here later
+}
+
+console.log("Program continues...");</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Real-World Examples</h2>
+                <p>Let's see how if statements work in practical scenarios you might encounter in real applications:</p>
+
+                <div class="real-world-example">
+                    <h3><i class="fas fa-user-shield"></i> Example: User Authentication</h3>
+                    <p>Checking if a user has the right credentials to access a system.</p>
+                </div>
+
+                <div class="code-editor" id="editor4">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Practical Examples</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor4')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor4')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor4-code">// Form validation
+let username = "john_doe";
+let email = "john@example.com";
+
+if (username.length >= 3) {
+    console.log("✓ Username is valid");
+}
+
+if (email.includes("@")) {
+    console.log("✓ Email format looks good");
+}
+
+// Game logic
+let playerHealth = 75;
+let maxHealth = 100;
+
+if (playerHealth < maxHealth) {
+    console.log("You're injured! Find a health pack!");
+}
+
+// Shopping cart
+let cartItems = 3;
+let isLoggedIn = true;
+
+if (cartItems > 0 && isLoggedIn) {
+    console.log("Ready to checkout!");
+}
+
+// Time-based greeting
+let hour = new Date().getHours();
+console.log("Current hour:", hour);
+
+if (hour < 12) {
+    console.log("Good morning! ☀️");
+}
+
+if (hour >= 12 && hour < 18) {
+    console.log("Good afternoon! 🌤️");
+}
+
+if (hour >= 18) {
+    console.log("Good evening! 🌙");
+}</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor4-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Nested If Statements</h2>
+                <p>You can put if statements inside other if statements. This is called "nesting" and allows you to check conditions that depend on other conditions.</p>
+
+                <div class="pro-tip">
+                    <h3><i class="fas fa-star"></i> Pro Tip: Avoid Deep Nesting</h3>
+                    <p>While nesting is powerful, too many levels make code hard to read. Try to keep nesting to 2-3 levels maximum.</p>
+                </div>
+
+                <div class="code-editor" id="editor5">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Nested If Statements</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor5')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor5')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor5-code">// ATM withdrawal example
+let accountBalance2 = 500;
+let withdrawAmount = 100;
+let isPinCorrect = true;
+let isCardValid = true;
+
+if (isCardValid) {
+    console.log("Card accepted ✓");
+    
+    if (isPinCorrect) {
+        console.log("PIN verified ✓");
+        
+        if (accountBalance2 >= withdrawAmount) {
+            console.log("Dispensing $" + withdrawAmount);
+            accountBalance2 -= withdrawAmount;
+            console.log("New balance: $" + accountBalance2);
+        }
+    }
+}
+
+// Movie ticket pricing
+let movieGoerAge = 15;
+let isStudent = true;
+let dayOfWeek = "Wednesday";
+
+if (dayOfWeek === "Wednesday") {
+    console.log("\n🎬 It's discount day!");
+    
+    if (movieGoerAge < 18) {
+        console.log("Youth pricing applies!");
+        
+        if (isStudent) {
+            console.log("Extra student discount!");
+            console.log("Ticket price: $6");
+        }
+    }
+}</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor5-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Age Checker</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What will this code output if <code>age = 16</code>?</p>
+                    <pre>if (age >= 18) {
+    console.log("You can vote!");
+}</pre>
+                    <div class="exercise-options" id="exercise1">
+                        <button class="option-btn" data-answer="wrong">"You can vote!"</button>
+                        <button class="option-btn" data-answer="correct">Nothing (no output)</button>
+                        <button class="option-btn" data-answer="wrong">undefined</button>
+                        <button class="option-btn" data-answer="wrong">Error</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-code"></i> Practice Exercise 2: Password Strength Checker</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Complete the code to check if a password is strong (at least 8 characters AND contains a number):</p>
+                    <div class="code-editor" id="editor6">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Complete the Code</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('editor6')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise2()">
+                                    <i class="fas fa-check"></i> Check Answer
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor6-code">let password = "MyPass123";
+
+// Check if password is at least 8 characters
+if (password.___ >= ___) {
+    console.log("✓ Password is long enough");
+    
+    // Check if password contains a number
+    if (/\d/.test(password)) {
+        console.log("✓ Password contains a number");
+        console.log("Strong password! 💪");
+    }
+}</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="editor6-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: Truthy or Falsy?</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Which of these if statements will execute their code block?</p>
+                    <div class="exercise-options" id="exercise3">
+                        <button class="option-btn" data-answer="wrong">if (0) { }</button>
+                        <button class="option-btn" data-answer="wrong">if ("") { }</button>
+                        <button class="option-btn" data-answer="correct">if ("hello") { }</button>
+                        <button class="option-btn" data-answer="wrong">if (null) { }</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Using = Instead of ===</strong>
+                            <p>Remember: = assigns values, === compares them! <code>if (x = 5)</code> will always be true!</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Forgetting Curly Braces</strong>
+                            <p>Always use braces, even for single lines. It prevents bugs when adding more code later.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Over-Nesting</strong>
+                            <p>Too many nested ifs make code hard to read. Consider restructuring or using early returns.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>If statements let your code make decisions based on conditions</li>
+                        <li>The condition must evaluate to true or false</li>
+                        <li>Always use curly braces {} to define the code block</li>
+                        <li>You can use any expression that returns a boolean as a condition</li>
+                        <li>If statements can be nested inside each other</li>
+                        <li>Variables declared inside an if block have block scope</li>
+                    </ul>
+                </div>
+            </section>
+
+            <div style="margin: 2rem 0;"></div>
+            
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='../module3/lesson4.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Module
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson2.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Exercise handlers
+        function checkExercise2() {
+            const code = document.getElementById('editor6-code').value;
+            const output = document.getElementById('editor6-output');
+            
+            // Check if the correct code is used
+            if (code.includes('password.length >= 8')) {
+                // Run the code
+                try {
+                    const func = new Function(code.replace(/___/g, 'length').replace(/___/g, '8'));
+                    
+                    // Capture console output
+                    const oldLog = console.log;
+                    let result = '';
+                    console.log = function(...args) {
+                        result += args.join(' ') + '\n';
+                    };
+                    
+                    func();
+                    console.log = oldLog;
+                    
+                    output.textContent = result;
+                    output.style.color = 'var(--success-color)';
+                    customModal.success('Excellent! Your password strength checker works perfectly!', 'Success');
+                } catch (error) {
+                    output.textContent = 'Error: ' + error.message;
+                    output.style.color = 'var(--error-color)';
+                }
+            } else {
+                output.textContent = 'Not quite right. Use password.length to get the length and compare it with >= 8';
+                output.style.color = 'var(--warning-color)';
+            }
+        }
+
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(4, 1, true);
+            customModal.success('Lesson completed! You\'ve mastered if statements!', 'Congratulations!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson2.html';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

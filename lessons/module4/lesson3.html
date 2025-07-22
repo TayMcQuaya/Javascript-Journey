@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3: Switch Statements - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <div class="lesson-header">
+                <h1>Lesson 3: Switch Statements</h1>
+                <p class="lesson-subtitle">Handle multiple choices with elegance and clarity</p>
+            </div>
+
+            <section class="content-section">
+                <h2>Introduction</h2>
+                <p>Imagine you're at a vending machine with 10 different drink options. Writing 10 else if statements would be tedious and hard to read. This is where switch statements shine! They provide a cleaner way to handle multiple specific values.</p>
+                
+                <p>A switch statement is like a more organized version of multiple if-else if statements. It's perfect when you need to compare one value against many possible matches, like menu selections, day of the week logic, or command processing.</p>
+            </section>
+
+            <section class="content-section">
+                <h2>Basic Switch Syntax</h2>
+                <p>The switch statement evaluates an expression and executes code based on matching cases:</p>
+
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> Switch Statement Structure:</strong>
+                        <pre style="margin-top: 10px;">switch (expression) {
+    case value1:
+        // Code for value1
+        break;
+    case value2:
+        // Code for value2
+        break;
+    default:
+        // Code if no match
+}</pre>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Basic Switch Examples</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">// Day of the week
+let day = 3;
+let dayName;
+
+switch (day) {
+    case 1:
+        dayName = "Monday";
+        break;
+    case 2:
+        dayName = "Tuesday";
+        break;
+    case 3:
+        dayName = "Wednesday";
+        break;
+    case 4:
+        dayName = "Thursday";
+        break;
+    case 5:
+        dayName = "Friday";
+        break;
+    case 6:
+        dayName = "Saturday";
+        break;
+    case 7:
+        dayName = "Sunday";
+        break;
+    default:
+        dayName = "Invalid day number";
+}
+
+console.log("Day " + day + " is " + dayName);
+
+// Simple menu selection
+let menuChoice = "B";
+
+switch (menuChoice) {
+    case "A":
+        console.log("\nYou selected: Hamburger 🍔");
+        break;
+    case "B":
+        console.log("\nYou selected: Pizza 🍕");
+        break;
+    case "C":
+        console.log("\nYou selected: Salad 🥗");
+        break;
+    default:
+        console.log("\nInvalid selection!");
+}</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>The Importance of Break</h2>
+                <p>The break statement is crucial in switch statements. Without it, execution "falls through" to the next case!</p>
+
+                <div class="warning-box">
+                    <div>
+                        <i class="fas fa-exclamation-triangle"></i> <strong> Don't Forget Break!</strong>
+                        <p>Without break, JavaScript continues executing the next case even if it doesn't match. This is called "fall-through" and is usually not what you want!</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Break vs Fall-through</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">// WITHOUT break - fall-through behavior
+let grade = 'B';
+
+console.log("WITHOUT break:");
+switch (grade) {
+    case 'A':
+        console.log("Excellent!");
+    case 'B':
+        console.log("Good job!");  // This runs
+    case 'C':
+        console.log("You passed!"); // This ALSO runs!
+    case 'D':
+        console.log("Needs improvement"); // This TOO!
+    default:
+        console.log("See teacher"); // And this!
+}
+
+// WITH break - proper behavior
+console.log("\n\nWITH break:");
+switch (grade) {
+    case 'A':
+        console.log("Excellent!");
+        break;
+    case 'B':
+        console.log("Good job!");  // Only this runs
+        break;
+    case 'C':
+        console.log("You passed!");
+        break;
+    case 'D':
+        console.log("Needs improvement");
+        break;
+    default:
+        console.log("See teacher");
+}
+
+// Intentional fall-through (grouping cases)
+let month = "June";
+
+console.log("\n\nSeason checker:");
+switch (month) {
+    case "December":
+    case "January":
+    case "February":
+        console.log(month + " is in Winter ❄️");
+        break;
+    case "March":
+    case "April":
+    case "May":
+        console.log(month + " is in Spring 🌸");
+        break;
+    case "June":
+    case "July":
+    case "August":
+        console.log(month + " is in Summer ☀️");
+        break;
+    case "September":
+    case "October":
+    case "November":
+        console.log(month + " is in Fall 🍂");
+        break;
+}</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Switch with Different Data Types</h2>
+                <p>Switch statements work with any data type, but remember they use strict equality (===) for comparisons:</p>
+
+                <div class="concept-card">
+                    <h3>Switch Uses Strict Comparison:</h3>
+                    <ul>
+                        <li>case "5" will NOT match the number 5</li>
+                        <li>case 5 will NOT match the string "5"</li>
+                        <li>Types must match exactly!</li>
+                    </ul>
+                </div>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Different Types</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">// String switch
+let color = "red";
+
+switch (color) {
+    case "red":
+        console.log("🔴 Stop!");
+        break;
+    case "yellow":
+        console.log("🟡 Caution!");
+        break;
+    case "green":
+        console.log("🟢 Go!");
+        break;
+    default:
+        console.log("Invalid traffic light color");
+}
+
+// Number vs String - Type matters!
+let userInput = "2";  // This is a string!
+
+console.log("\nType checking example:");
+switch (userInput) {
+    case 2:  // This is a number
+        console.log("Number 2");
+        break;
+    case "2":  // This is a string
+        console.log("String '2'");  // This matches!
+        break;
+}
+
+// Boolean switch
+let isOnline = true;
+
+console.log("\nConnection status:");
+switch (isOnline) {
+    case true:
+        console.log("🟢 Connected to internet");
+        break;
+    case false:
+        console.log("🔴 No internet connection");
+        break;
+}
+
+// Expression in switch
+let score = 85;
+
+console.log("\nGrade calculation:");
+switch (true) {  // Clever trick!
+    case score >= 90:
+        console.log("Grade: A");
+        break;
+    case score >= 80:
+        console.log("Grade: B");
+        break;
+    case score >= 70:
+        console.log("Grade: C");
+        break;
+    default:
+        console.log("Grade: F");
+}</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Real-World Examples</h2>
+                <p>Let's see how switch statements are used in practical applications:</p>
+
+                <div class="real-world-example">
+                    <h3><i class="fas fa-gamepad"></i> Example: Game Command System</h3>
+                    <p>Processing player commands in a text-based adventure game.</p>
+                </div>
+
+                <div class="code-editor" id="editor4">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Practical Applications</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor4')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor4')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor4-code">// Game command processor
+let command = "attack";
+let playerHealth = 100;
+let enemyHealth = 50;
+
+console.log("🎮 Game Command: " + command);
+console.log("---");
+
+switch (command.toLowerCase()) {
+    case "attack":
+        console.log("⚔️ You swing your sword!");
+        enemyHealth -= 20;
+        console.log("Enemy health: " + enemyHealth);
+        break;
+    
+    case "defend":
+        console.log("🛡️ You raise your shield!");
+        console.log("Damage reduced by 50%");
+        break;
+    
+    case "heal":
+        console.log("💊 You drink a healing potion!");
+        playerHealth = Math.min(playerHealth + 30, 100);
+        console.log("Your health: " + playerHealth);
+        break;
+    
+    case "run":
+        console.log("🏃 You flee from battle!");
+        break;
+    
+    case "help":
+        console.log("Available commands:");
+        console.log("- attack: Deal damage");
+        console.log("- defend: Reduce damage");
+        console.log("- heal: Restore health");
+        console.log("- run: Escape battle");
+        break;
+    
+    default:
+        console.log("❓ Unknown command. Type 'help' for options.");
+}
+
+// HTTP status code handler
+console.log("\n\n📡 HTTP Response Handler");
+let statusCode = 404;
+
+switch (statusCode) {
+    case 200:
+        console.log("✅ Success! Request completed.");
+        break;
+    
+    case 201:
+        console.log("✅ Created successfully!");
+        break;
+    
+    case 400:
+        console.log("❌ Bad Request - Check your data");
+        break;
+    
+    case 401:
+        console.log("🔒 Unauthorized - Please log in");
+        break;
+    
+    case 404:
+        console.log("🔍 Not Found - Page doesn't exist");
+        break;
+    
+    case 500:
+        console.log("💥 Server Error - We're working on it!");
+        break;
+    
+    default:
+        console.log("Status code: " + statusCode);
+}
+
+// Calculator operation
+console.log("\n\n🧮 Calculator");
+let num1 = 10;
+let num2 = 5;
+let operation = "*";
+
+console.log(num1 + " " + operation + " " + num2 + " = ?");
+
+switch (operation) {
+    case "+":
+        console.log("Result: " + (num1 + num2));
+        break;
+    case "-":
+        console.log("Result: " + (num1 - num2));
+        break;
+    case "*":
+        console.log("Result: " + (num1 * num2));
+        break;
+    case "/":
+        if (num2 !== 0) {
+            console.log("Result: " + (num1 / num2));
+        } else {
+            console.log("Error: Division by zero!");
+        }
+        break;
+    default:
+        console.log("Invalid operation!");
+}</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor4-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Switch vs If-Else</h2>
+                <p>When should you use switch instead of if-else? Here's a comparison:</p>
+
+                <div class="pro-tip">
+                    <h3><i class="fas fa-star"></i> When to Use Switch:</h3>
+                    <ul>
+                        <li>Comparing one value against many specific values</li>
+                        <li>All comparisons are equality checks (===)</li>
+                        <li>You have 3+ cases to check</li>
+                        <li>Cases are discrete values, not ranges</li>
+                    </ul>
+                </div>
+
+                <div class="code-editor" id="editor5">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Switch vs If-Else</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor5')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor5')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor5-code">// Good use of switch - specific values
+let fruit = "apple";
+
+switch (fruit) {
+    case "apple":
+        console.log("🍎 $0.50 each");
+        break;
+    case "banana":
+        console.log("🍌 $0.30 each");
+        break;
+    case "orange":
+        console.log("🍊 $0.60 each");
+        break;
+    case "grape":
+        console.log("🍇 $2.00 per bunch");
+        break;
+    default:
+        console.log("Fruit not in stock");
+}
+
+// Better with if-else - ranges
+let age = 25;
+
+console.log("\n\nAge group (better with if-else):");
+if (age < 13) {
+    console.log("Child");
+} else if (age < 20) {
+    console.log("Teenager");
+} else if (age < 60) {
+    console.log("Adult");
+} else {
+    console.log("Senior");
+}
+
+// Switch with multiple conditions per case
+let language = "es";
+
+console.log("\n\nLanguage greeting:");
+switch (language) {
+    case "en":
+    case "us":
+    case "uk":
+        console.log("Hello! 👋");
+        break;
+    
+    case "es":
+    case "mx":
+        console.log("¡Hola! 👋");
+        break;
+    
+    case "fr":
+    case "ca":
+        console.log("Bonjour! 👋");
+        break;
+    
+    case "de":
+    case "at":
+        console.log("Guten Tag! 👋");
+        break;
+    
+    default:
+        console.log("👋");
+}</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor5-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: What's the Output?</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What will this code output?</p>
+                    <pre>let x = "2";
+switch (x) {
+    case 2:
+        console.log("Number");
+        break;
+    case "2":
+        console.log("String");
+        break;
+}</pre>
+                    <div class="exercise-options" id="exercise1">
+                        <button class="option-btn" data-answer="wrong">Number</button>
+                        <button class="option-btn" data-answer="correct">String</button>
+                        <button class="option-btn" data-answer="wrong">Number String</button>
+                        <button class="option-btn" data-answer="wrong">No output</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-code"></i> Practice Exercise 2: Day Planner</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Complete the switch statement for a weekly planner:</p>
+                    <div class="code-editor" id="editor6">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Complete the Code</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('editor6')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise2()">
+                                    <i class="fas fa-check"></i> Check Answer
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor6-code">let dayOfWeek = "Monday";
+let activity;
+
+// Complete the switch statement
+// Monday: "Team meeting at 9 AM"
+// Friday: "Project deadline"
+// Weekend (Saturday/Sunday): "Relax!"
+// Other days: "Regular work day"
+
+switch (___) {
+    case "Monday":
+        activity = "Team meeting at 9 AM";
+        ___;
+    
+    case ___:
+        activity = "Project deadline";
+        break;
+    
+    case "Saturday":
+    case ___:
+        activity = "Relax!";
+        break;
+    
+    ___:
+        activity = "Regular work day";
+}
+
+console.log(dayOfWeek + ": " + activity);</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="editor6-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: Missing Break</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>If grade = "B" and we forgot the break statements, how many console.log statements will execute?</p>
+                    <pre>switch (grade) {
+    case "A":
+        console.log("Excellent!");
+    case "B":
+        console.log("Good!");
+    case "C":
+        console.log("Pass!");
+    default:
+        console.log("Study more!");
+}</pre>
+                    <div class="exercise-options" id="exercise3">
+                        <button class="option-btn" data-answer="wrong">1</button>
+                        <button class="option-btn" data-answer="wrong">2</button>
+                        <button class="option-btn" data-answer="correct">3</button>
+                        <button class="option-btn" data-answer="wrong">4</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Forgetting Break Statements</strong>
+                            <p>Always include break unless you intentionally want fall-through behavior.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Type Mismatches</strong>
+                            <p>Remember switch uses === comparison. "5" will not match 5!</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> No Default Case</strong>
+                            <p>Always include a default case to handle unexpected values.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>Switch statements are ideal for comparing one value against many specific values</li>
+                        <li>Always use break to prevent fall-through (unless intentional)</li>
+                        <li>Switch uses strict equality (===) for comparisons</li>
+                        <li>Multiple cases can share the same code block</li>
+                        <li>Always include a default case for unmatched values</li>
+                        <li>Switch is cleaner than many if-else statements for discrete values</li>
+                    </ul>
+                </div>
+            </section>
+
+            <div style="margin: 2rem 0;"></div>
+            
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson2.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson4.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Exercise handlers
+        function checkExercise2() {
+            const code = document.getElementById('editor6-code').value;
+            const output = document.getElementById('editor6-output');
+            
+            // Check if the correct code is used
+            if (code.includes('switch (dayOfWeek)') && 
+                code.includes('break;') && 
+                code.includes('case "Friday"') &&
+                code.includes('case "Sunday"') &&
+                code.includes('default:')) {
+                // Run the code
+                try {
+                    const correctedCode = code
+                        .replace(/switch \(___\)/, 'switch (dayOfWeek)')
+                        .replace(/___(?=;)/, 'break')
+                        .replace(/case ___:/, 'case "Friday":')
+                        .replace(/case ___:/, 'case "Sunday":')
+                        .replace(/___:/, 'default:');
+                    
+                    const func = new Function(correctedCode);
+                    
+                    // Capture console output
+                    const oldLog = console.log;
+                    let result = '';
+                    console.log = function(...args) {
+                        result += args.join(' ') + '\n';
+                    };
+                    
+                    func();
+                    console.log = oldLog;
+                    
+                    output.textContent = result;
+                    output.style.color = 'var(--success-color)';
+                    customModal.success('Excellent! Your day planner switch statement is perfect!', 'Success');
+                } catch (error) {
+                    output.textContent = 'Error: ' + error.message;
+                    output.style.color = 'var(--error-color)';
+                }
+            } else {
+                output.textContent = 'Not quite right. Remember:\n- switch (dayOfWeek)\n- Add break; after Monday case\n- case "Friday":\n- case "Sunday": (for weekend)\n- default: for other days';
+                output.style.color = 'var(--warning-color)';
+            }
+        }
+
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(4, 3, true);
+            customModal.success('Lesson completed! You\'ve mastered switch statements!', 'Congratulations!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson4.html';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

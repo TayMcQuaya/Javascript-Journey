@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2: Else and Else If - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <div class="lesson-header">
+                <h1>Lesson 2: Else and Else If</h1>
+                <p class="lesson-subtitle">Handle multiple paths and create complete decision trees</p>
+            </div>
+
+            <section class="content-section">
+                <h2>Introduction</h2>
+                <p>In the last lesson, you learned how to make your code do something IF a condition is true. But what if you want to do something different when the condition is false? Or what if you have multiple conditions to check? That's where else and else if come in!</p>
+                
+                <p>Think of it like choosing what to wear based on the weather. If it's raining, you wear a raincoat. Else if it's cold, you wear a jacket. Else (if it's neither), you wear a t-shirt. Your code can make these same kinds of multi-path decisions!</p>
+            </section>
+
+            <section class="content-section">
+                <h2>The Else Statement</h2>
+                <p>The else statement provides an alternative path when the if condition is false. It's like saying "if this, do that, otherwise do this other thing."</p>
+
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> The If-Else Pattern:</strong>
+                        <pre style="margin-top: 10px;">if (condition) {
+    // Code runs if condition is true
+} else {
+    // Code runs if condition is false
+}</pre>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Basic Else Examples</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">// Simple if-else
+let age = 16;
+
+if (age >= 18) {
+    console.log("You can vote! 🗳️");
+} else {
+    console.log("Sorry, you're too young to vote.");
+    console.log("You can vote in " + (18 - age) + " years!");
+}
+
+// Password check with else
+let password = "wrong123";
+
+if (password === "secret123") {
+    console.log("\n✅ Access granted!");
+} else {
+    console.log("\n❌ Access denied! Wrong password.");
+}
+
+// Boolean with else
+let isWeekend = false;
+
+if (isWeekend) {
+    console.log("\nTime to relax! 😎");
+} else {
+    console.log("\nTime to work! 💼");
+}
+
+// Using else for default values
+let userInput = "";
+
+if (userInput) {
+    console.log("\nHello, " + userInput + "!");
+} else {
+    console.log("\nHello, Guest!");
+}</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>The Else If Statement</h2>
+                <p>Sometimes you need to check multiple conditions in sequence. The else if statement lets you test additional conditions when the first if is false.</p>
+
+                <div class="concept-card">
+                    <h3>The Complete If-Else If-Else Chain:</h3>
+                    <pre>if (condition1) {
+    // Runs if condition1 is true
+} else if (condition2) {
+    // Runs if condition1 is false AND condition2 is true
+} else if (condition3) {
+    // Runs if condition1 and condition2 are false AND condition3 is true
+} else {
+    // Runs if all conditions are false
+}</pre>
+                </div>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Else If Examples</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">// Grade calculator
+let score = 85;
+
+if (score >= 90) {
+    console.log("Grade: A - Excellent! 🌟");
+} else if (score >= 80) {
+    console.log("Grade: B - Great job! 👍");
+} else if (score >= 70) {
+    console.log("Grade: C - Good work!");
+} else if (score >= 60) {
+    console.log("Grade: D - Keep trying!");
+} else {
+    console.log("Grade: F - Need to study more!");
+}
+
+// Time of day greeting
+let hour = 14; // 2 PM
+
+if (hour < 6) {
+    console.log("\nIt's very early morning 🌙");
+} else if (hour < 12) {
+    console.log("\nGood morning! ☀️");
+} else if (hour < 18) {
+    console.log("\nGood afternoon! 🌤️");
+} else if (hour < 22) {
+    console.log("\nGood evening! 🌆");
+} else {
+    console.log("\nGood night! 🌙");
+}
+
+// Temperature advice
+let temp = 75;
+
+if (temp > 90) {
+    console.log("\nIt's very hot! Stay hydrated! 🥵");
+} else if (temp > 70) {
+    console.log("\nNice weather! Perfect for outdoor activities! 😊");
+} else if (temp > 50) {
+    console.log("\nIt's cool. Maybe bring a light jacket. 🧥");
+} else if (temp > 32) {
+    console.log("\nIt's cold! Bundle up! 🧤");
+} else {
+    console.log("\nIt's freezing! Stay warm! ❄️");
+}</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Order Matters!</h2>
+                <p>When using else if statements, the order of conditions is crucial. JavaScript checks conditions from top to bottom and stops at the first true condition.</p>
+
+                <div class="warning-box">
+                    <div>
+                        <i class="fas fa-exclamation-triangle"></i> <strong> Watch the Order!</strong>
+                        <p>Always put more specific conditions first. If a general condition comes first, the specific ones will never be reached!</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Order Examples</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">// WRONG ORDER - General condition first
+let age1 = 65;
+
+if (age1 > 0) {
+    console.log("Person exists"); // This always runs first!
+} else if (age1 >= 65) {
+    console.log("Senior citizen"); // Never reached!
+} else if (age1 >= 18) {
+    console.log("Adult"); // Never reached!
+}
+
+console.log("\n--- Correct Order ---");
+
+// CORRECT ORDER - Specific conditions first
+let age2 = 65;
+
+if (age2 >= 65) {
+    console.log("Senior citizen discount available! 👴");
+} else if (age2 >= 18) {
+    console.log("Adult pricing");
+} else if (age2 >= 13) {
+    console.log("Teen pricing");
+} else if (age2 > 0) {
+    console.log("Child pricing");
+}
+
+// Another example with numbers
+let number = 100;
+
+console.log("\n--- Number Classification ---");
+if (number === 100) {
+    console.log("Perfect 100!");
+} else if (number >= 100) {
+    console.log("Greater than or equal to 100");
+} else if (number >= 50) {
+    console.log("Between 50 and 99");
+} else {
+    console.log("Less than 50");
+}</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Complex Decision Trees</h2>
+                <p>You can combine if, else if, and else to create complex decision trees that handle many different scenarios:</p>
+
+                <div class="real-world-example">
+                    <h3><i class="fas fa-shopping-cart"></i> Example: E-commerce Shipping</h3>
+                    <p>Calculate shipping costs based on order total, membership status, and location.</p>
+                </div>
+
+                <div class="code-editor" id="editor4">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Complex Decisions</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor4')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor4')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor4-code">// Shipping calculator
+let orderTotal = 45;
+let isPrimeMember = false;
+let isInternational = false;
+
+console.log("Order Total: $" + orderTotal);
+console.log("Prime Member: " + isPrimeMember);
+console.log("International: " + isInternational);
+console.log("---");
+
+if (isInternational) {
+    console.log("International shipping: $25");
+} else if (isPrimeMember) {
+    console.log("Free shipping for Prime members! 🎉");
+} else if (orderTotal >= 50) {
+    console.log("Free shipping on orders over $50!");
+} else if (orderTotal >= 25) {
+    console.log("Standard shipping: $5");
+} else {
+    console.log("Standard shipping: $10");
+}
+
+// Game difficulty selector
+console.log("\n--- Game Difficulty ---");
+let playerLevel = 25;
+let playerDeaths = 3;
+
+if (playerLevel < 10 && playerDeaths > 5) {
+    console.log("Suggested difficulty: EASY");
+    console.log("Tip: You seem to be struggling. Try easy mode!");
+} else if (playerLevel < 20) {
+    console.log("Suggested difficulty: NORMAL");
+} else if (playerLevel < 50) {
+    console.log("Suggested difficulty: HARD");
+} else if (playerLevel >= 50 && playerDeaths < 2) {
+    console.log("Suggested difficulty: NIGHTMARE");
+    console.log("You're a pro! 💪");
+} else {
+    console.log("Suggested difficulty: HARD");
+}
+
+// Restaurant recommendation
+console.log("\n--- Restaurant Finder ---");
+let budget = 30;
+let groupSize = 4;
+let wantsFastFood = false;
+
+if (wantsFastFood) {
+    console.log("🍔 Try the burger joint down the street!");
+} else if (budget < 15) {
+    console.log("🍕 Pizza place has great deals!");
+} else if (budget < 30 && groupSize <= 2) {
+    console.log("🍜 The ramen shop is perfect for couples!");
+} else if (budget >= 50 && groupSize > 4) {
+    console.log("🍽️ The steakhouse has group reservations!");
+} else {
+    console.log("🥘 The family restaurant is a safe choice!");
+}</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor4-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Nested If-Else Statements</h2>
+                <p>You can put if-else statements inside other if-else statements for more complex logic:</p>
+
+                <div class="code-editor" id="editor5">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Nested If-Else</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor5')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor5')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor5-code">// Movie theater age verification
+let age = 15;
+let hasParent = true;
+let movieRating = "PG-13";
+
+console.log("Movie Rating: " + movieRating);
+console.log("Customer Age: " + age);
+console.log("With Parent: " + hasParent);
+console.log("---");
+
+if (movieRating === "G") {
+    console.log("✅ Admission granted - All ages welcome!");
+} else if (movieRating === "PG") {
+    if (age >= 8) {
+        console.log("✅ Admission granted!");
+    } else if (hasParent) {
+        console.log("✅ Admission granted with parent!");
+    } else {
+        console.log("❌ Too young for PG without parent");
+    }
+} else if (movieRating === "PG-13") {
+    if (age >= 13) {
+        console.log("✅ Admission granted!");
+    } else if (hasParent) {
+        console.log("✅ Admission granted with parent!");
+    } else {
+        console.log("❌ Must be 13+ or with parent");
+    }
+} else if (movieRating === "R") {
+    if (age >= 17) {
+        console.log("✅ Admission granted!");
+    } else if (age >= 13 && hasParent) {
+        console.log("✅ Admission granted with parent!");
+    } else {
+        console.log("❌ Must be 17+ or 13+ with parent");
+    }
+}
+
+// Login system with multiple checks
+console.log("\n--- Login System ---");
+let username = "admin";
+let password = "admin123";
+let isAccountActive = true;
+let loginAttempts = 2;
+
+if (loginAttempts >= 3) {
+    console.log("🔒 Account locked! Too many attempts.");
+} else {
+    if (username === "admin" && password === "admin123") {
+        if (isAccountActive) {
+            console.log("✅ Welcome back, Admin!");
+        } else {
+            console.log("⚠️ Account is inactive. Contact support.");
+        }
+    } else {
+        console.log("❌ Invalid credentials!");
+        console.log("Attempts remaining: " + (3 - loginAttempts - 1));
+    }
+}</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor5-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Order of Execution</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Given this code with <code>score = 85</code>, what will be printed?</p>
+                    <pre>if (score >= 70) {
+    console.log("C");
+} else if (score >= 80) {
+    console.log("B");
+} else if (score >= 90) {
+    console.log("A");
+}</pre>
+                    <div class="exercise-options" id="exercise1">
+                        <button class="option-btn" data-answer="wrong">A</button>
+                        <button class="option-btn" data-answer="wrong">B</button>
+                        <button class="option-btn" data-answer="correct">C</button>
+                        <button class="option-btn" data-answer="wrong">B and C</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-code"></i> Practice Exercise 2: Temperature Converter</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Complete the code to categorize water temperature:</p>
+                    <div class="code-editor" id="editor6">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Complete the Code</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('editor6')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise2()">
+                                    <i class="fas fa-check"></i> Check Answer
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor6-code">let waterTemp = 150; // in Fahrenheit
+
+// Complete the conditions:
+// Below 32°F: "Frozen ❄️"
+// 32-211°F: "Liquid 💧"
+// Above 211°F: "Steam ♨️"
+
+if (waterTemp ___ 32) {
+    console.log("Water is: Frozen ❄️");
+} ___ if (waterTemp ___ 211) {
+    console.log("Water is: Liquid 💧");
+} ___ {
+    console.log("Water is: Steam ♨️");
+}</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="editor6-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: What's Missing?</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What should replace the ??? to handle all age groups correctly?</p>
+                    <pre>if (age < 13) {
+    console.log("Child");
+} ??? (age < 20) {
+    console.log("Teenager");
+} ??? {
+    console.log("Adult");
+}</pre>
+                    <div class="exercise-options" id="exercise3">
+                        <button class="option-btn" data-answer="wrong">if ... if</button>
+                        <button class="option-btn" data-answer="correct">else if ... else</button>
+                        <button class="option-btn" data-answer="wrong">else ... else if</button>
+                        <button class="option-btn" data-answer="wrong">else ... if</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Wrong Condition Order</strong>
+                            <p>Put specific conditions before general ones, or they'll never be reached!</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Missing Else</strong>
+                            <p>Always consider what happens when all conditions are false. Add an else for completeness.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Too Many Else Ifs</strong>
+                            <p>If you have many else ifs (5+), consider using a switch statement instead.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>The else statement provides an alternative when the if condition is false</li>
+                        <li>else if lets you check multiple conditions in sequence</li>
+                        <li>Only one block in an if-else if-else chain will execute</li>
+                        <li>Order matters - put specific conditions before general ones</li>
+                        <li>You can nest if-else statements for complex logic</li>
+                        <li>Always consider adding a final else for unhandled cases</li>
+                    </ul>
+                </div>
+            </section>
+
+            <div style="margin: 2rem 0;"></div>
+            
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson1.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson3.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Exercise handlers
+        function checkExercise2() {
+            const code = document.getElementById('editor6-code').value;
+            const output = document.getElementById('editor6-output');
+            
+            // Check if the correct code is used
+            if (code.includes('waterTemp < 32') && 
+                code.includes('else if (waterTemp <= 211') && 
+                code.includes('else {')) {
+                // Run the code
+                try {
+                    const func = new Function(code.replace(/___/g, '<').replace(/___/g, 'else').replace(/___/g, '<=').replace(/___/g, 'else'));
+                    
+                    // Capture console output
+                    const oldLog = console.log;
+                    let result = '';
+                    console.log = function(...args) {
+                        result += args.join(' ') + '\n';
+                    };
+                    
+                    func();
+                    console.log = oldLog;
+                    
+                    output.textContent = result;
+                    output.style.color = 'var(--success-color)';
+                    customModal.success('Perfect! Your water state checker is working correctly!', 'Success');
+                } catch (error) {
+                    output.textContent = 'Error: ' + error.message;
+                    output.style.color = 'var(--error-color)';
+                }
+            } else {
+                output.textContent = 'Not quite right. Remember:\n- Use < for "less than"\n- Use <= for "less than or equal"\n- Use "else if" and "else"';
+                output.style.color = 'var(--warning-color)';
+            }
+        }
+
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(4, 2, true);
+            customModal.success('Lesson completed! You\'ve mastered else and else if statements!', 'Congratulations!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson3.html';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
