@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2: Comparison Operators - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <div class="breadcrumb">
+            <a href="../../index.html">Home</a>
+            <span class="separator">/</span>
+            <a href="index.html">Module 3: Operators & Expressions</a>
+            <span class="separator">/</span>
+            <span class="current">Lesson 2: Comparison Operators</span>
+        </div>
+
+        <article class="lesson-content">
+            <div class="lesson-header">
+                <h1>Lesson 2: Comparison Operators</h1>
+                <p class="lesson-subtitle">Learn how to compare values and make decisions in your code</p>
+            </div>
+
+            <section class="content-section">
+                <h2>Introduction</h2>
+                <p>Comparison operators are like judges in your code - they look at two values and decide if a statement is true or false. These operators are the foundation of decision-making in programming!</p>
+                
+                <p>Imagine you're a bouncer at a club checking IDs. You need to compare each person's age with 21. That's exactly what comparison operators do - they help your program make decisions based on comparisons.</p>
+            </section>
+
+            <section class="content-section">
+                <h2>Basic Comparison Operators</h2>
+                <p>JavaScript has six basic comparison operators that always return a boolean value (true or false):</p>
+
+                <div class="info-box">
+                    <i class="fas fa-balance-scale"></i>
+                    <div>
+                        <strong>The Comparison Toolkit:</strong>
+                        <ul>
+                            <li><code>&gt;</code> Greater than</li>
+                            <li><code>&lt;</code> Less than</li>
+                            <li><code>&gt;=</code> Greater than or equal to</li>
+                            <li><code>&lt;=</code> Less than or equal to</li>
+                            <li><code>==</code> Equal to (loose equality)</li>
+                            <li><code>!=</code> Not equal to</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Basic Comparisons</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">// Greater than
+console.log("10 > 5:", 10 > 5);   // true
+console.log("3 > 8:", 3 > 8);     // false
+
+// Less than
+console.log("5 < 10:", 5 < 10);   // true
+console.log("15 < 10:", 15 < 10); // false
+
+// Greater than or equal to
+console.log("10 >= 10:", 10 >= 10); // true (equal counts!)
+console.log("11 >= 10:", 11 >= 10); // true
+console.log("9 >= 10:", 9 >= 10);   // false
+
+// Less than or equal to
+console.log("5 <= 5:", 5 <= 5);   // true
+console.log("4 <= 5:", 4 <= 5);   // true
+console.log("6 <= 5:", 6 <= 5);   // false</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Equality Operators: == vs ===</h2>
+                <p>JavaScript has two ways to check if values are equal, and understanding the difference is crucial!</p>
+
+                <div class="concept-card">
+                    <h3>Loose Equality (==) vs Strict Equality (===)</h3>
+                    <ul>
+                        <li><code>==</code> checks if values are equal after type conversion</li>
+                        <li><code>===</code> checks if values AND types are exactly the same</li>
+                        <li><code>!=</code> is the opposite of <code>==</code></li>
+                        <li><code>!==</code> is the opposite of <code>===</code></li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong>Best Practice:</strong>
+                        <p>Always use <code>===</code> and <code>!==</code> unless you specifically need type conversion. This prevents unexpected bugs!</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Equality Comparisons</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">// Loose equality (==) - performs type conversion
+console.log("5 == '5':", 5 == '5');       // true (string '5' converts to number 5)
+console.log("true == 1:", true == 1);     // true (true converts to 1)
+console.log("false == 0:", false == 0);   // true (false converts to 0)
+console.log("null == undefined:", null == undefined); // true (special case)
+
+console.log("\n--- Strict Equality ---");
+
+// Strict equality (===) - no type conversion
+console.log("5 === '5':", 5 === '5');     // false (different types)
+console.log("5 === 5:", 5 === 5);         // true (same type and value)
+console.log("true === 1:", true === 1);   // false (different types)
+console.log("null === undefined:", null === undefined); // false
+
+console.log("\n--- Not Equal ---");
+
+// Not equal comparisons
+console.log("5 != '5':", 5 != '5');       // false (they're equal after conversion)
+console.log("5 !== '5':", 5 !== '5');     // true (different types)</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Comparing Different Data Types</h2>
+                <p>When comparing different types, JavaScript follows specific rules. Understanding these helps avoid surprises!</p>
+
+                <div class="real-world-example">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Type Conversion in Action</h3>
+                    <p>When using relational operators (&lt;, &gt;, &lt;=, &gt;=), JavaScript converts values to numbers when possible.</p>
+                </div>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Type Comparisons</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">// String comparisons (alphabetical)
+console.log("'apple' < 'banana':", 'apple' < 'banana');  // true
+console.log("'10' < '2':", '10' < '2');    // true (compares character by character!)
+
+// Number vs String
+console.log("10 > '5':", 10 > '5');        // true (string '5' converts to number 5)
+console.log("'10' > 5:", '10' > 5);        // true (string '10' converts to number 10)
+
+// Special values
+console.log("\n--- Special Values ---");
+console.log("null > 0:", null > 0);        // false
+console.log("null == 0:", null == 0);      // false
+console.log("null >= 0:", null >= 0);      // true (weird JavaScript quirk!)
+
+console.log("\nundefined > 0:", undefined > 0);    // false
+console.log("undefined == 0:", undefined == 0);    // false
+console.log("undefined >= 0:", undefined >= 0);    // false
+
+// NaN comparisons (always false!)
+console.log("\nNaN == NaN:", NaN == NaN);          // false
+console.log("NaN === NaN:", NaN === NaN);          // false</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Practical Examples</h2>
+                <p>Let's see how comparison operators work in real-world scenarios:</p>
+
+                <div class="code-editor" id="editor4">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Real-World Examples</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor4')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor4')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor4-code">// Age verification
+let userAge = 25;
+let drinkingAge = 21;
+console.log("Can user drink?", userAge >= drinkingAge);
+
+// Password validation
+let password = "mySecret123";
+let confirmPassword = "mySecret123";
+console.log("Passwords match?", password === confirmPassword);
+
+// Shopping cart discount
+let cartTotal = 150;
+let discountThreshold = 100;
+console.log("Eligible for discount?", cartTotal > discountThreshold);
+
+// Game score comparison
+let playerScore = 2500;
+let highScore = 3000;
+console.log("New high score?", playerScore > highScore);
+
+// Temperature check
+let currentTemp = 72;
+let comfortableMin = 68;
+let comfortableMax = 76;
+console.log("Temperature comfortable?", 
+    currentTemp >= comfortableMin && currentTemp <= comfortableMax);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor4-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Chaining Comparisons</h2>
+                <p>You can combine multiple comparisons to create more complex conditions:</p>
+
+                <div class="code-editor" id="editor5">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Chained Comparisons</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor5')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor5')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor5-code">// Checking if a number is in a range
+let age = 15;
+let isTeenager = age >= 13 && age <= 19;
+console.log("Is teenager?", isTeenager);
+
+// Grade classification
+let score = 85;
+console.log("\nGrade classification:");
+console.log("A (90-100)?", score >= 90 && score <= 100);
+console.log("B (80-89)?", score >= 80 && score < 90);
+console.log("C (70-79)?", score >= 70 && score < 80);
+
+// Valid username check
+let username = "john_doe";
+let isValidLength = username.length >= 3 && username.length <= 20;
+let hasNoSpaces = !username.includes(" ");
+console.log("\nUsername validation:");
+console.log("Valid length?", isValidLength);
+console.log("No spaces?", hasNoSpaces);
+console.log("Valid username?", isValidLength && hasNoSpaces);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor5-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <h3>Practice Exercise 1: Equality Quiz</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Which comparison returns <code>true</code>?</p>
+                    <div class="exercise-options" id="exercise1">
+                        <button class="option-btn" data-answer="wrong">'5' === 5</button>
+                        <button class="option-btn" data-answer="correct">'5' == 5</button>
+                        <button class="option-btn" data-answer="wrong">null === undefined</button>
+                        <button class="option-btn" data-answer="wrong">NaN === NaN</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <i class="fas fa-code"></i>
+                    <h3>Practice Exercise 2: Password Validator</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Complete the password validation code:</p>
+                    <div class="code-editor" id="editor6">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Complete the Code</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('editor6')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise2()">
+                                    <i class="fas fa-check"></i> Check Answer
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor6-code">let password = "SecurePass123";
+let confirmPassword = "SecurePass123";
+
+// Check if passwords match (use strict equality)
+let passwordsMatch = password ___ confirmPassword;
+
+// Check if password length is at least 8 characters
+let isLongEnough = password.length ___ 8;
+
+// Check if password length is not more than 20 characters
+let isNotTooLong = password.length ___ 20;
+
+// All conditions must be true
+let isValidPassword = passwordsMatch && isLongEnough && isNotTooLong;
+
+console.log("Passwords match:", passwordsMatch);
+console.log("Long enough:", isLongEnough);
+console.log("Not too long:", isNotTooLong);
+console.log("Valid password:", isValidPassword);</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="editor6-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <h3>Practice Exercise 3: Type Comparison</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What is the result of: <code>10 > '9' && '2' > '10'</code></p>
+                    <div class="exercise-options" id="exercise3">
+                        <button class="option-btn" data-answer="correct">true</button>
+                        <button class="option-btn" data-answer="wrong">false</button>
+                        <button class="option-btn" data-answer="wrong">undefined</button>
+                        <button class="option-btn" data-answer="wrong">Error</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <i class="fas fa-times-circle"></i>
+                        <div>
+                            <strong>Using = Instead of == or ===</strong>
+                            <p>Remember: <code>=</code> assigns values, <code>==</code> and <code>===</code> compare them!</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <i class="fas fa-times-circle"></i>
+                        <div>
+                            <strong>Comparing with NaN</strong>
+                            <p>NaN is not equal to anything, including itself! Use <code>isNaN()</code> instead.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <i class="fas fa-times-circle"></i>
+                        <div>
+                            <strong>String Number Comparisons</strong>
+                            <p>Remember: <code>'10' < '2'</code> is true because strings compare character by character!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>Comparison operators always return <code>true</code> or <code>false</code></li>
+                        <li>Use <code>===</code> and <code>!==</code> for strict equality without type conversion</li>
+                        <li>Use <code>==</code> and <code>!=</code> only when you need type conversion</li>
+                        <li>Be careful when comparing different data types</li>
+                        <li>NaN is not equal to anything, including itself</li>
+                        <li>You can chain comparisons with logical operators (we'll learn these next!)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson1.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson3.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Exercise handlers
+        function checkExercise2() {
+            const code = document.getElementById('editor6-code').value;
+            const output = document.getElementById('editor6-output');
+            
+            // Check if the correct operators are used
+            if (code.includes('password === confirmPassword') && 
+                code.includes('password.length >= 8') && 
+                code.includes('password.length <= 20')) {
+                
+                // Run the corrected code
+                try {
+                    const func = new Function(code.replace(/___/g, '===').replace(/___/g, '>=').replace(/___/g, '<='));
+                    
+                    // Capture console output
+                    const oldLog = console.log;
+                    let result = '';
+                    console.log = function(...args) {
+                        result += args.join(' ') + '\n';
+                    };
+                    
+                    func();
+                    console.log = oldLog;
+                    
+                    output.textContent = result;
+                    output.style.color = 'var(--success-color)';
+                    customModal.success('Excellent! Your password validation logic is correct!', 'Success');
+                } catch (error) {
+                    output.textContent = 'Error: ' + error.message;
+                    output.style.color = 'var(--error-color)';
+                }
+            } else {
+                output.textContent = 'Not quite right. Remember:\n- Use === for strict equality\n- Use >= for "at least"\n- Use <= for "at most"';
+                output.style.color = 'var(--warning-color)';
+            }
+        }
+
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(3, 2, true);
+            customModal.success('Lesson completed! You\'ve mastered comparison operators!', 'Congratulations!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson3.html';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

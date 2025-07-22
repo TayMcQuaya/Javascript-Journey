@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 4: Assignment Operators - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <div class="breadcrumb">
+            <a href="../../index.html">Home</a>
+            <span class="separator">/</span>
+            <a href="index.html">Module 3: Operators & Expressions</a>
+            <span class="separator">/</span>
+            <span class="current">Lesson 4: Assignment Operators</span>
+        </div>
+
+        <article class="lesson-content">
+            <div class="lesson-header">
+                <h1>Lesson 4: Assignment Operators</h1>
+                <p class="lesson-subtitle">Learn efficient ways to update variable values</p>
+            </div>
+
+            <section class="content-section">
+                <h2>Introduction</h2>
+                <p>Assignment operators are the workhorses of programming - they update variable values. You've already met the basic assignment operator (=), but JavaScript offers many shorthand operators that make your code cleaner and more efficient.</p>
+                
+                <p>Think of assignment operators as shortcuts. Instead of saying "take the current value, add 5, then store it back," you can simply say "add 5 to this." It's like the difference between "I have 10 apples, plus 5 more apples, so now I have 15 apples" versus just "add 5 apples to my basket."</p>
+            </section>
+
+            <section class="content-section">
+                <h2>The Basic Assignment Operator (=)</h2>
+                <p>The equals sign (=) is the most fundamental assignment operator. It stores a value in a variable:</p>
+
+                <div class="info-box">
+                    <i class="fas fa-equals"></i>
+                    <div>
+                        <strong>Important Distinction:</strong>
+                        <ul>
+                            <li><code>=</code> assigns a value (stores it)</li>
+                            <li><code>==</code> compares values (checks equality)</li>
+                            <li><code>===</code> strictly compares values and types</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Basic Assignment</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">// Basic assignment
+let score = 100;
+console.log("Initial score:", score);
+
+// Reassigning values
+score = 150;
+console.log("New score:", score);
+
+// Assigning the result of an expression
+score = 100 + 50;
+console.log("Score after expression:", score);
+
+// Assigning from another variable
+let highScore = score;
+console.log("High score:", highScore);
+
+// Multiple assignments (right to left)
+let a, b, c;
+a = b = c = 10;
+console.log("\nMultiple assignment:", a, b, c);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Compound Assignment Operators</h2>
+                <p>Compound assignment operators combine an operation with assignment. They're shortcuts that make your code more concise:</p>
+
+                <div class="concept-card">
+                    <h3>The Compound Family:</h3>
+                    <ul>
+                        <li><code>+=</code> Addition assignment</li>
+                        <li><code>-=</code> Subtraction assignment</li>
+                        <li><code>*=</code> Multiplication assignment</li>
+                        <li><code>/=</code> Division assignment</li>
+                        <li><code>%=</code> Remainder assignment</li>
+                        <li><code>**=</code> Exponentiation assignment</li>
+                    </ul>
+                </div>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Compound Operators</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">// Addition assignment (+=)
+let total = 100;
+console.log("Starting total:", total);
+total += 50;  // Same as: total = total + 50
+console.log("After adding 50:", total);
+
+// Subtraction assignment (-=)
+let health = 100;
+health -= 30;  // Same as: health = health - 30
+console.log("\nHealth after damage:", health);
+
+// Multiplication assignment (*=)
+let doubleScore = 10;
+doubleScore *= 2;  // Same as: doubleScore = doubleScore * 2
+console.log("\nDouble score:", doubleScore);
+
+// Division assignment (/=)
+let half = 100;
+half /= 2;  // Same as: half = half / 2
+console.log("\nHalf value:", half);
+
+// Remainder assignment (%=)
+let remainder = 17;
+remainder %= 5;  // Same as: remainder = remainder % 5
+console.log("\nRemainder:", remainder);
+
+// Exponentiation assignment (**=)
+let power = 2;
+power **= 3;  // Same as: power = power ** 3
+console.log("\nPower result:", power);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Real-World Examples</h2>
+                <p>Let's see how assignment operators work in practical scenarios:</p>
+
+                <div class="real-world-example">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>Example: Shopping Cart</h3>
+                    <p>Managing quantities and totals in an e-commerce application.</p>
+                </div>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Shopping Cart Example</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">// Shopping cart management
+let cartTotal = 0;
+let itemCount = 0;
+
+console.log("🛒 Shopping Cart Demo");
+console.log("Initial cart:", cartTotal, "dollars,", itemCount, "items");
+
+// Add first item
+let shirtPrice = 29.99;
+cartTotal += shirtPrice;
+itemCount += 1;
+console.log("\nAdded shirt:", cartTotal.toFixed(2), "dollars,", itemCount, "items");
+
+// Add multiple items
+let socksPrice = 9.99;
+let socksQuantity = 3;
+cartTotal += socksPrice * socksQuantity;
+itemCount += socksQuantity;
+console.log("Added 3 pairs of socks:", cartTotal.toFixed(2), "dollars,", itemCount, "items");
+
+// Apply 20% discount
+cartTotal *= 0.8;  // Same as cartTotal = cartTotal * 0.8
+console.log("\nAfter 20% discount:", cartTotal.toFixed(2), "dollars");
+
+// Add tax (8%)
+cartTotal *= 1.08;  // Add 8% tax
+console.log("After tax:", cartTotal.toFixed(2), "dollars");</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Working with Strings</h2>
+                <p>The += operator is especially useful with strings for concatenation:</p>
+
+                <div class="code-editor" id="editor4">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">String Assignment</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor4')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor4')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor4-code">// Building strings with +=
+let message = "Hello";
+console.log("Initial message:", message);
+
+message += " ";
+message += "World";
+console.log("After concatenation:", message);
+
+// Building a story
+let story = "Once upon a time, ";
+story += "there was a brave programmer. ";
+story += "They learned JavaScript ";
+story += "and built amazing things!";
+console.log("\nStory:", story);
+
+// Creating HTML
+let html = "";
+html += "<div class='card'>";
+html += "  <h2>Product Name</h2>";
+html += "  <p>Price: $19.99</p>";
+html += "</div>";
+console.log("\nGenerated HTML:", html);
+
+// Building a list
+let todoList = "Todo: ";
+let tasks = ["Learn operators", "Practice coding", "Build projects"];
+for (let task of tasks) {
+    todoList += "\n- " + task;
+}
+console.log("\n" + todoList);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor4-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Increment and Decrement Operators</h2>
+                <p>JavaScript has special operators for adding or subtracting 1, which are very common operations:</p>
+
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong>Pre vs Post Increment:</strong>
+                        <p><code>++x</code> increments first, then returns the value<br>
+                        <code>x++</code> returns the value first, then increments</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor5">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Increment/Decrement</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor5')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor5')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor5-code">// Post-increment (x++)
+let counter = 0;
+console.log("Initial counter:", counter);
+console.log("counter++ returns:", counter++); // Shows 0, then increments
+console.log("Counter is now:", counter); // Now it's 1
+
+// Pre-increment (++x)
+let score = 0;
+console.log("\nInitial score:", score);
+console.log("++score returns:", ++score); // Increments first, shows 1
+console.log("Score is now:", score); // Still 1
+
+// Decrement operators
+let lives = 3;
+console.log("\nStarting lives:", lives);
+lives--; // Lose a life
+console.log("After losing one:", lives);
+--lives; // Lose another
+console.log("After losing another:", lives);
+
+// Practical example: Loop counter
+console.log("\nCounting down:");
+let countdown = 5;
+while (countdown > 0) {
+    console.log(countdown--); // Shows current value, then decrements
+}
+console.log("Blast off! 🚀");</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor5-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Logical Assignment Operators</h2>
+                <p>These newer operators combine logical operations with assignment (ES2021):</p>
+
+                <div class="concept-card">
+                    <h3>Logical Assignments:</h3>
+                    <ul>
+                        <li><code>||=</code> Assigns only if current value is falsy</li>
+                        <li><code>&&=</code> Assigns only if current value is truthy</li>
+                        <li><code>??=</code> Assigns only if current value is null/undefined</li>
+                    </ul>
+                </div>
+
+                <div class="code-editor" id="editor6">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Logical Assignments</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor6')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor6')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor6-code">// OR assignment (||=) - assigns if falsy
+let username = "";
+username ||= "Anonymous"; // Assigns because "" is falsy
+console.log("Username:", username);
+
+let existingUser = "John";
+existingUser ||= "Anonymous"; // Doesn't assign because "John" is truthy
+console.log("Existing user:", existingUser);
+
+// AND assignment (&&=) - assigns if truthy
+let premium = true;
+premium &&= false; // Assigns because premium was true
+console.log("\nPremium status:", premium);
+
+let guest = false;
+guest &&= true; // Doesn't assign because guest was false
+console.log("Guest status:", guest);
+
+// Nullish assignment (??=) - assigns if null/undefined
+let config = null;
+config ??= { theme: "dark" }; // Assigns because config is null
+console.log("\nConfig:", config);
+
+let port = 0;
+port ??= 3000; // Doesn't assign because 0 is not null/undefined
+console.log("Port:", port);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor6-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <h3>Practice Exercise 1: Quick Math</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>If <code>x = 10</code>, what is the value of <code>x</code> after: <code>x *= 2; x += 5; x /= 5;</code></p>
+                    <div class="exercise-options" id="exercise1">
+                        <button class="option-btn" data-answer="wrong">10</button>
+                        <button class="option-btn" data-answer="correct">5</button>
+                        <button class="option-btn" data-answer="wrong">25</button>
+                        <button class="option-btn" data-answer="wrong">4</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <i class="fas fa-code"></i>
+                    <h3>Practice Exercise 2: Game Score Tracker</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Complete the code to track a player's score in a game:</p>
+                    <div class="code-editor" id="editor7">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Complete the Code</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('editor7')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise2()">
+                                    <i class="fas fa-check"></i> Check Answer
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor7-code">let playerScore = 0;
+let combo = 1;
+
+// Player collects a coin (10 points)
+playerScore ___ 10;
+
+// Player defeats enemy (50 points)
+playerScore ___ 50;
+
+// Player gets hit (lose 20 points)
+playerScore ___ 20;
+
+// Combo multiplier doubles
+combo ___ 2;
+
+// Apply combo to score
+playerScore ___ combo;
+
+console.log("Final score:", playerScore);
+console.log("Combo multiplier:", combo);</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="editor7-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <h3>Practice Exercise 3: Pre vs Post Increment</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What does this code output?<br><code>let x = 5; console.log(x++ + ++x);</code></p>
+                    <div class="exercise-options" id="exercise3">
+                        <button class="option-btn" data-answer="wrong">10</button>
+                        <button class="option-btn" data-answer="wrong">11</button>
+                        <button class="option-btn" data-answer="correct">12</button>
+                        <button class="option-btn" data-answer="wrong">13</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <i class="fas fa-times-circle"></i>
+                        <div>
+                            <strong>Confusing = with == or ===</strong>
+                            <p>Remember: = assigns, == and === compare!</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <i class="fas fa-times-circle"></i>
+                        <div>
+                            <strong>Pre vs Post Increment Confusion</strong>
+                            <p>x++ returns current value then increments, ++x increments then returns new value</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <i class="fas fa-times-circle"></i>
+                        <div>
+                            <strong>Forgetting Operator Precedence</strong>
+                            <p>Assignment has very low precedence - calculations happen first</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>The = operator assigns values to variables</li>
+                        <li>Compound operators (+=, -=, etc.) combine operations with assignment</li>
+                        <li>++ and -- are shortcuts for adding or subtracting 1</li>
+                        <li>Pre-increment (++x) and post-increment (x++) behave differently</li>
+                        <li>Logical assignment operators (||=, &&=, ??=) conditionally assign values</li>
+                        <li>Assignment operators make code more concise and readable</li>
+                    </ul>
+                </div>
+            </section>
+
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson3.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Module 3 <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='../module4/index.html'">
+                    Start Module 4 <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Exercise handlers
+        function checkExercise2() {
+            const code = document.getElementById('editor7-code').value;
+            const output = document.getElementById('editor7-output');
+            
+            // Check if the correct operators are used
+            if (code.includes('playerScore += 10') && 
+                code.includes('playerScore += 50') && 
+                code.includes('playerScore -= 20') &&
+                code.includes('combo *= 2') &&
+                code.includes('playerScore *= combo')) {
+                
+                // Run the code
+                try {
+                    const func = new Function(code.replace(/___/g, '+=').replace(/___/g, '+=').replace(/___/g, '-=').replace(/___/g, '*=').replace(/___/g, '*='));
+                    
+                    // Capture console output
+                    const oldLog = console.log;
+                    let result = '';
+                    console.log = function(...args) {
+                        result += args.join(' ') + '\n';
+                    };
+                    
+                    func();
+                    console.log = oldLog;
+                    
+                    output.textContent = result;
+                    output.style.color = 'var(--success-color)';
+                    customModal.success('Excellent! Your game score tracking is perfect!', 'Success');
+                } catch (error) {
+                    output.textContent = 'Error: ' + error.message;
+                    output.style.color = 'var(--error-color)';
+                }
+            } else {
+                output.textContent = 'Not quite right. Remember:\n- Use += to add points\n- Use -= to subtract points\n- Use *= to multiply';
+                output.style.color = 'var(--warning-color)';
+            }
+        }
+
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(3, 4, true);
+            customModal.success('Congratulations! You\'ve completed Module 3: Operators & Expressions!', 'Module Complete! 🎉');
+            
+            app.createConfetti();
+            
+            setTimeout(() => {
+                window.location.href = '../module4/index.html';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3: Logical Operators - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <div class="breadcrumb">
+            <a href="../../index.html">Home</a>
+            <span class="separator">/</span>
+            <a href="index.html">Module 3: Operators & Expressions</a>
+            <span class="separator">/</span>
+            <span class="current">Lesson 3: Logical Operators</span>
+        </div>
+
+        <article class="lesson-content">
+            <div class="lesson-header">
+                <h1>Lesson 3: Logical Operators</h1>
+                <p class="lesson-subtitle">Combine conditions to create powerful decision-making logic</p>
+            </div>
+
+            <section class="content-section">
+                <h2>Introduction</h2>
+                <p>Logical operators are the glue that holds complex conditions together. They let you combine multiple comparisons to ask questions like "Is the user logged in AND has a premium account?" or "Is today Saturday OR Sunday?"</p>
+                
+                <p>Think of logical operators as the way you make decisions in real life. When deciding to go to the beach, you might think: "Is it sunny AND warm?" That's exactly how logical operators work in programming!</p>
+            </section>
+
+            <section class="content-section">
+                <h2>The Three Logical Operators</h2>
+                <p>JavaScript has three logical operators that help you combine and manipulate boolean values:</p>
+
+                <div class="info-box">
+                    <i class="fas fa-project-diagram"></i>
+                    <div>
+                        <strong>The Logic Toolkit:</strong>
+                        <ul>
+                            <li><code>&&</code> AND - Both conditions must be true</li>
+                            <li><code>||</code> OR - At least one condition must be true</li>
+                            <li><code>!</code> NOT - Reverses the boolean value</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Basic Logical Operations</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">// AND operator (&&) - both must be true
+console.log("true && true:", true && true);     // true
+console.log("true && false:", true && false);   // false
+console.log("false && true:", false && true);   // false
+console.log("false && false:", false && false); // false
+
+console.log("\n--- OR Operator ---");
+
+// OR operator (||) - at least one must be true
+console.log("true || true:", true || true);     // true
+console.log("true || false:", true || false);   // true
+console.log("false || true:", false || true);   // true
+console.log("false || false:", false || false); // false
+
+console.log("\n--- NOT Operator ---");
+
+// NOT operator (!) - reverses the value
+console.log("!true:", !true);   // false
+console.log("!false:", !false); // true</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Real-World Examples with AND (&&)</h2>
+                <p>The AND operator is perfect when ALL conditions must be met:</p>
+
+                <div class="real-world-example">
+                    <i class="fas fa-user-shield"></i>
+                    <h3>Example: Website Access Control</h3>
+                    <p>A user can access premium content if they are logged in AND have an active subscription.</p>
+                </div>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">AND Operator Examples</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">// Website access control
+let isLoggedIn = true;
+let hasSubscription = true;
+let canAccessPremium = isLoggedIn && hasSubscription;
+console.log("Can access premium content?", canAccessPremium);
+
+// Form validation
+let username = "john_doe";
+let password = "secret123";
+let isValidForm = username.length >= 3 && password.length >= 8;
+console.log("\nForm is valid?", isValidForm);
+
+// Weather conditions for outdoor event
+let temperature = 75;
+let isRaining = false;
+let goodWeather = temperature >= 70 && temperature <= 85 && !isRaining;
+console.log("\nGood weather for picnic?", goodWeather);
+
+// Age range check
+let age = 25;
+let isYoungAdult = age >= 18 && age <= 30;
+console.log("\nIs young adult?", isYoungAdult);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Real-World Examples with OR (||)</h2>
+                <p>The OR operator is useful when ANY of the conditions being true is sufficient:</p>
+
+                <div class="real-world-example">
+                    <i class="fas fa-store"></i>
+                    <h3>Example: Store Hours</h3>
+                    <p>A store offers free shipping if the order is over $50 OR the customer is a VIP member.</p>
+                </div>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">OR Operator Examples</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">// Free shipping conditions
+let orderTotal = 35;
+let isVipMember = true;
+let freeShipping = orderTotal > 50 || isVipMember;
+console.log("Gets free shipping?", freeShipping);
+
+// Weekend check
+let dayOfWeek = "Saturday";
+let isWeekend = dayOfWeek === "Saturday" || dayOfWeek === "Sunday";
+console.log("\nIs it weekend?", isWeekend);
+
+// Valid payment method
+let paymentMethod = "credit";
+let acceptedPayment = paymentMethod === "credit" || 
+                     paymentMethod === "debit" || 
+                     paymentMethod === "paypal";
+console.log("\nPayment method accepted?", acceptedPayment);
+
+// Emergency access
+let isAdmin = false;
+let isEmergency = true;
+let hasAccess = isAdmin || isEmergency;
+console.log("\nHas system access?", hasAccess);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>The NOT Operator (!)</h2>
+                <p>The NOT operator flips boolean values. It's like saying "opposite of" in everyday language:</p>
+
+                <div class="code-editor" id="editor4">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">NOT Operator Examples</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor4')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor4')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor4-code">// Basic NOT operations
+let isRaining = false;
+let isSunny = !isRaining;
+console.log("Is it sunny?", isSunny);
+
+// Checking if NOT logged in
+let isLoggedIn = false;
+if (!isLoggedIn) {
+    console.log("\nPlease log in to continue");
+}
+
+// Double NOT (!!) converts to boolean
+console.log("\n--- Double NOT Trick ---");
+console.log("!!'hello':", !!"hello");         // true (non-empty string)
+console.log("!!'':", !!"");                   // false (empty string)
+console.log("!!42:", !!42);                   // true (non-zero number)
+console.log("!!0:", !!0);                     // false (zero)
+console.log("!!null:", !!null);               // false
+console.log("!!undefined:", !!undefined);     // false</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor4-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Combining Multiple Operators</h2>
+                <p>You can combine logical operators to create complex conditions. Use parentheses to control the order:</p>
+
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong>Operator Precedence:</strong>
+                        <p>NOT (!) has highest precedence, then AND (&&), then OR (||). Use parentheses to be explicit!</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor5">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Complex Conditions</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor5')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor5')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor5-code">// Movie theater admission
+let age = 15;
+let hasAdultSupervision = true;
+let movieRating = "PG-13";
+
+// Can watch PG-13 if 13+ OR has adult supervision
+let canWatchMovie = (age >= 13) || (age < 13 && hasAdultSupervision);
+console.log("Can watch PG-13 movie?", canWatchMovie);
+
+// Restaurant booking system
+let isWeekend = true;
+let time = 19; // 7 PM in 24-hour format
+let partySize = 6;
+
+// Need reservation if: weekend OR dinner time (after 6pm) OR large party (6+)
+let needsReservation = isWeekend || time >= 18 || partySize >= 6;
+console.log("\nNeeds reservation?", needsReservation);
+
+// Online shopping discount
+let cartTotal = 75;
+let isFirstOrder = false;
+let hasPromoCode = true;
+let isMember = true;
+
+// Gets discount if: (over $100) OR (first order) OR (promo code AND member)
+let getsDiscount = cartTotal > 100 || isFirstOrder || (hasPromoCode && isMember);
+console.log("\nGets discount?", getsDiscount);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor5-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Short-Circuit Evaluation</h2>
+                <p>JavaScript uses "short-circuit" evaluation with logical operators. This can be very useful!</p>
+
+                <div class="concept-card">
+                    <h3>How Short-Circuit Works:</h3>
+                    <ul>
+                        <li><code>&&</code> stops at the first falsy value</li>
+                        <li><code>||</code> stops at the first truthy value</li>
+                        <li>This can prevent errors and improve performance</li>
+                    </ul>
+                </div>
+
+                <div class="code-editor" id="editor6">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Short-Circuit Examples</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor6')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor6')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor6-code">// AND short-circuits on first falsy value
+console.log("false && alert('This won\\'t run'):", false && alert('This won\'t run'));
+
+// OR short-circuits on first truthy value
+let username = "" || "Guest";
+console.log("Username:", username); // Uses "Guest" as default
+
+// Practical example: Safe property access
+let user = null;
+// This would error: user.name
+// But this is safe:
+let safeName = user && user.name;
+console.log("\nSafe name access:", safeName); // null, no error!
+
+// Default values with OR
+let userInput = "";
+let port = userInput || 3000;
+console.log("\nPort number:", port); // Uses 3000 as default
+
+// Guard clauses with AND
+let config = { apiKey: "secret123" };
+config && config.apiKey && console.log("\nAPI Key exists!");
+
+// Combining both
+let score = 0;
+let displayScore = score || "No score yet";
+console.log("Display score:", displayScore);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor6-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <h3>Practice Exercise 1: Logic Puzzle</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What is the result of: <code>(true || false) && !(false && true)</code></p>
+                    <div class="exercise-options" id="exercise1">
+                        <button class="option-btn" data-answer="correct">true</button>
+                        <button class="option-btn" data-answer="wrong">false</button>
+                        <button class="option-btn" data-answer="wrong">undefined</button>
+                        <button class="option-btn" data-answer="wrong">null</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <i class="fas fa-code"></i>
+                    <h3>Practice Exercise 2: Access Control</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Complete the code to implement proper access control:</p>
+                    <div class="code-editor" id="editor7">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Complete the Code</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('editor7')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise2()">
+                                    <i class="fas fa-check"></i> Check Answer
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor7-code">let userRole = "editor";
+let isActive = true;
+let hasPermission = false;
+
+// User can access if:
+// 1. They are admin OR
+// 2. They are editor AND account is active AND has permission
+let canAccess = userRole === "admin" ___ (userRole === "editor" ___ isActive ___ hasPermission);
+
+console.log("Can access system?", canAccess);
+
+// Also check if user is NOT banned
+let isBanned = false;
+let finalAccess = canAccess ___ ___isBanned;
+
+console.log("Final access granted?", finalAccess);</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="editor7-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <h3>Practice Exercise 3: Short-Circuit Value</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What value is assigned to <code>result</code>?<br><code>let result = null || 0 || "default" || false;</code></p>
+                    <div class="exercise-options" id="exercise3">
+                        <button class="option-btn" data-answer="wrong">null</button>
+                        <button class="option-btn" data-answer="wrong">0</button>
+                        <button class="option-btn" data-answer="correct">"default"</button>
+                        <button class="option-btn" data-answer="wrong">false</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <i class="fas fa-times-circle"></i>
+                        <div>
+                            <strong>Confusing && and ||</strong>
+                            <p>Remember: && needs ALL true, || needs ANY true</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <i class="fas fa-times-circle"></i>
+                        <div>
+                            <strong>Forgetting Operator Precedence</strong>
+                            <p>Use parentheses to make your intentions clear!</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <i class="fas fa-times-circle"></i>
+                        <div>
+                            <strong>Not Understanding Truthy/Falsy</strong>
+                            <p>Remember: 0, "", null, undefined, NaN are falsy</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li><code>&&</code> (AND) returns true only if both operands are true</li>
+                        <li><code>||</code> (OR) returns true if at least one operand is true</li>
+                        <li><code>!</code> (NOT) reverses the boolean value</li>
+                        <li>Logical operators use short-circuit evaluation</li>
+                        <li>Use parentheses to control complex logical expressions</li>
+                        <li>Understanding truthy/falsy values is crucial for logical operations</li>
+                    </ul>
+                </div>
+            </section>
+
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson2.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson4.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Exercise handlers
+        function checkExercise2() {
+            const code = document.getElementById('editor7-code').value;
+            const output = document.getElementById('editor7-output');
+            
+            // Check if the correct operators are used
+            if (code.includes('userRole === "admin" || (userRole === "editor" && isActive && hasPermission)') && 
+                code.includes('canAccess && !isBanned')) {
+                
+                // Run the corrected code
+                try {
+                    const correctedCode = code.replace(/___/g, '||').replace(/___/g, '&&').replace(/___/g, '&&').replace(/___/g, '&&').replace(/___/g, '!');
+                    const func = new Function(correctedCode);
+                    
+                    // Capture console output
+                    const oldLog = console.log;
+                    let result = '';
+                    console.log = function(...args) {
+                        result += args.join(' ') + '\n';
+                    };
+                    
+                    func();
+                    console.log = oldLog;
+                    
+                    output.textContent = result;
+                    output.style.color = 'var(--success-color)';
+                    customModal.success('Perfect! Your access control logic is correct!', 'Success');
+                } catch (error) {
+                    output.textContent = 'Error: ' + error.message;
+                    output.style.color = 'var(--error-color)';
+                }
+            } else {
+                output.textContent = 'Not quite right. Remember:\n- Use || for "OR" conditions\n- Use && for "AND" conditions\n- Use ! for "NOT"';
+                output.style.color = 'var(--warning-color)';
+            }
+        }
+
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(3, 3, true);
+            customModal.success('Lesson completed! You\'ve mastered logical operators!', 'Congratulations!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson4.html';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

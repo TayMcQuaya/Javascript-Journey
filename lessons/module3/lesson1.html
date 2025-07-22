@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 1: Arithmetic Operators - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <div class="breadcrumb">
+            <a href="../../index.html">Home</a>
+            <span class="separator">/</span>
+            <a href="index.html">Module 3: Operators & Expressions</a>
+            <span class="separator">/</span>
+            <span class="current">Lesson 1: Arithmetic Operators</span>
+        </div>
+
+        <article class="lesson-content">
+            <div class="lesson-header">
+                <h1>Lesson 1: Arithmetic Operators</h1>
+                <p class="lesson-subtitle">Learn to perform mathematical operations in JavaScript</p>
+            </div>
+
+            <section class="content-section">
+                <h2>Introduction</h2>
+                <p>Arithmetic operators are like the basic math operations you learned in school, but now you're using them to tell a computer how to calculate things! Just like a calculator, JavaScript can add, subtract, multiply, divide, and more.</p>
+                
+                <p>Think of arithmetic operators as the mathematical tools in your programming toolbox. Whether you're calculating a shopping cart total, determining game scores, or analyzing data, you'll use these operators constantly.</p>
+            </section>
+
+            <section class="content-section">
+                <h2>Basic Arithmetic Operators</h2>
+                <p>JavaScript has five basic arithmetic operators that work just like regular math:</p>
+
+                <div class="info-box">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <strong>The Basic Five:</strong>
+                        <ul>
+                            <li><code>+</code> Addition</li>
+                            <li><code>-</code> Subtraction</li>
+                            <li><code>*</code> Multiplication</li>
+                            <li><code>/</code> Division</li>
+                            <li><code>%</code> Modulus (remainder)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Basic Operations</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">// Addition
+let sum = 10 + 5;
+console.log("10 + 5 =", sum);
+
+// Subtraction
+let difference = 20 - 8;
+console.log("20 - 8 =", difference);
+
+// Multiplication
+let product = 6 * 7;
+console.log("6 * 7 =", product);
+
+// Division
+let quotient = 50 / 5;
+console.log("50 / 5 =", quotient);
+
+// Modulus (remainder)
+let remainder = 17 % 5;
+console.log("17 % 5 =", remainder); // 17 divided by 5 is 3 with remainder 2</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Order of Operations (PEMDAS)</h2>
+                <p>Just like in math class, JavaScript follows the order of operations. Remember PEMDAS?</p>
+                
+                <div class="concept-card">
+                    <h3>PEMDAS in JavaScript:</h3>
+                    <ul>
+                        <li><strong>P</strong>arentheses: <code>( )</code></li>
+                        <li><strong>E</strong>xponents: <code>**</code> (we'll learn this soon!)</li>
+                        <li><strong>M</strong>ultiplication: <code>*</code></li>
+                        <li><strong>D</strong>ivision: <code>/</code></li>
+                        <li><strong>A</strong>ddition: <code>+</code></li>
+                        <li><strong>S</strong>ubtraction: <code>-</code></li>
+                    </ul>
+                </div>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Order of Operations</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">// Without parentheses - follows PEMDAS
+let result1 = 5 + 3 * 2;
+console.log("5 + 3 * 2 =", result1); // Multiplication first: 5 + 6 = 11
+
+// With parentheses - changes the order
+let result2 = (5 + 3) * 2;
+console.log("(5 + 3) * 2 =", result2); // Addition first: 8 * 2 = 16
+
+// More complex example
+let result3 = 100 / 5 * 2 + 10 - 3;
+console.log("100 / 5 * 2 + 10 - 3 =", result3);
+console.log("Step by step:");
+console.log("100 / 5 = 20");
+console.log("20 * 2 = 40");
+console.log("40 + 10 = 50");
+console.log("50 - 3 = 47");</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>The Modulus Operator (%)</h2>
+                <p>The modulus operator might be new to you. It gives you the remainder after division. This is incredibly useful for many programming tasks!</p>
+
+                <div class="real-world-example">
+                    <i class="fas fa-store"></i>
+                    <h3>Real-World Example: Egg Cartons</h3>
+                    <p>If you have 17 eggs and egg cartons hold 6 eggs each, how many eggs are left over?</p>
+                    <p><code>17 % 6 = 5</code> (You'll have 5 eggs that don't fit in a complete carton)</p>
+                </div>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Modulus in Action</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">// Checking if a number is even or odd
+let number1 = 14;
+let number2 = 15;
+
+console.log(number1 + " % 2 =", number1 % 2); // 0 means even
+console.log(number2 + " % 2 =", number2 % 2); // 1 means odd
+
+// Real-world example: Time conversion
+let totalMinutes = 150;
+let hours = Math.floor(totalMinutes / 60);
+let minutes = totalMinutes % 60;
+
+console.log("\n" + totalMinutes + " minutes is:");
+console.log(hours + " hours and " + minutes + " minutes");
+
+// Finding the last digit of a number
+let bigNumber = 12345;
+let lastDigit = bigNumber % 10;
+console.log("\nThe last digit of " + bigNumber + " is " + lastDigit);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Advanced Operators</h2>
+                <p>JavaScript also includes some advanced arithmetic operators:</p>
+
+                <div class="concept-card">
+                    <h3>Exponentiation (**)</h3>
+                    <p>The exponentiation operator raises a number to a power. It's like multiplication, but repeated!</p>
+                </div>
+
+                <div class="code-editor" id="editor4">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Exponentiation</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor4')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor4')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor4-code">// Exponentiation: base ** exponent
+let squared = 5 ** 2; // 5 to the power of 2
+console.log("5 ** 2 =", squared);
+
+let cubed = 3 ** 3; // 3 to the power of 3
+console.log("3 ** 3 =", cubed);
+
+// Real-world example: Compound interest
+let principal = 1000; // Starting amount
+let rate = 1.05; // 5% interest
+let years = 3;
+
+let finalAmount = principal * (rate ** years);
+console.log("\nAfter " + years + " years, $" + principal + " becomes:");
+console.log("$" + finalAmount.toFixed(2));</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor4-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Working with Different Data Types</h2>
+                <p>Arithmetic operators work differently with different data types. Let's explore!</p>
+
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong>Watch Out!</strong>
+                        <p>The <code>+</code> operator behaves differently with strings. It concatenates (joins) them instead of adding!</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor5">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Mixed Types</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor5')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor5')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor5-code">// Number + Number = Addition
+console.log("5 + 3 =", 5 + 3);
+
+// String + String = Concatenation
+console.log("'5' + '3' =", '5' + '3');
+
+// Number + String = Concatenation (converts number to string)
+console.log("5 + '3' =", 5 + '3');
+
+// But other operators convert strings to numbers!
+console.log("\n'10' - 3 =", '10' - 3);
+console.log("'6' * '2' =", '6' * '2');
+console.log("'20' / '4' =", '20' / '4');
+
+// Special case: NaN (Not a Number)
+console.log("\n'hello' * 5 =", 'hello' * 5);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor5-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <h3>Practice Exercise 1: Calculate the Bill</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>A restaurant bill comes to $85.50. If you want to leave a 20% tip, what's the total amount you'll pay?</p>
+                    <div class="exercise-options" id="exercise1">
+                        <button class="option-btn" data-answer="wrong">$95.50</button>
+                        <button class="option-btn" data-answer="correct">$102.60</button>
+                        <button class="option-btn" data-answer="wrong">$105.50</button>
+                        <button class="option-btn" data-answer="wrong">$100.00</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <i class="fas fa-code"></i>
+                    <h3>Practice Exercise 2: Time Converter</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Complete the code to convert 4567 seconds into hours, minutes, and seconds:</p>
+                    <div class="code-editor" id="editor6">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Complete the Code</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('editor6')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise2()">
+                                    <i class="fas fa-check"></i> Check Answer
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="editor6-code">let totalSeconds = 4567;
+
+// Calculate hours (hint: 3600 seconds in an hour)
+let hours = Math.floor(totalSeconds / ____);
+
+// Calculate remaining minutes (hint: use modulus then divide by 60)
+let minutes = Math.floor((totalSeconds % ____) / ____);
+
+// Calculate remaining seconds
+let seconds = totalSeconds % ____;
+
+console.log(totalSeconds + " seconds is:");
+console.log(hours + " hour(s), " + minutes + " minute(s), and " + seconds + " second(s)");</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="editor6-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <h3>Practice Exercise 3: Order of Operations</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What is the result of: <code>2 + 3 * 4 ** 2 / 8 - 1</code></p>
+                    <div class="exercise-options" id="exercise3">
+                        <button class="option-btn" data-answer="wrong">10</button>
+                        <button class="option-btn" data-answer="wrong">5</button>
+                        <button class="option-btn" data-answer="correct">7</button>
+                        <button class="option-btn" data-answer="wrong">20</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <i class="fas fa-times-circle"></i>
+                        <div>
+                            <strong>Forgetting Order of Operations</strong>
+                            <p>Always remember PEMDAS! Use parentheses when in doubt.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <i class="fas fa-times-circle"></i>
+                        <div>
+                            <strong>Division by Zero</strong>
+                            <p>Dividing by zero gives <code>Infinity</code> in JavaScript, not an error!</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <i class="fas fa-times-circle"></i>
+                        <div>
+                            <strong>String Concatenation vs Addition</strong>
+                            <p>Remember: <code>'5' + 3 = '53'</code> not <code>8</code>!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>JavaScript has 5 basic arithmetic operators: +, -, *, /, %</li>
+                        <li>The modulus operator (%) gives you the remainder after division</li>
+                        <li>JavaScript follows PEMDAS order of operations</li>
+                        <li>The ** operator is used for exponentiation</li>
+                        <li>Be careful with the + operator and strings - it concatenates!</li>
+                    </ul>
+                </div>
+            </section>
+
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='index.html'">
+                    <i class="fas fa-arrow-left"></i> Back to Module
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson2.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Exercise handlers
+        function checkExercise2() {
+            const code = document.getElementById('editor6-code').value;
+            const output = document.getElementById('editor6-output');
+            
+            // Check if the blanks are filled correctly
+            if (code.includes('3600') && code.includes('60') && 
+                code.match(/totalSeconds % 3600/g) && 
+                code.match(/totalSeconds % 60/g)) {
+                // Run the corrected code
+                try {
+                    const func = new Function(code.replace(/____/g, '3600').replace(/____/g, '60').replace(/____/g, '60'));
+                    
+                    // Capture console output
+                    const oldLog = console.log;
+                    let result = '';
+                    console.log = function(...args) {
+                        result += args.join(' ') + '\n';
+                    };
+                    
+                    func();
+                    console.log = oldLog;
+                    
+                    output.textContent = result;
+                    output.style.color = 'var(--success-color)';
+                    customModal.success('Perfect! You correctly converted seconds to hours, minutes, and seconds!', 'Success');
+                } catch (error) {
+                    output.textContent = 'Error: ' + error.message;
+                    output.style.color = 'var(--error-color)';
+                }
+            } else {
+                output.textContent = 'Not quite right. Remember:\n- 3600 seconds in an hour\n- 60 seconds in a minute\n- Use modulus to get remainders';
+                output.style.color = 'var(--warning-color)';
+            }
+        }
+
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(3, 1, true);
+            customModal.success('Lesson completed! Great work mastering arithmetic operators!', 'Congratulations!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson2.html';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
