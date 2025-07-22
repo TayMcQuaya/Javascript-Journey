@@ -137,3 +137,65 @@ When creating a new module/lesson:
    - Previous Module: Only on first lesson of module 2+
    - Next Module: Only on last lesson of each module
    - Complete Module: Replace "Complete Lesson" on last lesson
+
+5. **Interactive Code Editors**:
+   - Every lesson with code editors MUST include `runCode` and `copyCode` functions in the script section
+   - These functions should be defined before any other custom functions (like completeLesson)
+   - Standard implementation:
+     ```javascript
+     // Run code function
+     function runCode(editorId) {
+         const codeInput = document.getElementById(`${editorId}-code`);
+         const outputPane = document.getElementById(`${editorId}-output`);
+         
+         if (!codeInput || !outputPane) return;
+         
+         const code = codeInput.value;
+         outputPane.innerHTML = '';
+         
+         const originalConsoleLog = console.log;
+         const logs = [];
+         
+         console.log = (...args) => {
+             logs.push(args.map(arg => {
+                 if (typeof arg === 'object') {
+                     return JSON.stringify(arg, null, 2);
+                 }
+                 return String(arg);
+             }).join(' '));
+         };
+         
+         try {
+             eval(code);
+             
+             if (logs.length > 0) {
+                 outputPane.textContent = logs.join('\n');
+                 outputPane.style.color = 'var(--text-primary)';
+             } else {
+                 outputPane.textContent = 'No output';
+                 outputPane.style.color = 'var(--text-secondary)';
+             }
+         } catch (error) {
+             outputPane.textContent = 'Error: ' + error.message;
+             outputPane.style.color = 'var(--error-color)';
+         } finally {
+             console.log = originalConsoleLog;
+         }
+     }
+
+     // Copy code function
+     function copyCode(editorId) {
+         const codeInput = document.getElementById(`${editorId}-code`);
+         if (!codeInput) return;
+         
+         codeInput.select();
+         codeInput.setSelectionRange(0, 99999); // For mobile devices
+         
+         try {
+             document.execCommand('copy');
+             customModal.success('Code copied to clipboard!', 'Copied');
+         } catch (err) {
+             customModal.error('Failed to copy code', 'Error');
+         }
+     }
+     ```
