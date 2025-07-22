@@ -170,10 +170,10 @@ When creating a new module/lesson:
              
              if (logs.length > 0) {
                  outputPane.textContent = logs.join('\n');
-                 outputPane.style.color = 'var(--text-primary)';
+                 outputPane.style.color = 'var(--js-yellow)';
              } else {
                  outputPane.textContent = 'No output';
-                 outputPane.style.color = 'var(--text-secondary)';
+                 outputPane.style.color = 'var(--js-yellow)';
              }
          } catch (error) {
              outputPane.textContent = 'Error: ' + error.message;
