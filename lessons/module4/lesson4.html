@@ -596,7 +596,7 @@ console.log(welcomeText);</textarea>
                     Complete Module 4 <i class="fas fa-check"></i>
                 </button>
                 
-                <button class="btn btn-secondary" onclick="window.location.href='../module5/index.html'">
+                <button class="btn btn-secondary" onclick="app.startNextModule(4)">
                     Start Module 5 <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
@@ -794,9 +794,8 @@ console.log(welcomeText);</textarea>
             
             app.createConfetti();
             
-            setTimeout(() => {
-                window.location.href = '../module5/index.html';
-            }, 3000);
+            // Don't auto-redirect to unimplemented modules
+            // User must click "Start Module 5" button which will show coming soon modal
         }
     </script>
 </body>

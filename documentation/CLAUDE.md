@@ -101,11 +101,17 @@ When creating a new module/lesson:
 
 ## Current Status & Next Steps
 
-- **Completed**: Modules 1-2 (9 lessons total)
-- **Next Task**: Create Module 3 - Operators & Expressions
+- **Completed**: Modules 1-4 (16 lessons total)
+- **Next Task**: Create Module 5 - Functions
 - **Design System**: Fully established with yellow/black theme
 - **UI Components**: All standardized and documented
-- **Coming Soon Notice**: Modules 3-10 currently show a "coming soon" notification when clicked. To remove this once modules are implemented, edit the `startModule()` function in `js/app.js` and remove/modify the condition that checks for `moduleId >= 3 && moduleId <= 10`
+- **Coming Soon Notice**: 
+  - **Home Page**: Modules 5-10 currently show a "coming soon" notification when clicked from the home page
+  - **Last Lesson Navigation**: The last lesson of the most recently implemented module (currently Module 4) uses `app.startNextModule()` to show the same "coming soon" modal instead of directly navigating
+  - **To update when implementing new modules**:
+    1. Edit the `startModule()` and `startNextModule()` functions in `js/app.js` to update the condition (currently `moduleId >= 5 && moduleId <= 10`)
+    2. Update the last lesson of the newly implemented module to use `app.startNextModule(currentModuleNumber)` instead of direct navigation
+    3. Remove the `app.startNextModule()` call from the previous module's last lesson and restore normal navigation with `window.location.href='../moduleX/index.html'`
 
 ## Key Documentation Files
 

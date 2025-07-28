@@ -134,6 +134,21 @@ class App {
         window.location.href = `lessons/module${moduleId}/index.html`;
     }
 
+    startNextModule(currentModuleId) {
+        const nextModuleId = currentModuleId + 1;
+        
+        // Show "coming soon" notification for modules 5-10
+        if (nextModuleId >= 5 && nextModuleId <= 10) {
+            customModal.alert('This module will be coming soon!', 'Coming Soon', {
+                icon: 'fas fa-clock',
+                confirmText: 'OK'
+            });
+            return;
+        }
+        
+        window.location.href = `../module${nextModuleId}/index.html`;
+    }
+
     showResetModal() {
         const modal = document.getElementById('resetModal');
         if (modal) {
