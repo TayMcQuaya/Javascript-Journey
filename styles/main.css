@@ -619,6 +619,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    margin-top: 1.5rem;
 }
 
 .option-btn {
@@ -629,41 +630,56 @@ body {
     cursor: pointer;
     text-align: left;
     transition: var(--transition);
+    color: var(--text-primary);
+    width: 100%;
 }
 
-.option-btn:hover {
+.option-btn:hover:not(:disabled):not(.correct):not(.incorrect) {
     border-color: var(--primary-color);
     background-color: var(--bg-tertiary);
 }
 
 .option-btn.correct {
-    border-color: var(--success-color);
-    background-color: rgba(16, 185, 129, 0.1);
+    border-color: var(--success-color) !important;
+    background-color: rgba(16, 185, 129, 0.25) !important;
+    color: var(--success-color) !important;
+    font-weight: 600;
 }
 
 .option-btn.incorrect {
-    border-color: var(--danger-color);
-    background-color: rgba(239, 68, 68, 0.1);
+    border-color: var(--danger-color) !important;
+    background-color: rgba(239, 68, 68, 0.25) !important;
+    color: var(--danger-color) !important;
+    font-weight: 600;
 }
 
-.feedback {
+.option-btn.correct:disabled,
+.option-btn.incorrect:disabled {
+    opacity: 1;
+    cursor: not-allowed;
+}
+
+.feedback, .exercise-feedback {
     padding: 1rem;
     border-radius: var(--radius-md);
     margin-top: 1rem;
     display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-.feedback.show {
+.feedback.show, .exercise-feedback.show {
     display: block;
+    opacity: 1;
 }
 
-.feedback.success {
+.feedback.success, .exercise-feedback.success {
     background-color: rgba(16, 185, 129, 0.1);
     color: var(--success-color);
     border: 1px solid var(--success-color);
 }
 
-.feedback.error {
+.feedback.error, .exercise-feedback.error {
     background-color: rgba(239, 68, 68, 0.1);
     color: var(--danger-color);
     border: 1px solid var(--danger-color);

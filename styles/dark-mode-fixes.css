@@ -15,20 +15,7 @@
     color: var(--bg-primary) !important;
 }
 
-/* Fix quiz option buttons */
-.quiz-option,
-.option-btn {
-    background-color: var(--bg-secondary) !important;
-    color: var(--text-primary) !important;
-    border-color: var(--border-color) !important;
-}
-
-.quiz-option:hover,
-.option-btn:hover {
-    background-color: var(--bg-tertiary) !important;
-    color: var(--text-primary) !important;
-    border-color: var(--primary-color) !important;
-}
+/* Fix quiz option buttons - removed general rules that were interfering with light mode */
 
 /* Fix exercise numbers if they exist */
 .exercise-number {
@@ -190,4 +177,25 @@ body.dark-theme [style*="color: white"] {
 body.dark-theme [style*="background-color: white"] {
     background-color: var(--js-black) !important;
     color: var(--js-yellow) !important;
+}
+
+/* Fix feedback elements in dark mode */
+body.dark-theme .feedback,
+body.dark-theme .exercise-feedback {
+    background-color: var(--bg-secondary) !important;
+    border-color: currentColor !important;
+}
+
+body.dark-theme .feedback.success,
+body.dark-theme .exercise-feedback.success {
+    background-color: rgba(16, 185, 129, 0.15) !important;
+    color: var(--success-color) !important;
+    border-color: var(--success-color) !important;
+}
+
+body.dark-theme .feedback.error,
+body.dark-theme .exercise-feedback.error {
+    background-color: rgba(239, 68, 68, 0.15) !important;
+    color: var(--danger-color) !important;
+    border-color: var(--danger-color) !important;
 }

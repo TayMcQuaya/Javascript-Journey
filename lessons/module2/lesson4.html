@@ -1065,14 +1065,26 @@ console.log(describeValue([]));         // "truthy"</textarea>
         function checkExercise1() {
             const code = document.getElementById('editor7-code').value;
             const feedback = document.getElementById('exercise1-feedback');
+            const outputPane = document.getElementById('editor7-output');
             
             runCode('editor7');
             
-            // Check if the expressions are correct
-            const hasCanEnter = code.includes('age >= 18 && hasID');
-            const hasDiscount = code.includes('isMember || age >= 65');
-            const hasCantVote = code.includes('age < 18') || code.includes('!(age >= 18)');
-            const hasAdultNotSenior = code.includes('age >= 18 && age < 65') || code.includes('age >= 18 && age <= 64');
+            // Check if the output contains any errors
+            const outputHasError = outputPane.innerHTML.includes('output-error') || 
+                                   outputPane.innerHTML.includes('Error:');
+            
+            // More flexible regex checks that handle whitespace variations
+            const hasCanEnter = code.match(/canEnterClub\s*=\s*age\s*>=\s*18\s*&&\s*hasID/);
+            const hasDiscount = code.match(/getsDiscount\s*=\s*(?:isMember\s*\|\|\s*age\s*>=\s*65|age\s*>=\s*65\s*\|\|\s*isMember)/);
+            const hasCantVote = code.match(/cantVote\s*=\s*(?:age\s*<\s*18|!\s*\(\s*age\s*>=\s*18\s*\))/);
+            const hasAdultNotSenior = code.match(/isAdultNotSenior\s*=\s*age\s*>=\s*18\s*&&\s*age\s*<=?\s*65/);
+            
+            // Check if output shows correct values
+            const outputText = outputPane.textContent;
+            const hasCorrectOutput = outputText.includes('Can enter club: true') &&
+                                    outputText.includes('Gets discount: false') &&
+                                    outputText.includes("Can't vote: false") &&
+                                    outputText.includes('Adult not senior: true');
             
             // Hide feedback first to create animation effect
             feedback.style.display = 'none';
@@ -1080,17 +1092,23 @@ console.log(describeValue([]));         // "truthy"</textarea>
             
             setTimeout(() => {
                 feedback.style.display = 'block';
-                if (hasCanEnter && hasDiscount && hasCantVote && hasAdultNotSenior) {
+                if (!outputHasError && hasCanEnter && hasDiscount && hasCantVote && hasAdultNotSenior && hasCorrectOutput) {
                     feedback.className = 'feedback show success';
-                    feedback.textContent = 'Perfect! You understand boolean logic!';
+                    feedback.textContent = 'Perfect! You understand boolean logic and all outputs are correct!';
                 } else {
                     feedback.className = 'feedback show error';
-                    let missing = [];
-                    if (!hasCanEnter) missing.push('canEnterClub');
-                    if (!hasDiscount) missing.push('getsDiscount');
-                    if (!hasCantVote) missing.push('cantVote');
-                    if (!hasAdultNotSenior) missing.push('isAdultNotSenior');
-                    feedback.textContent = `Incorrect expressions: ${missing.join(', ')}`;
+                    if (outputHasError) {
+                        feedback.textContent = 'Your code has errors. Check the output for error messages.';
+                    } else if (!hasCorrectOutput) {
+                        feedback.textContent = 'Your expressions are producing incorrect results. Check the expected output comments.';
+                    } else {
+                        let missing = [];
+                        if (!hasCanEnter) missing.push('canEnterClub expression');
+                        if (!hasDiscount) missing.push('getsDiscount expression');
+                        if (!hasCantVote) missing.push('cantVote expression');
+                        if (!hasAdultNotSenior) missing.push('isAdultNotSenior expression');
+                        feedback.textContent = `Incorrect: ${missing.join(', ')}`;
+                    }
                 }
             }, 150);
         }

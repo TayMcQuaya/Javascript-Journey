@@ -799,14 +799,21 @@ console.log("All fixed!");</textarea>
         function checkExercise2() {
             const code = document.getElementById('editor4-code').value;
             const feedback = document.getElementById('exercise2-feedback');
+            const outputPane = document.getElementById('editor4-output');
             
             runCode('editor4');
             
+            // Check if the output contains any errors
+            const outputHasError = outputPane.innerHTML.includes('output-error') || 
+                                   outputPane.innerHTML.includes('Error:');
+            
             const hasConstCompany = code.includes('const COMPANY_NAME');
             const hasLetScore = code.includes('let userScore');
-            const noVar = !code.includes('var ');
-            const hasConstWithValue = code.includes('const API_KEY = "abc123"');
+            // More robust check for var keyword
+            const noVar = !code.match(/\bvar\s+/);
+            const hasConstWithValue = code.includes('const API_KEY') && code.includes('= "abc123"');
             const hasLetInBlock = code.includes('let message');
+            const hasAllFixed = code.includes('console.log("All fixed!")');
             
             // Hide feedback first to create animation effect
             feedback.style.display = 'none';
@@ -814,17 +821,22 @@ console.log("All fixed!");</textarea>
             
             setTimeout(() => {
                 feedback.style.display = 'block';
-                if (hasConstCompany && hasLetScore && noVar && hasConstWithValue && hasLetInBlock) {
+                if (hasConstCompany && hasLetScore && noVar && hasConstWithValue && hasLetInBlock && hasAllFixed && !outputHasError) {
                     feedback.className = 'feedback show success';
                     feedback.textContent = 'Excellent! You\'ve fixed all the variable declarations correctly!';
                 } else {
                     feedback.className = 'feedback show error';
                     let issues = [];
-                    if (!hasConstCompany) issues.push('COMPANY_NAME should use const');
-                    if (!hasLetScore) issues.push('userScore should use let');
-                    if (!noVar) issues.push('Replace var with let or const');
-                    if (!hasConstWithValue) issues.push('Initialize const when declaring');
-                    if (!hasLetInBlock) issues.push('Use let for block-scoped variables');
+                    if (outputHasError) {
+                        issues.push('Your code has errors - check the output');
+                    } else {
+                        if (!hasConstCompany) issues.push('COMPANY_NAME should use const');
+                        if (!hasLetScore) issues.push('userScore should use let');
+                        if (!noVar) issues.push('Replace var with let or const');
+                        if (!hasConstWithValue) issues.push('Initialize const when declaring');
+                        if (!hasLetInBlock) issues.push('Use let for block-scoped variables');
+                        if (!hasAllFixed) issues.push('Keep the final console.log');
+                    }
                     
                     feedback.textContent = 'Issues: ' + issues.join(', ');
                 }

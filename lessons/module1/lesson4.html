@@ -679,20 +679,37 @@ console.log("Program complete!");</textarea>
         function checkFinalExercise() {
             const code = document.getElementById('editor4-code').value;
             const feedback = document.getElementById('final-feedback');
+            const outputPane = document.getElementById('editor4-output');
             
             runCode('editor4');
             
-            const hasNoErrors = !code.includes('Console.log') && 
+            // Check if the output contains any errors
+            const outputHasError = outputPane.innerHTML.includes('output-error') || 
+                                   outputPane.innerHTML.includes('Error:');
+            
+            const hasNoSyntaxErrors = !code.includes('Console.log') && 
                                code.includes('"The answer is 42"') && 
                                code.includes('+ ') && !code.includes('+ )') &&
                                code.includes('", "');
             
-            if (hasNoErrors) {
-                feedback.className = 'feedback show success';
-                feedback.textContent = 'Perfect! You\'ve fixed all the errors. You\'re ready to complete Module 1!';
-            } else {
-                feedback.className = 'feedback show error';
-                feedback.textContent = 'There are still some errors. Check your quotes, commas, and capitalization.';
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'feedback';
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (hasNoSyntaxErrors && !outputHasError) {
+                    feedback.className = 'feedback show success';
+                    feedback.textContent = 'Perfect! You\'ve fixed all the errors. You\'re ready to complete Module 1!';
+                } else {
+                    feedback.className = 'feedback show error';
+                    if (outputHasError) {
+                        feedback.textContent = 'Your code still has errors. Check the output for error messages.';
+                    } else {
+                        feedback.textContent = 'There are still some errors. Check your quotes, commas, and capitalization.';
+                    }
+                }
+            }, 150);
             }
         }
 

@@ -141,9 +141,8 @@ switch (menuChoice) {
     default:
         console.log("\nInvalid selection!");
 }</textarea>
-                        <div class="code-output">
+                        <div class="code-output" id="editor1-output">
                             <div class="output-label">Output will appear here...</div>
-                            <pre id="editor1-output"></pre>
                         </div>
                     </div>
                 </div>
@@ -237,9 +236,8 @@ switch (month) {
         console.log(month + " is in Fall 🍂");
         break;
 }</textarea>
-                        <div class="code-output">
+                        <div class="code-output" id="editor2-output">
                             <div class="output-label">Output will appear here...</div>
-                            <pre id="editor2-output"></pre>
                         </div>
                     </div>
                 </div>
@@ -333,9 +331,8 @@ switch (true) {  // Clever trick!
     default:
         console.log("Grade: F");
 }</textarea>
-                        <div class="code-output">
+                        <div class="code-output" id="editor3-output">
                             <div class="output-label">Output will appear here...</div>
-                            <pre id="editor3-output"></pre>
                         </div>
                     </div>
                 </div>
@@ -468,9 +465,8 @@ switch (operation) {
     default:
         console.log("Invalid operation!");
 }</textarea>
-                        <div class="code-output">
+                        <div class="code-output" id="editor4-output">
                             <div class="output-label">Output will appear here...</div>
-                            <pre id="editor4-output"></pre>
                         </div>
                     </div>
                 </div>
@@ -568,9 +564,8 @@ switch (language) {
     default:
         console.log("👋");
 }</textarea>
-                        <div class="code-output">
+                        <div class="code-output" id="editor5-output">
                             <div class="output-label">Output will appear here...</div>
-                            <pre id="editor5-output"></pre>
                         </div>
                     </div>
                 </div>
@@ -591,6 +586,7 @@ switch (x) {
         console.log("String");
         break;
 }</pre>
+                    <div style="margin: 1rem 0;"></div>
                     <div class="exercise-options" id="exercise1">
                         <button class="option-btn" data-answer="wrong">Number</button>
                         <button class="option-btn" data-answer="correct">String</button>
@@ -598,6 +594,7 @@ switch (x) {
                         <button class="option-btn" data-answer="wrong">No output</button>
                     </div>
                     <div class="exercise-feedback" id="exercise1-feedback"></div>
+                    <div style="margin: 1rem 0;"></div>
                 </div>
             </section>
 
@@ -650,9 +647,8 @@ switch (___) {
 }
 
 console.log(dayOfWeek + ": " + activity);</textarea>
-                            <div class="code-output">
+                            <div class="code-output" id="editor6-output">
                                 <div class="output-label">Output will appear here...</div>
-                                <pre id="editor6-output"></pre>
                             </div>
                         </div>
                     </div>
@@ -675,6 +671,7 @@ console.log(dayOfWeek + ": " + activity);</textarea>
     default:
         console.log("Study more!");
 }</pre>
+                    <div style="margin: 1rem 0;"></div>
                     <div class="exercise-options" id="exercise3">
                         <button class="option-btn" data-answer="wrong">1</button>
                         <button class="option-btn" data-answer="wrong">2</button>
@@ -682,6 +679,7 @@ console.log(dayOfWeek + ": " + activity);</textarea>
                         <button class="option-btn" data-answer="wrong">4</button>
                     </div>
                     <div class="exercise-feedback" id="exercise3-feedback"></div>
+                    <div style="margin: 1rem 0;"></div>
                 </div>
             </section>
 
@@ -804,18 +802,23 @@ console.log(dayOfWeek + ": " + activity);</textarea>
                 eval(code);
                 
                 if (logs.length > 0) {
-                    outputPane.textContent = logs.join('\n');
-                    outputPane.style.color = 'var(--js-yellow)';
+                    outputPane.innerHTML = logs.map(log => 
+                        `<div class="output-line">${escapeHtml(log)}</div>`
+                    ).join('');
                 } else {
-                    outputPane.textContent = 'No output';
-                    outputPane.style.color = 'var(--js-yellow)';
+                    outputPane.innerHTML = '<div class="output-line muted">No output</div>';
                 }
             } catch (error) {
-                outputPane.textContent = 'Error: ' + error.message;
-                outputPane.style.color = 'var(--error-color)';
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
             } finally {
                 console.log = originalConsoleLog;
             }
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
 
         // Copy code function
@@ -828,7 +831,7 @@ console.log(dayOfWeek + ": " + activity);</textarea>
             
             try {
                 document.execCommand('copy');
-                customModal.success('Code copied to clipboard!', 'Copied');
+                // customModal.success('Code copied to clipboard!', 'Copied');
             } catch (err) {
                 customModal.error('Failed to copy code', 'Error');
             }
@@ -866,16 +869,13 @@ console.log(dayOfWeek + ": " + activity);</textarea>
                     func();
                     console.log = oldLog;
                     
-                    output.textContent = result;
-                    output.style.color = 'var(--success-color)';
-                    customModal.success('Excellent! Your day planner switch statement is perfect!', 'Success');
+                    output.innerHTML = `<div class="output-line" style="color: var(--success-color)">${result}</div>`;
+                    // customModal.success('Excellent! Your day planner switch statement is perfect!', 'Success');
                 } catch (error) {
-                    output.textContent = 'Error: ' + error.message;
-                    output.style.color = 'var(--error-color)';
+                    output.innerHTML = `<div class="output-error">Error: ${error.message}</div>`;
                 }
             } else {
-                output.textContent = 'Not quite right. Remember:\n- switch (dayOfWeek)\n- Add break; after Monday case\n- case "Friday":\n- case "Sunday": (for weekend)\n- default: for other days';
-                output.style.color = 'var(--warning-color)';
+                output.innerHTML = '<div class="output-line" style="color: var(--warning-color)">Not quite right. Remember:<br>- switch (dayOfWeek)<br>- Add break; after Monday case<br>- case "Friday":<br>- case "Sunday": (for weekend)<br>- default: for other days</div>';
             }
         }
 
@@ -891,44 +891,36 @@ console.log(dayOfWeek + ": " + activity);</textarea>
                     const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
                     const isCorrect = this.getAttribute('data-answer') === 'correct';
                     
-                    // Remove previous incorrect selections (but not correct ones)
-                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
-                        if (btn.classList.contains('incorrect')) {
-                            btn.classList.remove('incorrect', 'selected');
-                            btn.disabled = false;
+                    // Remove previous incorrect selections
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(opt => {
+                        if (opt.classList.contains('incorrect')) {
+                            opt.classList.remove('incorrect');
+                            opt.disabled = false;
                         }
                     });
                     
                     // Hide feedback first to create animation effect
-                    if (feedbackDiv) {
-                        feedbackDiv.style.display = 'none';
-                        feedbackDiv.className = 'exercise-feedback';
-                    }
+                    feedbackDiv.classList.remove('show', 'success', 'error');
+                    feedbackDiv.style.display = 'none';
                     
-                    // Mark this button
-                    this.classList.add('selected');
-                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
-                    
-                    if (isCorrect) {
-                        // Correct answer - disable all buttons
-                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
-                            btn.disabled = true;
-                        });
-                    } else {
-                        // Wrong answer - disable only this button
-                        this.disabled = true;
-                    }
-                    
-                    // Show feedback with animation
-                    if (feedbackDiv) {
-                        setTimeout(() => {
-                            feedbackDiv.style.display = 'block';
-                            feedbackDiv.className = 'exercise-feedback ' + (isCorrect ? 'success' : 'error');
-                            feedbackDiv.textContent = isCorrect ? 
-                                '✓ Correct! Well done!' : 
-                                '✗ Not quite. Try again!';
-                        }, 150);
-                    }
+                    setTimeout(() => {
+                        if (isCorrect) {
+                            // Correct answer - disable all buttons
+                            exerciseContainer.querySelectorAll('.option-btn').forEach(opt => {
+                                opt.disabled = true;
+                            });
+                            this.classList.add('correct');
+                            feedbackDiv.className = 'exercise-feedback show success';
+                            feedbackDiv.textContent = 'Correct! Well done!';
+                        } else {
+                            // Wrong answer - mark as incorrect but keep buttons enabled
+                            this.classList.add('incorrect');
+                            this.disabled = true; // Disable only this wrong answer
+                            feedbackDiv.className = 'exercise-feedback show error';
+                            feedbackDiv.textContent = 'Not quite. Try again!';
+                        }
+                        feedbackDiv.style.display = 'block';
+                    }, 150);
                 });
             });
         });

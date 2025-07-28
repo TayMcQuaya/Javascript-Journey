@@ -573,6 +573,14 @@ console.log("Final access granted?", finalAccess);</textarea>
             if (!codeInput || !outputPane) return;
             
             const code = codeInput.value;
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = outputPane.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
             outputPane.innerHTML = '';
             
             const originalConsoleLog = console.log;
@@ -625,6 +633,13 @@ console.log("Final access granted?", finalAccess);</textarea>
         function checkExercise2() {
             const code = document.getElementById('editor7-code').value;
             const output = document.getElementById('editor7-output');
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = output.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
             
             // Check if the correct operators are used
             if (code.includes('userRole === "admin" || (userRole === "editor" && isActive && hasPermission)') && 
@@ -681,7 +696,8 @@ console.log("Final access granted?", finalAccess);</textarea>
                     // Hide feedback first to create animation effect
                     if (feedbackDiv) {
                         feedbackDiv.style.display = 'none';
-                        feedbackDiv.className = 'exercise-feedback';
+                        feedbackDiv.className = 'exercise-feedback'; // Reset to base class
+                        feedbackDiv.classList.remove('show', 'success', 'error');
                     }
                     
                     // Mark this button
@@ -702,10 +718,10 @@ console.log("Final access granted?", finalAccess);</textarea>
                     if (feedbackDiv) {
                         setTimeout(() => {
                             feedbackDiv.style.display = 'block';
-                            feedbackDiv.className = 'exercise-feedback ' + (isCorrect ? 'success' : 'error');
+                            feedbackDiv.className = 'exercise-feedback show ' + (isCorrect ? 'success' : 'error');
                             feedbackDiv.textContent = isCorrect ? 
-                                '✓ Correct! Well done!' : 
-                                '✗ Not quite. Try again!';
+                                'Correct! Well done!' : 
+                                'Not quite. Try again!';
                         }, 150);
                     }
                 });

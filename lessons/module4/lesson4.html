@@ -117,9 +117,8 @@ console.log("\nIt's", weather, "outside");
 // Direct output
 console.log("\nDirect usage:");
 console.log(10 > 5 ? "Ten is greater" : "Five is greater");</textarea>
-                        <div class="code-output">
+                        <div class="code-output" id="editor1-output">
                             <div class="output-label">Output will appear here...</div>
-                            <pre id="editor1-output"></pre>
                         </div>
                     </div>
                 </div>
@@ -190,9 +189,8 @@ let temperature2 = 20;
 let unit = useMetric ? "°C" : "°F";
 let convertedTemp = useMetric ? temperature2 : (temperature2 * 9/5) + 32;
 console.log("\nTemperature:", convertedTemp + unit);</textarea>
-                        <div class="code-output">
+                        <div class="code-output" id="editor2-output">
                             <div class="output-label">Output will appear here...</div>
-                            <pre id="editor2-output"></pre>
                         </div>
                     </div>
                 </div>
@@ -269,9 +267,8 @@ if (!complexExample) {
 } else {
     console.log("small");
 }</textarea>
-                        <div class="code-output">
+                        <div class="code-output" id="editor3-output">
                             <div class="output-label">Output will appear here...</div>
-                            <pre id="editor3-output"></pre>
                         </div>
                     </div>
                 </div>
@@ -350,9 +347,8 @@ let healthIcon = playerHealth > 70 ? "💚" :
                  playerHealth > 30 ? "💛" :
                  playerHealth > 0 ? "❤️" : "💀";
 console.log(`\nHealth: ${playerHealth} ${healthIcon} Status: ${healthStatus}`);</textarea>
-                        <div class="code-output">
+                        <div class="code-output" id="editor4-output">
                             <div class="output-label">Output will appear here...</div>
-                            <pre id="editor4-output"></pre>
                         </div>
                     </div>
                 </div>
@@ -460,9 +456,8 @@ let period = time < 6 ? "night" :
              time < 22 ? "evening" : "night";
 
 console.log("\nTime period:", period);</textarea>
-                        <div class="code-output">
+                        <div class="code-output" id="editor5-output">
                             <div class="output-label">Output will appear here...</div>
-                            <pre id="editor5-output"></pre>
                         </div>
                     </div>
                 </div>
@@ -476,6 +471,7 @@ console.log("\nTime period:", period);</textarea>
                     <p>What value is assigned to `message`?</p>
                     <pre>let age = 16;
 let message = age >= 18 ? "Can vote" : "Too young";</pre>
+                    <div style="margin: 1rem 0;"></div>
                     <div class="exercise-options" id="exercise1">
                         <button class="option-btn" data-answer="wrong">Can vote</button>
                         <button class="option-btn" data-answer="correct">Too young</button>
@@ -483,6 +479,7 @@ let message = age >= 18 ? "Can vote" : "Too young";</pre>
                         <button class="option-btn" data-answer="wrong">false</button>
                     </div>
                     <div class="exercise-feedback" id="exercise1-feedback"></div>
+                    <div style="margin: 1rem 0;"></div>
                 </div>
             </section>
 
@@ -521,9 +518,8 @@ let welcomeText = isLoggedIn ? ___ : ___;
 
 console.log("Button:", buttonText);
 console.log(welcomeText);</textarea>
-                            <div class="code-output">
+                            <div class="code-output" id="editor6-output">
                                 <div class="output-label">Output will appear here...</div>
-                                <pre id="editor6-output"></pre>
                             </div>
                         </div>
                     </div>
@@ -539,6 +535,7 @@ console.log(welcomeText);</textarea>
                     <pre>let grade = score >= 90 ? "A" :
             score >= 80 ? "B" :
             score >= 70 ? "C" : "F";</pre>
+                    <div style="margin: 1rem 0;"></div>
                     <div class="exercise-options" id="exercise3">
                         <button class="option-btn" data-answer="wrong">A</button>
                         <button class="option-btn" data-answer="wrong">B</button>
@@ -668,18 +665,23 @@ console.log(welcomeText);</textarea>
                 eval(code);
                 
                 if (logs.length > 0) {
-                    outputPane.textContent = logs.join('\n');
-                    outputPane.style.color = 'var(--js-yellow)';
+                    outputPane.innerHTML = logs.map(log => 
+                        `<div class="output-line">${escapeHtml(log)}</div>`
+                    ).join('');
                 } else {
-                    outputPane.textContent = 'No output';
-                    outputPane.style.color = 'var(--js-yellow)';
+                    outputPane.innerHTML = '<div class="output-line muted">No output</div>';
                 }
             } catch (error) {
-                outputPane.textContent = 'Error: ' + error.message;
-                outputPane.style.color = 'var(--error-color)';
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
             } finally {
                 console.log = originalConsoleLog;
             }
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
 
         // Copy code function
@@ -729,16 +731,13 @@ console.log(welcomeText);</textarea>
                     func();
                     console.log = oldLog;
                     
-                    output.textContent = result;
-                    output.style.color = 'var(--success-color)';
+                    output.innerHTML = `<div class="output-line" style="color: var(--success-color)">${result}</div>`;
                     // customModal.success('Perfect! Your login status ternary operators are working correctly!', 'Success');
                 } catch (error) {
-                    output.textContent = 'Error: ' + error.message;
-                    output.style.color = 'var(--error-color)';
+                    output.innerHTML = `<div class="output-error">Error: ${error.message}</div>`;
                 }
             } else {
-                output.textContent = 'Not quite right. Remember:\n- Use ? and : for ternary\n- First: isLoggedIn ? "Log Out" : "Log In"\n- Second: Include the username in the welcome message when logged in';
-                output.style.color = 'var(--warning-color)';
+                output.innerHTML = '<div class="output-line" style="color: var(--warning-color)">Not quite right. Remember:<br>- Use ? and : for ternary<br>- First: isLoggedIn ? "Log Out" : "Log In"<br>- Second: Include the username in the welcome message when logged in</div>';
             }
         }
 
@@ -754,44 +753,36 @@ console.log(welcomeText);</textarea>
                     const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
                     const isCorrect = this.getAttribute('data-answer') === 'correct';
                     
-                    // Remove previous incorrect selections (but not correct ones)
-                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
-                        if (btn.classList.contains('incorrect')) {
-                            btn.classList.remove('incorrect', 'selected');
-                            btn.disabled = false;
+                    // Remove previous incorrect selections
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(opt => {
+                        if (opt.classList.contains('incorrect')) {
+                            opt.classList.remove('incorrect');
+                            opt.disabled = false;
                         }
                     });
                     
                     // Hide feedback first to create animation effect
-                    if (feedbackDiv) {
-                        feedbackDiv.style.display = 'none';
-                        feedbackDiv.className = 'exercise-feedback';
-                    }
+                    feedbackDiv.classList.remove('show', 'success', 'error');
+                    feedbackDiv.style.display = 'none';
                     
-                    // Mark this button
-                    this.classList.add('selected');
-                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
-                    
-                    if (isCorrect) {
-                        // Correct answer - disable all buttons
-                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
-                            btn.disabled = true;
-                        });
-                    } else {
-                        // Wrong answer - disable only this button
-                        this.disabled = true;
-                    }
-                    
-                    // Show feedback with animation
-                    if (feedbackDiv) {
-                        setTimeout(() => {
-                            feedbackDiv.style.display = 'block';
-                            feedbackDiv.className = 'exercise-feedback ' + (isCorrect ? 'success' : 'error');
-                            feedbackDiv.textContent = isCorrect ? 
-                                '✓ Correct! Well done!' : 
-                                '✗ Not quite. Try again!';
-                        }, 150);
-                    }
+                    setTimeout(() => {
+                        if (isCorrect) {
+                            // Correct answer - disable all buttons
+                            exerciseContainer.querySelectorAll('.option-btn').forEach(opt => {
+                                opt.disabled = true;
+                            });
+                            this.classList.add('correct');
+                            feedbackDiv.className = 'exercise-feedback show success';
+                            feedbackDiv.textContent = 'Correct! Well done!';
+                        } else {
+                            // Wrong answer - mark as incorrect but keep buttons enabled
+                            this.classList.add('incorrect');
+                            this.disabled = true; // Disable only this wrong answer
+                            feedbackDiv.className = 'exercise-feedback show error';
+                            feedbackDiv.textContent = 'Not quite. Try again!';
+                        }
+                        feedbackDiv.style.display = 'block';
+                    }, 150);
                 });
             });
         });
