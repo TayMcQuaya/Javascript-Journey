@@ -617,11 +617,14 @@ console.log(username);  // lowercase 'n'</code>
                     outputPane.innerHTML = logs.map(log => 
                         `<div class="output-line">${escapeHtml(log)}</div>`
                     ).join('');
+                    outputPane.style.color = 'var(--js-yellow)';
                 } else {
                     outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                    outputPane.style.color = 'var(--js-yellow)';
                 }
             } catch (error) {
                 outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+                outputPane.style.color = 'var(--error-color)';
             } finally {
                 console.log = originalConsoleLog;
             }
@@ -646,21 +649,28 @@ console.log(username);  // lowercase 'n'</code>
             const hasFavoriteColor = code.includes('let favoriteColor') || code.includes('const favoriteColor');
             const hasConsoleLogs = code.includes('console.log');
             
-            if (hasFullName && hasBirthYear && hasCurrentYear && hasAge && hasFavoriteColor && hasConsoleLogs) {
-                feedback.className = 'feedback show success';
-                feedback.textContent = 'Excellent! You\'ve created all the required variables!';
-            } else {
-                feedback.className = 'feedback show error';
-                let missing = [];
-                if (!hasFullName) missing.push('fullName');
-                if (!hasBirthYear) missing.push('birthYear');
-                if (!hasCurrentYear) missing.push('currentYear');
-                if (!hasAge) missing.push('age');
-                if (!hasFavoriteColor) missing.push('favoriteColor');
-                if (!hasConsoleLogs) missing.push('console.log statements');
-                
-                feedback.textContent = `Missing: ${missing.join(', ')}`;
-            }
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'feedback';
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (hasFullName && hasBirthYear && hasCurrentYear && hasAge && hasFavoriteColor && hasConsoleLogs) {
+                    feedback.className = 'feedback show success';
+                    feedback.textContent = 'Excellent! You\'ve created all the required variables!';
+                } else {
+                    feedback.className = 'feedback show error';
+                    let missing = [];
+                    if (!hasFullName) missing.push('fullName');
+                    if (!hasBirthYear) missing.push('birthYear');
+                    if (!hasCurrentYear) missing.push('currentYear');
+                    if (!hasAge) missing.push('age');
+                    if (!hasFavoriteColor) missing.push('favoriteColor');
+                    if (!hasConsoleLogs) missing.push('console.log statements');
+                    
+                    feedback.textContent = `Missing: ${missing.join(', ')}`;
+                }
+            }, 150);
         }
 
         function completeLesson() {

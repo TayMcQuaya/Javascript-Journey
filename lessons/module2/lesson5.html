@@ -374,6 +374,7 @@ function convertSafely(value) {
                                     <button class="option-btn" onclick="checkAnswer(this, false)">105</button>
                                     <button class="option-btn" onclick="checkAnswer(this, false)">Error</button>
                                 </div>
+                                <div class="feedback"></div>
                             </div>
                             
                             <div class="quiz-question" style="margin-top: 2rem;">
@@ -384,6 +385,7 @@ function convertSafely(value) {
                                     <button class="option-btn" onclick="checkAnswer(this, false)">NaN</button>
                                     <button class="option-btn" onclick="checkAnswer(this, false)">Error</button>
                                 </div>
+                                <div class="feedback"></div>
                             </div>
 
                             <div class="quiz-question" style="margin-top: 2rem;">
@@ -394,6 +396,7 @@ function convertSafely(value) {
                                     <button class="option-btn" onclick="checkAnswer(this, true)">0</button>
                                     <button class="option-btn" onclick="checkAnswer(this, false)">[]</button>
                                 </div>
+                                <div class="feedback"></div>
                             </div>
                         </div>
                     </div>
@@ -677,9 +680,10 @@ console.log(validateAndConvertAge(null));      // null</textarea>
                 
                 // Display the output
                 outputElement.textContent = logs.join('\n') || 'No output';
+                outputElement.style.color = 'var(--js-yellow)';
             } catch (error) {
                 outputElement.textContent = `Error: ${error.message}`;
-                outputElement.style.color = 'var(--danger-color)';
+                outputElement.style.color = 'var(--error-color)';
             } finally {
                 // Restore original console.log
                 console.log = originalLog;
@@ -689,18 +693,39 @@ console.log(validateAndConvertAge(null));      // null</textarea>
         // Quiz answer checking
         function checkAnswer(button, isCorrect) {
             const options = button.parentElement.querySelectorAll('.option-btn');
+            const feedback = button.closest('.quiz-question').querySelector('.feedback');
+            
+            // Remove previous incorrect selections
             options.forEach(opt => {
-                opt.disabled = true;
-                opt.classList.remove('correct', 'incorrect');
+                if (opt.classList.contains('incorrect')) {
+                    opt.classList.remove('incorrect');
+                    opt.disabled = false;
+                }
             });
             
-            if (isCorrect) {
-                button.classList.add('correct');
-                showFeedback('Correct! Great job! 🎉', 'success');
-            } else {
-                button.classList.add('incorrect');
-                showFeedback('Not quite. Think about how JavaScript handles type conversion!', 'error');
-            }
+            // Hide feedback first to create animation effect
+            feedback.classList.remove('show');
+            feedback.style.display = 'none';
+            
+            // Small delay to ensure the hide animation is visible
+            setTimeout(() => {
+                if (isCorrect) {
+                    // Correct answer - disable all buttons
+                    options.forEach(opt => {
+                        opt.disabled = true;
+                    });
+                    button.classList.add('correct');
+                    feedback.className = 'feedback show success';
+                    feedback.textContent = 'Correct! Well done!';
+                } else {
+                    // Wrong answer - mark as incorrect but keep buttons enabled
+                    button.classList.add('incorrect');
+                    button.disabled = true; // Disable only this wrong answer
+                    feedback.className = 'feedback show error';
+                    feedback.textContent = 'Not quite. Try again!';
+                }
+                feedback.style.display = 'block';
+            }, 150);
         }
 
         // Show feedback

@@ -738,11 +738,14 @@ console.log("All fixed!");</textarea>
                     outputPane.innerHTML = logs.map(log => 
                         `<div class="output-line">${escapeHtml(log)}</div>`
                     ).join('');
+                    outputPane.style.color = 'var(--js-yellow)';
                 } else {
                     outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                    outputPane.style.color = 'var(--js-yellow)';
                 }
             } catch (error) {
                 outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+                outputPane.style.color = 'var(--error-color)';
             } finally {
                 console.log = originalConsoleLog;
             }
@@ -776,13 +779,21 @@ console.log("All fixed!");</textarea>
             }
             
             const feedback = document.getElementById('scenario-feedback');
-            if (correct === total) {
-                feedback.className = 'feedback show success';
-                feedback.textContent = 'Perfect! You understand when to use let and const!';
-            } else {
-                feedback.className = 'feedback show error';
-                feedback.textContent = `${correct}/${total} correct. Remember: const for values that don't change, let for values that do.`;
-            }
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'feedback';
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (correct === total) {
+                    feedback.className = 'feedback show success';
+                    feedback.textContent = 'Perfect! You understand when to use let and const!';
+                } else {
+                    feedback.className = 'feedback show error';
+                    feedback.textContent = `${correct}/${total} correct. Remember: const for values that don't change, let for values that do.`;
+                }
+            }, 150);
         }
 
         function checkExercise2() {
@@ -797,20 +808,27 @@ console.log("All fixed!");</textarea>
             const hasConstWithValue = code.includes('const API_KEY = "abc123"');
             const hasLetInBlock = code.includes('let message');
             
-            if (hasConstCompany && hasLetScore && noVar && hasConstWithValue && hasLetInBlock) {
-                feedback.className = 'feedback show success';
-                feedback.textContent = 'Excellent! You\'ve fixed all the variable declarations correctly!';
-            } else {
-                feedback.className = 'feedback show error';
-                let issues = [];
-                if (!hasConstCompany) issues.push('COMPANY_NAME should use const');
-                if (!hasLetScore) issues.push('userScore should use let');
-                if (!noVar) issues.push('Replace var with let or const');
-                if (!hasConstWithValue) issues.push('Initialize const when declaring');
-                if (!hasLetInBlock) issues.push('Use let for block-scoped variables');
-                
-                feedback.textContent = 'Issues: ' + issues.join(', ');
-            }
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'feedback';
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (hasConstCompany && hasLetScore && noVar && hasConstWithValue && hasLetInBlock) {
+                    feedback.className = 'feedback show success';
+                    feedback.textContent = 'Excellent! You\'ve fixed all the variable declarations correctly!';
+                } else {
+                    feedback.className = 'feedback show error';
+                    let issues = [];
+                    if (!hasConstCompany) issues.push('COMPANY_NAME should use const');
+                    if (!hasLetScore) issues.push('userScore should use let');
+                    if (!noVar) issues.push('Replace var with let or const');
+                    if (!hasConstWithValue) issues.push('Initialize const when declaring');
+                    if (!hasLetInBlock) issues.push('Use let for block-scoped variables');
+                    
+                    feedback.textContent = 'Issues: ' + issues.join(', ');
+                }
+            }, 150);
         }
 
         function completeLesson() {

@@ -661,6 +661,7 @@ console.log(describeValue([]));         // "truthy"</textarea>
                                     <button class="option-btn" onclick="checkAnswer(this, false)">null</button>
                                     <button class="option-btn" onclick="checkAnswer(this, false)">undefined</button>
                                 </div>
+                                <div class="feedback"></div>
                             </div>
 
                             <div class="quiz-question">
@@ -671,6 +672,7 @@ console.log(describeValue([]));         // "truthy"</textarea>
                                     <button class="option-btn" onclick="checkAnswer(this, true)">"0"</button>
                                     <button class="option-btn" onclick="checkAnswer(this, false)">null</button>
                                 </div>
+                                <div class="feedback"></div>
                             </div>
 
                             <div class="quiz-question">
@@ -681,6 +683,7 @@ console.log(describeValue([]));         // "truthy"</textarea>
                                     <button class="option-btn" onclick="checkAnswer(this, false)">"undefined"</button>
                                     <button class="option-btn" onclick="checkAnswer(this, false)">"boolean"</button>
                                 </div>
+                                <div class="feedback"></div>
                             </div>
                         </div>
                     </div>
@@ -1003,11 +1006,14 @@ console.log(describeValue([]));         // "truthy"</textarea>
                     outputPane.innerHTML = logs.map(log => 
                         `<div class="output-line">${escapeHtml(log)}</div>`
                     ).join('');
+                    outputPane.style.color = 'var(--js-yellow)';
                 } else {
                     outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                    outputPane.style.color = 'var(--js-yellow)';
                 }
             } catch (error) {
                 outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+                outputPane.style.color = 'var(--error-color)';
             } finally {
                 console.log = originalConsoleLog;
             }
@@ -1021,16 +1027,39 @@ console.log(describeValue([]));         // "truthy"</textarea>
 
         function checkAnswer(button, isCorrect) {
             const options = button.parentElement.querySelectorAll('.option-btn');
+            const feedback = button.closest('.quiz-question').querySelector('.feedback');
             
+            // Remove previous incorrect selections
             options.forEach(opt => {
-                opt.disabled = true;
+                if (opt.classList.contains('incorrect')) {
+                    opt.classList.remove('incorrect');
+                    opt.disabled = false;
+                }
             });
             
-            if (isCorrect) {
-                button.classList.add('correct');
-            } else {
-                button.classList.add('incorrect');
-            }
+            // Hide feedback first to create animation effect
+            feedback.classList.remove('show');
+            feedback.style.display = 'none';
+            
+            // Small delay to ensure the hide animation is visible
+            setTimeout(() => {
+                if (isCorrect) {
+                    // Correct answer - disable all buttons
+                    options.forEach(opt => {
+                        opt.disabled = true;
+                    });
+                    button.classList.add('correct');
+                    feedback.className = 'feedback show success';
+                    feedback.textContent = 'Correct! Well done!';
+                } else {
+                    // Wrong answer - mark as incorrect but keep buttons enabled
+                    button.classList.add('incorrect');
+                    button.disabled = true; // Disable only this wrong answer
+                    feedback.className = 'feedback show error';
+                    feedback.textContent = 'Not quite. Try again!';
+                }
+                feedback.style.display = 'block';
+            }, 150);
         }
 
         function checkExercise1() {
@@ -1045,18 +1074,25 @@ console.log(describeValue([]));         // "truthy"</textarea>
             const hasCantVote = code.includes('age < 18') || code.includes('!(age >= 18)');
             const hasAdultNotSenior = code.includes('age >= 18 && age < 65') || code.includes('age >= 18 && age <= 64');
             
-            if (hasCanEnter && hasDiscount && hasCantVote && hasAdultNotSenior) {
-                feedback.className = 'feedback show success';
-                feedback.textContent = 'Perfect! You understand boolean logic!';
-            } else {
-                feedback.className = 'feedback show error';
-                let missing = [];
-                if (!hasCanEnter) missing.push('canEnterClub');
-                if (!hasDiscount) missing.push('getsDiscount');
-                if (!hasCantVote) missing.push('cantVote');
-                if (!hasAdultNotSenior) missing.push('isAdultNotSenior');
-                feedback.textContent = `Incorrect expressions: ${missing.join(', ')}`;
-            }
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'feedback';
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (hasCanEnter && hasDiscount && hasCantVote && hasAdultNotSenior) {
+                    feedback.className = 'feedback show success';
+                    feedback.textContent = 'Perfect! You understand boolean logic!';
+                } else {
+                    feedback.className = 'feedback show error';
+                    let missing = [];
+                    if (!hasCanEnter) missing.push('canEnterClub');
+                    if (!hasDiscount) missing.push('getsDiscount');
+                    if (!hasCantVote) missing.push('cantVote');
+                    if (!hasAdultNotSenior) missing.push('isAdultNotSenior');
+                    feedback.textContent = `Incorrect expressions: ${missing.join(', ')}`;
+                }
+            }, 150);
         }
 
         function checkExercise2() {
@@ -1070,14 +1106,21 @@ console.log(describeValue([]));         // "truthy"</textarea>
             const hasConditions = code.includes('if') || code.includes('switch');
             const hasReturns = code.includes('return');
             
-            // Simple check for basic structure
-            if (hasFunction && hasConditions && hasReturns) {
-                feedback.className = 'feedback show success';
-                feedback.textContent = 'Great job! Check the console to see if all test cases pass.';
-            } else {
-                feedback.className = 'feedback show error';
-                feedback.textContent = 'Make sure to implement the function with proper conditions and return statements.';
-            }
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'feedback';
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                // Simple check for basic structure
+                if (hasFunction && hasConditions && hasReturns) {
+                    feedback.className = 'feedback show success';
+                    feedback.textContent = 'Great job! Check the console to see if all test cases pass.';
+                } else {
+                    feedback.className = 'feedback show error';
+                    feedback.textContent = 'Make sure to implement the function with proper conditions and return statements.';
+                }
+            }, 150);
         }
 
         function completeLesson() {

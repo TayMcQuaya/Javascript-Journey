@@ -556,7 +556,7 @@ console.log("Valid password:", isValidPassword);</textarea>
             
             try {
                 document.execCommand('copy');
-                customModal.success('Code copied to clipboard!', 'Copied');
+                // customModal.success('Code copied to clipboard!', 'Copied');
             } catch (err) {
                 customModal.error('Failed to copy code', 'Error');
             }
@@ -588,7 +588,7 @@ console.log("Valid password:", isValidPassword);</textarea>
                     
                     output.textContent = result;
                     output.style.color = 'var(--success-color)';
-                    customModal.success('Excellent! Your password validation logic is correct!', 'Success');
+                    // customModal.success('Excellent! Your password validation logic is correct!', 'Success');
                 } catch (error) {
                     output.textContent = 'Error: ' + error.message;
                     output.style.color = 'var(--error-color)';
@@ -599,10 +599,64 @@ console.log("Valid password:", isValidPassword);</textarea>
             }
         }
 
+        // Setup exercise listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle all exercise option buttons
+            document.querySelectorAll('.option-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Skip if button is already disabled
+                    if (this.disabled) return;
+                    
+                    const exerciseContainer = this.closest('.exercise-options');
+                    const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
+                    const isCorrect = this.getAttribute('data-answer') === 'correct';
+                    
+                    // Remove previous incorrect selections (but not correct ones)
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.classList.contains('incorrect')) {
+                            btn.classList.remove('incorrect', 'selected');
+                            btn.disabled = false;
+                        }
+                    });
+                    
+                    // Hide feedback first to create animation effect
+                    if (feedbackDiv) {
+                        feedbackDiv.style.display = 'none';
+                        feedbackDiv.className = 'exercise-feedback';
+                    }
+                    
+                    // Mark this button
+                    this.classList.add('selected');
+                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    if (isCorrect) {
+                        // Correct answer - disable all buttons
+                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                            btn.disabled = true;
+                        });
+                    } else {
+                        // Wrong answer - disable only this button
+                        this.disabled = true;
+                    }
+                    
+                    // Show feedback with animation
+                    if (feedbackDiv) {
+                        setTimeout(() => {
+                            feedbackDiv.style.display = 'block';
+                            feedbackDiv.className = 'exercise-feedback ' + (isCorrect ? 'success' : 'error');
+                            feedbackDiv.textContent = isCorrect ? 
+                                '✓ Correct! Well done!' : 
+                                '✗ Not quite. Try again!';
+                        }, 150);
+                    }
+                });
+            });
+        });
+
         // Complete lesson function
         function completeLesson() {
             Storage.saveProgress(3, 2, true);
-            customModal.success('Lesson completed! You\'ve mastered comparison operators!', 'Congratulations!');
+            // customModal.success('Lesson completed! You\'ve mastered comparison operators!', 'Congratulations!');
             
             setTimeout(() => {
                 window.location.href = 'lesson3.html';

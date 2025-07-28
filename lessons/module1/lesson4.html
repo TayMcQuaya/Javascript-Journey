@@ -643,6 +643,11 @@ console.log("Program complete!");</textarea>
             console.groupEnd = () => logs.push({ message: '', className: 'groupEnd' });
             console.time = (label) => logs.push({ message: `${label}: timer started...`, className: 'time' });
             console.timeEnd = (label) => logs.push({ message: `${label}: 0.001ms`, className: 'time' });
+            console.clear = () => {
+                logs.length = 0;
+                outputPane.innerHTML = '<div class="output-line muted">Console was cleared</div>';
+                outputPane.style.color = 'var(--js-yellow)';
+            };
             
             try {
                 eval(code);
@@ -652,11 +657,14 @@ console.log("Program complete!");</textarea>
                         const className = log.className ? `output-line ${log.className}` : 'output-line';
                         return `<div class="${className}">${escapeHtml(log.message)}</div>`;
                     }).join('');
+                    outputPane.style.color = 'var(--js-yellow)';
                 } else {
                     outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                    outputPane.style.color = 'var(--js-yellow)';
                 }
             } catch (error) {
                 outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+                outputPane.style.color = 'var(--error-color)';
             } finally {
                 Object.assign(console, originalConsole);
             }

@@ -498,20 +498,37 @@ console.log(greet("Student"));</code></pre>
             const options = button.parentElement.querySelectorAll('.option-btn');
             const feedback = button.closest('.quiz-question').querySelector('.feedback');
             
+            // Remove previous incorrect selections
             options.forEach(opt => {
-                opt.disabled = true;
-                opt.classList.remove('correct', 'incorrect');
+                if (opt.classList.contains('incorrect')) {
+                    opt.classList.remove('incorrect');
+                    opt.disabled = false;
+                }
             });
             
-            if (isCorrect) {
-                button.classList.add('correct');
-                feedback.className = 'feedback show success';
-                feedback.textContent = 'Correct! Well done!';
-            } else {
-                button.classList.add('incorrect');
-                feedback.className = 'feedback show error';
-                feedback.textContent = 'Not quite. Try reading the section again!';
-            }
+            // Hide feedback first to create animation effect
+            feedback.classList.remove('show');
+            feedback.style.display = 'none';
+            
+            // Small delay to ensure the hide animation is visible
+            setTimeout(() => {
+                if (isCorrect) {
+                    // Correct answer - disable all buttons
+                    options.forEach(opt => {
+                        opt.disabled = true;
+                    });
+                    button.classList.add('correct');
+                    feedback.className = 'feedback show success';
+                    feedback.textContent = 'Correct! Well done!';
+                } else {
+                    // Wrong answer - mark as incorrect but keep buttons enabled
+                    button.classList.add('incorrect');
+                    button.disabled = true; // Disable only this wrong answer
+                    feedback.className = 'feedback show error';
+                    feedback.textContent = 'Not quite. Try again!';
+                }
+                feedback.style.display = 'block';
+            }, 150);
         }
 
         function completeLesson() {

@@ -114,6 +114,7 @@ When creating a new module/lesson:
 - `COMPREHENSIVE_LESSON_PLAN.md` - Detailed curriculum for all 10 modules
 - `MODULE_PAGE_TEMPLATE.md` - Complete template and guidelines for creating module index pages
 - `LESSON_PAGE_TEMPLATE.md` - Complete template and guidelines for creating lesson pages with proper icon placement and spacing rules
+- `EXERCISE_FEEDBACK_GUIDELINES.md` - Comprehensive guidelines for implementing interactive exercises with consistent feedback patterns
 
 ## Important Patterns
 
@@ -170,15 +171,12 @@ When creating a new module/lesson:
              
              if (logs.length > 0) {
                  outputPane.textContent = logs.join('\n');
-                 outputPane.style.color = 'var(--js-yellow)';
              } else {
                  outputPane.textContent = 'No output';
-                 outputPane.style.color = 'var(--js-yellow)';
-             }
+            }
          } catch (error) {
              outputPane.textContent = 'Error: ' + error.message;
-             outputPane.style.color = 'var(--error-color)';
-         } finally {
+        } finally {
              console.log = originalConsoleLog;
          }
      }

@@ -538,6 +538,7 @@ console.log("Preview:", preview);</textarea>
                                     <button class="option-btn" onclick="checkAnswer(this, false)">"undefined"</button>
                                     <button class="option-btn" onclick="checkAnswer(this, false)">"string"</button>
                                 </div>
+                                <div class="feedback"></div>
                             </div>
 
                             <div class="quiz-question">
@@ -548,6 +549,7 @@ console.log("Preview:", preview);</textarea>
                                     <button class="option-btn" onclick="checkAnswer(this, false)">Math.ceil()</button>
                                     <button class="option-btn" onclick="checkAnswer(this, false)">toFixed()</button>
                                 </div>
+                                <div class="feedback"></div>
                             </div>
 
                             <div class="quiz-question">
@@ -558,6 +560,7 @@ console.log("Preview:", preview);</textarea>
                                     <button class="option-btn" onclick="checkAnswer(this, true)">Use template literals (backticks)</button>
                                     <button class="option-btn" onclick="checkAnswer(this, false)">Not possible in JavaScript</button>
                                 </div>
+                                <div class="feedback"></div>
                             </div>
                         </div>
                     </div>
@@ -793,11 +796,14 @@ console.log("Preview:", preview);</textarea>
                     outputPane.innerHTML = logs.map(log => 
                         `<div class="output-line">${escapeHtml(log)}</div>`
                     ).join('');
+                    outputPane.style.color = 'var(--js-yellow)';
                 } else {
                     outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                    outputPane.style.color = 'var(--js-yellow)';
                 }
             } catch (error) {
                 outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+                outputPane.style.color = 'var(--error-color)';
             } finally {
                 console.log = originalConsoleLog;
             }
@@ -811,16 +817,39 @@ console.log("Preview:", preview);</textarea>
 
         function checkAnswer(button, isCorrect) {
             const options = button.parentElement.querySelectorAll('.option-btn');
+            const feedback = button.closest('.quiz-question').querySelector('.feedback');
             
+            // Remove previous incorrect selections
             options.forEach(opt => {
-                opt.disabled = true;
+                if (opt.classList.contains('incorrect')) {
+                    opt.classList.remove('incorrect');
+                    opt.disabled = false;
+                }
             });
             
-            if (isCorrect) {
-                button.classList.add('correct');
-            } else {
-                button.classList.add('incorrect');
-            }
+            // Hide feedback first to create animation effect
+            feedback.classList.remove('show');
+            feedback.style.display = 'none';
+            
+            // Small delay to ensure the hide animation is visible
+            setTimeout(() => {
+                if (isCorrect) {
+                    // Correct answer - disable all buttons
+                    options.forEach(opt => {
+                        opt.disabled = true;
+                    });
+                    button.classList.add('correct');
+                    feedback.className = 'feedback show success';
+                    feedback.textContent = 'Correct! Well done!';
+                } else {
+                    // Wrong answer - mark as incorrect but keep buttons enabled
+                    button.classList.add('incorrect');
+                    button.disabled = true; // Disable only this wrong answer
+                    feedback.className = 'feedback show error';
+                    feedback.textContent = 'Not quite. Try again!';
+                }
+                feedback.style.display = 'block';
+            }, 150);
         }
 
         function checkExercise1() {
@@ -834,17 +863,24 @@ console.log("Preview:", preview);</textarea>
             const hasTotalCalc = code.includes('billAmount + tipAmount');
             const hasToFixed = code.includes('.toFixed(2)');
             
-            if (hasTipCalc && hasTotalCalc && hasToFixed) {
-                feedback.className = 'feedback show success';
-                feedback.textContent = 'Excellent! Your bill calculator works perfectly!';
-            } else {
-                feedback.className = 'feedback show error';
-                let missing = [];
-                if (!hasTipCalc) missing.push('tip calculation');
-                if (!hasTotalCalc) missing.push('total calculation');
-                if (!hasToFixed) missing.push('rounding to 2 decimals');
-                feedback.textContent = `Missing: ${missing.join(', ')}`;
-            }
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'feedback';
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (hasTipCalc && hasTotalCalc && hasToFixed) {
+                    feedback.className = 'feedback show success';
+                    feedback.textContent = 'Excellent! Your bill calculator works perfectly!';
+                } else {
+                    feedback.className = 'feedback show error';
+                    let missing = [];
+                    if (!hasTipCalc) missing.push('tip calculation');
+                    if (!hasTotalCalc) missing.push('total calculation');
+                    if (!hasToFixed) missing.push('rounding to 2 decimals');
+                    feedback.textContent = `Missing: ${missing.join(', ')}`;
+                }
+            }, 150);
         }
 
         function checkExercise2() {
@@ -860,20 +896,27 @@ console.log("Preview:", preview);</textarea>
             const hasLength = code.includes('.length');
             const hasSlice = code.includes('.slice(') || code.includes('.substring(');
             
-            if (hasTrim && hasLowerCase && hasReplace && hasIncludes && hasLength && hasSlice) {
-                feedback.className = 'feedback show success';
-                feedback.textContent = 'Perfect! You\'ve mastered string manipulation!';
-            } else {
-                feedback.className = 'feedback show error';
-                let missing = [];
-                if (!hasTrim) missing.push('trim()');
-                if (!hasLowerCase) missing.push('toLowerCase()');
-                if (!hasReplace) missing.push('replace()');
-                if (!hasIncludes) missing.push('includes()');
-                if (!hasLength) missing.push('length property');
-                if (!hasSlice) missing.push('slice() or substring()');
-                feedback.textContent = `Missing methods: ${missing.join(', ')}`;
-            }
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'feedback';
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (hasTrim && hasLowerCase && hasReplace && hasIncludes && hasLength && hasSlice) {
+                    feedback.className = 'feedback show success';
+                    feedback.textContent = 'Perfect! You\'ve mastered string manipulation!';
+                } else {
+                    feedback.className = 'feedback show error';
+                    let missing = [];
+                    if (!hasTrim) missing.push('trim()');
+                    if (!hasLowerCase) missing.push('toLowerCase()');
+                    if (!hasReplace) missing.push('replace()');
+                    if (!hasIncludes) missing.push('includes()');
+                    if (!hasLength) missing.push('length property');
+                    if (!hasSlice) missing.push('slice() or substring()');
+                    feedback.textContent = `Missing methods: ${missing.join(', ')}`;
+                }
+            }, 150);
         }
 
         function completeLesson() {
