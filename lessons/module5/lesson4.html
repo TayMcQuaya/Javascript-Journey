@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 4: Arrow Functions - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <!-- Lesson Header -->
+            <div class="lesson-header">
+                <h1>Lesson 4: Arrow Functions</h1>
+                <p class="lesson-subtitle">Discover a modern, concise way to write functions using arrow syntax</p>
+            </div>
+
+            <!-- Introduction Section -->
+            <section class="content-section">
+                <h2>What Are Arrow Functions?</h2>
+                <p>Think of regular functions as writing a formal letter - they're proper and complete but sometimes verbose. Arrow functions are like sending a text message - they get the same point across but with much less typing. They're a shorter, more modern way to write functions in JavaScript.</p>
+                <p>Arrow functions were introduced in ES6 (2015) and have become extremely popular among JavaScript developers because they make code cleaner and more readable, especially for simple operations.</p>
+            </section>
+
+            <!-- Core Content -->
+            <section class="content-section">
+                <h2>Basic Arrow Function Syntax</h2>
+                <p>Here's how to convert regular functions to arrow functions:</p>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Regular vs Arrow Functions</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">
+// Regular function
+function greet(name) {
+    return "Hello, " + name + "!";
+}
+
+// Arrow function - same thing, shorter syntax
+const greetArrow = (name) => {
+    return "Hello, " + name + "!";
+};
+
+// Both work the same way
+console.log(greet("Alice"));
+console.log(greetArrow("Bob"));
+
+// Arrow function with multiple parameters
+const add = (a, b) => {
+    return a + b;
+};
+
+// Arrow function with no parameters
+const sayHello = () => {
+    return "Hello, World!";
+};
+
+console.log("5 + 3 =", add(5, 3));
+console.log(sayHello());</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box" style="margin-top: 1.5rem;">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> Key Concepts:</strong>
+                        <p><strong>Arrow Syntax:</strong> Use <code>=></code> (fat arrow) instead of the <code>function</code> keyword</p>
+                        <p><strong>Variable Assignment:</strong> Arrow functions are usually assigned to variables</p>
+                        <p><strong>Parameters:</strong> Put parameters in parentheses, just like regular functions</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Implicit Returns</h2>
+                <p>For simple functions that just return a value, you can make arrow functions even shorter by using implicit returns:</p>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Implicit Returns</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">
+// Long way - explicit return
+const square1 = (x) => {
+    return x * x;
+};
+
+// Short way - implicit return (no braces, no return keyword)
+const square2 = (x) => x * x;
+
+// Both work the same
+console.log("square1(5) =", square1(5));
+console.log("square2(5) =", square2(5));
+
+// More examples of implicit returns
+const isEven = (num) => num % 2 === 0;
+const getFullName = (first, last) => first + " " + last;
+const double = (n) => n * 2;
+
+// Single parameter? You can skip the parentheses too!
+const triple = x => x * 3;
+
+console.log("Is 8 even?", isEven(8));
+console.log("Full name:", getFullName("John", "Doe"));
+console.log("Double 7:", double(7));
+console.log("Triple 4:", triple(4));</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>When to Use Arrow Functions</h2>
+                <p>Arrow functions are great for short, simple operations. Here are common use cases:</p>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Common Use Cases</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">
+// Array methods (you'll learn these later, but here's a preview!)
+const numbers = [1, 2, 3, 4, 5];
+
+// Traditional function
+const doubled1 = numbers.map(function(num) {
+    return num * 2;
+});
+
+// Arrow function - much cleaner!
+const doubled2 = numbers.map(num => num * 2);
+
+console.log("Original:", numbers);
+console.log("Doubled:", doubled2);
+
+// Simple calculations
+const calculateTip = (bill, percent) => bill * (percent / 100);
+const celsiusToFahrenheit = celsius => (celsius * 9/5) + 32;
+const getRandomNumber = () => Math.floor(Math.random() * 100);
+
+console.log("Tip on $50 at 15%:", calculateTip(50, 15));
+console.log("25°C in Fahrenheit:", celsiusToFahrenheit(25));
+console.log("Random number:", getRandomNumber());
+
+// When NOT to use arrow functions - complex logic
+const processOrder = (order) => {
+    // If your function has multiple lines or complex logic,
+    // regular functions might be more readable
+    if (!order.items || order.items.length === 0) {
+        console.log("Empty order");
+        return false;
+    }
+    
+    console.log("Processing order with", order.items.length, "items");
+    return true;
+};
+
+processOrder({ items: ["pizza", "soda"] });</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="real-world-example" style="margin-top: 1.5rem;">
+                    <h3><i class="fas fa-mobile-alt"></i> Real-World Example: Event Handling</h3>
+                    <p>Arrow functions are extremely popular for handling button clicks and other events in web applications: <code>button.onClick = () => console.log('Clicked!')</code></p>
+                </div>
+            </section>
+
+            <!-- Practice Exercises -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Arrow Function Syntax</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Which of these is a correctly written arrow function?</p>
+                    <div class="exercise-options" id="exercise1">
+                        <button class="option-btn" data-answer="wrong">const add = (a, b) -> a + b;</button>
+                        <button class="option-btn" data-answer="correct">const add = (a, b) => a + b;</button>
+                        <button class="option-btn" data-answer="wrong">const add = (a, b) => return a + b;</button>
+                        <button class="option-btn" data-answer="wrong">const add => (a, b) = a + b;</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 2: Convert to Arrow Function</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Convert this regular function to an arrow function with implicit return:<br>
+                    <code>function cube(x) { return x * x * x; }</code></p>
+                    <div class="code-editor" id="exercise">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Your Solution</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="checkExercise()">
+                                    <i class="fas fa-check"></i> Check Solution
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise-code">
+// Convert to arrow function here
+
+
+// Test it with cube(3)
+console.log("cube(3) =", cube(3));</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: Implicit Return</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What will this arrow function return when called with <code>test(10)</code>?</p>
+                    <div class="code-block">
+                        <pre><code>const test = x => x > 5 ? "big" : "small";</code></pre>
+                    </div>
+                    <div class="exercise-options" id="exercise3">
+                        <button class="option-btn" data-answer="correct">big</button>
+                        <button class="option-btn" data-answer="wrong">small</button>
+                        <button class="option-btn" data-answer="wrong">10</button>
+                        <button class="option-btn" data-answer="wrong">undefined</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Common Mistakes Section -->
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Mixing Implicit and Explicit Returns</strong>
+                            <p>Don't use <code>return</code> in an implicit return arrow function. Either use <code>x => x * 2</code> or <code>x => { return x * 2; }</code>, not both styles mixed.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Forgetting Parentheses for Multiple Parameters</strong>
+                            <p>You need parentheses around multiple parameters: <code>(a, b) => a + b</code>, not <code>a, b => a + b</code>.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Using Arrow Functions for Everything</strong>
+                            <p>While arrow functions are great, regular functions are sometimes clearer for complex logic or when you need specific behaviors like <code>this</code> binding.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>Arrow functions provide a shorter, more modern syntax using <code>=></code></li>
+                        <li>Implicit returns let you omit curly braces and the <code>return</code> keyword for simple functions</li>
+                        <li>Single parameters don't need parentheses, but multiple parameters do</li>
+                        <li>Arrow functions are perfect for short, simple operations and callbacks</li>
+                        <li>Use regular functions for complex logic or when you need better readability</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Spacing before navigation -->
+            <div style="margin: 2rem 0;"></div>
+            
+            <!-- Lesson Navigation -->
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson3.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson5.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+        <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Run code function
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = outputPane.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            outputPane.innerHTML = '';
+            
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+            };
+            
+            try {
+                eval(code);
+                
+                if (logs.length > 0) {
+                    outputPane.innerHTML = logs.map(log => 
+                        `<div class="output-line">${escapeHtml(log)}</div>`
+                    ).join('');
+                } else {
+                    outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        // Copy code function
+        function copyCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            if (!codeInput) return;
+            
+            codeInput.select();
+            codeInput.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                const button = event.target.closest('.editor-btn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        }
+
+        // Escape HTML for safe output
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Check exercise function
+        function checkExercise() {
+            const code = document.getElementById('exercise-code').value;
+            const output = document.getElementById('exercise-output');
+            const feedback = document.getElementById('exercise-feedback');
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = output.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // Run the code first to show output
+            runCode('exercise');
+            
+            // Check if the solution is correct
+            const hasArrowFunction = /const\s+cube\s*=\s*\w+\s*=>\s*\w+\s*\*\s*\w+\s*\*\s*\w+/.test(code);
+            const isImplicitReturn = !code.includes('return') && !code.includes('{');
+            const hasUsage = code.includes('cube(3)');
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            feedback.classList.remove('show', 'success', 'error');
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (hasArrowFunction && isImplicitReturn && hasUsage) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Perfect! You created an arrow function with implicit return!';
+                } else if (hasArrowFunction && !isImplicitReturn) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Good arrow function! Try removing the curly braces and return keyword for implicit return.';
+                } else if (!hasArrowFunction && code.includes('cube')) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'You created a function, but try using arrow function syntax with =>.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Not quite. Create: const cube = x => x * x * x';
+                }
+            }, 150);
+        }
+
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(5, 4, true);
+            customModal.success('Fantastic! You\'ve mastered arrow functions!', 'Congratulations!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson5.html';
+            }, 2000);
+        }
+
+        // Handle quiz options
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.disabled) return;
+                    
+                    const exerciseContainer = this.closest('.exercise-options');
+                    const exerciseId = exerciseContainer.id;
+                    const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
+                    const isCorrect = this.getAttribute('data-answer') === 'correct';
+                    
+                    // Remove previous incorrect selections
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.classList.contains('incorrect')) {
+                            btn.classList.remove('incorrect', 'selected');
+                            btn.disabled = false;
+                        }
+                    });
+                    
+                    // Hide feedback first to create animation effect
+                    if (feedbackDiv) {
+                        feedbackDiv.style.display = 'none';
+                        feedbackDiv.className = 'exercise-feedback';
+                        feedbackDiv.classList.remove('show', 'success', 'error');
+                    }
+                    
+                    // Mark this button
+                    this.classList.add('selected');
+                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    if (isCorrect) {
+                        // Correct answer - disable all buttons
+                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                            btn.disabled = true;
+                        });
+                    } else {
+                        // Wrong answer - disable only this button
+                        this.disabled = true;
+                    }
+                    
+                    // Show feedback with animation
+                    if (feedbackDiv) {
+                        setTimeout(() => {
+                            feedbackDiv.style.display = 'block';
+                            feedbackDiv.className = 'exercise-feedback show ' + (isCorrect ? 'success' : 'error');
+                            
+                            let feedbackText;
+                            if (exerciseId === 'exercise1') {
+                                feedbackText = isCorrect ? 
+                                    'Correct! Arrow functions use => and implicit returns don\'t need the return keyword.' : 
+                                    'Not quite. Arrow functions use => and implicit returns don\'t use return or braces.';
+                            } else if (exerciseId === 'exercise3') {
+                                feedbackText = isCorrect ? 
+                                    'Correct! Since 10 > 5 is true, the function returns "big".' : 
+                                    'Not quite. Remember the ternary operator: condition ? valueIfTrue : valueIfFalse.';
+                            }
+                            
+                            feedbackDiv.textContent = feedbackText;
+                        }, 150);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

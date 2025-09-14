@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2: Properties and Methods - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <!-- Lesson Header -->
+            <div class="lesson-header">
+                <h1>Lesson 2: Properties and Methods</h1>
+                <p class="lesson-subtitle">Transform objects from simple data containers into intelligent entities with built-in functionality</p>
+            </div>
+
+            <!-- Introduction Section -->
+            <section class="content-section">
+                <h2>Introduction to Object Methods</h2>
+                <p>Imagine a Swiss Army knife - it's not just a collection of tools, but each tool can perform specific actions. Object methods are like those tools, turning your objects from simple data containers into smart entities that can perform actions and solve problems. If properties are what an object "has," methods are what an object "does."</p>
+                <p>Methods bring objects to life by giving them behavior. A car object doesn't just store data about speed and fuel - it can accelerate, brake, and honk its horn. This is what makes object-oriented programming so powerful and intuitive.</p>
+            </section>
+
+            <!-- Core Content Section 1 -->
+            <section class="content-section">
+                <h2>Methods as Properties</h2>
+                <p>In JavaScript, methods are simply properties that contain functions. Think of them as recipe cards stored in your filing cabinet - they tell the object how to perform specific tasks:</p>
+
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> Key Concept:</strong>
+                        <p>A method is just a function stored as a property of an object. When you call a method, you're telling the object to execute that function.</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Object Methods</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">
+// A calculator object with methods
+const calculator = {
+    brand: "MathMaster",
+    model: "Pro-2000",
+    
+    // Methods are functions stored as properties
+    add: function(a, b) {
+        return a + b;
+    },
+    
+    subtract: function(a, b) {
+        return a - b;
+    },
+    
+    multiply: function(a, b) {
+        return a * b;
+    },
+    
+    divide: function(a, b) {
+        if (b === 0) {
+            return "Cannot divide by zero!";
+        }
+        return a / b;
+    },
+    
+    // Method that uses the object's own properties
+    displayInfo: function() {
+        return `Calculator: ${this.brand} ${this.model}`;
+    }
+};
+
+console.log("=== Calculator Object ===");
+console.log(calculator.displayInfo());
+
+console.log("\n=== Performing Calculations ===");
+console.log("5 + 3 =", calculator.add(5, 3));
+console.log("10 - 4 =", calculator.subtract(10, 4));
+console.log("6 × 7 =", calculator.multiply(6, 7));
+console.log("20 ÷ 5 =", calculator.divide(20, 5));
+console.log("15 ÷ 0 =", calculator.divide(15, 0));
+
+// Methods can also be added after object creation
+calculator.power = function(base, exponent) {
+    return Math.pow(base, exponent);
+};
+
+console.log("\n=== Added Power Function ===");
+console.log("2^8 =", calculator.power(2, 8));
+</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 2 -->
+            <section class="content-section">
+                <h2>The this Keyword (Introduction)</h2>
+                <p>The `this` keyword is like saying "myself" inside a method. When a method refers to `this`, it's talking about the object that the method belongs to. Think of it as each object's way of referring to itself:</p>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Understanding this</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">
+// A person object with methods that use 'this'
+const person = {
+    firstName: "Sarah",
+    lastName: "Johnson",
+    age: 28,
+    city: "Portland",
+    
+    // Method using 'this' to access object properties
+    getFullName: function() {
+        return `${this.firstName} ${this.lastName}`;
+    },
+    
+    introduce: function() {
+        return `Hello! I'm ${this.firstName} and I'm ${this.age} years old. I live in ${this.city}.`;
+    },
+    
+    haveBirthday: function() {
+        this.age = this.age + 1;  // 'this' refers to this person object
+        return `Happy birthday to me! I'm now ${this.age} years old!`;
+    },
+    
+    moveTo: function(newCity) {
+        const oldCity = this.city;
+        this.city = newCity;
+        return `I moved from ${oldCity} to ${this.city}!`;
+    }
+};
+
+console.log("=== Person Information ===");
+console.log("Full name:", person.getFullName());
+console.log("Introduction:", person.introduce());
+
+console.log("\n=== Life Events ===");
+console.log("Age before birthday:", person.age);
+console.log(person.haveBirthday());
+console.log("Age after birthday:", person.age);
+
+console.log("\n=== Moving Cities ===");
+console.log(person.moveTo("Seattle"));
+console.log("Current city:", person.city);
+
+// Another object with the same methods but different data
+const anotherPerson = {
+    firstName: "Mike",
+    lastName: "Chen",
+    age: 35,
+    city: "Austin",
+    getFullName: person.getFullName,  // Borrowing the method!
+    introduce: person.introduce
+};
+
+console.log("\n=== Another Person Using Same Methods ===");
+console.log("Name:", anotherPerson.getFullName());
+console.log("Intro:", anotherPerson.introduce());
+</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div>
+                        <i class="fas fa-exclamation-triangle"></i> <strong> Important:</strong>
+                        <p>The `this` keyword always refers to the object that called the method. This allows the same method to work with different objects, as shown with the borrowed methods above.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 3 -->
+            <section class="content-section">
+                <h2>Property Shorthand and Modern Syntax</h2>
+                <p>ES6 introduced cleaner ways to write object methods and handle properties. These shortcuts make your code more readable and less repetitive:</p>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Modern Object Syntax</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">
+// Variables to use in object creation
+const productName = "Gaming Laptop";
+const price = 1299.99;
+const inStock = true;
+
+console.log("=== Traditional vs Modern Syntax ===");
+
+// Traditional way (ES5)
+const productOld = {
+    name: productName,
+    price: price,
+    inStock: inStock,
+    
+    displayInfo: function() {
+        return `${this.name} - $${this.price}`;
+    },
+    
+    updatePrice: function(newPrice) {
+        this.price = newPrice;
+        return `Price updated to $${this.price}`;
+    }
+};
+
+console.log("Traditional:", productOld.displayInfo());
+
+// Modern way (ES6+) - Property shorthand and method shorthand
+const productNew = {
+    name: productName,        // Could be just: name, (shorthand when variable name matches property name)
+    price,                   // Shorthand: same as price: price
+    inStock,                 // Shorthand: same as inStock: inStock
+    
+    // Method shorthand - no need for 'function' keyword
+    displayInfo() {
+        return `${this.name} - $${this.price}`;
+    },
+    
+    updatePrice(newPrice) {
+        this.price = newPrice;
+        return `Price updated to $${this.price}`;
+    },
+    
+    // Computed property names (dynamic property names)
+    [productName.toLowerCase().replace(' ', '_') + '_specs']: {
+        processor: "Intel i7",
+        ram: "16GB",
+        storage: "512GB SSD"
+    }
+};
+
+console.log("Modern:", productNew.displayInfo());
+console.log("Computed property:", Object.keys(productNew).find(key => key.includes('specs')));
+
+// Real-world example: User preferences object
+function createUserPreferences(theme, language, notifications) {
+    return {
+        theme,        // Shorthand for theme: theme
+        language,     // Shorthand for language: language
+        notifications, // Shorthand for notifications: notifications
+        
+        // Method shorthand
+        applyTheme() {
+            return `Applying ${this.theme} theme...`;
+        },
+        
+        changeLanguage(newLang) {
+            this.language = newLang;
+            return `Language changed to ${this.language}`;
+        },
+        
+        toggleNotifications() {
+            this.notifications = !this.notifications;
+            return `Notifications ${this.notifications ? 'enabled' : 'disabled'}`;
+        }
+    };
+}
+
+console.log("\n=== User Preferences Example ===");
+const userPrefs = createUserPreferences("dark", "English", true);
+console.log("User preferences:", userPrefs);
+console.log(userPrefs.applyTheme());
+console.log(userPrefs.changeLanguage("Spanish"));
+console.log(userPrefs.toggleNotifications());
+</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 1 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Calculator Object</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Create a calculator object that can perform basic operations. Your calculator should have:</p>
+                    <ul>
+                        <li>Properties: `result` (starting at 0)</li>
+                        <li>Methods: `add(num)`, `subtract(num)`, `multiply(num)`, `clear()`, `getResult()`</li>
+                        <li>Each operation should update the `result` property</li>
+                        <li>`clear()` should reset result to 0</li>
+                        <li>`getResult()` should return the current result</li>
+                    </ul>
+                    
+                    <div class="code-editor" id="exercise1">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Calculator</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('exercise1')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise1()">
+                                    <i class="fas fa-play"></i> Test Calculator
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise1-code">
+// Create your calculator object here
+const calculator = {
+    result: 0,
+    
+    add(num) {
+        // Add num to this.result
+        
+        // Return this for method chaining (optional)
+        return this;
+    },
+    
+    subtract(num) {
+        // Subtract num from this.result
+        
+        return this;
+    },
+    
+    multiply(num) {
+        // Multiply this.result by num
+        
+        return this;
+    },
+    
+    clear() {
+        // Reset result to 0
+        
+        return this;
+    },
+    
+    getResult() {
+        // Return the current result
+        
+    }
+};
+
+// Test your calculator
+calculator.add(10).subtract(3).multiply(2);
+console.log("Result after 10 + (-3) × 2:", calculator.getResult());
+
+calculator.clear();
+console.log("Result after clear:", calculator.getResult());
+
+calculator.add(5).add(5).multiply(3);
+console.log("Result after (5 + 5) × 3:", calculator.getResult());
+</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise1-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 2 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 2: Method vs Property Quiz</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Look at this object. Which of the following is a method?</p>
+                    <pre><code>const book = {
+    title: "JavaScript Guide",
+    pages: 300,
+    read: false,
+    markAsRead: function() {
+        this.read = true;
+    }
+};</code></pre>
+                    <div class="exercise-options" id="exercise2">
+                        <button class="option-btn" data-answer="wrong">title</button>
+                        <button class="option-btn" data-answer="wrong">pages</button>
+                        <button class="option-btn" data-answer="wrong">read</button>
+                        <button class="option-btn" data-answer="correct">markAsRead</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise2-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 3 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: Bank Account System</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Create a bank account object that manages transactions:</p>
+                    
+                    <div class="code-editor" id="exercise3">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Bank Account</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('exercise3')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise3()">
+                                    <i class="fas fa-play"></i> Test Account
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise3-code">
+const bankAccount = {
+    accountNumber: "ACC001",
+    ownerName: "Alice Smith",
+    balance: 1000,
+    
+    deposit(amount) {
+        // Add amount to balance
+        // Return a success message with new balance
+        
+    },
+    
+    withdraw(amount) {
+        // Check if amount is greater than balance
+        // If not enough funds, return error message
+        // If enough, subtract amount and return success message
+        
+    },
+    
+    getBalance() {
+        // Return current balance formatted as currency
+        
+    },
+    
+    getAccountInfo() {
+        // Return account number and owner name
+        
+    }
+};
+
+// Test the bank account
+console.log(bankAccount.getAccountInfo());
+console.log(bankAccount.getBalance());
+
+console.log(bankAccount.deposit(500));
+console.log(bankAccount.withdraw(200));
+console.log(bankAccount.withdraw(2000)); // Should fail
+console.log(bankAccount.getBalance());
+</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise3-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Common Mistakes Section -->
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Forgetting 'this' in Methods</strong>
+                            <p>When accessing object properties inside methods, always use `this`. Writing `age` instead of `this.age` will look for a global variable, not the object's property.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Missing Commas Between Methods</strong>
+                            <p>Just like properties, methods must be separated by commas. Don't forget the comma after each method except the last one in the object.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Calling Methods Without Parentheses</strong>
+                            <p>Methods are functions and need parentheses to execute. Writing `obj.method` returns the function itself, while `obj.method()` executes it.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>Methods are functions stored as object properties, giving objects the ability to perform actions</li>
+                        <li>The `this` keyword inside methods refers to the object that called the method</li>
+                        <li>Methods can access and modify object properties using `this.propertyName`</li>
+                        <li>ES6 method shorthand removes the need for the `function` keyword in object methods</li>
+                        <li>Property shorthand allows you to use variable names directly as property names when they match</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Spacing before navigation -->
+            <div style="margin: 2rem 0;"></div>
+            
+            <!-- Lesson Navigation -->
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson1.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson3.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(7, 2, true);
+            customModal.success('Excellent work! You now understand how objects can have both data and behavior through methods.', 'Congratulations!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson3.html';
+            }, 2000);
+        }
+
+        // Copy code function
+        function copyCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            if (!codeInput) return;
+            
+            codeInput.select();
+            codeInput.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                const button = event.target.closest('.editor-btn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        }
+
+        // Run code function
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = outputPane.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            outputPane.innerHTML = '';
+            
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+            };
+            
+            try {
+                eval(code);
+                
+                if (logs.length > 0) {
+                    outputPane.innerHTML = logs.map(log => 
+                        `<div class="output-line">${escapeHtml(log)}</div>`
+                    ).join('');
+                } else {
+                    outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        // Escape HTML function
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Exercise 1 checker
+        function checkExercise1() {
+            const code = document.getElementById('exercise1-code').value;
+            const output = document.getElementById('exercise1-output');
+            const feedback = document.getElementById('exercise1-feedback');
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = output.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // Run the code first to show output
+            runCode('exercise1');
+            
+            // Check if the output contains any errors
+            const outputHasError = output.innerHTML.includes('output-error') || 
+                                  output.innerHTML.includes('Error:');
+            
+            const hasAddMethod = code.includes('this.result') && code.includes('add') && code.includes('num');
+            const hasSubtractMethod = code.includes('subtract') && code.includes('this.result');
+            const hasMultiplyMethod = code.includes('multiply') && code.includes('this.result');
+            const hasClearMethod = code.includes('clear') && code.includes('this.result') && code.includes('0');
+            const hasGetResultMethod = code.includes('getResult') && code.includes('return') && code.includes('this.result');
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            feedback.classList.remove('show', 'success', 'error');
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (!outputHasError && hasAddMethod && hasSubtractMethod && hasMultiplyMethod && hasClearMethod && hasGetResultMethod) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Perfect! Your calculator object works correctly with all required methods. Great use of the "this" keyword!';
+                } else if (outputHasError) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Your code has errors. Check the output and make sure all methods are properly implemented.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    let missing = [];
+                    if (!hasAddMethod) missing.push('add method implementation');
+                    if (!hasSubtractMethod) missing.push('subtract method implementation');
+                    if (!hasMultiplyMethod) missing.push('multiply method implementation');
+                    if (!hasClearMethod) missing.push('clear method implementation');
+                    if (!hasGetResultMethod) missing.push('getResult method implementation');
+                    feedback.textContent = `Missing or incorrect: ${missing.join(', ')}. Make sure to use "this.result" in your methods.`;
+                }
+            }, 150);
+        }
+
+        // Exercise 3 checker
+        function checkExercise3() {
+            const code = document.getElementById('exercise3-code').value;
+            const output = document.getElementById('exercise3-output');
+            const feedback = document.getElementById('exercise3-feedback');
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = output.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // Run the code first to show output
+            runCode('exercise3');
+            
+            // Check if the output contains any errors
+            const outputHasError = output.innerHTML.includes('output-error') || 
+                                  output.innerHTML.includes('Error:');
+            
+            const hasDepositLogic = code.includes('this.balance') && code.includes('deposit');
+            const hasWithdrawLogic = code.includes('withdraw') && code.includes('this.balance');
+            const hasBalanceCheck = code.includes('withdraw') && (code.includes('if') || code.includes('>'));
+            const hasGetBalance = code.includes('getBalance') && code.includes('return');
+            const hasGetAccountInfo = code.includes('getAccountInfo') && code.includes('return');
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            feedback.classList.remove('show', 'success', 'error');
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (!outputHasError && hasDepositLogic && hasWithdrawLogic && hasBalanceCheck && hasGetBalance && hasGetAccountInfo) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Excellent! Your bank account system handles deposits, withdrawals, and balance checks correctly. You are mastering object methods!';
+                } else if (outputHasError) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Your code has errors. Make sure all methods are properly implemented and return appropriate values.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    let missing = [];
+                    if (!hasDepositLogic) missing.push('deposit method');
+                    if (!hasWithdrawLogic) missing.push('withdraw method');
+                    if (!hasBalanceCheck) missing.push('insufficient funds check');
+                    if (!hasGetBalance) missing.push('getBalance method');
+                    if (!hasGetAccountInfo) missing.push('getAccountInfo method');
+                    feedback.textContent = `Missing or incomplete: ${missing.join(', ')}. Make sure each method properly uses "this" and returns appropriate values.`;
+                }
+            }, 150);
+        }
+
+        // Exercise 2 - Multiple choice handler
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.disabled) return;
+                    
+                    const exerciseContainer = this.closest('.exercise-options');
+                    const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
+                    const isCorrect = this.getAttribute('data-answer') === 'correct';
+                    
+                    // Remove previous incorrect selections (but not correct ones)
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.classList.contains('incorrect')) {
+                            btn.classList.remove('incorrect', 'selected');
+                            btn.disabled = false;
+                        }
+                    });
+                    
+                    // Hide feedback first to create animation effect
+                    if (feedbackDiv) {
+                        feedbackDiv.style.display = 'none';
+                        feedbackDiv.className = 'exercise-feedback';
+                        feedbackDiv.classList.remove('show', 'success', 'error');
+                    }
+                    
+                    // Mark this button
+                    this.classList.add('selected');
+                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    if (isCorrect) {
+                        // Correct answer - disable all buttons
+                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                            btn.disabled = true;
+                        });
+                    } else {
+                        // Wrong answer - disable only this button
+                        this.disabled = true;
+                    }
+                    
+                    // Show feedback with animation
+                    if (feedbackDiv) {
+                        setTimeout(() => {
+                            feedbackDiv.style.display = 'block';
+                            feedbackDiv.className = 'exercise-feedback show ' + (isCorrect ? 'success' : 'error');
+                            if (isCorrect) {
+                                feedbackDiv.textContent = 'Correct! markAsRead is a method because it contains a function that can be executed.';
+                            } else {
+                                feedbackDiv.textContent = 'That\'s a property, not a method. Methods are functions that can be called to perform actions.';
+                            }
+                        }, 150);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

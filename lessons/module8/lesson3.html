@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3: Modifying Elements - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <!-- Lesson Header -->
+            <div class="lesson-header">
+                <h1>Lesson 3: Modifying Elements</h1>
+                <p class="lesson-subtitle">Transform web pages by changing content, attributes, and classes like a digital sculptor</p>
+            </div>
+
+            <!-- Introduction Section -->
+            <section class="content-section">
+                <h2>Introduction to Element Modification</h2>
+                <p>Think of HTML elements as actors on a stage. You can change their costumes (classes), give them new props (attributes), change their lines (text content), or even rewrite their entire script (innerHTML). JavaScript gives you the director's power to modify any aspect of these digital actors to create dynamic, interactive experiences.</p>
+                <p>Element modification is where static HTML becomes dynamic. Once you can find elements, changing them opens up infinite possibilities: updating user profiles, showing real-time data, creating interactive forms, building games, and much more.</p>
+            </section>
+
+            <!-- Interactive Demo Elements -->
+            <div style="background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: 0.5rem; padding: 1.5rem; margin: 1.5rem 0;">
+                <h3 style="margin-top: 0; color: var(--primary-color);">🎨 Element Modification Playground</h3>
+                
+                <div id="modification-demo" style="text-align: center;">
+                    <p id="demo-text" style="font-weight: bold; padding: 1rem; background: var(--bg-secondary); border-radius: 0.5rem; border: 2px solid var(--border-color); text-align: left; max-width: 600px; margin: 0 auto 1rem;">This text will change when you click the buttons below!</p>
+                    
+                    <div>
+                        <img id="demo-image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iIzNiODJmNiIvPgogIDx0ZXh0IHg9IjUwIiB5PSI1NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SW1hZ2U8L3RleHQ+Cjwvc3ZnPgo=" 
+                             alt="Demo image" 
+                             title="Original image"
+                             style="border-radius: 0.5rem; margin: 1rem auto; display: inline-block;">
+                    </div>
+                    
+                    <div id="demo-container" class="demo-box" data-info="original" style="max-width: 600px; margin: 1rem auto; text-align: left;">
+                        <h4>Demo Container</h4>
+                        <p>This container's classes and attributes can be modified!</p>
+                        <span class="status-indicator">Status: Ready</span>
+                    </div>
+                    
+                    <div style="margin-top: 1rem;">
+                        <button onclick="demoTextContent()" style="margin: 0.25rem; padding: 0.5rem; background: #10b981; color: white; border: none; border-radius: 0.25rem; cursor: pointer;">Change Text</button>
+                        <button onclick="demoInnerHTML()" style="margin: 0.25rem; padding: 0.5rem; background: #f59e0b; color: white; border: none; border-radius: 0.25rem; cursor: pointer;">Change HTML</button>
+                        <button onclick="demoAttributes()" style="margin: 0.25rem; padding: 0.5rem; background: #8b5cf6; color: white; border: none; border-radius: 0.25rem; cursor: pointer;">Change Attributes</button>
+                        <button onclick="demoClasses()" style="margin: 0.25rem; padding: 0.5rem; background: #ef4444; color: white; border: none; border-radius: 0.25rem; cursor: pointer;">Toggle Classes</button>
+                        <button onclick="resetDemo()" style="margin: 0.25rem; padding: 0.5rem; background: #6b7280; color: white; border: none; border-radius: 0.25rem; cursor: pointer;">Reset</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Content Section 1 -->
+            <section class="content-section">
+                <h2>textContent vs innerHTML - Changing Element Content</h2>
+                <p>Imagine you're updating a sign: `textContent` is like using a marker to write plain text, while `innerHTML` is like using a computer to design with fonts, colors, and graphics. Both change what people see, but `innerHTML` understands HTML formatting while `textContent` treats everything as plain text.</p>
+
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> Security Tip:</strong>
+                        <p>Use textContent for user-generated content to prevent XSS attacks. Use innerHTML only when you control the content and need HTML formatting.</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Content Modification Mastery</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">
+console.log("=== textContent vs innerHTML ===");
+
+// Find our demo elements (they exist in the playground above)
+const demoText = document.getElementById('demo-text');
+const demoContainer = document.getElementById('demo-container');
+
+if (demoText) {
+    console.log("Original text:", demoText.textContent);
+    console.log("Original HTML:", demoText.innerHTML);
+    
+    console.log("\n=== Using textContent ===");
+    // textContent treats everything as plain text
+    const originalTextContent = demoText.textContent;
+    demoText.textContent = "This is <strong>plain text</strong> - HTML tags won't work!";
+    console.log("After textContent change:", demoText.textContent);
+    console.log("HTML structure:", demoText.innerHTML); // Same as textContent
+    
+    // Reset for next demo
+    setTimeout(() => {
+        demoText.textContent = originalTextContent;
+        console.log("Reset to original text");
+    }, 3000);
+    
+} else {
+    console.log("❌ Demo text element not found");
+}
+
+// Demonstrate innerHTML
+console.log("\n=== Using innerHTML ===");
+if (demoContainer) {
+    const originalHTML = demoContainer.innerHTML;
+    console.log("Original container HTML:", originalHTML);
+    
+    // innerHTML can create complex HTML structures
+    setTimeout(() => {
+        demoContainer.innerHTML = `
+            <h4 style="color: #10b981;">✨ Updated with innerHTML!</h4>
+            <p>This content includes <strong>bold text</strong>, <em>italics</em>, and even:</p>
+            <ul>
+                <li>🚀 List items</li>
+                <li>📝 With emojis</li>
+                <li>🎨 And colors!</li>
+            </ul>
+            <button onclick="alert('innerHTML can add interactive elements!')">Click me!</button>
+        `;
+        console.log("Container updated with rich HTML content");
+        
+        // Reset after 5 seconds
+        setTimeout(() => {
+            demoContainer.innerHTML = originalHTML;
+            console.log("Reset to original HTML");
+        }, 5000);
+    }, 4000);
+}
+
+console.log("\n=== Practical Examples ===");
+
+// Example 1: Safe user input handling
+function safeUpdateContent(element, userInput) {
+    // Always use textContent for user-provided data
+    element.textContent = userInput;
+    console.log("✅ Safely updated with textContent");
+}
+
+// Example 2: Dynamic HTML generation
+function createProductCard(product) {
+    return `
+        <div class="product-card">
+            <h3>${product.name}</h3>
+            <p class="price">$${product.price}</p>
+            <p class="description">${product.description}</p>
+            <button onclick="addToCart(${product.id})">Add to Cart</button>
+        </div>
+    `;
+}
+
+// Show the difference with HTML entities
+console.log("\n=== HTML Entity Handling ===");
+const htmlExample = "<script>alert('XSS attempt!')</script>";
+
+console.log("Dangerous input:", htmlExample);
+console.log("With textContent: Safe - displays as text");
+console.log("With innerHTML: DANGEROUS - executes as HTML/JS");
+
+// Best practices examples
+console.log("\n=== Best Practices ===");
+
+console.log("✅ Use textContent when:");
+console.log("  - Displaying user input");
+console.log("  - Setting plain text content");
+console.log("  - Preventing XSS attacks");
+console.log("  - Better performance (no HTML parsing)");
+
+console.log("\n✅ Use innerHTML when:");
+console.log("  - Creating rich HTML content");
+console.log("  - You control the HTML source");
+console.log("  - Building dynamic interfaces");
+console.log("  - Adding formatted text with tags");
+
+// Performance comparison
+console.log("\n=== Performance Considerations ===");
+console.log("textContent: ⚡ Fast - direct text assignment");
+console.log("innerHTML: 🐌 Slower - parses HTML, builds DOM");
+
+// Reading content
+console.log("\n=== Reading Content ===");
+if (demoText) {
+    console.log("textContent reads:", typeof demoText.textContent);
+    console.log("innerHTML reads:", typeof demoText.innerHTML);
+    console.log("Both return strings, but innerHTML includes HTML tags");
+}
+
+// innerText vs textContent (bonus)
+console.log("\n=== Bonus: innerText vs textContent ===");
+console.log("textContent: Gets/sets all text including hidden");
+console.log("innerText: Gets/sets only visible text (respects CSS)");
+console.log("📝 Prefer textContent for consistency and performance");
+
+// Real-world scenarios
+console.log("\n=== Real-World Scenarios ===");
+
+console.log("1. Chat Application:");
+console.log("   - Use textContent for user messages (security)");
+console.log("   - Use innerHTML for system messages with formatting");
+
+console.log("\n2. Form Validation:");
+console.log("   - Use textContent for simple error messages");
+console.log("   - Use innerHTML for formatted error messages with links");
+
+console.log("\n3. Dynamic Content Loading:");
+console.log("   - Use innerHTML when loading pre-built HTML");
+console.log("   - Use textContent when updating individual fields");
+
+// Template example
+const userProfile = {
+    name: "Alice Johnson",
+    email: "alice@example.com",
+    bio: "Web developer with 5+ years experience"
+};
+
+console.log("\n=== Template Example ===");
+const profileTemplate = `
+    <div class="user-profile">
+        <h2>${userProfile.name}</h2>
+        <p class="email">${userProfile.email}</p>
+        <p class="bio">${userProfile.bio}</p>
+    </div>
+`;
+console.log("Generated profile HTML template");
+</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 2 -->
+            <section class="content-section">
+                <h2>Changing Attributes - Element Properties</h2>
+                <p>HTML attributes are like ID cards, labels, and settings that describe elements. JavaScript lets you be the administrator who can issue new IDs, change labels, and update settings on the fly. Want to change an image source? Update a link destination? Make a form field required? It's all about attribute manipulation!</p>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Attribute Manipulation</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">
+console.log("=== Attribute Manipulation Methods ===");
+
+// Find our demo image from the playground
+const demoImage = document.getElementById('demo-image');
+const demoContainer = document.getElementById('demo-container');
+
+console.log("=== Reading Attributes ===");
+if (demoImage) {
+    console.log("Image attributes:");
+    console.log("  src:", demoImage.getAttribute('src') ? "Has src" : "No src");
+    console.log("  alt:", demoImage.getAttribute('alt'));
+    console.log("  title:", demoImage.getAttribute('title'));
+    console.log("  id:", demoImage.getAttribute('id'));
+    
+    // Alternative: direct property access
+    console.log("\nDirect property access:");
+    console.log("  id:", demoImage.id);
+    console.log("  alt:", demoImage.alt);
+    console.log("  title:", demoImage.title);
+}
+
+console.log("\n=== Setting Attributes ===");
+if (demoImage) {
+    // Method 1: setAttribute
+    demoImage.setAttribute('title', '🎨 Modified by JavaScript!');
+    demoImage.setAttribute('data-modified', 'true');
+    demoImage.setAttribute('loading', 'lazy');
+    
+    console.log("✅ Set title, data-modified, and loading attributes");
+    
+    // Method 2: Direct property assignment (for standard attributes)
+    demoImage.alt = "JavaScript-modified image";
+    
+    console.log("✅ Changed alt text via property assignment");
+}
+
+console.log("\n=== Working with Data Attributes ===");
+if (demoContainer) {
+    console.log("Original data-info:", demoContainer.getAttribute('data-info'));
+    
+    // Method 1: getAttribute/setAttribute
+    demoContainer.setAttribute('data-info', 'modified-by-js');
+    demoContainer.setAttribute('data-timestamp', Date.now());
+    demoContainer.setAttribute('data-user', 'current-user');
+    
+    // Method 2: dataset property (modern approach)
+    demoContainer.dataset.status = 'active';
+    demoContainer.dataset.version = '2.1';
+    demoContainer.dataset.lastModified = new Date().toISOString();
+    
+    console.log("Updated data attributes:");
+    console.log("  data-info:", demoContainer.getAttribute('data-info'));
+    console.log("  data-status:", demoContainer.dataset.status);
+    console.log("  data-version:", demoContainer.dataset.version);
+}
+
+console.log("\n=== Checking Attribute Existence ===");
+if (demoContainer) {
+    console.log("Attribute checks:");
+    console.log("  has 'id':", demoContainer.hasAttribute('id'));
+    console.log("  has 'class':", demoContainer.hasAttribute('class'));
+    console.log("  has 'data-info':", demoContainer.hasAttribute('data-info'));
+    console.log("  has 'nonexistent':", demoContainer.hasAttribute('nonexistent'));
+}
+
+console.log("\n=== Removing Attributes ===");
+// We'll demonstrate but not actually remove important attributes
+if (demoContainer) {
+    // Add a temporary attribute to remove
+    demoContainer.setAttribute('temp-attr', 'temporary');
+    console.log("Added temp-attr:", demoContainer.hasAttribute('temp-attr'));
+    
+    // Remove it
+    demoContainer.removeAttribute('temp-attr');
+    console.log("Removed temp-attr:", demoContainer.hasAttribute('temp-attr'));
+}
+
+console.log("\n=== Form Element Attributes ===");
+// Create a virtual form element for demonstration
+console.log("Form element attribute examples:");
+console.log("const input = document.createElement('input');");
+console.log("input.type = 'email';");
+console.log("input.required = true;");
+console.log("input.placeholder = 'Enter your email';");
+console.log("input.setAttribute('autocomplete', 'email');");
+
+console.log("\n=== Link Manipulation ===");
+// Find any links on the page
+const links = document.querySelectorAll('a');
+if (links.length > 0) {
+    console.log(`Found ${links.length} links on the page`);
+    
+    // Show how to modify link attributes
+    const firstLink = links[0];
+    console.log("First link:");
+    console.log("  href:", firstLink.getAttribute('href'));
+    console.log("  target:", firstLink.getAttribute('target') || 'not set');
+    
+    // Note: We won't actually modify these as they're navigation links
+    console.log("Could modify with:");
+    console.log("  firstLink.href = 'https://new-url.com';");
+    console.log("  firstLink.target = '_blank';");
+    console.log("  firstLink.rel = 'noopener noreferrer';");
+}
+
+console.log("\n=== Boolean Attributes ===");
+console.log("Boolean attributes (exist = true, absent = false):");
+console.log("Examples: disabled, checked, selected, hidden, readonly");
+
+console.log("\nFor boolean attributes:");
+console.log("✅ To enable: element.disabled = true; or element.setAttribute('disabled', '');");
+console.log("✅ To disable: element.disabled = false; or element.removeAttribute('disabled');");
+
+console.log("\n=== Class Attribute (Preview) ===");
+if (demoContainer) {
+    console.log("Current classes:", demoContainer.className);
+    console.log("Class list:", Array.from(demoContainer.classList));
+    console.log("(Classes covered in detail next)");
+}
+
+console.log("\n=== Real-World Examples ===");
+
+console.log("1. Image Gallery:");
+console.log("   - Change src for slideshow");
+console.log("   - Update alt for accessibility");
+console.log("   - Set loading='lazy' for performance");
+
+console.log("\n2. Form Validation:");
+console.log("   - Add/remove 'required' attribute");
+console.log("   - Change input 'type' dynamically");
+console.log("   - Update 'placeholder' text");
+
+console.log("\n3. Dynamic Links:");
+console.log("   - Update href based on user selection");
+console.log("   - Set target='_blank' for external links");
+console.log("   - Add rel='noopener' for security");
+
+console.log("\n=== Performance Tips ===");
+console.log("✅ Use properties for standard attributes (faster)");
+console.log("✅ Use setAttribute/getAttribute for custom attributes");
+console.log("✅ Use dataset for data-* attributes");
+console.log("✅ Cache element references, not attribute values");
+
+console.log("\n=== Common Patterns ===");
+
+// Conditional attribute setting
+function toggleRequired(input, isRequired) {
+    if (isRequired) {
+        input.setAttribute('required', '');
+        input.setAttribute('aria-required', 'true');
+    } else {
+        input.removeAttribute('required');
+        input.setAttribute('aria-required', 'false');
+    }
+}
+
+// Image preloader
+function preloadImage(src) {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => console.log('Image preloaded:', src);
+}
+
+// Dynamic form field
+function createFormField(type, name, placeholder) {
+    const field = document.createElement('input');
+    field.type = type;
+    field.name = name;
+    field.placeholder = placeholder;
+    field.setAttribute('autocomplete', name);
+    return field;
+}
+
+console.log("Created utility functions for common attribute operations");
+
+// Show attribute timing
+console.log("\n=== Attribute vs Property Performance ===");
+console.log("Properties: element.id (direct JS property access)");
+console.log("Attributes: element.getAttribute('id') (HTML attribute)");
+console.log("Generally: Properties are faster, attributes more explicit");
+</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 3 -->
+            <section class="content-section">
+                <h2>Class Manipulation - Dynamic Styling</h2>
+                <p>CSS classes are like different outfits in a wardrobe. JavaScript's classList API lets you be a personal stylist - adding new outfits (classes) when needed, removing outdated ones, or checking what someone is currently wearing. This enables dynamic theming, animations, state changes, and responsive design.</p>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Class Management</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">
+console.log("=== Class Manipulation with classList ===");
+
+// Find our demo container
+const demoContainer = document.getElementById('demo-container');
+
+if (demoContainer) {
+    console.log("=== Current Class State ===");
+    console.log("className:", demoContainer.className);
+    console.log("classList:", Array.from(demoContainer.classList));
+    console.log("classList length:", demoContainer.classList.length);
+    
+    // Store original classes for later reset
+    const originalClasses = Array.from(demoContainer.classList);
+    
+    console.log("\n=== Adding Classes ===");
+    demoContainer.classList.add('highlighted');
+    demoContainer.classList.add('interactive', 'modern'); // Can add multiple
+    console.log("After adding classes:", Array.from(demoContainer.classList));
+    
+    setTimeout(() => {
+        console.log("\n=== Removing Classes ===");
+        demoContainer.classList.remove('highlighted');
+        console.log("After removing 'highlighted':", Array.from(demoContainer.classList));
+        
+        setTimeout(() => {
+            console.log("\n=== Toggling Classes ===");
+            console.log("Before toggle - has 'active':", demoContainer.classList.contains('active'));
+            
+            const wasAdded = demoContainer.classList.toggle('active');
+            console.log("Toggle result (was added):", wasAdded);
+            console.log("After toggle:", Array.from(demoContainer.classList));
+            
+            // Toggle again
+            const wasRemoved = demoContainer.classList.toggle('active');
+            console.log("Second toggle (was removed):", !wasRemoved);
+            console.log("After second toggle:", Array.from(demoContainer.classList));
+            
+        }, 2000);
+    }, 1000);
+    
+    // Reset to original after demo
+    setTimeout(() => {
+        console.log("\n=== Resetting to Original Classes ===");
+        demoContainer.className = originalClasses.join(' ');
+        console.log("Reset to:", Array.from(demoContainer.classList));
+    }, 5000);
+    
+} else {
+    console.log("❌ Demo container not found");
+}
+
+console.log("\n=== classList Methods Overview ===");
+console.log("classList.add('class1', 'class2')    - Add one or more classes");
+console.log("classList.remove('class1')          - Remove a class");
+console.log("classList.toggle('class')           - Add if missing, remove if present");
+console.log("classList.contains('class')         - Check if class exists");
+console.log("classList.replace('old', 'new')     - Replace one class with another");
+
+console.log("\n=== Checking Class Existence ===");
+if (demoContainer) {
+    console.log("Checking various classes:");
+    console.log("  has 'demo-box':", demoContainer.classList.contains('demo-box'));
+    console.log("  has 'nonexistent':", demoContainer.classList.contains('nonexistent'));
+    console.log("  has 'status-indicator':", demoContainer.classList.contains('status-indicator'));
+}
+
+console.log("\n=== Advanced Class Operations ===");
+
+// Class replacement
+if (demoContainer) {
+    // Add a class to replace
+    demoContainer.classList.add('old-theme');
+    console.log("Added 'old-theme'");
+    
+    setTimeout(() => {
+        // Replace it
+        const replaced = demoContainer.classList.replace('old-theme', 'new-theme');
+        console.log("Replaced 'old-theme' with 'new-theme':", replaced);
+        console.log("Current classes:", Array.from(demoContainer.classList));
+        
+        // Clean up
+        setTimeout(() => {
+            demoContainer.classList.remove('new-theme');
+        }, 2000);
+    }, 1000);
+}
+
+console.log("\n=== Conditional Class Management ===");
+
+function setTheme(element, theme) {
+    // Remove all theme classes
+    element.classList.remove('light-theme', 'dark-theme', 'auto-theme');
+    
+    // Add the selected theme
+    element.classList.add(theme + '-theme');
+    
+    console.log(`Theme set to: ${theme}`);
+}
+
+function toggleActiveState(element, isActive) {
+    // Method 1: Conditional toggle
+    if (isActive) {
+        element.classList.add('active');
+    } else {
+        element.classList.remove('active');
+    }
+    
+    // Method 2: toggle with force parameter (cleaner)
+    // element.classList.toggle('active', isActive);
+}
+
+console.log("Created theme and state management functions");
+
+console.log("\n=== Real-World Examples ===");
+
+console.log("1. Button States:");
+console.log("   button.classList.add('loading');");
+console.log("   button.classList.toggle('disabled', !canSubmit);");
+console.log("   button.classList.remove('error');");
+
+console.log("\n2. Form Validation:");
+console.log("   field.classList.toggle('error', !isValid);");
+console.log("   field.classList.toggle('success', isValid);");
+
+console.log("\n3. Animation Triggers:");
+console.log("   element.classList.add('fade-in');");
+console.log("   element.classList.toggle('expanded');");
+
+console.log("\n4. Responsive States:");
+console.log("   menu.classList.toggle('mobile-open', isMobile);");
+console.log("   sidebar.classList.toggle('collapsed', isSmallScreen);");
+
+console.log("\n=== Performance Patterns ===");
+
+// Batch class changes
+function applyButtonStyle(button, type, size, disabled) {
+    // Remove all existing style classes
+    button.className = button.className
+        .split(' ')
+        .filter(cls => !cls.startsWith('btn-') && cls !== 'disabled')
+        .join(' ');
+    
+    // Add new classes
+    button.classList.add(`btn-${type}`, `btn-${size}`);
+    button.classList.toggle('disabled', disabled);
+}
+
+// Class utility functions
+const classUtils = {
+    hasAnyOf: (element, classes) => 
+        classes.some(cls => element.classList.contains(cls)),
+    
+    removeAll: (element, classes) => 
+        classes.forEach(cls => element.classList.remove(cls)),
+    
+    addIf: (element, className, condition) => 
+        element.classList.toggle(className, condition),
+    
+    replaceAll: (element, oldClasses, newClasses) => {
+        classUtils.removeAll(element, oldClasses);
+        newClasses.forEach(cls => element.classList.add(cls));
+    }
+};
+
+console.log("Created class utility functions");
+
+console.log("\n=== className vs classList ===");
+console.log("className: 'btn primary large disabled' (string)");
+console.log("classList: ['btn', 'primary', 'large', 'disabled'] (DOMTokenList)");
+console.log("");
+console.log("✅ Use classList for individual class operations");
+console.log("✅ Use className when replacing all classes");
+console.log("✅ classList methods are safer (no string parsing issues)");
+
+console.log("\n=== Animation Integration ===");
+
+function animateElement(element, animationClass, duration = 1000) {
+    return new Promise((resolve) => {
+        element.classList.add(animationClass);
+        
+        setTimeout(() => {
+            element.classList.remove(animationClass);
+            resolve();
+        }, duration);
+    });
+}
+
+console.log("Created animation utility function");
+
+console.log("\n=== State Management Pattern ===");
+
+class ElementState {
+    constructor(element) {
+        this.element = element;
+        this.states = new Set();
+    }
+    
+    add(state) {
+        this.states.add(state);
+        this.element.classList.add(state);
+    }
+    
+    remove(state) {
+        this.states.delete(state);
+        this.element.classList.remove(state);
+    }
+    
+    toggle(state) {
+        if (this.states.has(state)) {
+            this.remove(state);
+        } else {
+            this.add(state);
+        }
+    }
+    
+    has(state) {
+        return this.states.has(state);
+    }
+    
+    clear() {
+        this.states.forEach(state => this.element.classList.remove(state));
+        this.states.clear();
+    }
+}
+
+console.log("Created ElementState class for advanced state management");
+
+// Common class manipulation patterns
+console.log("\n=== Common Patterns ===");
+console.log("Loading state: element.classList.toggle('loading', isLoading);");
+console.log("Error state: element.classList.toggle('error', hasError);");
+console.log("Active state: element.classList.toggle('active', isSelected);");
+console.log("Disabled state: element.classList.toggle('disabled', !canInteract);");
+</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div>
+                        <i class="fas fa-exclamation-triangle"></i> <strong> Class Naming Best Practices:</strong>
+                        <p>Use semantic class names that describe purpose, not appearance. Instead of 'red-text', use 'error-message'. This makes your code maintainable when designs change.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 1 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Dynamic Content Updater</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Create a content management system that safely updates different types of content:</p>
+                    
+                    <div class="code-editor" id="exercise1">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Content Manager</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('exercise1')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise1()">
+                                    <i class="fas fa-play"></i> Test Manager
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise1-code">
+// Your task: Create a content management system
+
+class ContentManager {
+    constructor(elementId) {
+        this.element = document.getElementById(elementId);
+        this.originalContent = this.element ? this.element.innerHTML : '';
+    }
+    
+    // Safely update text content (prevents XSS)
+    updateText(text) {
+        // Your code: Use textContent to safely set text
+        
+    }
+    
+    // Update HTML content (only for trusted content)
+    updateHTML(html) {
+        // Your code: Use innerHTML to set HTML content
+        
+    }
+    
+    // Update a specific attribute
+    updateAttribute(name, value) {
+        // Your code: Use setAttribute to update attribute
+        
+    }
+    
+    // Add a CSS class
+    addClass(className) {
+        // Your code: Use classList.add to add class
+        
+    }
+    
+    // Remove a CSS class  
+    removeClass(className) {
+        // Your code: Use classList.remove to remove class
+        
+    }
+    
+    // Toggle a CSS class
+    toggleClass(className) {
+        // Your code: Use classList.toggle and return the result
+        return false; // Replace with actual implementation
+    }
+    
+    // Reset to original state
+    reset() {
+        if (this.element) {
+            this.element.innerHTML = this.originalContent;
+            this.element.className = this.element.className
+                .split(' ')
+                .filter(cls => !cls.startsWith('temp-'))
+                .join(' ');
+        }
+    }
+}
+
+// Test the content manager
+console.log("🎯 CONTENT MANAGER TESTING 🎯");
+
+// Create a temporary test element
+const testDiv = document.createElement('div');
+testDiv.id = 'test-content';
+testDiv.innerHTML = '<p>Original content</p>';
+testDiv.className = 'original-class';
+document.body.appendChild(testDiv);
+
+const manager = new ContentManager('test-content');
+
+console.log("\n=== Testing Text Updates ===");
+manager.updateText('This is safe text content with <script>alert("XSS")</script>');
+console.log("Text content:", testDiv.textContent);
+console.log("HTML content:", testDiv.innerHTML);
+console.log("XSS prevented:", !testDiv.innerHTML.includes('<script>') ? '✅' : '❌');
+
+console.log("\n=== Testing HTML Updates ===");  
+manager.updateHTML('<h3 style="color: green;">✅ Trusted HTML Content</h3><p>This includes <strong>formatting</strong>!</p>');
+console.log("HTML updated:", testDiv.querySelector('h3') ? '✅' : '❌');
+console.log("Formatting preserved:", testDiv.querySelector('strong') ? '✅' : '❌');
+
+console.log("\n=== Testing Attribute Updates ===");
+manager.updateAttribute('data-status', 'updated');
+manager.updateAttribute('title', 'Updated by JavaScript');
+console.log("data-status set:", testDiv.getAttribute('data-status') === 'updated' ? '✅' : '❌');
+console.log("title set:", testDiv.getAttribute('title') === 'Updated by JavaScript' ? '✅' : '❌');
+
+console.log("\n=== Testing Class Management ===");
+manager.addClass('temp-highlight');
+console.log("Class added:", testDiv.classList.contains('temp-highlight') ? '✅' : '❌');
+
+manager.addClass('temp-active');
+console.log("Second class added:", testDiv.classList.contains('temp-active') ? '✅' : '❌');
+
+manager.removeClass('temp-highlight');
+console.log("First class removed:", !testDiv.classList.contains('temp-highlight') ? '✅' : '❌');
+console.log("Second class remains:", testDiv.classList.contains('temp-active') ? '✅' : '❌');
+
+const wasToggled = manager.toggleClass('temp-special');
+console.log("Class toggled on:", wasToggled ? '✅' : '❌');
+
+const wasToggledOff = manager.toggleClass('temp-special');
+console.log("Class toggled off:", !wasToggledOff ? '✅' : '❌');
+
+console.log("\n=== Testing Reset Functionality ===");
+console.log("Before reset - classes:", Array.from(testDiv.classList));
+manager.reset();
+console.log("After reset - content:", testDiv.innerHTML);
+console.log("After reset - classes:", Array.from(testDiv.classList));
+console.log("Reset successful:", testDiv.innerHTML.includes('Original content') && !testDiv.classList.contains('temp-active') ? '✅' : '❌');
+
+// Clean up
+try {
+    // Note: This might fail in the sandbox environment, which is expected
+    document.body.removeChild(testDiv);
+    console.log("\n✨ Test element cleaned up");
+} catch (error) {
+    // In sandbox mode, the element is in the demo container, not document.body
+    if (testDiv.parentNode) {
+        testDiv.parentNode.removeChild(testDiv);
+        console.log("\n✨ Test element cleaned up from demo container");
+    }
+}
+
+console.log("\n🏆 CONTENT MANAGER DEMO COMPLETE!");
+console.log("Your implementation should:");
+console.log("1. ✅ Safely handle text content");
+console.log("2. ✅ Process HTML content"); 
+console.log("3. ✅ Manage attributes");
+console.log("4. ✅ Handle CSS classes");
+console.log("5. ✅ Reset to original state");
+</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise1-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 2 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 2: Security Quiz</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Which method should you use to safely display user-generated content?</p>
+                    <div class="exercise-options" id="exercise2">
+                        <button class="option-btn" data-answer="wrong">innerHTML</button>
+                        <button class="option-btn" data-answer="correct">textContent</button>
+                        <button class="option-btn" data-answer="wrong">outerHTML</button>
+                        <button class="option-btn" data-answer="wrong">innerText</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise2-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 3 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: Image Gallery Builder</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Build an interactive image gallery that demonstrates attribute and class manipulation:</p>
+                    
+                    <div class="code-editor" id="exercise3">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Image Gallery</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('exercise3')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise3()">
+                                    <i class="fas fa-play"></i> Build Gallery
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise3-code">
+// Your task: Create an interactive image gallery
+
+function createImageGallery() {
+    console.log("🖼️ BUILDING IMAGE GALLERY 🖼️");
+    
+    // Create gallery container
+    const gallery = document.createElement('div');
+    gallery.id = 'image-gallery';
+    gallery.className = 'gallery-container';
+    
+    // Sample image data (using placeholder SVGs)
+    const images = [
+        {
+            src: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgZmlsbD0iIzNiODJmNiIvPjx0ZXh0IHg9IjEwMCIgeT0iODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkltYWdlIDE8L3RleHQ+PC9zdmc+',
+            alt: 'Beautiful landscape image 1',
+            title: 'Scenic Mountain View',
+            caption: 'A breathtaking mountain landscape'
+        },
+        {
+            src: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgZmlsbD0iIzEwYjk4MSIvPjx0ZXh0IHg9IjEwMCIgeT0iODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkltYWdlIDI8L3RleHQ+PC9zdmc+',
+            alt: 'Beautiful landscape image 2',
+            title: 'Ocean Sunset',
+            caption: 'Golden hour by the ocean'
+        },
+        {
+            src: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgZmlsbD0iI2Y1OWUwYiIvPjx0ZXh0IHg9IjEwMCIgeT0iODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkltYWdlIDM8L3RleHQ+PC9zdmc+',
+            alt: 'Beautiful landscape image 3',
+            title: 'Forest Path',
+            caption: 'Peaceful walk through the forest'
+        }
+    ];
+    
+    // Your task: Create gallery functionality
+    
+    // 1. Create main display area
+    const mainDisplay = document.createElement('div');
+    mainDisplay.className = 'main-display';
+    
+    const mainImage = document.createElement('img');
+    // Set initial image attributes (src, alt, title from first image)
+    
+    
+    const imageCaption = document.createElement('p');
+    imageCaption.className = 'image-caption';
+    // Set initial caption text from first image
+    
+    
+    mainDisplay.appendChild(mainImage);
+    mainDisplay.appendChild(imageCaption);
+    
+    // 2. Create thumbnail gallery
+    const thumbnailContainer = document.createElement('div');
+    thumbnailContainer.className = 'thumbnail-container';
+    
+    images.forEach((imageData, index) => {
+        const thumbnail = document.createElement('img');
+        thumbnail.className = 'thumbnail';
+        
+        // Your code: Set thumbnail attributes
+        // - src from imageData
+        // - alt from imageData  
+        // - title from imageData
+        // - data-index to track position
+        
+        
+        // Add click handler to switch main image
+        thumbnail.addEventListener('click', function() {
+            // Your code: Update main image when thumbnail clicked
+            // 1. Update mainImage src, alt, title from imageData
+            // 2. Update imageCaption textContent 
+            // 3. Remove 'active' class from all thumbnails
+            // 4. Add 'active' class to clicked thumbnail
+            
+            console.log(`Switched to image ${index + 1}: ${imageData.title}`);
+        });
+        
+        // Mark first thumbnail as active
+        if (index === 0) {
+            thumbnail.classList.add('active');
+        }
+        
+        thumbnailContainer.appendChild(thumbnail);
+    });
+    
+    // 3. Add navigation buttons
+    const navButtons = document.createElement('div');
+    navButtons.className = 'nav-buttons';
+    
+    const prevButton = document.createElement('button');
+    prevButton.textContent = '← Previous';
+    prevButton.className = 'nav-btn';
+    
+    const nextButton = document.createElement('button');
+    nextButton.textContent = 'Next →';
+    nextButton.className = 'nav-btn';
+    
+    let currentIndex = 0;
+    
+    // Previous button functionality
+    prevButton.addEventListener('click', function() {
+        // Your code: Navigate to previous image
+        // 1. Calculate new index (wrap around to last if at first)
+        // 2. Update currentIndex
+        // 3. Update main image display
+        // 4. Update active thumbnail
+        
+    });
+    
+    // Next button functionality
+    nextButton.addEventListener('click', function() {
+        // Your code: Navigate to next image
+        // 1. Calculate new index (wrap around to first if at last)
+        // 2. Update currentIndex  
+        // 3. Update main image display
+        // 4. Update active thumbnail
+        
+    });
+    
+    navButtons.appendChild(prevButton);
+    navButtons.appendChild(nextButton);
+    
+    // 4. Assemble gallery
+    gallery.appendChild(mainDisplay);
+    gallery.appendChild(thumbnailContainer);
+    gallery.appendChild(navButtons);
+    
+    // Add to page
+    document.body.appendChild(gallery);
+    
+    // Add some basic styling
+    gallery.style.cssText = `
+        border: 2px solid var(--border-color);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin: 1rem 0;
+        background: var(--bg-secondary);
+        text-align: center;
+    `;
+    
+    mainImage.style.cssText = `
+        max-width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 0.25rem;
+    `;
+    
+    thumbnailContainer.style.cssText = `
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        margin: 1rem 0;
+        flex-wrap: wrap;
+    `;
+    
+    const thumbnails = thumbnailContainer.querySelectorAll('.thumbnail');
+    thumbnails.forEach(thumb => {
+        thumb.style.cssText = `
+            width: 60px;
+            height: 45px;
+            object-fit: cover;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            opacity: 0.7;
+            transition: all 0.2s ease;
+        `;
+    });
+    
+    // Style active thumbnail
+    const activeStyle = `
+        border-color: var(--primary-color) !important;
+        opacity: 1 !important;
+    `;
+    
+    navButtons.style.cssText = `
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1rem;
+    `;
+    
+    const navBtns = navButtons.querySelectorAll('.nav-btn');
+    navBtns.forEach(btn => {
+        btn.style.cssText = `
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        `;
+    });
+    
+    console.log("✅ Gallery structure created");
+    console.log("📋 TODO: Implement image switching functionality");
+    
+    // Test the gallery
+    setTimeout(() => {
+        gallery.remove();
+        console.log("🧹 Gallery cleaned up after demo");
+    }, 10000);
+    
+    return gallery;
+}
+
+// Create and test the gallery
+const gallery = createImageGallery();
+</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise3-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Common Mistakes Section -->
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Using innerHTML for User Content</strong>
+                            <p>Never use innerHTML with user-generated content - it creates XSS vulnerabilities. Always use textContent for user input and innerHTML only for trusted, controlled content.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Modifying className Directly</strong>
+                            <p>Avoid setting className = "new-class" as it replaces all classes. Use classList methods (add, remove, toggle) to safely modify individual classes.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Not Validating Element Existence</strong>
+                            <p>Always check if elements exist before modifying them. Attempting to modify null elements throws errors and breaks your application.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>Use textContent for safe plain text updates and innerHTML only for trusted HTML content</li>
+                        <li>Manipulate attributes with setAttribute/getAttribute for flexibility and direct properties for standard attributes</li>
+                        <li>classList provides powerful class management with add, remove, toggle, and contains methods</li>
+                        <li>Data attributes (data-*) are perfect for storing custom information accessible via dataset</li>
+                        <li>Always prioritize security by validating content and using appropriate modification methods</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Spacing before navigation -->
+            <div style="margin: 2rem 0;"></div>
+            
+            <!-- Lesson Navigation -->
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson2.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson4.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(8, 3, true);
+            customModal.success('Fantastic! You can now modify elements safely and effectively. Ready to learn how to create new elements and remove existing ones?', 'Lesson Complete!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson4.html';
+            }, 2000);
+        }
+
+        // Demo functions for the playground
+        let demoState = 0;
+
+        function demoTextContent() {
+            const demoText = document.getElementById('demo-text');
+            const messages = [
+                "Text changed with textContent!",
+                "This HTML <strong>won't</strong> render as tags",
+                "textContent is safe for user input",
+                "Back to interactive mode!"
+            ];
+            
+            if (demoText) {
+                demoText.textContent = messages[demoState % messages.length];
+                demoState++;
+            }
+        }
+
+        function demoInnerHTML() {
+            const demoText = document.getElementById('demo-text');
+            const htmlContent = [
+                "<strong>innerHTML</strong> can create <em>formatted</em> content!",
+                "It supports <span style='color: #10b981;'>colors</span> and <u>styling</u>",
+                "🚨 Only use with <mark>trusted</mark> content!",
+                "Back to regular text..."
+            ];
+            
+            if (demoText) {
+                demoText.innerHTML = htmlContent[demoState % htmlContent.length];
+                demoState++;
+            }
+        }
+
+        function demoAttributes() {
+            const demoImage = document.getElementById('demo-image');
+            const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+            const titles = ['Blue Theme', 'Green Theme', 'Orange Theme', 'Red Theme', 'Purple Theme'];
+            
+            if (demoImage) {
+                const colorIndex = demoState % colors.length;
+                const newSrc = `data:image/svg+xml;base64,${btoa(`
+                    <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" fill="${colors[colorIndex]}"/>
+                        <text x="50" y="55" font-family="Arial" font-size="12" fill="white" text-anchor="middle">Modified</text>
+                    </svg>
+                `)}`;
+                
+                demoImage.setAttribute('src', newSrc);
+                demoImage.setAttribute('title', titles[colorIndex]);
+                demoImage.setAttribute('alt', `Modified image - ${titles[colorIndex]}`);
+                demoState++;
+            }
+        }
+
+        function demoClasses() {
+            const demoContainer = document.getElementById('demo-container');
+            const statusSpan = demoContainer?.querySelector('.status-indicator');
+            
+            if (demoContainer && statusSpan) {
+                const classes = ['highlight', 'warning', 'success', 'info'];
+                const statuses = ['Highlighted', 'Warning', 'Success', 'Info'];
+                // Use CSS variable for highlighted color to work in both themes
+                const isDarkMode = document.body.classList.contains('dark-theme');
+                const highlightColor = isDarkMode ? '#F7DF1E' : '#000000';
+                const colors = [highlightColor, '#ef4444', '#10b981', '#3b82f6'];
+                
+                // Remove previous demo classes
+                classes.forEach(cls => demoContainer.classList.remove(cls));
+                
+                const classIndex = demoState % classes.length;
+                demoContainer.classList.add(classes[classIndex]);
+                demoContainer.style.borderColor = colors[classIndex];
+                statusSpan.textContent = `Status: ${statuses[classIndex]}`;
+                statusSpan.style.color = colors[classIndex];
+                
+                demoState++;
+            }
+        }
+
+        function resetDemo() {
+            const demoText = document.getElementById('demo-text');
+            const demoImage = document.getElementById('demo-image');
+            const demoContainer = document.getElementById('demo-container');
+            const statusSpan = demoContainer?.querySelector('.status-indicator');
+            
+            if (demoText) {
+                demoText.textContent = "This text will change when you click the buttons below!";
+            }
+            
+            if (demoImage) {
+                demoImage.setAttribute('src', 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iIzNiODJmNiIvPgogIDx0ZXh0IHg9IjUwIiB5PSI1NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SW1hZ2U8L3RleHQ+Cjwvc3ZnPgo=');
+                demoImage.setAttribute('title', 'Original image');
+                demoImage.setAttribute('alt', 'Demo image');
+            }
+            
+            if (demoContainer) {
+                demoContainer.className = 'demo-box';
+                demoContainer.style.borderColor = 'var(--border-color)';
+                demoContainer.setAttribute('data-info', 'original');
+            }
+            
+            if (statusSpan) {
+                statusSpan.textContent = 'Status: Ready';
+                statusSpan.style.color = 'var(--text-primary)';
+            }
+            
+            demoState = 0;
+        }
+
+        // Copy code function
+        function copyCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            if (!codeInput) return;
+            
+            codeInput.select();
+            codeInput.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                const button = event.target.closest('.editor-btn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        }
+
+        // Run code function
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            
+            // Clear output and hide label
+            const outputContainer = outputPane.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            outputPane.innerHTML = '';
+            
+            // Create a demo container for DOM manipulation
+            const demoContainer = document.createElement('div');
+            demoContainer.id = 'demo-output-container';
+            demoContainer.style.cssText = 'padding: 1rem; background: var(--bg-secondary); border-radius: 0.5rem; margin-top: 1rem;';
+            
+            // Create console output area
+            const consoleOutput = document.createElement('div');
+            consoleOutput.style.cssText = 'margin-bottom: 1rem;';
+            
+            outputPane.appendChild(consoleOutput);
+            outputPane.appendChild(demoContainer);
+            
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+            };
+            
+            try {
+                // Override document.body.appendChild to append to our demo container
+                const originalAppendChild = document.body.appendChild;
+                const originalPrepend = document.body.prepend;
+                const originalAppend = document.body.append;
+                
+                document.body.appendChild = function(element) {
+                    return demoContainer.appendChild(element);
+                };
+                
+                document.body.prepend = function(...elements) {
+                    return demoContainer.prepend(...elements);
+                };
+                
+                document.body.append = function(...elements) {
+                    return demoContainer.append(...elements);
+                };
+                
+                // Execute the code
+                eval(code);
+                
+                // Restore original methods
+                document.body.appendChild = originalAppendChild;
+                document.body.prepend = originalPrepend;
+                document.body.append = originalAppend;
+                
+                if (logs.length > 0) {
+                    consoleOutput.innerHTML = logs.map(log => 
+                        `<div class="output-line">${escapeHtml(log)}</div>`
+                    ).join('');
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        // Escape HTML function
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Exercise 1 checker
+        function checkExercise1() {
+            const code = document.getElementById('exercise1-code').value;
+            const output = document.getElementById('exercise1-output');
+            const feedback = document.getElementById('exercise1-feedback');
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = output.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // Run the code first to show output
+            runCode('exercise1');
+            
+            // Check if the output contains any errors
+            const outputHasError = output.innerHTML.includes('output-error') || 
+                                  output.innerHTML.includes('Error:');
+            
+            const hasTextContent = code.includes('textContent');
+            const hasInnerHTML = code.includes('innerHTML');
+            const hasSetAttribute = code.includes('setAttribute');
+            const hasClassListAdd = code.includes('classList.add');
+            const hasClassListRemove = code.includes('classList.remove');
+            const hasClassListToggle = code.includes('classList.toggle');
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            feedback.classList.remove('show', 'success', 'error');
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (!outputHasError && hasTextContent && hasInnerHTML && hasSetAttribute && hasClassListAdd && hasClassListRemove && hasClassListToggle) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Perfect! Your content manager implements all the required methods correctly and demonstrates safe content handling practices.';
+                } else if (outputHasError) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Your code has errors. Make sure to implement all methods in the ContentManager class correctly.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    let missing = [];
+                    if (!hasTextContent) missing.push('textContent usage');
+                    if (!hasInnerHTML) missing.push('innerHTML usage');
+                    if (!hasSetAttribute) missing.push('setAttribute method');
+                    if (!hasClassListAdd) missing.push('classList.add method');
+                    if (!hasClassListRemove) missing.push('classList.remove method');
+                    if (!hasClassListToggle) missing.push('classList.toggle method');
+                    feedback.textContent = `Missing: ${missing.join(', ')}. Implement all content modification methods.`;
+                }
+            }, 150);
+        }
+
+        // Exercise 3 checker
+        function checkExercise3() {
+            const code = document.getElementById('exercise3-code').value;
+            const output = document.getElementById('exercise3-output');
+            const feedback = document.getElementById('exercise3-feedback');
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = output.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // Run the code first to show output
+            runCode('exercise3');
+            
+            // Check if the output contains any errors
+            const outputHasError = output.innerHTML.includes('output-error') || 
+                                  output.innerHTML.includes('Error:');
+            
+            const hasImageAttributes = code.includes('src') && code.includes('alt') && code.includes('title');
+            const hasThumbnailSetup = code.includes('data-index') || code.includes('setAttribute');
+            const hasClickHandler = code.includes('addEventListener') && code.includes('click');
+            const hasClassManipulation = code.includes('classList') && (code.includes('add') || code.includes('remove'));
+            const hasNavigation = code.includes('currentIndex') || code.includes('index');
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            feedback.classList.remove('show', 'success', 'error');
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (!outputHasError && hasImageAttributes && hasThumbnailSetup && hasClickHandler && hasClassManipulation && hasNavigation) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Excellent! Your image gallery demonstrates proper attribute manipulation, class management, and interactive functionality.';
+                } else if (outputHasError) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Your code has errors. Make sure to implement the image switching functionality correctly.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    let missing = [];
+                    if (!hasImageAttributes) missing.push('image attribute setup');
+                    if (!hasThumbnailSetup) missing.push('thumbnail data attributes');
+                    if (!hasClickHandler) missing.push('click event handlers');
+                    if (!hasClassManipulation) missing.push('class manipulation');
+                    if (!hasNavigation) missing.push('navigation logic');
+                    feedback.textContent = `Missing: ${missing.join(', ')}. Complete the gallery functionality to make it interactive.`;
+                }
+            }, 150);
+        }
+
+        // Exercise 2 - Multiple choice handler
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.disabled) return;
+                    
+                    const exerciseContainer = this.closest('.exercise-options');
+                    const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
+                    const isCorrect = this.getAttribute('data-answer') === 'correct';
+                    
+                    // Remove previous incorrect selections (but not correct ones)
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.classList.contains('incorrect')) {
+                            btn.classList.remove('incorrect', 'selected');
+                            btn.disabled = false;
+                        }
+                    });
+                    
+                    // Hide feedback first to create animation effect
+                    if (feedbackDiv) {
+                        feedbackDiv.style.display = 'none';
+                        feedbackDiv.className = 'exercise-feedback';
+                        feedbackDiv.classList.remove('show', 'success', 'error');
+                    }
+                    
+                    // Mark this button
+                    this.classList.add('selected');
+                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    if (isCorrect) {
+                        // Correct answer - disable all buttons
+                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                            btn.disabled = true;
+                        });
+                    } else {
+                        // Wrong answer - disable only this button
+                        this.disabled = true;
+                    }
+                    
+                    // Show feedback with animation
+                    if (feedbackDiv) {
+                        setTimeout(() => {
+                            feedbackDiv.style.display = 'block';
+                            feedbackDiv.className = 'exercise-feedback show ' + (isCorrect ? 'success' : 'error');
+                            if (isCorrect) {
+                                feedbackDiv.textContent = 'Correct! textContent safely treats everything as plain text, preventing XSS attacks from malicious HTML/JavaScript code.';
+                            } else {
+                                feedbackDiv.textContent = 'Not quite. For security, user-generated content should never be processed as HTML. Think about which method treats content as plain text.';
+                            }
+                        }, 150);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

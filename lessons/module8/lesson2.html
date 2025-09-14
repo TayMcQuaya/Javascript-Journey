@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2: Selecting Elements - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <!-- Lesson Header -->
+            <div class="lesson-header">
+                <h1>Lesson 2: Selecting Elements</h1>
+                <p class="lesson-subtitle">Learn to find and target specific HTML elements like a digital treasure hunter</p>
+            </div>
+
+            <!-- Introduction Section -->
+            <section class="content-section">
+                <h2>Introduction to Element Selection</h2>
+                <p>Imagine you're a detective looking for specific people in a crowded city. You might search by name, address, profession, or distinctive features. Similarly, JavaScript provides different methods to find HTML elements - you can search by ID (like a unique address), class (like a profession), tag type (like age group), or complex patterns (like "find all doctors wearing red coats").</p>
+                <p>Element selection is the foundation of DOM manipulation. Before you can change, move, or interact with an element, you must first find it. Modern JavaScript offers several powerful methods to locate exactly the elements you need.</p>
+            </section>
+
+            <!-- Interactive Demo Elements -->
+            <div style="background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: 0.5rem; padding: 1.5rem; margin: 1.5rem 0;">
+                <h3 style="margin-top: 0; color: var(--primary-color);">🎯 Element Selection Playground</h3>
+                <div id="search-playground">
+                    <p id="unique-paragraph">I have a unique ID: "unique-paragraph"</p>
+                    <p class="highlight-text">I have class "highlight-text"</p>
+                    <p class="highlight-text special">I have classes "highlight-text" and "special"</p>
+                    <button class="demo-btn" data-role="primary">Primary Button</button>
+                    <button class="demo-btn" data-role="secondary">Secondary Button</button>
+                    <ul id="fruit-list">
+                        <li class="fruit">Apple</li>
+                        <li class="fruit featured">Banana</li>
+                        <li class="fruit">Orange</li>
+                        <li class="fruit featured">Grape</li>
+                    </ul>
+                    <div class="nested-container">
+                        <span class="nested-item first">First nested item</span>
+                        <span class="nested-item">Second nested item</span>
+                    </div>
+                </div>
+                <div id="selection-results" style="margin-top: 1rem; padding: 1rem; background: var(--bg-tertiary); border-radius: 0.25rem; font-family: monospace; font-size: 0.875rem;"></div>
+            </div>
+
+            <!-- Core Content Section 1 -->
+            <section class="content-section">
+                <h2>getElementById - Finding by Unique ID</h2>
+                <p>The `getElementById` method is like using someone's unique address to find them - it's the fastest and most precise way to locate a single element. Every ID should be unique on a page, making this method perfect when you know exactly which element you want.</p>
+
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> Speed Champion:</strong>
+                        <p>getElementById is the fastest selection method because browsers maintain an internal index of all IDs for instant lookup.</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">getElementById Mastery</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">
+console.log("=== getElementById - The Precision Tool ===");
+
+// Find an element by its unique ID
+const uniqueParagraph = document.getElementById('unique-paragraph');
+
+if (uniqueParagraph) {
+    console.log("✅ Found element with ID 'unique-paragraph':");
+    console.log("  Tag name:", uniqueParagraph.tagName);
+    console.log("  Text content:", uniqueParagraph.textContent);
+    console.log("  ID attribute:", uniqueParagraph.id);
+    console.log("  Class name:", uniqueParagraph.className || "No classes");
+} else {
+    console.log("❌ Element with ID 'unique-paragraph' not found");
+}
+
+// Find the fruit list
+const fruitList = document.getElementById('fruit-list');
+if (fruitList) {
+    console.log("\n✅ Found fruit list:");
+    console.log("  Tag name:", fruitList.tagName);
+    console.log("  Number of children:", fruitList.children.length);
+    console.log("  First child text:", fruitList.firstElementChild?.textContent);
+    console.log("  Last child text:", fruitList.lastElementChild?.textContent);
+}
+
+// Try to find a non-existent element
+console.log("\n=== Handling Non-Existent IDs ===");
+const nonExistent = document.getElementById('does-not-exist');
+console.log("Non-existent element:", nonExistent); // Returns null
+console.log("Is null?", nonExistent === null);
+
+// Best practice: Always check if element exists
+if (nonExistent) {
+    console.log("This won't run because element doesn't exist");
+} else {
+    console.log("✅ Properly handled non-existent element");
+}
+
+// Find multiple elements by their IDs
+console.log("\n=== Finding Multiple Elements by ID ===");
+const elementIds = ['unique-paragraph', 'fruit-list', 'search-playground', 'selection-results'];
+
+elementIds.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) {
+        console.log(`✅ Found '${id}': ${element.tagName}`);
+    } else {
+        console.log(`❌ '${id}' not found`);
+    }
+});
+
+// Real-world example: Form elements
+console.log("\n=== Common Use Case: Form Elements ===");
+console.log("// Typically used with form inputs:");
+console.log("const emailInput = document.getElementById('email');");
+console.log("const submitButton = document.getElementById('submit-btn');");
+console.log("const errorMessage = document.getElementById('error-msg');");
+
+// Performance note
+console.log("\n=== Performance Benefits ===");
+console.log("✅ getElementById is the fastest method");
+console.log("✅ Browsers optimize ID lookups internally");
+console.log("✅ Returns single element (not a collection)");
+console.log("✅ Simple and reliable");
+
+// Common patterns
+console.log("\n=== Common Patterns ===");
+console.log("1. Get element and check existence:");
+console.log("   const el = document.getElementById('my-id');");
+console.log("   if (el) { /* safe to use */ }");
+
+console.log("\n2. Store elements in variables for reuse:");
+console.log("   const header = document.getElementById('main-header');");
+console.log("   const footer = document.getElementById('main-footer');");
+
+console.log("\n3. Function to safely get elements:");
+console.log("   function safeGetById(id) {");
+console.log("     const el = document.getElementById(id);");
+console.log("     if (!el) console.warn(`Element #${id} not found`);");
+console.log("     return el;");
+console.log("   }");
+
+// Live demonstration with playground elements
+console.log("\n=== Live Playground Demo ===");
+const playground = document.getElementById('search-playground');
+if (playground) {
+    console.log("Playground element found!");
+    console.log("  Contains children:", playground.children.length);
+    
+    // Show that we can access child elements
+    const childElements = Array.from(playground.children);
+    childElements.forEach((child, index) => {
+        console.log(`  Child ${index + 1}: ${child.tagName}${child.id ? '#' + child.id : ''}${child.className ? '.' + child.className.replace(/ /g, '.') : ''}`);
+    });
+}
+</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 2 -->
+            <section class="content-section">
+                <h2>querySelector and querySelectorAll - The Swiss Army Knives</h2>
+                <p>Think of `querySelector` and `querySelectorAll` as sophisticated search engines that understand CSS selector language. Just like how you can find products on a shopping website by category, price range, brand, and color, these methods let you find elements using any CSS selector pattern.</p>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">querySelector Power Tools</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">
+console.log("=== querySelector vs querySelectorAll ===");
+console.log("querySelector: Returns first matching element (or null)");
+console.log("querySelectorAll: Returns ALL matching elements (NodeList)");
+
+// Basic CSS selectors
+console.log("\n=== Basic Selectors ===");
+
+// By ID (same as getElementById)
+const byId = document.querySelector('#unique-paragraph');
+console.log("By ID (#unique-paragraph):", byId ? "Found" : "Not found");
+
+// By class (first match only)
+const byClass = document.querySelector('.highlight-text');
+console.log("By class (.highlight-text):", byClass ? byClass.textContent : "Not found");
+
+// By tag
+const firstParagraph = document.querySelector('p');
+console.log("First paragraph:", firstParagraph ? firstParagraph.textContent.substring(0, 30) + "..." : "Not found");
+
+// Find ALL elements with a class
+console.log("\n=== Finding Multiple Elements ===");
+const allHighlighted = document.querySelectorAll('.highlight-text');
+console.log("All .highlight-text elements:", allHighlighted.length);
+
+allHighlighted.forEach((element, index) => {
+    console.log(`  ${index + 1}: "${element.textContent}"`);
+});
+
+// Find all buttons
+const allButtons = document.querySelectorAll('button');
+console.log("\nAll buttons on page:", allButtons.length);
+
+// Advanced selectors
+console.log("\n=== Advanced CSS Selectors ===");
+
+// Descendant selector (space)
+const nestedItems = document.querySelectorAll('.nested-container .nested-item');
+console.log("Items inside .nested-container:", nestedItems.length);
+
+// Child selector (>)
+const directChildren = document.querySelectorAll('#fruit-list > li');
+console.log("Direct children of #fruit-list:", directChildren.length);
+
+// Attribute selectors
+const primaryButton = document.querySelector('[data-role="primary"]');
+console.log("Button with data-role='primary':", primaryButton ? primaryButton.textContent : "Not found");
+
+const allDataButtons = document.querySelectorAll('[data-role]');
+console.log("All buttons with data-role attribute:", allDataButtons.length);
+
+// Multiple classes
+const specialHighlight = document.querySelector('.highlight-text.special');
+console.log("Element with both highlight-text AND special classes:", specialHighlight ? "Found" : "Not found");
+
+// Pseudo-selectors
+const firstChild = document.querySelector('#fruit-list li:first-child');
+const lastChild = document.querySelector('#fruit-list li:last-child');
+console.log("First fruit:", firstChild ? firstChild.textContent : "Not found");
+console.log("Last fruit:", lastChild ? lastChild.textContent : "Not found");
+
+console.log("\n=== Complex Selector Examples ===");
+
+// Find featured fruits
+const featuredFruits = document.querySelectorAll('.fruit.featured');
+console.log("Featured fruits:", featuredFruits.length);
+featuredFruits.forEach(fruit => {
+    console.log(`  - ${fruit.textContent}`);
+});
+
+// Find all elements with classes starting with 'demo'
+const demoElements = document.querySelectorAll('[class*="demo"]');
+console.log("Elements with 'demo' in class name:", demoElements.length);
+
+// Find elements by position
+const evenListItems = document.querySelectorAll('#fruit-list li:nth-child(even)');
+console.log("Even-positioned fruits:");
+evenListItems.forEach(item => {
+    console.log(`  - ${item.textContent}`);
+});
+
+console.log("\n=== Working with NodeList ===");
+console.log("querySelectorAll returns a NodeList, not an Array");
+
+const allParagraphs = document.querySelectorAll('p');
+console.log("Type of querySelectorAll result:", typeof allParagraphs);
+console.log("Is NodeList:", allParagraphs instanceof NodeList);
+console.log("Has forEach method:", typeof allParagraphs.forEach === 'function');
+console.log("Length:", allParagraphs.length);
+
+// Converting NodeList to Array (if needed)
+const paragraphArray = Array.from(allParagraphs);
+console.log("Converted to Array:", Array.isArray(paragraphArray));
+
+console.log("\n=== Practical Examples ===");
+
+// Find and highlight all code blocks
+const codeBlocks = document.querySelectorAll('code, pre, .code-input');
+console.log("Code-related elements found:", codeBlocks.length);
+
+// Find all external links (if any)
+const externalLinks = document.querySelectorAll('a[href^="http"]');
+console.log("External links:", externalLinks.length);
+
+// Find all images with alt text
+const imagesWithAlt = document.querySelectorAll('img[alt]');
+console.log("Images with alt text:", imagesWithAlt.length);
+
+// Find all empty elements
+const emptyElements = document.querySelectorAll(':empty');
+console.log("Empty elements:", emptyElements.length);
+
+console.log("\n=== Performance Considerations ===");
+console.log("✅ querySelector stops at first match (faster for single element)");
+console.log("✅ querySelectorAll finds all matches (use when you need multiple)");
+console.log("⚠️ Complex selectors are slower than simple ones");
+console.log("⚠️ getElementById is still fastest for ID selection");
+
+console.log("\n=== Chaining Selectors ===");
+// You can chain selectors for specific targeting
+const specificElement = document.querySelector('#search-playground .highlight-text.special');
+console.log("Chained selector result:", specificElement ? specificElement.textContent : "Not found");
+
+// Multiple selector groups (comma-separated)
+const multipleTypes = document.querySelectorAll('p, button, li');
+console.log("Paragraphs, buttons, and list items:", multipleTypes.length);
+</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 3 -->
+            <section class="content-section">
+                <h2>Legacy Methods and Choosing the Right Tool</h2>
+                <p>While modern JavaScript favors `querySelector` methods, understanding legacy methods like `getElementsByClassName` helps you read older code and choose the most efficient approach. It's like knowing both GPS navigation and map reading - sometimes the old way is exactly what you need.</p>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Selection Method Comparison</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">
+console.log("=== Selection Method Showdown ===");
+
+// Let's compare different ways to select the same elements
+console.log("\n=== Method 1: getElementsByClassName (Legacy) ===");
+const classElements = document.getElementsByClassName('highlight-text');
+console.log("getElementsByClassName result:");
+console.log("  Type:", typeof classElements);
+console.log("  Is HTMLCollection:", classElements instanceof HTMLCollection);
+console.log("  Length:", classElements.length);
+console.log("  Has forEach:", typeof classElements.forEach === 'function');
+
+// HTMLCollection is live - it updates automatically!
+console.log("  Is live collection: Yes (updates automatically)");
+
+// Convert to array to use array methods
+const classArray = Array.from(classElements);
+classArray.forEach((el, index) => {
+    console.log(`  Element ${index + 1}: "${el.textContent}"`);
+});
+
+console.log("\n=== Method 2: querySelectorAll (Modern) ===");
+const queryElements = document.querySelectorAll('.highlight-text');
+console.log("querySelectorAll result:");
+console.log("  Type:", typeof queryElements);
+console.log("  Is NodeList:", queryElements instanceof NodeList);
+console.log("  Length:", queryElements.length);
+console.log("  Has forEach:", typeof queryElements.forEach === 'function');
+console.log("  Is live collection: No (static snapshot)");
+
+queryElements.forEach((el, index) => {
+    console.log(`  Element ${index + 1}: "${el.textContent}"`);
+});
+
+console.log("\n=== Method 3: getElementsByTagName (Legacy) ===");
+const tagElements = document.getElementsByTagName('li');
+console.log("getElementsByTagName('li'):");
+console.log("  Found list items:", tagElements.length);
+console.log("  Is HTMLCollection:", tagElements instanceof HTMLCollection);
+console.log("  Is live:", "Yes");
+
+// Show some list items
+for (let i = 0; i < Math.min(3, tagElements.length); i++) {
+    console.log(`  Item ${i + 1}: "${tagElements[i].textContent}"`);
+}
+
+console.log("\n=== Performance Comparison ===");
+
+// Timing different methods (rough comparison)
+console.log("Performance characteristics:");
+console.log("1. getElementById:");
+console.log("   ⚡ Fastest - optimized browser index");
+console.log("   🎯 Returns single element");
+console.log("   ✅ Best for unique IDs");
+
+console.log("\n2. getElementsByClassName:");
+console.log("   🚀 Fast - optimized for classes");
+console.log("   📊 Returns live HTMLCollection");
+console.log("   ⚠️ Updates automatically (can be slow if DOM changes)");
+
+console.log("\n3. getElementsByTagName:");
+console.log("   🚀 Fast - optimized for tags");
+console.log("   📊 Returns live HTMLCollection");
+console.log("   ✅ Good for getting all elements of a type");
+
+console.log("\n4. querySelector:");
+console.log("   🐌 Slower - parses CSS selector");
+console.log("   🎯 Returns single element (first match)");
+console.log("   💪 Most flexible - any CSS selector");
+
+console.log("\n5. querySelectorAll:");
+console.log("   🐌 Slowest - parses CSS selector, finds all");
+console.log("   📊 Returns static NodeList");
+console.log("   💪 Most powerful - complex selectors");
+
+console.log("\n=== When to Use Which? ===");
+
+const recommendations = [
+    {
+        method: "getElementById",
+        when: "You know the exact ID",
+        example: "document.getElementById('submit-button')"
+    },
+    {
+        method: "getElementsByClassName", 
+        when: "You need all elements of a class and want live updates",
+        example: "document.getElementsByClassName('error-message')"
+    },
+    {
+        method: "querySelector",
+        when: "You need one element with complex selector",
+        example: "document.querySelector('.menu li:first-child')"
+    },
+    {
+        method: "querySelectorAll",
+        when: "You need multiple elements with complex selector", 
+        example: "document.querySelectorAll('input[type=\"email\"]')"
+    }
+];
+
+recommendations.forEach((rec, index) => {
+    console.log(`${index + 1}. Use ${rec.method}:`);
+    console.log(`   When: ${rec.when}`);
+    console.log(`   Example: ${rec.example}`);
+});
+
+console.log("\n=== Live vs Static Collections ===");
+
+console.log("Live Collections (HTMLCollection):");
+console.log("  ✅ Always reflect current DOM state");
+console.log("  ⚠️ Performance cost on each access");
+console.log("  🔄 Update automatically when DOM changes");
+
+console.log("\nStatic Collections (NodeList from querySelectorAll):");
+console.log("  📸 Snapshot of DOM at selection time");
+console.log("  ⚡ No performance cost after creation");
+console.log("  🚫 Don't update if DOM changes");
+
+console.log("\n=== Practical Selection Patterns ===");
+
+// Pattern 1: Safe element selection with fallback
+function safeSelect(selector, context = document) {
+    const element = context.querySelector(selector);
+    if (!element) {
+        console.warn(`Element not found: ${selector}`);
+    }
+    return element;
+}
+
+console.log("Pattern 1: Safe selection with error handling");
+
+// Pattern 2: Multiple selection with filtering
+const visibleElements = Array.from(document.querySelectorAll('.highlight-text'))
+    .filter(el => el.offsetHeight > 0); // Filter for visible elements
+console.log("Pattern 2: Selection with filtering - visible elements:", visibleElements.length);
+
+// Pattern 3: Caching selections for performance
+const selectionCache = {
+    playground: document.getElementById('search-playground'),
+    buttons: document.querySelectorAll('.demo-btn'),
+    fruits: document.querySelectorAll('.fruit')
+};
+console.log("Pattern 3: Cached selections for reuse");
+console.log("  Cached elements:", Object.keys(selectionCache).join(', '));
+
+console.log("\n=== Modern Best Practices ===");
+console.log("✅ Prefer querySelector/querySelectorAll for flexibility");
+console.log("✅ Use getElementById for single, known IDs");
+console.log("✅ Cache selections if used multiple times");
+console.log("✅ Always check if elements exist before using");
+console.log("✅ Use descriptive variable names for selected elements");
+</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div>
+                        <i class="fas fa-exclamation-triangle"></i> <strong> Live Collections Warning:</strong>
+                        <p>getElementsByClassName and getElementsByTagName return live collections that update when the DOM changes. This can cause unexpected behavior if you're modifying the DOM while iterating over the collection.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 1 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Element Hunter Game</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Create an element hunter that finds specific elements in the playground above using different selection methods:</p>
+                    
+                    <div class="code-editor" id="exercise1">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Element Hunter</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('exercise1')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise1()">
+                                    <i class="fas fa-play"></i> Hunt Elements
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise1-code">
+function elementHunter() {
+    console.log("🎯 ELEMENT HUNTER GAME 🎯");
+    
+    // Hunt 1: Find the unique paragraph by ID
+    console.log("\n=== Hunt 1: The Unique Paragraph ===");
+    const uniquePara = null; // Replace with getElementById
+    console.log("Target: Element with ID 'unique-paragraph'");
+    console.log("Found:", uniquePara ? "✅ Success!" : "❌ Not found");
+    if (uniquePara) {
+        console.log("Text:", uniquePara.textContent);
+    }
+    
+    // Hunt 2: Find all elements with highlight-text class
+    console.log("\n=== Hunt 2: All Highlighted Text ===");
+    const highlighted = null; // Replace with querySelectorAll
+    console.log("Target: All elements with class 'highlight-text'");
+    console.log("Found:", highlighted ? highlighted.length + " elements ✅" : "❌ Not found");
+    if (highlighted) {
+        highlighted.forEach((el, index) => {
+            console.log(`  ${index + 1}: "${el.textContent}"`);
+        });
+    }
+    
+    // Hunt 3: Find the primary button using attribute selector
+    console.log("\n=== Hunt 3: The Primary Button ===");
+    const primaryBtn = null; // Replace with querySelector using [data-role="primary"]
+    console.log("Target: Button with data-role='primary'");
+    console.log("Found:", primaryBtn ? "✅ Success!" : "❌ Not found");
+    if (primaryBtn) {
+        console.log("Button text:", primaryBtn.textContent);
+    }
+    
+    // Hunt 4: Find featured fruits using compound class selector
+    console.log("\n=== Hunt 4: Featured Fruits ===");
+    const featuredFruits = null; // Replace with querySelectorAll using .fruit.featured
+    console.log("Target: Elements with both 'fruit' and 'featured' classes");
+    console.log("Found:", featuredFruits ? featuredFruits.length + " featured fruits ✅" : "❌ Not found");
+    if (featuredFruits) {
+        featuredFruits.forEach(fruit => {
+            console.log(`  - ${fruit.textContent}`);
+        });
+    }
+    
+    // Hunt 5: Find the first nested item using descendant selector
+    console.log("\n=== Hunt 5: First Nested Item ===");
+    const firstNested = null; // Replace with querySelector using .nested-container .nested-item.first
+    console.log("Target: Element with classes 'nested-item' and 'first' inside 'nested-container'");
+    console.log("Found:", firstNested ? "✅ Success!" : "❌ Not found");
+    if (firstNested) {
+        console.log("Text:", firstNested.textContent);
+    }
+    
+    // Hunt 6: Count all buttons in the playground
+    console.log("\n=== Hunt 6: Button Census ===");
+    const allButtons = null; // Replace with querySelectorAll to find all buttons
+    console.log("Target: All button elements");
+    console.log("Found:", allButtons ? allButtons.length + " buttons ✅" : "❌ Not found");
+    
+    // Bonus Hunt: Find all list items using getElementsByTagName
+    console.log("\n=== Bonus Hunt: List Items ===");
+    const listItems = null; // Replace with getElementsByTagName('li')
+    console.log("Target: All <li> elements using getElementsByTagName");
+    console.log("Found:", listItems ? listItems.length + " list items ✅" : "❌ Not found");
+    
+    // Calculate score
+    let score = 0;
+    if (uniquePara) score++;
+    if (highlighted && highlighted.length > 0) score++;
+    if (primaryBtn) score++;
+    if (featuredFruits && featuredFruits.length > 0) score++;
+    if (firstNested) score++;
+    if (allButtons && allButtons.length > 0) score++;
+    if (listItems && listItems.length > 0) score++;
+    
+    console.log(`\n🏆 FINAL SCORE: ${score}/7`);
+    if (score === 7) {
+        console.log("🎉 Perfect! You're an Element Hunter Master!");
+    } else if (score >= 5) {
+        console.log("👍 Great job! Almost there!");
+    } else {
+        console.log("💪 Keep practicing your selection skills!");
+    }
+    
+    return score;
+}
+
+// Start the hunt!
+elementHunter();
+</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise1-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 2 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 2: Query Selector Quiz</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Which CSS selector would find all elements that have both "fruit" and "featured" classes?</p>
+                    <div class="exercise-options" id="exercise2">
+                        <button class="option-btn" data-answer="wrong">.fruit .featured</button>
+                        <button class="option-btn" data-answer="correct">.fruit.featured</button>
+                        <button class="option-btn" data-answer="wrong">.fruit, .featured</button>
+                        <button class="option-btn" data-answer="wrong">.fruit > .featured</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise2-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 3 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: Build a DOM Searcher</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Create a DOM search tool that takes different selector types and shows the results:</p>
+                    
+                    <div class="code-editor" id="exercise3">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">DOM Searcher</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('exercise3')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise3()">
+                                    <i class="fas fa-play"></i> Run Searcher
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise3-code">
+// Your task: Create a flexible DOM searcher
+
+function domSearcher(selector, searchType = 'querySelector') {
+    console.log(`\n🔍 Searching for: "${selector}" using ${searchType}`);
+    
+    let results;
+    let found = false;
+    
+    try {
+        // Your code here: Implement different search types
+        switch(searchType) {
+            case 'getElementById':
+                // Handle ID search (remove # if present)
+                
+                break;
+                
+            case 'getElementsByClassName':
+                // Handle class search (remove . if present)
+                
+                break;
+                
+            case 'getElementsByTagName':
+                // Handle tag search
+                
+                break;
+                
+            case 'querySelector':
+                // Handle single element CSS selector search
+                
+                break;
+                
+            case 'querySelectorAll':
+                // Handle multiple element CSS selector search
+                
+                break;
+                
+            default:
+                console.log("❌ Unknown search type:", searchType);
+                return null;
+        }
+        
+        // Display results based on what was found
+        if (results) {
+            if (results.length !== undefined) {
+                // It's a collection (HTMLCollection or NodeList)
+                console.log(`✅ Found ${results.length} elements`);
+                if (results.length > 0) {
+                    // Show first few results
+                    const showCount = Math.min(3, results.length);
+                    for (let i = 0; i < showCount; i++) {
+                        const el = results[i];
+                        console.log(`  ${i + 1}: <${el.tagName.toLowerCase()}>${el.textContent ? ' "' + el.textContent.substring(0, 30) + (el.textContent.length > 30 ? '..."' : '"') : ''}`);
+                    }
+                    if (results.length > 3) {
+                        console.log(`  ... and ${results.length - 3} more`);
+                    }
+                }
+                found = results.length > 0;
+            } else {
+                // It's a single element
+                console.log("✅ Found 1 element");
+                console.log(`  <${results.tagName.toLowerCase()}>${results.textContent ? ' "' + results.textContent.substring(0, 50) + (results.textContent.length > 50 ? '..."' : '"') : ''}`);
+                found = true;
+            }
+        } else {
+            console.log("❌ No elements found");
+        }
+        
+    } catch (error) {
+        console.log("❌ Search error:", error.message);
+    }
+    
+    return { found, results, count: results?.length || (results ? 1 : 0) };
+}
+
+// Test the searcher with different selector types
+console.log("🔍 DOM SEARCHER TESTING 🔍");
+
+// Test cases for your searcher
+const testCases = [
+    { selector: 'unique-paragraph', type: 'getElementById' },
+    { selector: 'highlight-text', type: 'getElementsByClassName' },
+    { selector: 'li', type: 'getElementsByTagName' },
+    { selector: '.fruit.featured', type: 'querySelector' },
+    { selector: '.demo-btn', type: 'querySelectorAll' },
+    { selector: '#fruit-list li:first-child', type: 'querySelector' },
+    { selector: '[data-role]', type: 'querySelectorAll' },
+    { selector: 'p', type: 'querySelectorAll' }
+];
+
+// Run all test cases
+let totalFound = 0;
+testCases.forEach((testCase, index) => {
+    const result = domSearcher(testCase.selector, testCase.type);
+    if (result && result.found) {
+        totalFound++;
+    }
+});
+
+console.log(`\n🎯 SEARCH SUMMARY: Found elements in ${totalFound}/${testCases.length} searches`);
+
+// Bonus: Interactive search function
+function searchAnything(selector) {
+    console.log(`\n🎲 Smart search for: "${selector}"`);
+    
+    // Try to determine the best search method
+    let method, cleanSelector;
+    
+    if (selector.startsWith('#')) {
+        method = 'querySelector';  // or could use getElementById
+        cleanSelector = selector;
+    } else if (selector.startsWith('.') && !selector.includes(' ') && !selector.includes('[') && !selector.includes(':')) {
+        method = 'getElementsByClassName';
+        cleanSelector = selector.substring(1);
+    } else if (selector.match(/^[a-zA-Z]+$/)) {
+        method = 'getElementsByTagName';
+        cleanSelector = selector;
+    } else {
+        method = 'querySelectorAll';
+        cleanSelector = selector;
+    }
+    
+    console.log(`Detected best method: ${method}`);
+    return domSearcher(cleanSelector, method);
+}
+
+// Test the smart searcher
+console.log("\n🧠 SMART SEARCHER TEST");
+['#unique-paragraph', '.highlight-text', 'button', '.fruit.featured'].forEach(sel => {
+    searchAnything(sel);
+});
+</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise3-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Common Mistakes Section -->
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Not Checking if Element Exists</strong>
+                            <p>Always verify an element exists before using it. `getElementById` returns `null` if not found, and accessing properties on `null` causes errors. Always use `if (element)` checks.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Confusing querySelector and querySelectorAll</strong>
+                            <p>`querySelector` returns the first match or null. `querySelectorAll` always returns a NodeList (even if empty). Don't treat a NodeList like a single element.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Forgetting CSS Selector Syntax</strong>
+                            <p>Use `#` for IDs, `.` for classes, and no prefix for tags. The selector `.button` finds class="button", while `button` finds &lt;button&gt; elements.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>getElementById is fastest for single elements with unique IDs - use it when you know the exact ID</li>
+                        <li>querySelector returns the first match using any CSS selector - perfect for flexible single-element searches</li>
+                        <li>querySelectorAll returns all matches as a NodeList - ideal for finding multiple elements with complex criteria</li>
+                        <li>Always check if elements exist before using them to avoid null reference errors</li>
+                        <li>Choose the right method based on your needs: speed vs flexibility, single vs multiple elements</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Spacing before navigation -->
+            <div style="margin: 2rem 0;"></div>
+            
+            <!-- Lesson Navigation -->
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson1.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson3.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(8, 2, true);
+            customModal.success('Excellent! You can now find any element on a webpage using various selection methods. Ready to learn how to modify those elements?', 'Lesson Complete!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson3.html';
+            }, 2000);
+        }
+
+        // Interactive selection demonstrator
+        document.addEventListener('DOMContentLoaded', function() {
+            const resultsDiv = document.getElementById('selection-results');
+            
+            // Add some interactive buttons to test selections
+            const playgroundDiv = document.getElementById('search-playground');
+            if (playgroundDiv) {
+                const interactiveButtons = document.createElement('div');
+                interactiveButtons.innerHTML = `
+                    <button onclick="demoSelection('getElementById', 'unique-paragraph')" style="margin: 0.25rem; padding: 0.5rem; background: var(--primary-color); color: var(--bg-primary); border: none; border-radius: 0.25rem; cursor: pointer;">Find by ID</button>
+                    <button onclick="demoSelection('querySelectorAll', '.highlight-text')" style="margin: 0.25rem; padding: 0.5rem; background: var(--primary-color); color: var(--bg-primary); border: none; border-radius: 0.25rem; cursor: pointer;">Find by Class</button>
+                    <button onclick="demoSelection('querySelector', '.fruit.featured')" style="margin: 0.25rem; padding: 0.5rem; background: var(--primary-color); color: var(--bg-primary); border: none; border-radius: 0.25rem; cursor: pointer;">Complex Selector</button>
+                `;
+                playgroundDiv.appendChild(interactiveButtons);
+            }
+        });
+
+        function demoSelection(method, selector) {
+            const resultsDiv = document.getElementById('selection-results');
+            let result;
+            let output = `${method}('${selector}'):\n`;
+            
+            try {
+                switch (method) {
+                    case 'getElementById':
+                        const id = selector.replace('#', '');
+                        result = document.getElementById(id);
+                        if (result) {
+                            output += `✅ Found: <${result.tagName.toLowerCase()}>\n`;
+                            output += `   Text: "${result.textContent}"\n`;
+                        } else {
+                            output += `❌ Not found\n`;
+                        }
+                        break;
+                        
+                    case 'querySelector':
+                        result = document.querySelector(selector);
+                        if (result) {
+                            output += `✅ Found: <${result.tagName.toLowerCase()}>\n`;
+                            output += `   Text: "${result.textContent}"\n`;
+                        } else {
+                            output += `❌ Not found\n`;
+                        }
+                        break;
+                        
+                    case 'querySelectorAll':
+                        result = document.querySelectorAll(selector);
+                        output += `✅ Found: ${result.length} elements\n`;
+                        result.forEach((el, index) => {
+                            output += `   ${index + 1}: "${el.textContent}"\n`;
+                        });
+                        break;
+                }
+            } catch (error) {
+                output += `❌ Error: ${error.message}\n`;
+            }
+            
+            resultsDiv.textContent = output;
+        }
+
+        // Copy code function
+        function copyCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            if (!codeInput) return;
+            
+            codeInput.select();
+            codeInput.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                const button = event.target.closest('.editor-btn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        }
+
+        // Run code function
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = outputPane.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            outputPane.innerHTML = '';
+            
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+            };
+            
+            try {
+                eval(code);
+                
+                if (logs.length > 0) {
+                    outputPane.innerHTML = logs.map(log => 
+                        `<div class="output-line">${escapeHtml(log)}</div>`
+                    ).join('');
+                } else {
+                    outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        // Escape HTML function
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Exercise 1 checker
+        function checkExercise1() {
+            const code = document.getElementById('exercise1-code').value;
+            const output = document.getElementById('exercise1-output');
+            const feedback = document.getElementById('exercise1-feedback');
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = output.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // Run the code first to show output
+            runCode('exercise1');
+            
+            // Check if the output contains any errors
+            const outputHasError = output.innerHTML.includes('output-error') || 
+                                  output.innerHTML.includes('Error:');
+            
+            const hasGetElementById = code.includes('getElementById') && code.includes('unique-paragraph');
+            const hasQuerySelectorAll = code.includes('querySelectorAll') && code.includes('highlight-text');
+            const hasAttributeSelector = code.includes('querySelector') && code.includes('[data-role="primary"]');
+            const hasCompoundSelector = code.includes('.fruit.featured');
+            const hasDescendantSelector = code.includes('.nested-container') && code.includes('.nested-item.first');
+            const hasGetElementsByTagName = code.includes('getElementsByTagName') && code.includes('li');
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            feedback.classList.remove('show', 'success', 'error');
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (!outputHasError && hasGetElementById && hasQuerySelectorAll && hasAttributeSelector && hasCompoundSelector && hasDescendantSelector && hasGetElementsByTagName) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Perfect! You successfully completed all hunts using different selection methods. You truly understand how to find elements in the DOM!';
+                } else if (outputHasError) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Your code has errors. Make sure to replace the null values with proper selection methods.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    let missing = [];
+                    if (!hasGetElementById) missing.push('getElementById for unique paragraph');
+                    if (!hasQuerySelectorAll) missing.push('querySelectorAll for highlighted elements');
+                    if (!hasAttributeSelector) missing.push('attribute selector for primary button');
+                    if (!hasCompoundSelector) missing.push('compound class selector for featured fruits');
+                    if (!hasDescendantSelector) missing.push('descendant selector for first nested item');
+                    if (!hasGetElementsByTagName) missing.push('getElementsByTagName for list items');
+                    feedback.textContent = `Missing: ${missing.join(', ')}. Complete all hunts to become an Element Hunter Master!`;
+                }
+            }, 150);
+        }
+
+        // Exercise 3 checker
+        function checkExercise3() {
+            const code = document.getElementById('exercise3-code').value;
+            const output = document.getElementById('exercise3-output');
+            const feedback = document.getElementById('exercise3-feedback');
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = output.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // Run the code first to show output
+            runCode('exercise3');
+            
+            // Check if the output contains any errors
+            const outputHasError = output.innerHTML.includes('output-error') || 
+                                  output.innerHTML.includes('Error:');
+            
+            const hasGetElementById = code.includes('getElementById');
+            const hasGetElementsByClassName = code.includes('getElementsByClassName');
+            const hasGetElementsByTagName = code.includes('getElementsByTagName');
+            const hasQuerySelector = code.includes('querySelector') && !code.includes('querySelectorAll');
+            const hasQuerySelectorAll = code.includes('querySelectorAll');
+            const hasSwitchStatement = code.includes('switch') || code.includes('if');
+            const hasErrorHandling = code.includes('try') && code.includes('catch');
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            feedback.classList.remove('show', 'success', 'error');
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (!outputHasError && hasGetElementById && hasGetElementsByClassName && hasGetElementsByTagName && hasQuerySelector && hasQuerySelectorAll && hasSwitchStatement) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Excellent! Your DOM searcher handles all selection methods correctly. This is a powerful tool for element discovery!';
+                } else if (outputHasError) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Your code has errors. Make sure to implement all search methods correctly in the switch statement.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    let missing = [];
+                    if (!hasGetElementById) missing.push('getElementById implementation');
+                    if (!hasGetElementsByClassName) missing.push('getElementsByClassName implementation');
+                    if (!hasGetElementsByTagName) missing.push('getElementsByTagName implementation');
+                    if (!hasQuerySelector) missing.push('querySelector implementation');
+                    if (!hasQuerySelectorAll) missing.push('querySelectorAll implementation');
+                    if (!hasSwitchStatement) missing.push('control structure (switch/if)');
+                    feedback.textContent = `Missing: ${missing.join(', ')}. Implement all search methods to complete the DOM searcher.`;
+                }
+            }, 150);
+        }
+
+        // Exercise 2 - Multiple choice handler
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.disabled) return;
+                    
+                    const exerciseContainer = this.closest('.exercise-options');
+                    const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
+                    const isCorrect = this.getAttribute('data-answer') === 'correct';
+                    
+                    // Remove previous incorrect selections (but not correct ones)
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.classList.contains('incorrect')) {
+                            btn.classList.remove('incorrect', 'selected');
+                            btn.disabled = false;
+                        }
+                    });
+                    
+                    // Hide feedback first to create animation effect
+                    if (feedbackDiv) {
+                        feedbackDiv.style.display = 'none';
+                        feedbackDiv.className = 'exercise-feedback';
+                        feedbackDiv.classList.remove('show', 'success', 'error');
+                    }
+                    
+                    // Mark this button
+                    this.classList.add('selected');
+                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    if (isCorrect) {
+                        // Correct answer - disable all buttons
+                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                            btn.disabled = true;
+                        });
+                    } else {
+                        // Wrong answer - disable only this button
+                        this.disabled = true;
+                    }
+                    
+                    // Show feedback with animation
+                    if (feedbackDiv) {
+                        setTimeout(() => {
+                            feedbackDiv.style.display = 'block';
+                            feedbackDiv.className = 'exercise-feedback show ' + (isCorrect ? 'success' : 'error');
+                            if (isCorrect) {
+                                feedbackDiv.textContent = 'Correct! The .fruit.featured selector finds elements that have both classes (no space between class names means "AND").';
+                            } else {
+                                feedbackDiv.textContent = 'Not quite. Think about how CSS selectors work: no space means "AND", space means "descendant", comma means "OR".';
+                            }
+                        }, 150);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

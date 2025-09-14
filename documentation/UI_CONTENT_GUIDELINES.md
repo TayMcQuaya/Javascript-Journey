@@ -193,6 +193,57 @@ Each lesson MUST follow this structure:
 - Output placeholder text: #888 with italic style
 - Copy buttons follow theme colors (not white/gray)
 
+#### Interactive Demo Building Standards (DOM Manipulation Lessons)
+**IMPORTANT**: For Module 8 (DOM Manipulation) and similar interactive lessons:
+
+1. **Build Outside Output Box**: 
+   - Interactive demos that create visual elements should be built OUTSIDE the small output box
+   - Output box should only show console logs and indicate "Building demo outside of this box..."
+   - Demos appear as full-width components below the code editor
+
+2. **Implementation Pattern**:
+   ```javascript
+   function runCode(editorId) {
+       // For DOM manipulation lessons (Module 8, etc.)
+       outputPane.innerHTML = '<div class="output-line muted">Building demo outside of this box...</div>';
+       
+       // Create demo container after the code editor
+       const demoContainer = document.createElement('div');
+       demoContainer.id = `${editorId}-demo`;
+       demoContainer.style.cssText = 'margin: 2rem 0; padding: 1rem; background: var(--bg-secondary); border-radius: 0.5rem;';
+       
+       // Insert after code editor or exercise section
+       const insertTarget = editorId.includes('exercise') 
+           ? document.getElementById(editorId).closest('.exercise-section')
+           : document.getElementById(editorId);
+       insertTarget.insertAdjacentElement('afterend', demoContainer);
+       
+       // Override document.body.appendChild to redirect to demo container
+       const originalAppendChild = document.body.appendChild;
+       document.body.appendChild = function(element) {
+           return demoContainer.appendChild(element);
+       };
+       
+       // Execute code
+       eval(code);
+       
+       // Restore original method
+       document.body.appendChild = originalAppendChild;
+   }
+   ```
+
+3. **Applies To**:
+   - All Module 8 lessons (DOM Manipulation)
+   - Any lesson creating interactive UI components
+   - Exercises that build visual elements (theme switchers, todo lists, etc.)
+   - Code examples with document.body.appendChild() calls
+
+4. **Benefits**:
+   - Better visibility of interactive components
+   - Full-width display for complex demos
+   - Prevents cramped UI in small output boxes
+   - More realistic preview of DOM manipulation results
+
 ### Exercise Standards
 ```html
 <div class="exercise-section">

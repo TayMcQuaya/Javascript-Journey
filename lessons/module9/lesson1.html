@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 1: Event Listeners - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <!-- Lesson Header -->
+            <div class="lesson-header">
+                <h1>Lesson 1: Event Listeners</h1>
+                <p class="lesson-subtitle">Learn how to make your web pages interactive by responding to user actions</p>
+            </div>
+
+            <!-- Introduction Section -->
+            <section class="content-section">
+                <h2>Introduction</h2>
+                <p>Event listeners are JavaScript's way of responding to user interactions. They "listen" for specific events (like clicks, key presses, or mouse movements) and execute code when those events occur.</p>
+                <p>Think of event listeners like a doorbell - when someone presses the button (the event), it triggers a response (plays a sound). In JavaScript, we can define what happens when users interact with our webpage.</p>
+            </section>
+
+            <!-- Core Content Section 1 -->
+            <section class="content-section">
+                <h2>Adding Event Listeners</h2>
+                <p>The most common way to add event listeners is with the <code>addEventListener()</code> method. This method takes two main parameters: the event type and a function to run when the event occurs.</p>
+
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> Key Point:</strong>
+                        <p>Always use addEventListener() instead of inline HTML event handlers for better separation of concerns and more flexibility.</p>
+                    </div>
+                </div>
+
+                <!-- Code Editor -->
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Basic Click Listener</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">
+// Create a button element
+const button = document.createElement('button');
+button.textContent = 'Click Me!';
+button.style.cssText = 'padding: 10px 20px; font-size: 16px; cursor: pointer;';
+
+// Create a counter display
+const counter = document.createElement('div');
+counter.style.cssText = 'margin-top: 20px; font-size: 18px;';
+counter.textContent = 'Button clicked 0 times';
+
+// Counter variable
+let clickCount = 0;
+
+// Add event listener to the button
+button.addEventListener('click', function() {
+    clickCount++;
+    counter.textContent = `Button clicked ${clickCount} time${clickCount !== 1 ? 's' : ''}`;
+    console.log('Button was clicked!');
+});
+
+// Add elements to the page
+document.body.appendChild(button);
+document.body.appendChild(counter);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 2 -->
+            <section class="content-section">
+                <h2>Multiple Event Types</h2>
+                <p>Elements can listen for many different types of events. You can add multiple listeners to the same element, each responding to different user interactions.</p>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Multiple Events Demo</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">
+// Create an interactive box
+const box = document.createElement('div');
+box.style.cssText = `
+    width: 200px;
+    height: 200px;
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 20px auto;
+`;
+box.textContent = 'Interact with me!';
+
+// Create event log
+const eventLog = document.createElement('div');
+eventLog.style.cssText = 'margin-top: 20px; padding: 10px; background: #f0f0f0; border-radius: 5px; max-height: 150px; overflow-y: auto;';
+
+// Function to log events
+function logEvent(eventType) {
+    const entry = document.createElement('div');
+    entry.textContent = `Event: ${eventType} at ${new Date().toLocaleTimeString()}`;
+    eventLog.appendChild(entry);
+    
+    // Keep only last 5 events
+    if (eventLog.children.length > 5) {
+        eventLog.removeChild(eventLog.firstChild);
+    }
+}
+
+// Add multiple event listeners
+box.addEventListener('click', () => {
+    logEvent('click');
+    box.style.backgroundColor = '#2ecc71';
+});
+
+box.addEventListener('mouseenter', () => {
+    logEvent('mouseenter');
+    box.style.transform = 'scale(1.1)';
+});
+
+box.addEventListener('mouseleave', () => {
+    logEvent('mouseleave');
+    box.style.transform = 'scale(1)';
+    box.style.backgroundColor = '#3498db';
+});
+
+box.addEventListener('dblclick', () => {
+    logEvent('double-click');
+    box.style.backgroundColor = '#e74c3c';
+});
+
+// Add elements to the page
+document.body.appendChild(box);
+document.body.appendChild(eventLog);
+console.log('Try clicking, hovering, and double-clicking the box!');</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 3 -->
+            <section class="content-section">
+                <h2>Removing Event Listeners</h2>
+                <p>Sometimes you need to stop listening for events. Use <code>removeEventListener()</code> to remove a previously added event listener. Note that you must pass the exact same function reference that was used when adding the listener.</p>
+
+                <div class="warning-box">
+                    <div>
+                        <i class="fas fa-exclamation-triangle"></i> <strong> Important:</strong>
+                        <p>To remove a listener, you must use a named function, not an anonymous one. The function reference must be exactly the same.</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Remove Listener Demo</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">
+// Create buttons
+const clickButton = document.createElement('button');
+clickButton.textContent = 'Click Me (3 clicks remaining)';
+clickButton.style.cssText = 'padding: 10px 20px; margin: 10px; cursor: pointer;';
+
+const toggleButton = document.createElement('button');
+toggleButton.textContent = 'Remove Listener';
+toggleButton.style.cssText = 'padding: 10px 20px; margin: 10px; cursor: pointer;';
+
+const status = document.createElement('div');
+status.style.cssText = 'margin: 10px; padding: 10px; background: #d4edda; border-radius: 5px;';
+status.textContent = 'Listener is active';
+
+let remainingClicks = 3;
+let listenerActive = true;
+
+// Define the handler function (must be named to remove it)
+function handleClick() {
+    if (remainingClicks > 0) {
+        remainingClicks--;
+        if (remainingClicks === 0) {
+            clickButton.textContent = 'No clicks remaining!';
+            clickButton.removeEventListener('click', handleClick);
+            status.textContent = 'Listener automatically removed';
+            status.style.background = '#f8d7da';
+            listenerActive = false;
+        } else {
+            clickButton.textContent = `Click Me (${remainingClicks} clicks remaining)`;
+        }
+        console.log(`Button clicked! ${remainingClicks} clicks remaining`);
+    }
+}
+
+// Add the event listener
+clickButton.addEventListener('click', handleClick);
+
+// Toggle button to manually remove/add listener
+toggleButton.addEventListener('click', () => {
+    if (listenerActive) {
+        clickButton.removeEventListener('click', handleClick);
+        status.textContent = 'Listener removed manually';
+        status.style.background = '#f8d7da';
+        toggleButton.textContent = 'Add Listener';
+        listenerActive = false;
+    } else {
+        clickButton.addEventListener('click', handleClick);
+        status.textContent = 'Listener is active';
+        status.style.background = '#d4edda';
+        toggleButton.textContent = 'Remove Listener';
+        listenerActive = true;
+        remainingClicks = 3;
+        clickButton.textContent = 'Click Me (3 clicks remaining)';
+    }
+});
+
+// Add elements to the page
+document.body.appendChild(clickButton);
+document.body.appendChild(toggleButton);
+document.body.appendChild(status);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 1 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Event Types Quiz</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Which event type should you use to detect when a user presses a keyboard key?</p>
+                    <div class="exercise-options" id="exercise1">
+                        <button class="option-btn" data-answer="wrong">click</button>
+                        <button class="option-btn" data-answer="wrong">hover</button>
+                        <button class="option-btn" data-answer="correct">keydown</button>
+                        <button class="option-btn" data-answer="wrong">change</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 2 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 2: Button Color Changer</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Complete the code to make the button change to a random color when clicked:</p>
+                    
+                    <div class="code-editor" id="exercise2">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Complete the Code</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('exercise2')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise2()">
+                                    <i class="fas fa-play"></i> Check Solution
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise2-code">
+// Create a button
+const colorButton = document.createElement('button');
+colorButton.textContent = 'Click to Change Color';
+colorButton.style.cssText = 'padding: 15px 30px; font-size: 18px; cursor: pointer;';
+
+// Array of colors
+const colors = ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6'];
+
+// YOUR CODE HERE: Add an event listener to change the button's background color
+// Use Math.random() and Math.floor() to pick a random color from the array
+
+colorButton.addEventListener('click', function() {
+    // Add your code here
+    
+});
+
+document.body.appendChild(colorButton);</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise2-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise2-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Common Mistakes Section -->
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Using onclick instead of addEventListener</strong>
+                            <p>The onclick property can only handle one function at a time. Use addEventListener to attach multiple handlers to the same event.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Forgetting to use the same function reference</strong>
+                            <p>When removing event listeners, you must pass the exact same function reference that was used when adding the listener.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Not preventing default behavior when needed</strong>
+                            <p>Some events have default browser behaviors (like form submission). Remember to use event.preventDefault() when you want to handle the event yourself.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>Use <code>addEventListener()</code> to attach event handlers to elements</li>
+                        <li>You can add multiple event listeners to the same element</li>
+                        <li>Different event types respond to different user interactions</li>
+                        <li>Use <code>removeEventListener()</code> with the same function reference to remove handlers</li>
+                        <li>Event listeners make your web pages interactive and responsive to user input</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Spacing before navigation -->
+            <div style="margin: 2rem 0;"></div>
+            
+            <!-- Lesson Navigation -->
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='../module8/lesson5.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Module
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson2.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(9, 1, true);
+            customModal.success('Lesson completed! Moving to the next lesson...', 'Congratulations!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson2.html';
+            }, 2000);
+        }
+
+        // Run code function for Module 9 with DOM manipulation
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = outputPane.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // For Module 9 (Events), build demos outside the output box
+            outputPane.innerHTML = '<div style="color: var(--js-yellow); font-style: italic;">Building demo outside of this box...</div>';
+            
+            // Check if demo container already exists
+            let demoContainer = document.getElementById(`${editorId}-demo`);
+            if (demoContainer) {
+                demoContainer.remove();
+            }
+            
+            // Create demo container after the code editor
+            demoContainer = document.createElement('div');
+            demoContainer.id = `${editorId}-demo`;
+            demoContainer.style.cssText = 'margin: 2rem 0; padding: 1rem; background: var(--bg-secondary); border-radius: 0.5rem;';
+            
+            // Insert after code editor
+            const codeEditor = document.getElementById(editorId);
+            codeEditor.insertAdjacentElement('afterend', demoContainer);
+            
+            // Override document.body.appendChild to redirect to demo container
+            const originalAppendChild = document.body.appendChild;
+            const originalPrepend = document.body.prepend;
+            const originalInsertBefore = document.body.insertBefore;
+            
+            document.body.appendChild = function(element) {
+                return demoContainer.appendChild(element);
+            };
+            
+            document.body.prepend = function(element) {
+                return demoContainer.prepend(element);
+            };
+            
+            document.body.insertBefore = function(newNode, referenceNode) {
+                return demoContainer.insertBefore(newNode, referenceNode);
+            };
+            
+            // Capture console.log output
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+                originalConsoleLog(...args);
+            };
+            
+            try {
+                // Execute the code
+                eval(code);
+                
+                // Add console output if any
+                if (logs.length > 0) {
+                    const consoleOutput = document.createElement('div');
+                    consoleOutput.style.cssText = 'margin-top: 1rem; padding: 0.5rem; background: #1e1e1e; color: var(--js-yellow); border-radius: 4px; font-family: monospace;';
+                    consoleOutput.innerHTML = '<div style="color: var(--js-yellow);">Console output:</div>' + logs.map(log => `<div style="color: var(--js-yellow);">${escapeHtml(log)}</div>`).join('');
+                    outputPane.innerHTML = '';
+                    outputPane.appendChild(consoleOutput);
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                // Restore original methods
+                document.body.appendChild = originalAppendChild;
+                document.body.prepend = originalPrepend;
+                document.body.insertBefore = originalInsertBefore;
+                console.log = originalConsoleLog;
+            }
+        }
+
+        // Check Exercise 2
+        function checkExercise2() {
+            const code = document.getElementById('exercise2-code').value;
+            const feedback = document.getElementById('exercise2-feedback');
+            
+            // First, check if the user has added their solution
+            const hasUserCode = code.includes('// Add your code here') && 
+                               !code.includes('const randomIndex') && 
+                               !code.includes('colorButton.style.backgroundColor');
+            
+            if (hasUserCode) {
+                // User hasn't added their code yet, provide the solution
+                const solutionCode = code.replace(
+                    '// Add your code here\n    ',
+                    `const randomIndex = Math.floor(Math.random() * colors.length);
+    const randomColor = colors[randomIndex];
+    colorButton.style.backgroundColor = randomColor;`
+                );
+                document.getElementById('exercise2-code').value = solutionCode;
+            }
+            
+            // Run the code
+            runCode('exercise2');
+            
+            // Check if solution is correct
+            const hasRandomIndex = code.includes('Math.random()') && code.includes('Math.floor');
+            const hasColorAssignment = code.includes('backgroundColor') || code.includes('background');
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (hasRandomIndex && hasColorAssignment || !hasUserCode) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Excellent! Your button changes to random colors when clicked! Click the button to see it change colors.';
+                } else if (!hasRandomIndex) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Remember to use Math.random() and Math.floor() to get a random index.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Make sure to set the button\'s backgroundColor using the random color.';
+                }
+            }, 150);
+        }
+
+        // Copy code function
+        function copyCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            if (!codeInput) return;
+            
+            codeInput.select();
+            codeInput.setSelectionRange(0, 99999); // For mobile
+            
+            try {
+                document.execCommand('copy');
+                const button = event.target.closest('.copy-btn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        }
+
+        // Escape HTML helper
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Handle quiz options
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle all exercise option buttons
+            document.querySelectorAll('.option-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Skip if button is already disabled
+                    if (this.disabled) return;
+                    
+                    const exerciseContainer = this.closest('.exercise-options');
+                    const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
+                    const isCorrect = this.getAttribute('data-answer') === 'correct';
+                    
+                    // Remove previous incorrect selections (but not correct ones)
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.classList.contains('incorrect')) {
+                            btn.classList.remove('incorrect', 'selected');
+                            btn.disabled = false;
+                        }
+                    });
+                    
+                    // Hide feedback first to create animation effect
+                    if (feedbackDiv) {
+                        feedbackDiv.style.display = 'none';
+                        feedbackDiv.className = 'exercise-feedback';
+                    }
+                    
+                    // Mark this button
+                    this.classList.add('selected');
+                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    if (isCorrect) {
+                        // Correct answer - disable all buttons
+                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                            btn.disabled = true;
+                        });
+                    } else {
+                        // Wrong answer - disable only this button
+                        this.disabled = true;
+                    }
+                    
+                    // Show feedback with animation
+                    if (feedbackDiv) {
+                        setTimeout(() => {
+                            feedbackDiv.style.display = 'block';
+                            feedbackDiv.className = 'exercise-feedback show ' + (isCorrect ? 'success' : 'error');
+                            feedbackDiv.textContent = isCorrect ? 
+                                'Correct! The keydown event fires when a key is pressed.' : 
+                                'Not quite. Try again!';
+                        }, 150);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

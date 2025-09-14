@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 5: Scope and Hoisting - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <!-- Lesson Header -->
+            <div class="lesson-header">
+                <h1>Lesson 5: Scope and Hoisting</h1>
+                <p class="lesson-subtitle">Understand how JavaScript determines where variables and functions can be accessed</p>
+            </div>
+
+            <!-- Introduction Section -->
+            <section class="content-section">
+                <h2>What is Scope?</h2>
+                <p>Imagine your house has different rooms - you can use items in your bedroom, but you can't reach them from the kitchen unless you go get them. JavaScript works similarly with variables. Scope determines where in your code you can access specific variables and functions.</p>
+                <p>Understanding scope prevents bugs, helps organize code, and explains why sometimes variables seem to "disappear" or behave unexpectedly. It's one of the most important concepts in JavaScript.</p>
+            </section>
+
+            <!-- Core Content -->
+            <section class="content-section">
+                <h2>Global vs Function Scope</h2>
+                <p>Variables can live in different "areas" of your code with different levels of access:</p>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Global vs Function Scope</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">
+// Global scope - accessible everywhere
+var globalVariable = "I'm available everywhere!";
+
+function demoScope() {
+    // Function scope - only accessible inside this function
+    var localVariable = "I only exist inside this function";
+    
+    console.log("Inside function:");
+    console.log("Global variable:", globalVariable);  // Can access global
+    console.log("Local variable:", localVariable);    // Can access local
+}
+
+// Call the function
+demoScope();
+
+console.log("Outside function:");
+console.log("Global variable:", globalVariable);     // Still accessible
+
+// This would cause an error - localVariable is not accessible here!
+// console.log("Local variable:", localVariable);  // Uncomment to see error
+
+function anotherFunction() {
+    // This function has its own separate scope
+    var anotherLocal = "I'm in a different function";
+    
+    console.log("In another function:");
+    console.log("Global variable:", globalVariable);  // Still accessible
+    // console.log("Local variable:", localVariable); // This would fail!
+}
+
+anotherFunction();</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box" style="margin-top: 1.5rem;">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> Key Concepts:</strong>
+                        <p><strong>Global Scope:</strong> Variables declared outside functions - accessible everywhere</p>
+                        <p><strong>Function Scope:</strong> Variables declared inside functions - only accessible within that function</p>
+                        <p><strong>Scope Chain:</strong> Inner functions can access outer variables, but not vice versa</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Block Scope (let and const)</h2>
+                <p>Modern JavaScript introduced <code>let</code> and <code>const</code> which create block scope (inside {}):</p>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Block Scope</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">
+// Comparing var, let, and const
+function scopeDemo() {
+    console.log("=== Function Scope Demo ===");
+    
+    if (true) {
+        var varVariable = "I'm function-scoped";
+        let letVariable = "I'm block-scoped";
+        const constVariable = "I'm also block-scoped";
+        
+        console.log("Inside if block:");
+        console.log("var:", varVariable);
+        console.log("let:", letVariable);
+        console.log("const:", constVariable);
+    }
+    
+    console.log("Outside if block:");
+    console.log("var:", varVariable);        // Still accessible!
+    // console.log("let:", letVariable);     // Would cause error
+    // console.log("const:", constVariable); // Would cause error
+}
+
+scopeDemo();
+
+// Another example with loops
+console.log("\n=== Loop Scope Demo ===");
+
+for (var i = 0; i < 3; i++) {
+    // var i is function-scoped, not block-scoped
+}
+console.log("var i after loop:", i); // i is still 3
+
+for (let j = 0; j < 3; j++) {
+    // let j is block-scoped to this loop
+}
+// console.log("let j after loop:", j); // Would cause error
+
+// Practical example: Why this matters
+console.log("\n=== Practical Example ===");
+const buttons = ["Button1", "Button2", "Button3"];
+
+console.log("With var (problematic):");
+for (var x = 0; x < buttons.length; x++) {
+    // Simulate adding click handlers (we'll just log instead)
+    setTimeout(() => {
+        console.log("Clicked " + buttons[x]); // x will be 3 for all!
+    }, 10);
+}
+
+setTimeout(() => {
+    console.log("With let (correct):");
+    for (let y = 0; y < buttons.length; y++) {
+        setTimeout(() => {
+            console.log("Clicked " + buttons[y]); // y keeps its value
+        }, 20);
+    }
+}, 50);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Hoisting</h2>
+                <p>JavaScript "hoists" variable and function declarations to the top of their scope, but this can create confusing behavior:</p>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Hoisting Examples</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">
+console.log("=== Function Hoisting ===");
+
+// This works because function declarations are fully hoisted
+sayHello(); // Called before declaration!
+
+function sayHello() {
+    console.log("Hello from hoisted function!");
+}
+
+console.log("\n=== Variable Hoisting ===");
+
+console.log("Trying to access hoisted var:", hoistedVar); // undefined (not error)
+var hoistedVar = "I'm hoisted but not initialized yet";
+console.log("After assignment:", hoistedVar);
+
+// This is how JavaScript actually sees the above:
+// var hoistedVar; // Declaration hoisted to top (undefined)
+// console.log("Trying to access hoisted var:", hoistedVar);
+// hoistedVar = "I'm hoisted but not initialized yet"; // Assignment stays here
+
+console.log("\n=== let and const Hoisting ===");
+
+// These cause errors - they're hoisted but in "temporal dead zone"
+try {
+    console.log("Trying let before declaration:", letVar);
+} catch (e) {
+    console.log("Error with let:", e.message);
+}
+
+try {
+    console.log("Trying const before declaration:", constVar);
+} catch (e) {
+    console.log("Error with const:", e.message);
+}
+
+let letVar = "I'm a let variable";
+const constVar = "I'm a const variable";
+
+console.log("After declaration - let:", letVar);
+console.log("After declaration - const:", constVar);
+
+console.log("\n=== Best Practice ===");
+// Always declare variables at the top of their scope
+function bestPractice() {
+    // Declare all variables at the top
+    let name = "Alice";
+    let age = 25;
+    let message;
+    
+    // Use them below
+    message = "Hello, " + name + "! You are " + age + " years old.";
+    console.log(message);
+}
+
+bestPractice();</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="real-world-example" style="margin-top: 1.5rem;">
+                    <h3><i class="fas fa-building"></i> Real-World Example: Module System</h3>
+                    <p>Understanding scope is crucial for organizing code in modules. Global variables can cause conflicts, while properly scoped variables keep your modules clean and independent.</p>
+                </div>
+            </section>
+
+            <!-- Practice Exercises -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Scope Rules</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What will happen if you try to access a variable declared with <code>let</code> inside a function from outside that function?</p>
+                    <div class="exercise-options" id="exercise1">
+                        <button class="option-btn" data-answer="wrong">It will return undefined</button>
+                        <button class="option-btn" data-answer="correct">It will cause a ReferenceError</button>
+                        <button class="option-btn" data-answer="wrong">It will return null</button>
+                        <button class="option-btn" data-answer="wrong">It will work normally</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 2: Fix the Scope Issue</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Fix this code so that the message variable is accessible where it's being used:</p>
+                    <div class="code-editor" id="exercise">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Your Solution</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="checkExercise()">
+                                    <i class="fas fa-check"></i> Check Solution
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise-code">
+function createMessage() {
+    let message = "Hello, World!";
+}
+
+// This should work without errors
+console.log(message);</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: Hoisting Behavior</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What will this code output?</p>
+                    <div class="code-block">
+                        <pre><code>console.log(myVar);
+var myVar = 5;</code></pre>
+                    </div>
+                    <div class="exercise-options" id="exercise3">
+                        <button class="option-btn" data-answer="wrong">5</button>
+                        <button class="option-btn" data-answer="correct">undefined</button>
+                        <button class="option-btn" data-answer="wrong">ReferenceError</button>
+                        <button class="option-btn" data-answer="wrong">null</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Common Mistakes Section -->
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Relying on Hoisting</strong>
+                            <p>Don't depend on hoisting behavior. Always declare variables and functions before using them for clearer, more predictable code.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Global Variable Overuse</strong>
+                            <p>Avoid putting everything in global scope. It can cause naming conflicts and makes code harder to maintain. Use functions and modules to contain your variables.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> var vs let/const Confusion</strong>
+                            <p>Use <code>let</code> and <code>const</code> instead of <code>var</code> in modern JavaScript. They have clearer scoping rules and help prevent common bugs.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>Scope determines where variables and functions can be accessed in your code</li>
+                        <li>Global scope is accessible everywhere, function scope only within functions</li>
+                        <li><code>let</code> and <code>const</code> create block scope, which is more predictable than <code>var</code></li>
+                        <li>Hoisting moves declarations to the top, but not initializations</li>
+                        <li>Always declare variables before using them and prefer <code>let</code>/<code>const</code> over <code>var</code></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Spacing before navigation -->
+            <div style="margin: 2rem 0;"></div>
+            
+            <!-- Lesson Navigation -->
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson4.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson6.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Run code function
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = outputPane.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            outputPane.innerHTML = '';
+            
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+            };
+            
+            try {
+                eval(code);
+                
+                if (logs.length > 0) {
+                    outputPane.innerHTML = logs.map(log => 
+                        `<div class="output-line">${escapeHtml(log)}</div>`
+                    ).join('');
+                } else {
+                    outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        // Copy code function
+        function copyCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            if (!codeInput) return;
+            
+            codeInput.select();
+            codeInput.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                const button = event.target.closest('.editor-btn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        }
+
+        // Escape HTML for safe output
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Check exercise function
+        function checkExercise() {
+            const code = document.getElementById('exercise-code').value;
+            const output = document.getElementById('exercise-output');
+            const feedback = document.getElementById('exercise-feedback');
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = output.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // Run the code first to show output
+            runCode('exercise');
+            
+            // Check if the solution is correct
+            const messageOutsideFunction = code.includes('let message = "Hello, World!"') && !code.includes('function createMessage() {');
+            const hasConsoleLog = code.includes('console.log(message)');
+            const removedFunction = !code.includes('function createMessage()') || code.includes('// function createMessage()');
+            const declaredGlobally = /^(?!.*function\s+createMessage).*let\s+message\s*=\s*["']Hello, World!["']/.test(code.replace(/\s+/g, ' '));
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            feedback.classList.remove('show', 'success', 'error');
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if ((messageOutsideFunction || declaredGlobally) && hasConsoleLog) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Perfect! You moved the message variable to global scope!';
+                } else if (code.includes('return "Hello, World!"')) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Great solution! You returned the message from the function!';
+                } else if (hasConsoleLog && !messageOutsideFunction) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Good try! Move the message variable outside the function or return it from the function.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Try moving the message variable outside the function so console.log can access it.';
+                }
+            }, 150);
+        }
+
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(5, 5, true);
+            customModal.success('Excellent! You\'ve mastered scope and hoisting!', 'Congratulations!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson6.html';
+            }, 2000);
+        }
+
+        // Handle quiz options
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.disabled) return;
+                    
+                    const exerciseContainer = this.closest('.exercise-options');
+                    const exerciseId = exerciseContainer.id;
+                    const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
+                    const isCorrect = this.getAttribute('data-answer') === 'correct';
+                    
+                    // Remove previous incorrect selections
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.classList.contains('incorrect')) {
+                            btn.classList.remove('incorrect', 'selected');
+                            btn.disabled = false;
+                        }
+                    });
+                    
+                    // Hide feedback first to create animation effect
+                    if (feedbackDiv) {
+                        feedbackDiv.style.display = 'none';
+                        feedbackDiv.className = 'exercise-feedback';
+                        feedbackDiv.classList.remove('show', 'success', 'error');
+                    }
+                    
+                    // Mark this button
+                    this.classList.add('selected');
+                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    if (isCorrect) {
+                        // Correct answer - disable all buttons
+                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                            btn.disabled = true;
+                        });
+                    } else {
+                        // Wrong answer - disable only this button
+                        this.disabled = true;
+                    }
+                    
+                    // Show feedback with animation
+                    if (feedbackDiv) {
+                        setTimeout(() => {
+                            feedbackDiv.style.display = 'block';
+                            feedbackDiv.className = 'exercise-feedback show ' + (isCorrect ? 'success' : 'error');
+                            
+                            let feedbackText;
+                            if (exerciseId === 'exercise1') {
+                                feedbackText = isCorrect ? 
+                                    'Correct! Variables declared inside functions are not accessible from outside.' : 
+                                    'Not quite. Function-scoped variables cannot be accessed from outside the function.';
+                            } else if (exerciseId === 'exercise3') {
+                                feedbackText = isCorrect ? 
+                                    'Correct! The declaration is hoisted but not the initialization, so it\'s undefined.' : 
+                                    'Not quite. Hoisting moves the declaration but not the assignment.';
+                            }
+                            
+                            feedbackDiv.textContent = feedbackText;
+                        }, 150);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 4: Creating and Removing Elements - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <!-- Lesson Header -->
+            <div class="lesson-header">
+                <h1>Lesson 4: Creating and Removing Elements</h1>
+                <p class="lesson-subtitle">Build dynamic interfaces by adding new elements and removing old ones like a digital architect</p>
+            </div>
+
+            <!-- Introduction Section -->
+            <section class="content-section">
+                <h2>Dynamic Element Management</h2>
+                <p>Imagine you're constructing a building with modular components. You can fabricate new rooms (createElement), connect them to existing structures (appendChild), position them precisely (insertBefore), or demolish sections you no longer need (removeChild). JavaScript gives you this architectural power over web pages, letting you build interfaces that adapt, grow, and change based on user interaction.</p>
+                <p>Dynamic element creation is what transforms static web pages into interactive applications. Every time you see a notification pop up, a new item added to a cart, or a form field appear based on your selection, you're witnessing element creation and manipulation in action.</p>
+            </section>
+
+            <!-- Interactive Demo Elements -->
+            <div style="background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: 0.5rem; padding: 1.5rem; margin: 1.5rem 0;">
+                <h3 style="margin-top: 0; color: var(--primary-color);">🏗️ Element Creation Playground</h3>
+                
+                <div id="creation-playground">
+                    <div id="demo-container" style="border: 1px solid var(--border-color); border-radius: 0.25rem; padding: 1rem; margin: 1rem 0; min-height: 100px;">
+                        <p>This container will fill up with dynamically created elements!</p>
+                    </div>
+                    
+                    <div style="margin-top: 1rem;">
+                        <button onclick="addParagraph()" style="margin: 0.25rem; padding: 0.5rem; background: #10b981; color: white; border: none; border-radius: 0.25rem; cursor: pointer;">Add Paragraph</button>
+                        <button onclick="addButton()" style="margin: 0.25rem; padding: 0.5rem; background: #3b82f6; color: white; border: none; border-radius: 0.25rem; cursor: pointer;">Add Button</button>
+                        <button onclick="addList()" style="margin: 0.25rem; padding: 0.5rem; background: #000000; color: #F7DF1E; border: 2px solid #F7DF1E; border-radius: 0.25rem; cursor: pointer;">Add List</button>
+                        <button onclick="removeLastElement()" style="margin: 0.25rem; padding: 0.5rem; background: #ef4444; color: white; border: none; border-radius: 0.25rem; cursor: pointer;">Remove Last</button>
+                        <button onclick="clearContainer()" style="margin: 0.25rem; padding: 0.5rem; background: #6b7280; color: white; border: none; border-radius: 0.25rem; cursor: pointer;">Clear All</button>
+                    </div>
+                    
+                    <div id="element-counter" style="margin-top: 1rem; font-family: monospace; color: var(--text-secondary);">
+                        Elements created: 0 | Elements in container: 1
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Content Section 1 -->
+            <section class="content-section">
+                <h2>createElement and appendChild - Building Elements</h2>
+                <p>Think of `createElement` as your 3D printer and `appendChild` as your assembly worker. The 3D printer fabricates individual components (HTML elements) with all their properties, while the assembly worker connects them to the main structure. Together, they let you build any HTML structure imaginable.</p>
+
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> Performance Tip:</strong>
+                        <p>Create complex structures in memory first, then add them to the DOM all at once to minimize expensive reflows and repaints.</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Element Creation Mastery</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">
+console.log("=== Creating Elements with createElement ===");
+
+// Basic element creation
+console.log("\n=== Basic createElement Usage ===");
+const paragraph = document.createElement('p');
+const heading = document.createElement('h3');
+const button = document.createElement('button');
+const listItem = document.createElement('li');
+
+console.log("Created elements:");
+console.log("  Paragraph:", paragraph.tagName);
+console.log("  Heading:", heading.tagName);
+console.log("  Button:", button.tagName);
+console.log("  List Item:", listItem.tagName);
+
+// Adding content to created elements
+console.log("\n=== Adding Content to Elements ===");
+paragraph.textContent = "This paragraph was created with JavaScript!";
+heading.textContent = "Dynamic Heading";
+button.textContent = "Click Me!";
+listItem.textContent = "Dynamic List Item";
+
+console.log("✅ Content added to all elements");
+
+// Setting attributes
+console.log("\n=== Setting Attributes ===");
+paragraph.className = "dynamic-paragraph";
+paragraph.setAttribute('data-created', Date.now());
+
+heading.id = "dynamic-heading";
+heading.style.color = "#10b981";
+
+button.className = "btn-primary";
+button.setAttribute('onclick', 'alert("Dynamic button clicked!")');
+button.disabled = false;
+
+listItem.className = "list-item";
+listItem.setAttribute('data-index', '1');
+
+console.log("✅ Attributes and styles set");
+
+// Create a container for our elements
+console.log("\n=== Creating Container Structure ===");
+const container = document.createElement('div');
+container.className = 'dynamic-container';
+container.style.cssText = `
+    border: 2px solid #3b82f6;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    background: var(--bg-tertiary);
+`;
+
+console.log("Container created with styling");
+
+// Using appendChild to build structure
+console.log("\n=== Building Structure with appendChild ===");
+container.appendChild(heading);
+container.appendChild(paragraph);
+
+// Create a list structure
+const list = document.createElement('ul');
+list.style.margin = '1rem 0';
+list.appendChild(listItem);
+
+// Add more list items
+for (let i = 2; i <= 3; i++) {
+    const item = document.createElement('li');
+    item.textContent = `Dynamic List Item ${i}`;
+    item.className = 'list-item';
+    item.setAttribute('data-index', i);
+    list.appendChild(item);
+    console.log(`Added list item ${i}`);
+}
+
+container.appendChild(list);
+container.appendChild(button);
+
+console.log("✅ Structure built with appendChild");
+
+// Add to the actual page
+document.body.appendChild(container);
+console.log("✅ Added to page - check below this output!");
+
+// Clean up after demo
+setTimeout(() => {
+    if (container.parentNode) {
+        document.body.removeChild(container);
+        console.log("🧹 Demo container removed");
+    }
+}, 8000);
+
+console.log("\n=== Complex Element Creation ===");
+
+// Create a product card example
+function createProductCard(product) {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    
+    const isDarkMode = document.body.classList.contains('dark-theme');
+    
+    const image = document.createElement('img');
+    image.src = product.image;
+    image.alt = product.name;
+    image.className = 'product-image';
+    
+    const title = document.createElement('h3');
+    title.textContent = product.name;
+    title.className = 'product-title';
+    title.style.color = isDarkMode ? 'var(--text-primary)' : '#1f2937';
+    
+    const description = document.createElement('p');
+    description.textContent = product.description;
+    description.className = 'product-description';
+    description.style.color = isDarkMode ? 'var(--text-primary)' : '#4b5563';
+    
+    const price = document.createElement('span');
+    price.textContent = `$${product.price}`;
+    price.className = 'product-price';
+    price.style.cssText = `font-weight: bold; font-size: 1.25rem; color: ${isDarkMode ? 'var(--primary-color)' : '#10b981'};`;
+    
+    const addToCartBtn = document.createElement('button');
+    addToCartBtn.textContent = 'Add to Cart';
+    addToCartBtn.className = 'add-to-cart-btn';
+    addToCartBtn.setAttribute('data-product-id', product.id);
+    addToCartBtn.onclick = () => console.log(`Added ${product.name} to cart!`);
+    
+    const priceContainer = document.createElement('div');
+    priceContainer.className = 'price-container';
+    priceContainer.appendChild(price);
+    priceContainer.appendChild(addToCartBtn);
+    
+    // Assemble the card
+    card.appendChild(image);
+    card.appendChild(title);
+    card.appendChild(description);
+    card.appendChild(priceContainer);
+    
+    return card;
+}
+
+// Demo product data
+const sampleProduct = {
+    id: 1,
+    name: "JavaScript Guide",
+    description: "Learn JavaScript with this comprehensive guide",
+    price: 29.99,
+    image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTUwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2Y3ZGYxZSIvPjx0ZXh0IHg9Ijc1IiB5PSI1NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSJibGFjayIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SlMgR3VpZGU8L3RleHQ+PC9zdmc+"
+};
+
+const productCard = createProductCard(sampleProduct);
+console.log("✅ Product card created");
+console.log("Card structure:", productCard.outerHTML.substring(0, 100) + "...");
+
+// Add styling and show the card
+const isDarkMode = document.body.classList.contains('dark-theme');
+productCard.style.cssText = `
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    background: ${isDarkMode ? 'var(--bg-secondary)' : 'white'};
+    color: ${isDarkMode ? 'var(--text-primary)' : '#1f2937'};
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+`;
+
+document.body.appendChild(productCard);
+console.log("✅ Product card added to page");
+
+// Clean up product card
+setTimeout(() => {
+    if (productCard.parentNode) {
+        document.body.removeChild(productCard);
+        console.log("🧹 Product card removed");
+    }
+}, 8000);
+
+console.log("\n=== DocumentFragment for Performance ===");
+
+// Using DocumentFragment for efficient DOM manipulation
+const fragment = document.createDocumentFragment();
+
+console.log("Creating elements in memory using DocumentFragment...");
+
+for (let i = 1; i <= 5; i++) {
+    const item = document.createElement('div');
+    item.textContent = `Fragment Item ${i}`;
+    item.style.cssText = `
+        padding: 0.5rem;
+        margin: 0.25rem 0;
+        background: linear-gradient(45deg, #3b82f6, #10b981);
+        color: white;
+        border-radius: 0.25rem;
+    `;
+    fragment.appendChild(item);
+}
+
+const fragmentContainer = document.createElement('div');
+fragmentContainer.style.cssText = `
+    border: 2px dashed #f59e0b;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1rem 0;
+`;
+
+fragmentContainer.appendChild(fragment);
+document.body.appendChild(fragmentContainer);
+
+console.log("✅ DocumentFragment with 5 items added efficiently");
+
+// Clean up fragment container
+setTimeout(() => {
+    if (fragmentContainer.parentNode) {
+        document.body.removeChild(fragmentContainer);
+        console.log("🧹 Fragment container removed");
+    }
+}, 8000);
+
+console.log("\n=== Real-World Patterns ===");
+
+// Dynamic form field creation
+function createFormField(type, name, label, required = false) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'form-field';
+    
+    const labelElement = document.createElement('label');
+    labelElement.textContent = label;
+    labelElement.setAttribute('for', name);
+    
+    const input = document.createElement('input');
+    input.type = type;
+    input.name = name;
+    input.id = name;
+    input.required = required;
+    
+    if (required) {
+        labelElement.textContent += ' *';
+        labelElement.style.fontWeight = 'bold';
+    }
+    
+    wrapper.appendChild(labelElement);
+    wrapper.appendChild(input);
+    
+    return wrapper;
+}
+
+console.log("✅ Form field factory function created");
+
+// Create notification system
+function createNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    
+    const icon = document.createElement('i');
+    icon.className = `fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}`;
+    
+    const text = document.createElement('span');
+    text.textContent = message;
+    
+    const closeBtn = document.createElement('button');
+    closeBtn.innerHTML = '&times;';
+    closeBtn.className = 'notification-close';
+    closeBtn.onclick = () => notification.remove();
+    
+    notification.appendChild(icon);
+    notification.appendChild(text);
+    notification.appendChild(closeBtn);
+    
+    return notification;
+}
+
+console.log("✅ Notification factory function created");
+console.log("These patterns enable dynamic form building and user feedback");
+</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 2 -->
+            <section class="content-section">
+                <h2>insertBefore and Modern Insertion Methods</h2>
+                <p>While `appendChild` is like adding rooms to the end of a hallway, `insertBefore` lets you squeeze new rooms into specific positions. Modern JavaScript also provides even more flexible methods like `insertAdjacentElement` and `append` that make positioning elements as easy as saying "put this before that" or "add this after that".</p>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Advanced Element Insertion</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">
+console.log("=== Advanced Element Insertion Methods ===");
+
+// Create a demonstration list
+const demoList = document.createElement('ul');
+demoList.style.cssText = `
+    border: 2px solid var(--primary-color);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    background: var(--bg-secondary);
+`;
+
+// Add some initial items
+['Item 1', 'Item 2', 'Item 4', 'Item 5'].forEach((text, index) => {
+    const item = document.createElement('li');
+    item.textContent = text;
+    item.style.cssText = 'padding: 0.5rem; margin: 0.25rem 0; background: var(--bg-tertiary); border-radius: 0.25rem;';
+    item.setAttribute('data-position', index + 1);
+    demoList.appendChild(item);
+});
+
+document.body.appendChild(demoList);
+console.log("✅ Demo list created with items 1, 2, 4, 5");
+
+console.log("\n=== Using insertBefore ===");
+
+// Create the missing Item 3
+const item3 = document.createElement('li');
+item3.textContent = 'Item 3 (inserted with insertBefore)';
+item3.style.cssText = 'padding: 0.5rem; margin: 0.25rem 0; background: #10b981; color: white; border-radius: 0.25rem;';
+item3.setAttribute('data-position', '3');
+
+// Find the reference element (Item 4) and insert before it
+const item4 = demoList.children[2]; // Third child (0-indexed)
+demoList.insertBefore(item3, item4);
+
+console.log("✅ Inserted Item 3 before Item 4 using insertBefore");
+
+// Insert at the beginning
+const item0 = document.createElement('li');
+item0.textContent = 'Item 0 (inserted at beginning)';
+item0.style.cssText = 'padding: 0.5rem; margin: 0.25rem 0; background: #8b5cf6; color: white; border-radius: 0.25rem;';
+
+demoList.insertBefore(item0, demoList.firstChild);
+console.log("✅ Inserted Item 0 at the beginning");
+
+console.log("\n=== Modern Insertion Methods ===");
+
+// Using insertAdjacentElement
+const adjacentItem = document.createElement('li');
+adjacentItem.textContent = 'Adjacent Item (modern method)';
+adjacentItem.style.cssText = 'padding: 0.5rem; margin: 0.25rem 0; background: #f59e0b; color: white; border-radius: 0.25rem;';
+
+// Insert after Item 2
+const item2 = demoList.children[2]; // Now the third child due to insertions
+item2.insertAdjacentElement('afterend', adjacentItem);
+console.log("✅ Used insertAdjacentElement to add item after Item 2");
+
+console.log("\n=== insertAdjacentHTML and insertAdjacentText ===");
+
+// Insert HTML content
+const referenceItem = demoList.children[1];
+referenceItem.insertAdjacentHTML('beforebegin', `
+    <li style="padding: 0.5rem; margin: 0.25rem 0; background: #ef4444; color: white; border-radius: 0.25rem;">
+        HTML Item (with <strong>formatting</strong>)
+    </li>
+`);
+
+console.log("✅ Used insertAdjacentHTML to add formatted content");
+
+// Insert text content safely
+const lastItem = demoList.lastElementChild;
+lastItem.insertAdjacentText('afterend', 'This is safe text that will become a text node');
+
+// Actually, let's demonstrate insertAdjacentText properly
+const textDemo = document.createElement('li');
+textDemo.textContent = 'Text Demo Base';
+textDemo.style.cssText = 'padding: 0.5rem; margin: 0.25rem 0; background: var(--bg-tertiary); border-radius: 0.25rem;';
+demoList.appendChild(textDemo);
+
+textDemo.insertAdjacentText('beforeend', ' + Added Text');
+console.log("✅ Used insertAdjacentText to safely add text");
+
+console.log("\n=== Position Options for insertAdjacent Methods ===");
+console.log("beforebegin: Before the element itself");
+console.log("afterbegin:  Inside the element, before its first child");  
+console.log("beforeend:   Inside the element, after its last child");
+console.log("afterend:    After the element itself");
+
+console.log("\n=== Modern append() and prepend() Methods ===");
+
+// Create another demo container
+const modernContainer = document.createElement('div');
+modernContainer.style.cssText = `
+    border: 2px dashed #10b981;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    background: var(--bg-secondary);
+`;
+
+const title = document.createElement('h4');
+title.textContent = 'Modern Methods Demo';
+modernContainer.appendChild(title);
+
+// append() can take multiple elements and text
+const elem1 = document.createElement('p');
+elem1.textContent = 'Element 1';
+
+const elem2 = document.createElement('p');
+elem2.textContent = 'Element 2';
+
+modernContainer.append(elem1, ' - Text between - ', elem2);
+console.log("✅ Used append() with multiple elements and text");
+
+// prepend() adds to the beginning
+const prependedElement = document.createElement('p');
+prependedElement.textContent = 'I was prepended!';
+prependedElement.style.fontWeight = 'bold';
+
+modernContainer.prepend(prependedElement);
+console.log("✅ Used prepend() to add element at beginning");
+
+document.body.appendChild(modernContainer);
+
+console.log("\n=== Comparison: Old vs New Methods ===");
+console.log("OLD WAY:");
+console.log("  parent.insertBefore(newElement, parent.firstChild); // prepend");
+console.log("  parent.appendChild(newElement); // append");
+console.log("  element.parentNode.insertBefore(newElement, element); // before");
+console.log("  element.parentNode.insertBefore(newElement, element.nextSibling); // after");
+
+console.log("\nNEW WAY:");
+console.log("  parent.prepend(newElement); // prepend");
+console.log("  parent.append(newElement); // append");  
+console.log("  element.before(newElement); // before");
+console.log("  element.after(newElement); // after");
+
+console.log("\n=== Real-World Insertion Patterns ===");
+
+// Dynamic menu insertion
+function insertMenuItem(menu, newItem, beforeItem) {
+    if (beforeItem) {
+        menu.insertBefore(newItem, beforeItem);
+    } else {
+        menu.appendChild(newItem);
+    }
+}
+
+// Priority insertion (urgent items first)
+function addNotification(container, notification, isUrgent = false) {
+    if (isUrgent) {
+        container.prepend(notification);
+    } else {
+        container.append(notification);
+    }
+}
+
+// Comment system with threading
+function insertComment(thread, comment, parentComment = null) {
+    if (parentComment) {
+        parentComment.insertAdjacentElement('afterend', comment);
+    } else {
+        thread.appendChild(comment);
+    }
+}
+
+console.log("✅ Created utility functions for common insertion patterns");
+
+// Timeline insertion (chronological order)
+function insertTimelineEvent(timeline, event, timestamp) {
+    const existingEvents = Array.from(timeline.children);
+    const insertIndex = existingEvents.findIndex(
+        existing => parseInt(existing.dataset.timestamp) > timestamp
+    );
+    
+    if (insertIndex === -1) {
+        timeline.appendChild(event);
+    } else {
+        timeline.insertBefore(event, existingEvents[insertIndex]);
+    }
+}
+
+console.log("✅ Created timeline insertion function for chronological ordering");
+
+// Clean up demo elements
+setTimeout(() => {
+    [demoList, modernContainer].forEach(element => {
+        if (element.parentNode) {
+            document.body.removeChild(element);
+        }
+    });
+    console.log("🧹 Demo elements cleaned up");
+}, 10000);
+
+console.log("\n=== Performance Considerations ===");
+console.log("✅ insertBefore is efficient for single insertions");
+console.log("✅ DocumentFragment is best for multiple insertions");
+console.log("✅ Modern methods (append, prepend) are more readable");
+console.log("✅ insertAdjacentHTML is fast but requires trusted content");
+console.log("⚠️ Avoid frequent DOM manipulation in loops");
+
+console.log("\n=== Browser Support ===");
+console.log("insertBefore: ✅ Universal support");
+console.log("insertAdjacentElement: ✅ IE9+");
+console.log("insertAdjacentHTML: ✅ IE4+");
+console.log("append/prepend: ✅ Modern browsers (polyfill available)");
+console.log("before/after: ✅ Modern browsers (polyfill available)");
+</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 3 -->
+            <section class="content-section">
+                <h2>Removing Elements - Cleanup and Modern Methods</h2>
+                <p>Removing elements is like demolition - you need to be precise and clean. The classic `removeChild` requires you to ask the parent to remove a child, while modern `remove()` lets elements delete themselves. Proper cleanup prevents memory leaks and keeps your page performance optimal.</p>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Element Removal Techniques</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">
+console.log("=== Element Removal Methods ===");
+
+// Create a test container with elements to remove
+const removalDemo = document.createElement('div');
+removalDemo.style.cssText = `
+    border: 2px solid #ef4444;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    background: var(--bg-secondary);
+`;
+
+const title = document.createElement('h4');
+title.textContent = 'Element Removal Demo';
+const isDarkMode = document.body.classList.contains('dark-theme');
+title.style.color = isDarkMode ? 'var(--text-primary)' : '#000000';
+removalDemo.appendChild(title);
+
+// Create removable elements
+const elementsToRemove = [];
+for (let i = 1; i <= 5; i++) {
+    const element = document.createElement('div');
+    element.textContent = `Removable Element ${i}`;
+    element.className = `removable-item item-${i}`;
+    element.style.cssText = `
+        padding: 0.5rem;
+        margin: 0.25rem;
+        background: linear-gradient(45deg, #ef4444, #f97316);
+        color: white;
+        border-radius: 0.25rem;
+        cursor: pointer;
+    `;
+    element.setAttribute('data-item', i);
+    
+    // Add click to remove functionality
+    element.addEventListener('click', function() {
+        console.log(`Clicked to remove Element ${i}`);
+        this.remove(); // Modern removal method
+    });
+    
+    elementsToRemove.push(element);
+    removalDemo.appendChild(element);
+}
+
+document.body.appendChild(removalDemo);
+console.log("✅ Created demo container with 5 removable elements");
+console.log("🖱️ Click any element to remove it!");
+
+console.log("\n=== Classic removeChild Method ===");
+
+// Demonstrate removeChild (the old way)
+setTimeout(() => {
+    const firstElement = removalDemo.querySelector('.item-1');
+    if (firstElement && firstElement.parentNode) {
+        firstElement.parentNode.removeChild(firstElement);
+        console.log("✅ Removed Element 1 using removeChild (classic method)");
+    }
+}, 2000);
+
+setTimeout(() => {
+    const secondElement = removalDemo.querySelector('.item-2');
+    if (secondElement) {
+        // Modern way - element removes itself
+        secondElement.remove();
+        console.log("✅ Removed Element 2 using remove() (modern method)");
+    }
+}, 4000);
+
+console.log("\n=== Removing Multiple Elements ===");
+
+// Remove elements by class
+setTimeout(() => {
+    const remainingItems = removalDemo.querySelectorAll('.removable-item');
+    console.log(`Found ${remainingItems.length} remaining items to remove`);
+    
+    remainingItems.forEach((item, index) => {
+        setTimeout(() => {
+            item.remove();
+            console.log(`Removed item ${item.getAttribute('data-item')} (${index + 1}/${remainingItems.length})`);
+        }, index * 500);
+    });
+}, 6000);
+
+// Clean up the demo container
+setTimeout(() => {
+    if (removalDemo.parentNode) {
+        removalDemo.remove();
+        console.log("🧹 Demo container removed");
+    }
+}, 10000);
+
+console.log("\n=== Safe Removal Patterns ===");
+
+// Safe removal function
+function safeRemove(element) {
+    if (element && element.parentNode) {
+        element.parentNode.removeChild(element);
+        return true;
+    }
+    return false;
+}
+
+// Modern safe removal
+function modernSafeRemove(element) {
+    if (element && element.remove) {
+        element.remove();
+        return true;
+    }
+    return false;
+}
+
+// Batch removal
+function removeElementsBySelector(container, selector) {
+    const elements = container.querySelectorAll(selector);
+    const removed = [];
+    
+    elements.forEach(element => {
+        element.remove();
+        removed.push(element);
+    });
+    
+    return removed;
+}
+
+console.log("✅ Created safe removal utility functions");
+
+console.log("\n=== Advanced Removal Scenarios ===");
+
+// Create advanced demo
+const advancedDemo = document.createElement('div');
+advancedDemo.style.cssText = `
+    border: 2px solid #8b5cf6;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    background: var(--bg-secondary);
+`;
+
+// Add a title
+const advancedTitle = document.createElement('h4');
+advancedTitle.textContent = 'Advanced Removal Demo';
+advancedTitle.style.color = isDarkMode ? 'var(--text-primary)' : '#000000';
+advancedDemo.appendChild(advancedTitle);
+
+// Create nested structure
+const parentDiv = document.createElement('div');
+parentDiv.className = 'parent-container';
+
+const childDivs = [];
+for (let i = 1; i <= 3; i++) {
+    const child = document.createElement('div');
+    child.textContent = `Child ${i}`;
+    child.className = `child child-${i}`;
+    child.style.cssText = `
+        padding: 0.5rem;
+        margin: 0.25rem;
+        background: #8b5cf6;
+        color: white;
+        border-radius: 0.25rem;
+    `;
+    
+    // Add nested children
+    const grandchild = document.createElement('span');
+    grandchild.textContent = ` (Grandchild ${i})`;
+    grandchild.className = `grandchild grandchild-${i}`;
+    child.appendChild(grandchild);
+    
+    childDivs.push(child);
+    parentDiv.appendChild(child);
+}
+
+advancedDemo.appendChild(parentDiv);
+document.body.appendChild(advancedDemo);
+
+console.log("✅ Created nested structure for advanced removal demo");
+
+// Demonstrate different removal strategies
+console.log("\n=== Removal Strategies Demo ===");
+
+setTimeout(() => {
+    // Strategy 1: Remove specific element
+    const child2 = advancedDemo.querySelector('.child-2');
+    if (child2) {
+        child2.remove();
+        console.log("✅ Strategy 1: Removed specific child element");
+    }
+}, 2000);
+
+setTimeout(() => {
+    // Strategy 2: Empty container (remove all children)
+    const parent = advancedDemo.querySelector('.parent-container');
+    if (parent) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+        console.log("✅ Strategy 2: Emptied parent container using removeChild loop");
+    }
+}, 4000);
+
+setTimeout(() => {
+    // Strategy 3: Modern way to clear content
+    const parent = advancedDemo.querySelector('.parent-container');
+    if (parent) {
+        parent.innerHTML = '<p style="color: #6b7280; font-style: italic;">Container emptied with innerHTML</p>';
+        console.log("✅ Strategy 3: Cleared with innerHTML (modern approach)");
+    }
+}, 6000);
+
+// Clean up advanced demo
+setTimeout(() => {
+    if (advancedDemo.parentNode) {
+        advancedDemo.remove();
+        console.log("🧹 Advanced demo container removed");
+    }
+}, 8000);
+
+console.log("\n=== Memory Leak Prevention ===");
+
+// Example of proper cleanup with event listeners
+function createElementWithCleanup() {
+    const element = document.createElement('button');
+    element.textContent = 'Temporary Button';
+    
+    // Store reference to event handler for later cleanup
+    const clickHandler = function() {
+        console.log('Button clicked!');
+    };
+    
+    element.addEventListener('click', clickHandler);
+    
+    // Cleanup function
+    element.cleanup = function() {
+        this.removeEventListener('click', clickHandler);
+        if (this.parentNode) {
+            this.parentNode.removeChild(this);
+        }
+    };
+    
+    return element;
+}
+
+console.log("✅ Created element factory with proper cleanup pattern");
+
+console.log("\n=== Real-World Removal Patterns ===");
+
+// Shopping cart item removal
+function removeCartItem(itemId) {
+    const item = document.querySelector(`[data-cart-item="${itemId}"]`);
+    if (item) {
+        // Animate out
+        item.style.transition = 'opacity 0.3s ease';
+        item.style.opacity = '0';
+        
+        setTimeout(() => {
+            item.remove();
+            console.log(`Cart item ${itemId} removed`);
+        }, 300);
+        
+        return true;
+    }
+    return false;
+}
+
+// Notification auto-removal
+function createAutoRemoveNotification(message, duration = 5000) {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.style.cssText = `
+        padding: 1rem;
+        background: #10b981;
+        color: white;
+        border-radius: 0.25rem;
+        margin: 0.5rem 0;
+    `;
+    
+    // Auto-remove after duration
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+            console.log(`Auto-removed notification: "${message}"`);
+        }
+    }, duration);
+    
+    return notification;
+}
+
+// Modal cleanup
+function removeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        // Remove event listeners
+        modal.removeEventListener('click', handleModalClick);
+        document.removeEventListener('keydown', handleEscapeKey);
+        
+        // Remove from DOM
+        modal.remove();
+        
+        // Clean up any background changes
+        document.body.style.overflow = 'auto';
+        
+        return true;
+    }
+    return false;
+}
+
+console.log("✅ Created real-world removal pattern functions");
+
+console.log("\n=== Performance Best Practices ===");
+console.log("✅ Use remove() for modern browsers (cleaner syntax)");
+console.log("✅ Use removeChild() for older browser support");
+console.log("✅ Clear event listeners before removing elements");
+console.log("✅ Use DocumentFragment for batch removals");
+console.log("✅ Consider animation before removal for better UX");
+console.log("⚠️ Avoid innerHTML = '' for complex structures (memory leaks)");
+console.log("⚠️ Always check if element exists before removal");
+
+console.log("\n=== Comparison: Removal Methods ===");
+console.log("element.remove():");
+console.log("  ✅ Clean, modern syntax");
+console.log("  ✅ Element removes itself");
+console.log("  ❌ Not supported in IE");
+
+console.log("\nparent.removeChild(element):");
+console.log("  ✅ Universal browser support");
+console.log("  ✅ Returns the removed element");
+console.log("  ❌ Verbose syntax");
+console.log("  ❌ Need parent reference");
+
+console.log("\nparent.innerHTML = '':");
+console.log("  ✅ Fast for clearing containers");
+console.log("  ❌ Doesn't remove event listeners (memory leaks)");
+console.log("  ❌ Removes ALL content");
+
+// Dummy functions for examples
+function handleModalClick() {}
+function handleEscapeKey() {}
+</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div>
+                        <i class="fas fa-exclamation-triangle"></i> <strong> Memory Leak Warning:</strong>
+                        <p>Always remove event listeners before removing elements to prevent memory leaks. Use `element.removeEventListener()` or properly clean up references in closure-based event handlers.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 1 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Todo List Builder</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Build a fully functional todo list that demonstrates element creation, insertion, and removal:</p>
+                    
+                    <div class="code-editor" id="exercise1">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Todo List App</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('exercise1')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise1()">
+                                    <i class="fas fa-play"></i> Build Todo App
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise1-code">
+// Your task: Build a complete todo list application
+
+class TodoApp {
+    constructor() {
+        this.todos = [];
+        this.nextId = 1;
+        this.container = null;
+        this.init();
+    }
+    
+    init() {
+        // Your code: Create the main container and UI elements
+        this.container = document.createElement('div');
+        this.container.className = 'todo-app';
+        this.container.style.cssText = `
+            border: 2px solid var(--primary-color);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            background: var(--bg-secondary);
+            max-width: 500px;
+        `;
+        
+        // Create header
+        const header = document.createElement('h3');
+        header.textContent = '📝 Todo List';
+        header.style.cssText = 'margin-top: 0; color: var(--primary-color);';
+        
+        // Create input section
+        const inputSection = document.createElement('div');
+        inputSection.className = 'input-section';
+        inputSection.style.cssText = 'display: flex; gap: 0.5rem; margin-bottom: 1rem;';
+        
+        // Your code: Create input field and add button
+        const todoInput = document.createElement('input');
+        
+        
+        const addButton = document.createElement('button');
+        
+        
+        inputSection.appendChild(todoInput);
+        inputSection.appendChild(addButton);
+        
+        // Create todos container
+        const todosContainer = document.createElement('ul');
+        todosContainer.className = 'todos-list';
+        todosContainer.style.cssText = `
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        `;
+        
+        // Assemble the app
+        this.container.appendChild(header);
+        this.container.appendChild(inputSection);
+        this.container.appendChild(todosContainer);
+        
+        // Add to page
+        document.body.appendChild(this.container);
+        
+        // Store references
+        this.input = todoInput;
+        this.addBtn = addButton;
+        this.todosList = todosContainer;
+        
+        console.log("✅ Todo app UI created");
+    }
+    
+    addTodo(text) {
+        // Your code: Create and add a new todo item
+        if (!text || text.trim() === '') {
+            console.log("❌ Cannot add empty todo");
+            return;
+        }
+        
+        const todoData = {
+            id: this.nextId++,
+            text: text.trim(),
+            completed: false
+        };
+        
+        this.todos.push(todoData);
+        
+        // Create todo element
+        const todoItem = document.createElement('li');
+        todoItem.className = 'todo-item';
+        todoItem.setAttribute('data-id', todoData.id);
+        todoItem.style.cssText = `
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            background: var(--bg-tertiary);
+            border-radius: 0.25rem;
+            border-left: 3px solid var(--primary-color);
+        `;
+        
+        // Your code: Create checkbox, text span, and delete button
+        const checkbox = document.createElement('input');
+        
+        
+        const textSpan = document.createElement('span');
+        
+        
+        const deleteBtn = document.createElement('button');
+        
+        
+        // Assemble todo item
+        todoItem.appendChild(checkbox);
+        todoItem.appendChild(textSpan);
+        todoItem.appendChild(deleteBtn);
+        
+        // Add to list
+        this.todosList.appendChild(todoItem);
+        
+        console.log(`✅ Added todo: "${todoData.text}"`);
+        this.updateStats();
+    }
+    
+    removeTodo(id) {
+        // Your code: Remove todo from both array and DOM
+        
+        
+    }
+    
+    toggleTodo(id) {
+        // Your code: Toggle todo completion status
+        
+        
+    }
+    
+    updateStats() {
+        // Update or create stats display
+        let statsElement = this.container.querySelector('.stats');
+        if (!statsElement) {
+            statsElement = document.createElement('div');
+            statsElement.className = 'stats';
+            statsElement.style.cssText = `
+                margin-top: 1rem;
+                padding: 0.5rem;
+                background: var(--bg-primary);
+                border-radius: 0.25rem;
+                font-size: 0.875rem;
+                color: var(--text-secondary);
+            `;
+            this.container.appendChild(statsElement);
+        }
+        
+        const total = this.todos.length;
+        const completed = this.todos.filter(todo => todo.completed).length;
+        const remaining = total - completed;
+        
+        statsElement.innerHTML = `Total: ${total}<br>Completed: ${completed}<br>Remaining: ${remaining}`;
+    }
+    
+    clearCompleted() {
+        // Your code: Remove all completed todos
+        
+        
+    }
+    
+    destroy() {
+        if (this.container && this.container.parentNode) {
+            this.container.remove();
+            console.log("🧹 Todo app removed");
+        }
+    }
+}
+
+// Create and test the todo app
+console.log("🚀 CREATING TODO LIST APPLICATION 🚀");
+
+const todoApp = new TodoApp();
+
+// Add some sample todos
+setTimeout(() => {
+    todoApp.addTodo("Learn JavaScript DOM manipulation");
+    todoApp.addTodo("Build a todo list app");
+    todoApp.addTodo("Practice element creation and removal");
+}, 1000);
+
+// Demo interaction
+setTimeout(() => {
+    console.log("📋 Demo: Marking first todo as completed");
+    if (todoApp.todos.length > 0) {
+        todoApp.toggleTodo(todoApp.todos[0].id);
+    }
+}, 3000);
+
+// Clean up after demo
+setTimeout(() => {
+    todoApp.destroy();
+}, 15000);
+
+console.log("\n✅ TODO APP IMPLEMENTATION CHECKLIST:");
+console.log("1. Create input field with proper attributes");
+console.log("2. Create add button with click handler");
+console.log("3. Implement addTodo method with DOM creation");
+console.log("4. Create todo items with checkbox, text, and delete button");
+console.log("5. Implement removeTodo method");
+console.log("6. Implement toggleTodo method");
+console.log("7. Add event handlers for all interactions");
+console.log("8. Update stats display");
+console.log("9. Test all functionality");
+</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise1-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 2 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 2: Modern Methods Quiz</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Which modern method is best for removing an element from the DOM?</p>
+                    <div class="exercise-options" id="exercise2">
+                        <button class="option-btn" data-answer="wrong">element.delete()</button>
+                        <button class="option-btn" data-answer="wrong">element.parentNode.removeChild(element)</button>
+                        <button class="option-btn" data-answer="correct">element.remove()</button>
+                        <button class="option-btn" data-answer="wrong">element.destroy()</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise2-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 3 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: Dynamic Menu System</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Create a dynamic navigation menu that demonstrates insertion methods:</p>
+                    
+                    <div class="code-editor" id="exercise3">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Dynamic Menu Builder</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('exercise3')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise3()">
+                                    <i class="fas fa-play"></i> Build Menu
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise3-code">
+// Your task: Create a dynamic menu system with insertion controls
+
+function createDynamicMenu() {
+    console.log("🍔 CREATING DYNAMIC MENU SYSTEM 🍔");
+    
+    // Create main container
+    const container = document.createElement('div');
+    container.className = 'menu-system';
+    container.style.cssText = `
+        border: 2px solid #10b981;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        background: var(--bg-secondary);
+        max-width: 800px;
+    `;
+    
+    const title = document.createElement('h3');
+    title.textContent = '🍔 Dynamic Navigation Menu';
+    title.style.cssText = 'margin-top: 0; color: #10b981;';
+    container.appendChild(title);
+    
+    // Create the menu container
+    const menu = document.createElement('nav');
+    menu.className = 'dynamic-menu';
+    menu.style.cssText = `
+        background: var(--bg-tertiary);
+        border-radius: 0.25rem;
+        padding: 0.5rem;
+        margin: 1rem 0;
+    `;
+    
+    const menuList = document.createElement('ul');
+    menuList.style.cssText = `
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    `;
+    
+    menu.appendChild(menuList);
+    
+    // Add initial menu items
+    const initialItems = ['Home', 'Products', 'Contact'];
+    initialItems.forEach(text => {
+        const item = createMenuItem(text);
+        menuList.appendChild(item);
+    });
+    
+    // Your task: Create control buttons for menu manipulation
+    const controls = document.createElement('div');
+    controls.className = 'menu-controls';
+    controls.style.cssText = `
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin: 1rem 0;
+    `;
+    
+    // Add button - adds "About" before "Contact"
+    const addAboutBtn = document.createElement('button');
+    addAboutBtn.textContent = 'Add "About" Before Contact';
+    addAboutBtn.style.cssText = 'padding: 0.5rem; background: #3b82f6; color: white; border: none; border-radius: 0.25rem; cursor: pointer;';
+    addAboutBtn.onclick = function() {
+        // Your code: Use insertBefore to add "About" before "Contact"
+        
+        console.log('Added "About" before "Contact"');
+    };
+    
+    // Prepend button - adds "News" at the beginning
+    const prependBtn = document.createElement('button');
+    prependBtn.textContent = 'Prepend "News"';
+    prependBtn.style.cssText = 'padding: 0.5rem; background: #8b5cf6; color: white; border: none; border-radius: 0.25rem; cursor: pointer;';
+    prependBtn.onclick = function() {
+        // Your code: Use prepend or insertBefore to add "News" at the beginning
+        
+        console.log('Prepended "News" to menu');
+    };
+    
+    // Append button - adds "Support" at the end
+    const appendBtn = document.createElement('button');
+    appendBtn.textContent = 'Append "Support"';
+    appendBtn.style.cssText = 'padding: 0.5rem; background: #10b981; color: white; border: none; border-radius: 0.25rem; cursor: pointer;';
+    appendBtn.onclick = function() {
+        // Your code: Use appendChild or append to add "Support" at the end
+        
+        console.log('Appended "Support" to menu');
+    };
+    
+    // Insert after button - adds "Blog" after "Products"
+    const insertAfterBtn = document.createElement('button');
+    insertAfterBtn.textContent = 'Add "Blog" After Products';
+    insertAfterBtn.style.cssText = 'padding: 0.5rem; background: #f59e0b; color: white; border: none; border-radius: 0.25rem; cursor: pointer;';
+    insertAfterBtn.onclick = function() {
+        // Your code: Use insertAdjacentElement or similar to add "Blog" after "Products"
+        
+        console.log('Added "Blog" after "Products"');
+    };
+    
+    // Remove button - removes "Contact"
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = 'Remove "Contact"';
+    removeBtn.style.cssText = 'padding: 0.5rem; background: #ef4444; color: white; border: none; border-radius: 0.25rem; cursor: pointer;';
+    removeBtn.onclick = function() {
+        // Your code: Find and remove the "Contact" menu item
+        
+        console.log('Removed "Contact" from menu');
+    };
+    
+    // Clear button - removes all menu items
+    const clearBtn = document.createElement('button');
+    clearBtn.textContent = 'Clear All Items';
+    clearBtn.style.cssText = 'padding: 0.5rem; background: #6b7280; color: white; border: none; border-radius: 0.25rem; cursor: pointer;';
+    clearBtn.onclick = function() {
+        // Your code: Remove all menu items
+        
+        console.log('Cleared all menu items');
+    };
+    
+    // Reset button - restores original menu
+    const resetBtn = document.createElement('button');
+    resetBtn.textContent = 'Reset Menu';
+    resetBtn.style.cssText = 'padding: 0.5rem; background: #374151; color: white; border: none; border-radius: 0.25rem; cursor: pointer;';
+    resetBtn.onclick = function() {
+        // Your code: Clear menu and restore initial items
+        
+        console.log('Reset menu to original state');
+    };
+    
+    // Add all buttons to controls
+    controls.appendChild(addAboutBtn);
+    controls.appendChild(prependBtn);
+    controls.appendChild(appendBtn);
+    controls.appendChild(insertAfterBtn);
+    controls.appendChild(removeBtn);
+    controls.appendChild(clearBtn);
+    controls.appendChild(resetBtn);
+    
+    // Assemble the complete system
+    container.appendChild(menu);
+    container.appendChild(controls);
+    
+    // Add status display
+    const status = document.createElement('div');
+    status.className = 'menu-status';
+    const isDarkMode = document.body.classList.contains('dark-theme');
+    status.style.cssText = `
+        margin-top: 1rem;
+        padding: 0.5rem;
+        background: var(--bg-primary);
+        border-radius: 0.25rem;
+        font-family: monospace;
+        font-size: 0.875rem;
+        color: ${isDarkMode ? 'var(--text-primary)' : '#000000'};
+    `;
+    updateStatus();
+    container.appendChild(status);
+    
+    // Add to page
+    document.body.appendChild(container);
+    
+    // Helper function to create menu items
+    function createMenuItem(text) {
+        const listItem = document.createElement('li');
+        const isDarkMode = document.body.classList.contains('dark-theme');
+        listItem.style.cssText = `
+            background: ${isDarkMode ? '#F7DF1E' : '#3b82f6'};
+            color: ${isDarkMode ? '#000000' : 'white'};
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        `;
+        
+        const link = document.createElement('a');
+        link.href = '#';
+        link.textContent = text;
+        link.style.cssText = `color: ${isDarkMode ? '#000000' : 'white'}; text-decoration: none;`;
+        link.onclick = (e) => {
+            e.preventDefault();
+            console.log(`Clicked: ${text}`);
+        };
+        
+        listItem.appendChild(link);
+        
+        // Hover effects
+        listItem.onmouseenter = () => listItem.style.opacity = '0.8';
+        listItem.onmouseleave = () => listItem.style.opacity = '1';
+        
+        return listItem;
+    }
+    
+    function updateStatus() {
+        const items = Array.from(menuList.children);
+        const itemNames = items.map(item => item.textContent);
+        if (itemNames.length > 0) {
+            status.innerHTML = `Menu items (${items.length}):<br>${itemNames.join('<br>') || 'None'}`;
+        } else {
+            status.innerHTML = `Menu items (0): None`;
+        }
+    }
+    
+    // Update status whenever menu changes
+    const observer = new MutationObserver(updateStatus);
+    observer.observe(menuList, { childList: true });
+    
+    // Clean up after demo
+    setTimeout(() => {
+        observer.disconnect();
+        container.remove();
+        console.log("🧹 Menu system removed");
+    }, 20000);
+    
+    console.log("✅ Menu system created - use the buttons to test insertion methods!");
+    
+    return {
+        container,
+        menu: menuList,
+        createMenuItem,
+        updateStatus
+    };
+}
+
+// Create the menu system
+const menuSystem = createDynamicMenu();
+</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise3-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Common Mistakes Section -->
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Not Removing Event Listeners</strong>
+                            <p>Always remove event listeners before removing elements to prevent memory leaks. Event listeners can keep references to removed elements in memory.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Modifying Arrays While Iterating</strong>
+                            <p>When removing multiple elements, avoid modifying the DOM collection while iterating. Convert to Array first or iterate backwards to prevent skipping elements.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Forgetting to Check Element Existence</strong>
+                            <p>Always verify elements exist before attempting to remove them. Trying to remove null elements or elements already removed will cause errors.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>createElement builds new elements; appendChild adds them to the DOM structure</li>
+                        <li>insertBefore allows precise positioning; modern methods like prepend and append are cleaner alternatives</li>
+                        <li>remove() is the modern way to delete elements; removeChild() provides broader browser support</li>
+                        <li>Always clean up event listeners and references before removing elements to prevent memory leaks</li>
+                        <li>Use DocumentFragment for efficient batch creation and modern insertion methods for better code readability</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Spacing before navigation -->
+            <div style="margin: 2rem 0;"></div>
+            
+            <!-- Lesson Navigation -->
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson3.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson5.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(8, 4, true);
+            customModal.success('Outstanding! You can now create and remove elements dynamically. Ready to learn how to style elements with JavaScript?', 'Lesson Complete!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson5.html';
+            }, 2000);
+        }
+
+        // Demo functions for the playground
+        let createdElements = 0;
+
+        function addParagraph() {
+            const container = document.getElementById('demo-container');
+            const p = document.createElement('p');
+            p.textContent = `Dynamic paragraph ${++createdElements}`;
+            p.style.cssText = `
+                padding: 0.5rem;
+                margin: 0.25rem 0;
+                background: #10b981;
+                color: white;
+                border-radius: 0.25rem;
+            `;
+            p.onclick = () => p.remove();
+            container.appendChild(p);
+            updateCounter();
+        }
+
+        function addButton() {
+            const container = document.getElementById('demo-container');
+            const btn = document.createElement('button');
+            btn.textContent = `Button ${++createdElements}`;
+            btn.style.cssText = `
+                padding: 0.5rem 1rem;
+                margin: 0.25rem;
+                background: #3b82f6;
+                color: white;
+                border: none;
+                border-radius: 0.25rem;
+                cursor: pointer;
+            `;
+            btn.onclick = () => {
+                alert(`Button ${createdElements} clicked!`);
+                btn.remove();
+                updateCounter();
+            };
+            container.appendChild(btn);
+            updateCounter();
+        }
+
+        function addList() {
+            const container = document.getElementById('demo-container');
+            const ul = document.createElement('ul');
+            const isDarkMode = document.body.classList.contains('dark-theme');
+            ul.style.cssText = `
+                padding: 0.5rem;
+                margin: 0.25rem 0;
+                background: ${isDarkMode ? '#f59e0b' : '#000000'};
+                color: ${isDarkMode ? '#000000' : '#F7DF1E'};
+                border-radius: 0.25rem;
+            `;
+            
+            for (let i = 1; i <= 3; i++) {
+                const li = document.createElement('li');
+                li.textContent = `List item ${i}`;
+                li.style.cursor = 'pointer';
+                li.onclick = () => li.remove();
+                ul.appendChild(li);
+            }
+            
+            createdElements++;
+            ul.onclick = (e) => {
+                if (e.target === ul) {
+                    ul.remove();
+                    updateCounter();
+                }
+            };
+            
+            container.appendChild(ul);
+            updateCounter();
+        }
+
+        function removeLastElement() {
+            const container = document.getElementById('demo-container');
+            const children = Array.from(container.children);
+            const lastDynamic = children.slice(1).pop(); // Skip the original paragraph
+            
+            if (lastDynamic) {
+                lastDynamic.remove();
+                updateCounter();
+            }
+        }
+
+        function clearContainer() {
+            const container = document.getElementById('demo-container');
+            const children = Array.from(container.children);
+            
+            // Keep only the first paragraph
+            children.slice(1).forEach(child => child.remove());
+            updateCounter();
+        }
+
+        function updateCounter() {
+            const container = document.getElementById('demo-container');
+            const counterElement = document.getElementById('element-counter');
+            const currentElements = container.children.length;
+            
+            if (counterElement) {
+                counterElement.textContent = `Elements created: ${createdElements} | Elements in container: ${currentElements}`;
+            }
+        }
+
+        // Copy code function
+        function copyCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            if (!codeInput) return;
+            
+            codeInput.select();
+            codeInput.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                const button = event.target.closest('.editor-btn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        }
+
+        // Run code function
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            
+            // Clear output and hide label
+            const outputContainer = outputPane.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // For all editors and exercises - build outside the output box
+            outputPane.innerHTML = '<div class="output-line muted">Building demo outside of this box...</div>';
+            
+            // Remove any existing demo for this editor
+            const existingDemo = document.getElementById(`${editorId}-demo`);
+            if (existingDemo) {
+                existingDemo.remove();
+            }
+            
+            // Create container for the demo after the code editor
+            const demoContainer = document.createElement('div');
+            demoContainer.id = `${editorId}-demo`;
+            demoContainer.style.cssText = 'margin: 2rem 0; padding: 1rem; background: var(--bg-secondary); border-radius: 0.5rem;';
+            
+            // Insert after the code editor or exercise section
+            let insertTarget;
+            if (editorId.includes('exercise')) {
+                insertTarget = document.getElementById(editorId).closest('.exercise-section');
+            } else {
+                insertTarget = document.getElementById(editorId);
+            }
+            insertTarget.insertAdjacentElement('afterend', demoContainer);
+            
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+            };
+            
+            try {
+                // Override document.body.appendChild temporarily
+                const originalAppendChild = document.body.appendChild;
+                const originalRemoveChild = document.body.removeChild;
+                const originalInsertBefore = document.body.insertBefore;
+                
+                document.body.appendChild = function(element) {
+                    return demoContainer.appendChild(element);
+                };
+                
+                document.body.removeChild = function(element) {
+                    if (element.parentNode === demoContainer) {
+                        return demoContainer.removeChild(element);
+                    }
+                    // Try to remove from demo container if it exists there
+                    try {
+                        return demoContainer.removeChild(element);
+                    } catch (e) {
+                        // If not in demo container, use original
+                        return originalRemoveChild.call(this, element);
+                    }
+                };
+                
+                document.body.insertBefore = function(newElement, referenceElement) {
+                    return demoContainer.insertBefore(newElement, referenceElement);
+                };
+                
+                // Execute the code
+                eval(code);
+                
+                // Restore original methods
+                document.body.appendChild = originalAppendChild;
+                document.body.removeChild = originalRemoveChild;
+                document.body.insertBefore = originalInsertBefore;
+                
+                // Show console logs in the output pane (limited)
+                if (logs.length > 0) {
+                    const consoleOutput = document.createElement('div');
+                    consoleOutput.innerHTML = '<div class="output-line muted">Console output:</div>' + 
+                        logs.slice(0, 15).map(log => 
+                            `<div class="output-line">${escapeHtml(log)}</div>`
+                        ).join('') + 
+                        (logs.length > 15 ? '<div class="output-line muted">... and more (see demo below)</div>' : '');
+                    outputPane.innerHTML = '';
+                    outputPane.appendChild(consoleOutput);
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        // Escape HTML function
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Exercise 1 checker
+        function checkExercise1() {
+            const code = document.getElementById('exercise1-code').value;
+            const output = document.getElementById('exercise1-output');
+            const feedback = document.getElementById('exercise1-feedback');
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = output.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // Run the code first to show output
+            runCode('exercise1');
+            
+            // Check if the output contains any errors
+            const outputHasError = output.innerHTML.includes('output-error') || 
+                                  output.innerHTML.includes('Error:');
+            
+            const hasCreateElement = code.includes('createElement');
+            const hasAppendChild = code.includes('appendChild') || code.includes('append');
+            const hasEventListener = code.includes('addEventListener') || code.includes('onclick');
+            const hasRemove = code.includes('remove()') || code.includes('removeChild');
+            const hasInputField = code.includes('input') && code.includes('type');
+            const hasCheckbox = code.includes('checkbox');
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            feedback.classList.remove('show', 'success', 'error');
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (!outputHasError && hasCreateElement && hasAppendChild && hasEventListener && hasRemove && hasInputField && hasCheckbox) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Excellent! Your todo list demonstrates proper element creation, insertion, event handling, and removal. This is a complete DOM manipulation application!';
+                } else if (outputHasError) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Your code has errors. Make sure to implement all the required methods in the TodoApp class correctly.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    let missing = [];
+                    if (!hasCreateElement) missing.push('createElement usage');
+                    if (!hasAppendChild) missing.push('appendChild/append usage');
+                    if (!hasEventListener) missing.push('event listeners');
+                    if (!hasRemove) missing.push('element removal');
+                    if (!hasInputField) missing.push('input field creation');
+                    if (!hasCheckbox) missing.push('checkbox creation');
+                    feedback.textContent = `Missing: ${missing.join(', ')}. Complete the todo app implementation.`;
+                }
+            }, 150);
+        }
+
+        // Exercise 3 checker
+        function checkExercise3() {
+            const code = document.getElementById('exercise3-code').value;
+            const output = document.getElementById('exercise3-output');
+            const feedback = document.getElementById('exercise3-feedback');
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = output.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // Run the code first to show output
+            runCode('exercise3');
+            
+            // Check if the output contains any errors
+            const outputHasError = output.innerHTML.includes('output-error') || 
+                                  output.innerHTML.includes('Error:');
+            
+            const hasInsertBefore = code.includes('insertBefore');
+            const hasPrepend = code.includes('prepend') || code.includes('insertBefore');
+            const hasAppend = code.includes('append') || code.includes('appendChild');
+            const hasInsertAdjacent = code.includes('insertAdjacent');
+            const hasRemove = code.includes('remove()');
+            const hasCreateElement = code.includes('createElement');
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            feedback.classList.remove('show', 'success', 'error');
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (!outputHasError && hasInsertBefore && hasPrepend && hasAppend && hasRemove && hasCreateElement) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Perfect! Your dynamic menu system demonstrates all the major insertion and removal methods. This is a comprehensive DOM manipulation showcase!';
+                } else if (outputHasError) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Your code has errors. Make sure to implement all the button functionality correctly.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    let missing = [];
+                    if (!hasInsertBefore) missing.push('insertBefore implementation');
+                    if (!hasPrepend) missing.push('prepend functionality');
+                    if (!hasAppend) missing.push('append functionality');
+                    if (!hasRemove) missing.push('element removal');
+                    if (!hasCreateElement) missing.push('createElement usage');
+                    feedback.textContent = `Missing: ${missing.join(', ')}. Implement all insertion methods in the button handlers.`;
+                }
+            }, 150);
+        }
+
+        // Exercise 2 - Multiple choice handler
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.disabled) return;
+                    
+                    const exerciseContainer = this.closest('.exercise-options');
+                    const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
+                    const isCorrect = this.getAttribute('data-answer') === 'correct';
+                    
+                    // Remove previous incorrect selections (but not correct ones)
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.classList.contains('incorrect')) {
+                            btn.classList.remove('incorrect', 'selected');
+                            btn.disabled = false;
+                        }
+                    });
+                    
+                    // Hide feedback first to create animation effect
+                    if (feedbackDiv) {
+                        feedbackDiv.style.display = 'none';
+                        feedbackDiv.className = 'exercise-feedback';
+                        feedbackDiv.classList.remove('show', 'success', 'error');
+                    }
+                    
+                    // Mark this button
+                    this.classList.add('selected');
+                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    if (isCorrect) {
+                        // Correct answer - disable all buttons
+                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                            btn.disabled = true;
+                        });
+                    } else {
+                        // Wrong answer - disable only this button
+                        this.disabled = true;
+                    }
+                    
+                    // Show feedback with animation
+                    if (feedbackDiv) {
+                        setTimeout(() => {
+                            feedbackDiv.style.display = 'block';
+                            feedbackDiv.className = 'exercise-feedback show ' + (isCorrect ? 'success' : 'error');
+                            if (isCorrect) {
+                                feedbackDiv.textContent = 'Correct! element.remove() is the modern, clean way to remove an element from the DOM without needing parent references.';
+                            } else {
+                                feedbackDiv.textContent = 'Not quite. Look for the modern method that lets elements remove themselves without needing parent references.';
+                            }
+                        }, 150);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

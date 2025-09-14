@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 9: Events and Interactivity - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar (Identical for all pages) -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="module-overview">
+            <!-- Module Title and Description -->
+            <h1>Module 9: Events and Interactivity</h1>
+            <p class="module-description">
+                Learn how to make your web pages interactive by responding to user actions. This module covers event handling, different types of events, and advanced patterns like event delegation to create dynamic and responsive user interfaces.
+            </p>
+
+            <!-- Learning Objectives Section -->
+            <div class="module-objectives">
+                <h2><i class="fas fa-bullseye"></i> Learning Objectives</h2>
+                <ul>
+                    <li>Master the addEventListener method and event handling basics</li>
+                    <li>Understand different event types including mouse, keyboard, and form events</li>
+                    <li>Learn to work with the event object and its properties</li>
+                    <li>Implement event delegation for efficient event handling</li>
+                    <li>Apply event handling best practices in real-world scenarios</li>
+                    <li>Build interactive components using multiple event types</li>
+                </ul>
+            </div>
+
+            <!-- Lessons Section -->
+            <div class="module-lessons">
+                <h2><i class="fas fa-list"></i> Lessons</h2>
+                <div class="lessons-grid">
+                    <!-- Lesson 1 -->
+                    <div class="lesson-card" onclick="window.location.href='lesson1.html'">
+                        <div class="lesson-number">1</div>
+                        <div class="lesson-content">
+                            <h3>Event Listeners</h3>
+                            <p>Learn how to attach event handlers to elements and respond to user interactions.</p>
+                            <div class="lesson-meta">
+                                <span><i class="fas fa-clock"></i> 45 min</span>
+                                <span><i class="fas fa-signal"></i> Beginner</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lesson 2 -->
+                    <div class="lesson-card" onclick="window.location.href='lesson2.html'">
+                        <div class="lesson-number">2</div>
+                        <div class="lesson-content">
+                            <h3>Event Types</h3>
+                            <p>Explore different types of events including mouse, keyboard, and form events.</p>
+                            <div class="lesson-meta">
+                                <span><i class="fas fa-clock"></i> 40 min</span>
+                                <span><i class="fas fa-signal"></i> Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lesson 3 -->
+                    <div class="lesson-card" onclick="window.location.href='lesson3.html'">
+                        <div class="lesson-number">3</div>
+                        <div class="lesson-content">
+                            <h3>Event Object</h3>
+                            <p>Access event information and control event behavior with preventDefault and stopPropagation.</p>
+                            <div class="lesson-meta">
+                                <span><i class="fas fa-clock"></i> 40 min</span>
+                                <span><i class="fas fa-signal"></i> Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lesson 4 -->
+                    <div class="lesson-card" onclick="window.location.href='lesson4.html'">
+                        <div class="lesson-number">4</div>
+                        <div class="lesson-content">
+                            <h3>Event Delegation</h3>
+                            <p>Use event bubbling to efficiently handle events from multiple elements.</p>
+                            <div class="lesson-meta">
+                                <span><i class="fas fa-clock"></i> 35 min</span>
+                                <span><i class="fas fa-signal"></i> Advanced</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Resources Section -->
+            <div class="module-resources">
+                <h2><i class="fas fa-book"></i> Additional Resources</h2>
+                <ul>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events" target="_blank" class="resource-link">MDN: Introduction to Events</a></li>
+                    <li><a href="https://javascript.info/events" target="_blank" class="resource-link">JavaScript.info: Browser Events</a></li>
+                    <li><a href="https://www.w3schools.com/js/js_events.asp" target="_blank" class="resource-link">W3Schools: JavaScript Events</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Embedded Styles (Must be included) -->
+    <style>
+        .module-overview {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .module-overview h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .module-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        .module-objectives, .module-lessons, .module-resources {
+            background-color: var(--bg-primary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+
+        .module-objectives h2, .module-lessons h2, .module-resources h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .module-objectives ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .module-objectives li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .module-objectives li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .lessons-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .lesson-card {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .lesson-card:hover {
+            background-color: var(--bg-tertiary);
+            transform: translateX(4px);
+        }
+
+        .lesson-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .lesson-content {
+            flex: 1;
+        }
+
+        .lesson-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .lesson-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .lesson-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .lesson-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resource-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .resource-link:hover {
+            text-decoration: underline;
+        }
+
+        .module-resources ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .module-resources li {
+            padding: 0.5rem 0;
+        }
+    </style>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts (Order matters) -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/modal.js"></script>
+
+    <!-- Footer (Must be last in body) -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

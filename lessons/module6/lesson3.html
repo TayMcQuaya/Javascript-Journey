@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3: Iterating Through Arrays - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <!-- Lesson Header -->
+            <div class="lesson-header">
+                <h1>Lesson 3: Iterating Through Arrays</h1>
+                <p class="lesson-subtitle">Learn different ways to process each element in an array using loops and built-in methods</p>
+            </div>
+
+            <!-- Introduction Section -->
+            <section class="content-section">
+                <h2>Introduction to Array Iteration</h2>
+                <p>Think of iterating through an array like reading every page in a book. You start at the first page (index 0), read it, then move to the next page, and continue until you reach the end. JavaScript gives you several ways to "read" through arrays: traditional for loops, modern for...of loops, and the built-in forEach method.</p>
+                <p>Array iteration is essential for data processing, searching, calculations, and transforming data. Whether you're calculating totals, finding specific items, or displaying a list of users, you'll use these techniques constantly in real applications.</p>
+            </section>
+
+            <!-- Core Content Section 1 -->
+            <section class="content-section">
+                <h2>The Traditional for Loop</h2>
+                <p>The classic for loop gives you complete control over array iteration with access to the index:</p>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">For Loop Iteration</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">
+// Basic for loop with arrays
+const fruits = ["apple", "banana", "cherry", "date"];
+console.log("=== Basic For Loop ===");
+
+for (let i = 0; i < fruits.length; i++) {
+    console.log(`Index ${i}: ${fruits[i]}`);
+}
+
+console.log("\n=== Processing with Indices ===");
+const prices = [2.50, 1.75, 3.00, 4.25, 1.50];
+let total = 0;
+
+for (let i = 0; i < prices.length; i++) {
+    total += prices[i];
+    console.log(`Item ${i + 1}: $${prices[i]} (Running total: $${total.toFixed(2)})`);
+}
+
+console.log(`Final total: $${total.toFixed(2)}`);
+
+console.log("\n=== Finding Elements ===");
+const students = ["Alice", "Bob", "Charlie", "David", "Eve"];
+const searchName = "Charlie";
+let foundIndex = -1;
+
+for (let i = 0; i < students.length; i++) {
+    if (students[i] === searchName) {
+        foundIndex = i;
+        break; // Stop searching once found
+    }
+}
+
+if (foundIndex !== -1) {
+    console.log(`Found ${searchName} at position ${foundIndex + 1}`);
+} else {
+    console.log(`${searchName} not found in the class list`);
+}
+
+console.log("\n=== Reverse Iteration ===");
+const numbers = [10, 20, 30, 40, 50];
+console.log("Numbers in reverse:");
+
+for (let i = numbers.length - 1; i >= 0; i--) {
+    console.log(`Position ${i}: ${numbers[i]}`);
+}</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> Index Access Benefits:</strong>
+                        <p>Traditional for loops give you the index, which is useful for: comparing adjacent elements, modifying arrays during iteration, or displaying position information.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 2 -->
+            <section class="content-section">
+                <h2>The Modern for...of Loop</h2>
+                <p>The for...of loop provides a cleaner syntax when you only need the values, not the indices:</p>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">For...of Loop</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">
+// Simple for...of iteration
+const colors = ["red", "green", "blue", "yellow", "purple"];
+console.log("=== Simple for...of Loop ===");
+
+for (const color of colors) {
+    console.log(`I like the color ${color}`);
+}
+
+console.log("\n=== String Processing ===");
+const words = ["JavaScript", "is", "awesome", "and", "fun"];
+let sentence = "";
+
+for (const word of words) {
+    sentence += word + " ";
+}
+
+console.log("Sentence:", sentence.trim());
+
+console.log("\n=== Filtering Even Numbers ===");
+const mixedNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const evenNumbers = [];
+
+for (const num of mixedNumbers) {
+    if (num % 2 === 0) {
+        evenNumbers.push(num);
+    }
+}
+
+console.log("Original numbers:", mixedNumbers);
+console.log("Even numbers:", evenNumbers);
+
+console.log("\n=== Working with Objects in Arrays ===");
+const products = [
+    { name: "Laptop", price: 999 },
+    { name: "Phone", price: 599 },
+    { name: "Tablet", price: 299 }
+];
+
+console.log("Product Catalog:");
+for (const product of products) {
+    console.log(`- ${product.name}: $${product.price}`);
+}
+
+// Find most expensive product
+let mostExpensive = products[0];
+for (const product of products) {
+    if (product.price > mostExpensive.price) {
+        mostExpensive = product;
+    }
+}
+
+console.log(`Most expensive: ${mostExpensive.name} at $${mostExpensive.price}`);
+
+console.log("\n=== When NOT to use for...of ===");
+// This won't work if you need the index:
+const grades = [85, 92, 78, 96, 88];
+console.log("Need indices? Use traditional for loop:");
+for (let i = 0; i < grades.length; i++) {
+    console.log(`Student ${i + 1}: ${grades[i]}%`);
+}</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> for...of Advantages:</strong>
+                        <p>Cleaner syntax, no index management, works with any iterable (arrays, strings, sets, etc.), and less prone to off-by-one errors.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 3 -->
+            <section class="content-section">
+                <h2>The forEach Method</h2>
+                <p>The forEach method is a functional approach to array iteration, providing both the element and index:</p>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">forEach Method</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">
+// Basic forEach usage
+const pets = ["cat", "dog", "bird", "fish"];
+console.log("=== Basic forEach ===");
+
+pets.forEach(function(pet) {
+    console.log(`I have a ${pet}`);
+});
+
+console.log("\n=== forEach with Index ===");
+const scores = [95, 87, 92, 78, 89];
+
+scores.forEach(function(score, index) {
+    console.log(`Test ${index + 1}: ${score}% ${score >= 90 ? '🎉' : '📚'}`);
+});
+
+console.log("\n=== Arrow Function Syntax ===");
+const cities = ["New York", "London", "Tokyo", "Paris"];
+
+// Shorter arrow function syntax
+cities.forEach((city, index) => {
+    console.log(`${index + 1}. ${city}`);
+});
+
+console.log("\n=== Practical Example: Shopping Cart ===");
+const cartItems = [
+    { product: "T-Shirt", price: 19.99, quantity: 2 },
+    { product: "Jeans", price: 49.99, quantity: 1 },
+    { product: "Sneakers", price: 79.99, quantity: 1 }
+];
+
+let cartTotal = 0;
+console.log("Shopping Cart:");
+console.log("=" .repeat(30));
+
+cartItems.forEach((item, index) => {
+    const itemTotal = item.price * item.quantity;
+    cartTotal += itemTotal;
+    console.log(`${index + 1}. ${item.product}`);
+    console.log(`   $${item.price} × ${item.quantity} = $${itemTotal.toFixed(2)}`);
+});
+
+console.log("=" .repeat(30));
+console.log(`Total: $${cartTotal.toFixed(2)}`);
+
+console.log("\n=== forEach with Array References ===");
+const temperatures = [68, 72, 75, 71, 69];
+console.log("Temperature readings:");
+
+temperatures.forEach((temp, index, array) => {
+    const isLastReading = index === array.length - 1;
+    const status = temp > 70 ? "warm" : "cool";
+    console.log(`Reading ${index + 1}: ${temp}°F (${status})${isLastReading ? " [Latest]" : ""}`);
+});
+
+console.log("\n=== Important: forEach Limitations ===");
+// You can't break out of forEach like you can with regular loops
+console.log("Note: forEach always processes ALL elements");
+console.log("Use regular for loops if you need to break early");</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div>
+                        <i class="fas fa-exclamation-triangle"></i> <strong> forEach Limitations:</strong>
+                        <p>You cannot use <code>break</code> or <code>continue</code> in forEach. Use traditional for loops when you need early exit conditions.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Exercises -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Sum Calculator</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Create a function that calculates the sum of all numbers in an array. Use any iteration method you prefer.</p>
+                    <div class="code-editor" id="exercise">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Sum Calculator</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="checkExercise()">
+                                    <i class="fas fa-check"></i> Check Solution
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise-code">
+// Create a function to sum all numbers in an array
+function calculateSum(numbers) {
+    let sum = 0;
+    
+    // Use any iteration method (for, for...of, or forEach)
+    for (const num of numbers) {
+        sum += num;
+    }
+    
+    return sum;
+}
+
+// Test your function
+const testNumbers = [1, 2, 3, 4, 5];
+const result = calculateSum(testNumbers);
+
+console.log("Numbers:", testNumbers);
+console.log("Sum:", result);
+
+// Test with different arrays
+const prices = [19.99, 29.99, 9.99, 39.99];
+console.log("Prices:", prices);
+console.log("Total:", calculateSum(prices));</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 2: Find Maximum Value</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Which iteration method gives you both the element value AND its index?</p>
+                    <div class="exercise-options" id="exercise2">
+                        <button class="option-btn" data-answer="wrong">for...of loop only</button>
+                        <button class="option-btn" data-answer="correct">Traditional for loop and forEach</button>
+                        <button class="option-btn" data-answer="wrong">forEach only</button>
+                        <button class="option-btn" data-answer="wrong">None of them provide the index</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise2-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: Search Implementation</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>When would you choose a traditional for loop over forEach?</p>
+                    <div class="exercise-options" id="exercise3">
+                        <button class="option-btn" data-answer="wrong">When you want cleaner code</button>
+                        <button class="option-btn" data-answer="correct">When you need to break out early</button>
+                        <button class="option-btn" data-answer="wrong">When you don't need the index</button>
+                        <button class="option-btn" data-answer="wrong">forEach is always better</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Common Mistakes Section -->
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Off-by-One Errors in for Loops</strong>
+                            <p>Always use <code>i < array.length</code>, not <code>i <= array.length</code>. The latter will try to access an element that doesn't exist.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Modifying Array Length During Iteration</strong>
+                            <p>Avoid adding or removing elements during iteration, especially with for loops. This can cause elements to be skipped or processed multiple times.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Using Break/Continue with forEach</strong>
+                            <p>You cannot use <code>break</code> or <code>continue</code> with forEach. Use traditional for loops when you need to exit early or skip iterations.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>Traditional for loops give you complete control and access to indices</li>
+                        <li>for...of loops provide cleaner syntax when you only need values</li>
+                        <li>forEach is functional and provides both element and index parameters</li>
+                        <li>Choose the right method based on whether you need indices or early exit</li>
+                        <li>All methods are useful for data processing, searching, and calculations</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Spacing before navigation -->
+            <div style="margin: 2rem 0;"></div>
+            
+            <!-- Lesson Navigation -->
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson2.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson4.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Run code function
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = outputPane.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            outputPane.innerHTML = '';
+            
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+            };
+            
+            try {
+                eval(code);
+                
+                if (logs.length > 0) {
+                    outputPane.innerHTML = logs.map(log => 
+                        `<div class="output-line">${escapeHtml(log)}</div>`
+                    ).join('');
+                } else {
+                    outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        // Copy code function
+        function copyCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            if (!codeInput) return;
+            
+            codeInput.select();
+            codeInput.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                const button = event.target.closest('.editor-btn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        }
+
+        // Escape HTML for safe output
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Check exercise function
+        function checkExercise() {
+            const code = document.getElementById('exercise-code').value;
+            const output = document.getElementById('exercise-output');
+            const feedback = document.getElementById('exercise-feedback');
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = output.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // Run the code first to show output
+            runCode('exercise');
+            
+            // Check if the solution meets requirements
+            const hasFunction = /function\s+calculateSum|const\s+calculateSum\s*=/.test(code);
+            const hasLoop = /for\s*\(|forEach|for\s*\(.*of/.test(code);
+            const hasSum = /sum\s*\+=|sum\s*=\s*sum\s*\+/.test(code);
+            const hasReturn = /return\s+sum/.test(code);
+            const hasConsoleLog = code.includes('console.log');
+            
+            // Check if the output contains any errors
+            const outputHasError = output.innerHTML.includes('output-error') || 
+                                  output.innerHTML.includes('Error:');
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            feedback.classList.remove('show', 'success', 'error');
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (hasFunction && hasLoop && hasSum && hasReturn && hasConsoleLog && !outputHasError) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Excellent! You created a working sum calculator using array iteration!';
+                } else if (outputHasError) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Your code has errors. Check the output above and fix any issues.';
+                } else if (!hasFunction) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Make sure to create a function called calculateSum.';
+                } else if (!hasLoop) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Use a loop (for, for...of, or forEach) to iterate through the array.';
+                } else if (!hasSum || !hasReturn) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Make sure to accumulate the sum and return it from the function.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Include console.log statements to display your results.';
+                }
+            }, 150);
+        }
+
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(6, 3, true);
+            customModal.success('Great work! You now know three different ways to iterate through arrays. This is essential for processing data!', 'Lesson Complete!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson4.html';
+            }, 2000);
+        }
+
+        // Handle quiz options
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.disabled) return;
+                    
+                    const exerciseContainer = this.closest('.exercise-options');
+                    const exerciseId = exerciseContainer.id;
+                    const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
+                    const isCorrect = this.getAttribute('data-answer') === 'correct';
+                    
+                    // Remove previous incorrect selections
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.classList.contains('incorrect')) {
+                            btn.classList.remove('incorrect', 'selected');
+                            btn.disabled = false;
+                        }
+                    });
+                    
+                    // Hide feedback first to create animation effect
+                    if (feedbackDiv) {
+                        feedbackDiv.style.display = 'none';
+                        feedbackDiv.className = 'exercise-feedback';
+                        feedbackDiv.classList.remove('show', 'success', 'error');
+                    }
+                    
+                    // Mark this button
+                    this.classList.add('selected');
+                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    if (isCorrect) {
+                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                            btn.disabled = true;
+                        });
+                    } else {
+                        this.disabled = true;
+                    }
+                    
+                    // Show feedback with animation
+                    if (feedbackDiv) {
+                        setTimeout(() => {
+                            feedbackDiv.style.display = 'block';
+                            feedbackDiv.className = 'exercise-feedback show ' + (isCorrect ? 'success' : 'error');
+                            
+                            let feedbackText;
+                            if (exerciseId === 'exercise2') {
+                                feedbackText = isCorrect ? 
+                                    'Correct! Traditional for loops use i as index, forEach provides index as second parameter.' : 
+                                    'Not quite. for...of only gives you the values, not the indices.';
+                            } else if (exerciseId === 'exercise3') {
+                                feedbackText = isCorrect ? 
+                                    'Correct! forEach cannot be broken out of, so use for loops when you need early exit.' : 
+                                    'Not quite. The main advantage of for loops is the ability to use break and continue.';
+                            }
+                            
+                            feedbackDiv.textContent = feedbackText;
+                        }, 150);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

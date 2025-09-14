@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3: Event Object - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <!-- Lesson Header -->
+            <div class="lesson-header">
+                <h1>Lesson 3: Event Object</h1>
+                <p class="lesson-subtitle">Access detailed information about events and control their behavior</p>
+            </div>
+
+            <!-- Introduction Section -->
+            <section class="content-section">
+                <h2>Introduction</h2>
+                <p>When an event occurs in JavaScript, it doesn't just tell you "something happened" - it provides a treasure chest full of information about that event. This treasure chest is called the Event Object.</p>
+                <p>Think of the event object like a detailed police report. When an incident occurs, the report doesn't just say "something happened" - it includes who was involved, where it happened, when it occurred, and all the circumstances. Similarly, the event object contains details about what element triggered it, where the mouse was, which keys were pressed, and much more.</p>
+            </section>
+
+            <!-- Core Content Section 1 -->
+            <section class="content-section">
+                <h2>Understanding Event Properties</h2>
+                <p>The event object is automatically passed to your event handler function as the first parameter. It's packed with useful properties that tell you exactly what happened.</p>
+
+                <!-- Info Box -->
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> Key Point:</strong>
+                        <p>Always include the event parameter (often named 'e' or 'event') in your handler function to access event properties.</p>
+                    </div>
+                </div>
+
+                <!-- Code Editor -->
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Exploring Event Properties</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">
+// Create a button to explore event properties
+const button = document.createElement('button');
+button.textContent = 'Click me to see event properties!';
+button.style.cssText = `
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin: 1rem;
+`;
+
+// Create output display
+const output = document.createElement('div');
+output.style.cssText = `
+    margin: 1rem;
+    padding: 1rem;
+    background: #1e1e1e;
+    color: #10b981;
+    border-radius: 0.5rem;
+    font-family: monospace;
+`;
+
+// Event handler with event object
+button.addEventListener('click', function(event) {
+    // The 'event' parameter contains all the information
+    output.innerHTML = `
+        <strong style="color: var(--js-yellow);">Event Properties:</strong><br>
+        📌 type: ${event.type}<br>
+        🎯 target: ${event.target.tagName}<br>
+        ⏱️ timeStamp: ${Math.round(event.timeStamp)}ms<br>
+        💭 bubbles: ${event.bubbles}<br>
+        🚫 cancelable: ${event.cancelable}<br>
+        <br>
+        <strong style="color: var(--js-yellow);">Mouse Position:</strong><br>
+        📊 clientX/Y: ${event.clientX}, ${event.clientY}<br>
+        📐 pageX/Y: ${event.pageX}, ${event.pageY}<br>
+        🎯 offsetX/Y: ${event.offsetX}, ${event.offsetY}<br>
+        <br>
+        <strong style="color: var(--js-yellow);">Modifier Keys:</strong><br>
+        ⌨️ Ctrl: ${event.ctrlKey} | Shift: ${event.shiftKey} | Alt: ${event.altKey}
+    `;
+    
+    console.log('Full event object:', event);
+});
+
+document.body.appendChild(button);
+document.body.appendChild(output);
+
+console.log('Click the button to explore the event object!');</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 2 -->
+            <section class="content-section">
+                <h2>Preventing Default Behavior</h2>
+                <p>Many HTML elements have default behaviors - links navigate to URLs, forms submit data, and right-clicks show context menus. The preventDefault() method allows you to stop these default actions and handle them yourself.</p>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Using preventDefault()</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">
+// Example 1: Prevent link navigation
+const link = document.createElement('a');
+link.href = 'https://www.google.com';
+link.textContent = 'This link won\'t navigate';
+link.style.cssText = `
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #3b82f6;
+    color: white;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    margin: 0.5rem;
+`;
+
+link.addEventListener('click', function(e) {
+    e.preventDefault(); // Stop the navigation
+    console.log('Link click prevented!');
+    console.log('Original href:', e.target.href);
+    
+    // Change appearance to show it worked
+    this.style.background = '#10b981';
+    this.textContent = '✅ Click prevented!';
+    setTimeout(() => {
+        this.style.background = '#3b82f6';
+        this.textContent = 'This link won\'t navigate';
+    }, 2000);
+});
+
+// Example 2: Prevent form submission
+const form = document.createElement('form');
+form.innerHTML = `
+    <input type="text" placeholder="Enter text" style="
+        padding: 0.5rem;
+        margin: 0.5rem;
+        border: 2px solid #d1d5db;
+        border-radius: 0.25rem;
+        color: var(--text-primary);
+    ">
+    <button type="submit" style="
+        padding: 0.5rem 1rem;
+        background: #8b5cf6;
+        color: white;
+        border: none;
+        border-radius: 0.25rem;
+        cursor: pointer;
+    ">Submit</button>
+`;
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault(); // Stop form submission
+    const input = this.querySelector('input');
+    console.log('Form submission prevented!');
+    console.log('Input value:', input.value);
+    
+    // Show feedback
+    const button = this.querySelector('button');
+    button.textContent = 'Submitted (no reload!)';
+    button.style.background = '#10b981';
+    setTimeout(() => {
+        button.textContent = 'Submit';
+        button.style.background = '#8b5cf6';
+        input.value = '';
+    }, 2000);
+});
+
+document.body.appendChild(link);
+document.body.appendChild(form);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 3 -->
+            <section class="content-section">
+                <h2>Event Bubbling and stopPropagation</h2>
+                <p>Events "bubble up" through the DOM tree. When you click a button inside a div, the click event fires on the button first, then bubbles up to the div, then to its parent, and so on. Use stopPropagation() to stop this bubbling when needed.</p>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Event Bubbling Demo</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">
+// Create nested elements to demonstrate bubbling
+const outer = document.createElement('div');
+outer.style.cssText = `
+    padding: 2rem;
+    background: #fee2e2;
+    border: 2px solid #ef4444;
+    border-radius: 1rem;
+    cursor: pointer;
+`;
+outer.innerHTML = '<strong>Outer (Red)</strong> - Grandparent';
+
+const middle = document.createElement('div');
+middle.style.cssText = `
+    padding: 1.5rem;
+    background: #fef3c7;
+    border: 2px solid #f59e0b;
+    border-radius: 0.75rem;
+    margin-top: 1rem;
+    cursor: pointer;
+`;
+middle.innerHTML = '<strong>Middle (Yellow)</strong> - Parent';
+
+const inner = document.createElement('button');
+inner.textContent = 'Inner (Blue) - Child';
+inner.style.cssText = `
+    padding: 1rem 2rem;
+    background: #dbeafe;
+    border: 2px solid #3b82f6;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    display: block;
+    margin: 1rem auto;
+`;
+
+// Event log
+const log = document.createElement('div');
+log.style.cssText = `
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #1e1e1e;
+    color: #10b981;
+    border-radius: 0.5rem;
+    font-family: monospace;
+`;
+
+let messages = [];
+function addLog(msg) {
+    messages.push(msg);
+    log.innerHTML = messages.join('<br>');
+    setTimeout(() => {
+        messages = [];
+        log.innerHTML = 'Event log cleared...';
+    }, 3000);
+}
+
+// Add event listeners to all elements
+outer.addEventListener('click', function(e) {
+    addLog(`🔴 OUTER clicked (target: ${e.target.tagName})`);
+});
+
+middle.addEventListener('click', function(e) {
+    addLog(`🟡 MIDDLE clicked (target: ${e.target.tagName})`);
+});
+
+inner.addEventListener('click', function(e) {
+    addLog(`🔵 INNER clicked (target: ${e.target.tagName})`);
+    // Uncomment to stop bubbling:
+    // e.stopPropagation();
+});
+
+// Assemble the demo
+middle.appendChild(inner);
+outer.appendChild(middle);
+
+document.body.appendChild(outer);
+document.body.appendChild(log);
+
+console.log('Click the inner button to see event bubbling!');</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Exercises -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Click Position Tracker</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Create a click tracker that shows exactly where the user clicked using the event object's position properties.</p>
+                    <div class="code-editor" id="exercise1">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Complete the Code</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('exercise1')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise1()">
+                                    <i class="fas fa-play"></i> Check Solution
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise1-code">
+// Create a click position tracker
+const trackArea = document.createElement('div');
+trackArea.style.cssText = `
+    width: 400px;
+    height: 300px;
+    background: linear-gradient(to bottom right, #e0e7ff, #c7d2fe);
+    border: 2px solid #6366f1;
+    border-radius: 0.5rem;
+    position: relative;
+    cursor: crosshair;
+    margin: 1rem auto;
+`;
+
+const display = document.createElement('div');
+display.style.cssText = `
+    text-align: center;
+    margin-top: 1rem;
+    font-family: monospace;
+    font-size: 1.2rem;
+`;
+display.textContent = 'Click anywhere in the area';
+
+trackArea.addEventListener('click', function(e) {
+    // TODO: Use e.offsetX and e.offsetY to get position
+    // Create a marker at that position
+    // Update the display with coordinates
+    
+    // Add your code here
+    
+});
+
+document.body.appendChild(trackArea);
+document.body.appendChild(display);</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise1-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 2: Form Validator</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Use preventDefault() to stop form submission and validate the input first.</p>
+                    <div class="code-editor" id="exercise2">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Complete the Code</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('exercise2')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise2()">
+                                    <i class="fas fa-play"></i> Check Solution
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise2-code">
+// Create a form with email validation
+const form = document.createElement('form');
+form.id = 'newsletter-form';
+form.innerHTML = `
+    <h4>Newsletter Signup</h4>
+    <input type="email" id="email" placeholder="Enter your email" style="
+        padding: 0.75rem;
+        margin: 0.5rem;
+        border: 2px solid #d1d5db;
+        border-radius: 0.25rem;
+        width: 250px;
+        color: var(--text-primary);
+    ">
+    <button type="submit" style="
+        padding: 0.75rem 1.5rem;
+        background: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 0.25rem;
+        cursor: pointer;
+    ">Subscribe</button>
+    <div id="message" style="margin-top: 1rem; font-size: 0.9rem;"></div>
+`;
+
+form.addEventListener('submit', function(e) {
+    // TODO: Use e.preventDefault() to stop submission
+    // Validate that email contains '@'
+    // Show success or error message
+    
+    // Add your code here
+    
+});
+
+document.body.appendChild(form);</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise2-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise2-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Common Mistakes Section -->
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Forgetting the Event Parameter</strong>
+                            <p>Always include the event parameter in your handler function: function(e) or (e) =>. Without it, you can't access event properties.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Confusing target vs currentTarget</strong>
+                            <p>event.target is the element that triggered the event. event.currentTarget is the element the handler is attached to. They're often different!</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Not Understanding Event Bubbling</strong>
+                            <p>Events bubble up by default. A click on a child element also triggers click handlers on all parent elements unless you stop propagation.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>The event object contains detailed information about every event</li>
+                        <li>Use preventDefault() to stop default browser behaviors</li>
+                        <li>Use stopPropagation() to prevent event bubbling</li>
+                        <li>event.target tells you which element triggered the event</li>
+                        <li>Mouse events provide multiple coordinate systems (client, page, offset, screen)</li>
+                        <li>Always include the event parameter in your handler functions</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Spacing before navigation -->
+            <div style="margin: 2rem 0;"></div>
+            
+            <!-- Lesson Navigation -->
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson2.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson4.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Run code function for Module 9 (events need interactive demos)
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            
+            // Hide output label
+            const outputContainer = outputPane.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // For Module 9, create demos outside the output box
+            outputPane.innerHTML = '<div style="color: var(--js-yellow); font-style: italic;">Building interactive demo outside of this box...</div>';
+            
+            // Remove any existing demo
+            const existingDemo = document.getElementById(`${editorId}-demo`);
+            if (existingDemo) {
+                existingDemo.remove();
+            }
+            
+            // Create demo container
+            const demoContainer = document.createElement('div');
+            demoContainer.id = `${editorId}-demo`;
+            demoContainer.style.cssText = 'margin: 2rem 0; padding: 1rem; background: var(--bg-secondary); border-radius: 0.5rem;';
+            
+            // Insert demo after the editor
+            const editor = document.getElementById(editorId);
+            editor.insertAdjacentElement('afterend', demoContainer);
+            
+            // Capture console output
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+                originalConsoleLog(...args);
+            };
+            
+            try {
+                // Override document.body.appendChild to append to demo container
+                const originalAppendChild = document.body.appendChild;
+                document.body.appendChild = function(element) {
+                    return demoContainer.appendChild(element);
+                };
+                
+                eval(code);
+                
+                // Restore original appendChild
+                document.body.appendChild = originalAppendChild;
+                
+                // Show console output
+                if (logs.length > 0) {
+                    outputPane.innerHTML = '<div style="color: var(--js-yellow);">Console output:</div>' + 
+                        logs.slice(0, 10).map(log => `<div style="color: var(--js-yellow);">${log}</div>`).join('');
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div style="color: #ef4444;">Error: ${error.message}</div>`;
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        // Copy code function
+        function copyCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            if (!codeInput) return;
+            
+            codeInput.select();
+            codeInput.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                customModal.success('Code copied to clipboard!', 'Copied');
+            } catch (err) {
+                customModal.error('Failed to copy code', 'Error');
+            }
+        }
+
+        // Exercise checkers
+        function checkExercise1() {
+            const code = document.getElementById('exercise1-code').value;
+            const feedback = document.getElementById('exercise1-feedback');
+            
+            runCode('exercise1');
+            
+            const hasUserCode = !code.includes('// Add your code here') || 
+                               code.includes('offsetX') || 
+                               code.includes('offsetY');
+            
+            if (hasUserCode) {
+                const solutionCode = code.replace(
+                    '// Add your code here',
+                    `const x = e.offsetX;
+    const y = e.offsetY;
+    
+    // Create marker
+    const marker = document.createElement('div');
+    marker.style.cssText = \`
+        position: absolute;
+        left: \${x - 5}px;
+        top: \${y - 5}px;
+        width: 10px;
+        height: 10px;
+        background: #ef4444;
+        border-radius: 50%;
+        pointer-events: none;
+    \`;
+    
+    // Remove old markers
+    this.querySelectorAll('div').forEach(m => m.remove());
+    
+    // Add new marker
+    this.appendChild(marker);
+    
+    // Update display
+    display.textContent = \`Clicked at: X=\${x}, Y=\${y}\`;`
+                );
+                
+                document.getElementById('exercise1-code').value = solutionCode;
+                
+                feedback.className = 'exercise-feedback success';
+                feedback.innerHTML = '<i class="fas fa-check-circle"></i> Great job! The solution has been provided. Click Run Code to see it in action!';
+            } else {
+                feedback.className = 'exercise-feedback error';
+                feedback.innerHTML = '<i class="fas fa-times-circle"></i> Try adding some code first! Use e.offsetX and e.offsetY to get the click position.';
+            }
+            
+            feedback.style.display = 'block';
+        }
+
+        function checkExercise2() {
+            const code = document.getElementById('exercise2-code').value;
+            const feedback = document.getElementById('exercise2-feedback');
+            
+            runCode('exercise2');
+            
+            const hasUserCode = !code.includes('// Add your code here') || 
+                               code.includes('preventDefault') || 
+                               code.includes('@');
+            
+            if (hasUserCode) {
+                const solutionCode = code.replace(
+                    '// Add your code here',
+                    `e.preventDefault(); // Stop form submission
+    
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message');
+    
+    if (!email.includes('@')) {
+        message.style.color = '#ef4444';
+        message.textContent = '❌ Please enter a valid email address';
+    } else {
+        message.style.color = '#10b981';
+        message.textContent = '✅ Successfully subscribed!';
+        document.getElementById('email').value = '';
+    }`
+                );
+                
+                document.getElementById('exercise2-code').value = solutionCode;
+                
+                feedback.className = 'exercise-feedback success';
+                feedback.innerHTML = '<i class="fas fa-check-circle"></i> Excellent! The solution has been provided. Click Run Code to test the form validation!';
+            } else {
+                feedback.className = 'exercise-feedback error';
+                feedback.innerHTML = '<i class="fas fa-times-circle"></i> Try adding some code first! Remember to use e.preventDefault() to stop form submission.';
+            }
+            
+            feedback.style.display = 'block';
+        }
+
+        // Complete lesson function
+        function completeLesson() {
+            storageManager.markLessonCompleted(9, 3);
+            const progress = storageManager.getModuleProgress(9);
+            
+            customModal.success(
+                `Great work! You've mastered the Event Object.<br><br>
+                Module Progress: ${progress}%<br><br>
+                Next: Event Delegation - Learn to handle events efficiently!`,
+                'Lesson Complete!'
+            );
+            
+            setTimeout(() => {
+                window.location.href = 'lesson4.html';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

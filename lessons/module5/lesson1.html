@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 1: Function Basics - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <!-- Lesson Header -->
+            <div class="lesson-header">
+                <h1>Lesson 1: Function Basics</h1>
+                <p class="lesson-subtitle">Learn how to create reusable blocks of code that make your programs more organized and efficient</p>
+            </div>
+
+            <!-- Introduction Section -->
+            <section class="content-section">
+                <h2>What Are Functions?</h2>
+                <p>Imagine you're baking cookies. Instead of explaining the recipe every time someone asks, you write it down once and just say "follow the cookie recipe." Functions work the same way in programming - they're reusable instructions that you write once and use many times.</p>
+                <p>Functions are fundamental to JavaScript programming. They help you avoid repetition, organize your code, and create building blocks that can be combined to create complex programs.</p>
+            </section>
+
+            <!-- Core Content -->
+            <section class="content-section">
+                <h2>Creating Your First Function</h2>
+                <p>Let's start with the simplest possible function:</p>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Basic Function</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">
+// Declaring a function
+function greet() {
+    console.log("Hello, World!");
+}
+
+// Calling the function
+greet();
+
+// You can call it multiple times
+greet();
+greet();</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box" style="margin-top: 1.5rem;">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> Key Concepts:</strong>
+                        <p><strong>Declaration:</strong> Use the <code>function</code> keyword followed by a name and parentheses</p>
+                        <p><strong>Body:</strong> Code between curly braces <code>{}</code> is the function body</p>
+                        <p><strong>Invocation:</strong> Call the function by using its name followed by parentheses</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Function Naming Conventions</h2>
+                <p>Good function names are crucial for readable code. They should describe what the function does:</p>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Naming Examples</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">
+// Good function names - descriptive and use camelCase
+function calculateTax() {
+    console.log("Calculating tax...");
+}
+
+function sendEmail() {
+    console.log("Sending email...");
+}
+
+function validateUserInput() {
+    console.log("Validating user input...");
+}
+
+// Call them to see the output
+calculateTax();
+sendEmail();
+validateUserInput();
+
+// Bad function names - avoid these!
+// function x() {}  // Too vague
+// function doStuff() {}  // Not descriptive
+// function function1() {}  // Meaningless</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Why Use Functions?</h2>
+                <p>Functions solve the problem of code repetition. Look at this example:</p>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Without vs With Functions</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">
+// WITHOUT functions - repetitive and hard to maintain
+console.log("=================");
+console.log("Welcome Message");
+console.log("=================");
+
+console.log("=================");
+console.log("Error Message");
+console.log("=================");
+
+console.log("=================");
+console.log("Success Message");
+console.log("=================");
+
+// WITH functions - clean and reusable
+function printHeader(message) {
+    console.log("=================");
+    console.log(message);
+    console.log("=================");
+}
+
+// Now we can use it multiple times easily
+printHeader("Welcome Message");
+printHeader("Error Message");
+printHeader("Success Message");</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="real-world-example" style="margin-top: 1.5rem;">
+                    <h3><i class="fas fa-store"></i> Real-World Example: ATM Machine</h3>
+                    <p>An ATM has functions like <code>checkBalance()</code>, <code>withdrawCash()</code>, and <code>depositMoney()</code>. Each function performs a specific task, and you can use any of them when needed.</p>
+                </div>
+            </section>
+
+            <!-- Practice Exercises -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Function or Not?</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Which of the following is a correctly declared function?</p>
+                    <div class="exercise-options" id="exercise1">
+                        <button class="option-btn" data-answer="wrong">function myFunction {}</button>
+                        <button class="option-btn" data-answer="correct">function myFunction() {}</button>
+                        <button class="option-btn" data-answer="wrong">myFunction() {}</button>
+                        <button class="option-btn" data-answer="wrong">function() myFunction {}</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 2: Create Your Own Function</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Create a function called <code>sayGoodbye</code> that prints "Goodbye, friend!" to the console, then call it twice.</p>
+                    <div class="code-editor" id="exercise">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Your Solution</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="checkExercise()">
+                                    <i class="fas fa-check"></i> Check Solution
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise-code">
+// Create your function here
+
+
+// Call it twice
+</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: Best Function Name</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What's the best name for a function that calculates the area of a circle?</p>
+                    <div class="exercise-options" id="exercise3">
+                        <button class="option-btn" data-answer="wrong">function1</button>
+                        <button class="option-btn" data-answer="wrong">doCalculation</button>
+                        <button class="option-btn" data-answer="correct">calculateCircleArea</button>
+                        <button class="option-btn" data-answer="wrong">x</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Common Mistakes Section -->
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Forgetting Parentheses When Calling</strong>
+                            <p>Always include parentheses when calling a function, even if it has no parameters. Writing <code>greet</code> instead of <code>greet()</code> won't execute the function.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Missing Curly Braces</strong>
+                            <p>The function body must be enclosed in curly braces <code>{}</code>. Even if your function has only one line, the braces are required.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Using Reserved Words as Names</strong>
+                            <p>Don't use JavaScript keywords like <code>function</code>, <code>return</code>, or <code>if</code> as function names. These will cause errors.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>Functions are reusable blocks of code that perform specific tasks</li>
+                        <li>Declare functions using the <code>function</code> keyword, a name, and parentheses</li>
+                        <li>Call functions by using their name followed by parentheses: <code>functionName()</code></li>
+                        <li>Good function names describe what the function does and use camelCase</li>
+                        <li>Functions help avoid code repetition and make programs more organized</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Spacing before navigation -->
+            <div style="margin: 2rem 0;"></div>
+            
+            <!-- Lesson Navigation -->
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='../module4/lesson4.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Module
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson2.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Run code function
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = outputPane.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            outputPane.innerHTML = '';
+            
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+            };
+            
+            try {
+                eval(code);
+                
+                if (logs.length > 0) {
+                    outputPane.innerHTML = logs.map(log => 
+                        `<div class="output-line">${escapeHtml(log)}</div>`
+                    ).join('');
+                } else {
+                    outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        // Copy code function
+        function copyCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            if (!codeInput) return;
+            
+            codeInput.select();
+            codeInput.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                const button = event.target.closest('.editor-btn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        }
+
+        // Escape HTML for safe output
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Check exercise function
+        function checkExercise() {
+            const code = document.getElementById('exercise-code').value;
+            const output = document.getElementById('exercise-output');
+            const feedback = document.getElementById('exercise-feedback');
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = output.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // Run the code first to show output
+            runCode('exercise');
+            
+            // Check if the solution is correct
+            const hasFunctionDeclaration = /function\s+sayGoodbye\s*\(\s*\)\s*{/.test(code);
+            const hasConsoleLog = code.includes('console.log("Goodbye, friend!")') || 
+                                 code.includes("console.log('Goodbye, friend!')");
+            const hasTwoCalls = (code.match(/sayGoodbye\s*\(\s*\)/g) || []).length >= 2;
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            feedback.classList.remove('show', 'success', 'error');
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (hasFunctionDeclaration && hasConsoleLog && hasTwoCalls) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Perfect! You created the function and called it twice!';
+                } else if (hasFunctionDeclaration && hasConsoleLog && !hasTwoCalls) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Almost there! Make sure to call sayGoodbye() twice.';
+                } else if (hasFunctionDeclaration && !hasConsoleLog) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Good start! Make sure your function prints "Goodbye, friend!" to the console.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Not quite. Create a function called sayGoodbye that prints "Goodbye, friend!" and call it twice.';
+                }
+            }, 150);
+        }
+
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(5, 1, true);
+            customModal.success('Great job! You\'ve learned the basics of functions!', 'Congratulations!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson2.html';
+            }, 2000);
+        }
+
+        // Handle quiz options
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.disabled) return;
+                    
+                    const exerciseContainer = this.closest('.exercise-options');
+                    const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
+                    const isCorrect = this.getAttribute('data-answer') === 'correct';
+                    
+                    // Remove previous incorrect selections
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.classList.contains('incorrect')) {
+                            btn.classList.remove('incorrect', 'selected');
+                            btn.disabled = false;
+                        }
+                    });
+                    
+                    // Hide feedback first to create animation effect
+                    if (feedbackDiv) {
+                        feedbackDiv.style.display = 'none';
+                        feedbackDiv.className = 'exercise-feedback';
+                        feedbackDiv.classList.remove('show', 'success', 'error');
+                    }
+                    
+                    // Mark this button
+                    this.classList.add('selected');
+                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    if (isCorrect) {
+                        // Correct answer - disable all buttons
+                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                            btn.disabled = true;
+                        });
+                    } else {
+                        // Wrong answer - disable only this button
+                        this.disabled = true;
+                    }
+                    
+                    // Show feedback with animation
+                    if (feedbackDiv) {
+                        setTimeout(() => {
+                            feedbackDiv.style.display = 'block';
+                            feedbackDiv.className = 'exercise-feedback show ' + (isCorrect ? 'success' : 'error');
+                            feedbackDiv.textContent = isCorrect ? 
+                                'Correct! Functions need parentheses even when empty.' : 
+                                'Not quite. Try again!';
+                        }, 150);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

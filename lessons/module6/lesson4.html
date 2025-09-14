@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 4: Array Methods: map, filter, reduce - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <!-- Lesson Header -->
+            <div class="lesson-header">
+                <h1>Lesson 4: Array Methods: map, filter, reduce</h1>
+                <p class="lesson-subtitle">Master functional programming with powerful array transformation methods</p>
+            </div>
+
+            <!-- Introduction Section -->
+            <section class="content-section">
+                <h2>Introduction to Functional Array Methods</h2>
+                <p>Imagine you have a factory assembly line: <code>map</code> transforms each item (like painting cars different colors), <code>filter</code> selects only certain items (like quality control), and <code>reduce</code> combines everything into a final product (like packaging multiple parts into one box). These methods represent a functional programming approach to data transformation.</p>
+                <p>These methods are incredibly powerful for data processing, analytics, and building user interfaces. They're used extensively in modern JavaScript applications for transforming API responses, processing user data, and creating dynamic content.</p>
+            </section>
+
+            <!-- Core Content Section 1 -->
+            <section class="content-section">
+                <h2>The map() Method - Transform Every Element</h2>
+                <p>The <code>map()</code> method creates a new array by calling a function on every element in the original array:</p>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">map() Examples</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">
+// Basic map() - transform each element
+const numbers = [1, 2, 3, 4, 5];
+console.log("=== Basic Transformations ===");
+console.log("Original:", numbers);
+
+// Double each number
+const doubled = numbers.map(num => num * 2);
+console.log("Doubled:", doubled);
+
+// Square each number
+const squared = numbers.map(num => num * num);
+console.log("Squared:", squared);
+
+// Convert to strings with suffix
+const withSuffix = numbers.map(num => num + " items");
+console.log("With suffix:", withSuffix);
+
+console.log("\n=== Working with Objects ===");
+const products = [
+    { name: "Laptop", price: 999 },
+    { name: "Phone", price: 599 },
+    { name: "Tablet", price: 299 }
+];
+
+// Add tax to prices
+const withTax = products.map(product => {
+    return {
+        name: product.name,
+        originalPrice: product.price,
+        priceWithTax: Math.round(product.price * 1.08 * 100) / 100
+    };
+});
+
+console.log("Products with tax:");
+withTax.forEach(item => {
+    console.log(`${item.name}: $${item.originalPrice} → $${item.priceWithTax}`);
+});
+
+console.log("\n=== String Transformations ===");
+const words = ["hello", "world", "javascript", "rocks"];
+
+// Capitalize first letter
+const capitalized = words.map(word => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+});
+console.log("Capitalized:", capitalized);
+
+// Get word lengths
+const lengths = words.map(word => word.length);
+console.log("Word lengths:", lengths);
+
+console.log("\n=== Temperature Converter ===");
+const fahrenheit = [32, 68, 86, 104, 122];
+const celsius = fahrenheit.map(f => Math.round((f - 32) * 5/9 * 10) / 10);
+
+console.log("Temperature conversion:");
+fahrenheit.forEach((f, index) => {
+    console.log(`${f}°F = ${celsius[index]}°C`);
+});
+
+console.log("\n=== Array Indices in map ===");
+const letters = ['a', 'b', 'c', 'd'];
+const indexedLetters = letters.map((letter, index) => {
+    return `${index + 1}: ${letter.toUpperCase()}`;
+});
+console.log("Indexed letters:", indexedLetters);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> map() Key Points:</strong>
+                        <p>Always returns a new array of the same length. Never modifies the original array. Perfect for transforming data without side effects.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 2 -->
+            <section class="content-section">
+                <h2>The filter() Method - Select Specific Elements</h2>
+                <p>The <code>filter()</code> method creates a new array with only the elements that pass a test function:</p>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">filter() Examples</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">
+// Basic filter() - select elements that meet criteria
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+console.log("=== Basic Filtering ===");
+console.log("Original numbers:", numbers);
+
+// Filter even numbers
+const evenNumbers = numbers.filter(num => num % 2 === 0);
+console.log("Even numbers:", evenNumbers);
+
+// Filter numbers greater than 5
+const bigNumbers = numbers.filter(num => num > 5);
+console.log("Numbers > 5:", bigNumbers);
+
+// Filter numbers in range
+const midRange = numbers.filter(num => num >= 3 && num <= 7);
+console.log("Numbers 3-7:", midRange);
+
+console.log("\n=== Filtering Objects ===");
+const students = [
+    { name: "Alice", grade: 92, subject: "Math" },
+    { name: "Bob", grade: 78, subject: "Science" },
+    { name: "Charlie", grade: 95, subject: "Math" },
+    { name: "Diana", grade: 88, subject: "English" },
+    { name: "Eve", grade: 76, subject: "Science" }
+];
+
+// Filter students who passed (grade >= 80)
+const passedStudents = students.filter(student => student.grade >= 80);
+console.log("Students who passed:");
+passedStudents.forEach(student => {
+    console.log(`- ${student.name}: ${student.grade}% in ${student.subject}`);
+});
+
+// Filter Math students
+const mathStudents = students.filter(student => student.subject === "Math");
+console.log("\nMath students:", mathStudents.map(s => s.name));
+
+console.log("\n=== String Filtering ===");
+const fruits = ["apple", "banana", "apricot", "cherry", "avocado", "grape"];
+
+// Filter fruits starting with 'a'
+const aFruits = fruits.filter(fruit => fruit.startsWith('a'));
+console.log("Fruits starting with 'a':", aFruits);
+
+// Filter fruits with more than 5 letters
+const longFruits = fruits.filter(fruit => fruit.length > 5);
+console.log("Long fruit names:", longFruits);
+
+console.log("\n=== E-commerce Product Filtering ===");
+const products = [
+    { name: "Laptop", price: 999, category: "Electronics", inStock: true },
+    { name: "T-Shirt", price: 19, category: "Clothing", inStock: true },
+    { name: "Phone", price: 599, category: "Electronics", inStock: false },
+    { name: "Jeans", price: 49, category: "Clothing", inStock: true },
+    { name: "Tablet", price: 299, category: "Electronics", inStock: true }
+];
+
+// Available electronics under $600
+const affordableElectronics = products.filter(product => 
+    product.category === "Electronics" && 
+    product.price < 600 && 
+    product.inStock
+);
+
+console.log("Affordable electronics in stock:");
+affordableElectronics.forEach(product => {
+    console.log(`- ${product.name}: $${product.price}`);
+});
+
+console.log("\n=== Complex Filtering ===");
+const orders = [
+    { id: 1, amount: 150, status: "shipped", priority: "high" },
+    { id: 2, amount: 75, status: "pending", priority: "normal" },
+    { id: 3, amount: 300, status: "delivered", priority: "high" },
+    { id: 4, amount: 25, status: "pending", priority: "low" }
+];
+
+// High-priority orders over $100 that aren't delivered
+const urgentOrders = orders.filter(order => 
+    order.priority === "high" && 
+    order.amount > 100 && 
+    order.status !== "delivered"
+);
+
+console.log("Urgent orders needing attention:", urgentOrders);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> filter() Key Points:</strong>
+                        <p>Returns a new array (potentially shorter). Never modifies the original array. The test function must return true/false.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 3 -->
+            <section class="content-section">
+                <h2>The reduce() Method - Combine Elements into One Value</h2>
+                <p>The <code>reduce()</code> method processes each element to build up a single result value:</p>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">reduce() Examples</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">
+// Basic reduce() - sum all numbers
+const numbers = [1, 2, 3, 4, 5];
+console.log("=== Basic Reductions ===");
+console.log("Numbers:", numbers);
+
+// Sum all numbers
+const sum = numbers.reduce((total, current) => {
+    console.log(`Adding ${current} to ${total} = ${total + current}`);
+    return total + current;
+}, 0);
+console.log("Final sum:", sum);
+
+// Find maximum value
+const max = numbers.reduce((biggest, current) => {
+    return current > biggest ? current : biggest;
+});
+console.log("Maximum value:", max);
+
+// Product of all numbers
+const product = numbers.reduce((result, current) => result * current, 1);
+console.log("Product:", product);
+
+console.log("\n=== Shopping Cart Total ===");
+const cartItems = [
+    { name: "Laptop", price: 999, quantity: 1 },
+    { name: "Mouse", price: 25, quantity: 2 },
+    { name: "Keyboard", price: 75, quantity: 1 }
+];
+
+const cartTotal = cartItems.reduce((total, item) => {
+    const itemCost = item.price * item.quantity;
+    console.log(`${item.name}: $${item.price} × ${item.quantity} = $${itemCost}`);
+    return total + itemCost;
+}, 0);
+
+console.log(`Cart total: $${cartTotal}`);
+
+console.log("\n=== Counting Occurrences ===");
+const votes = ["pizza", "burger", "pizza", "taco", "burger", "pizza", "salad"];
+
+const voteCount = votes.reduce((count, vote) => {
+    count[vote] = (count[vote] || 0) + 1;
+    return count;
+}, {});
+
+console.log("Vote results:");
+Object.entries(voteCount).forEach(([food, count]) => {
+    console.log(`${food}: ${count} votes`);
+});
+
+console.log("\n=== Grouping Data ===");
+const students = [
+    { name: "Alice", grade: 92, subject: "Math" },
+    { name: "Bob", grade: 78, subject: "Science" },
+    { name: "Charlie", grade: 95, subject: "Math" },
+    { name: "Diana", grade: 88, subject: "English" },
+    { name: "Eve", grade: 76, subject: "Science" }
+];
+
+const groupedBySubject = students.reduce((groups, student) => {
+    const subject = student.subject;
+    if (!groups[subject]) {
+        groups[subject] = [];
+    }
+    groups[subject].push(student);
+    return groups;
+}, {});
+
+console.log("Students grouped by subject:");
+Object.entries(groupedBySubject).forEach(([subject, studentList]) => {
+    console.log(`${subject}: ${studentList.map(s => s.name).join(", ")}`);
+});
+
+console.log("\n=== Building Strings ===");
+const words = ["JavaScript", "is", "awesome", "and", "powerful"];
+
+const sentence = words.reduce((result, word, index) => {
+    return result + word + (index < words.length - 1 ? " " : "!");
+}, "");
+
+console.log("Built sentence:", sentence);
+
+console.log("\n=== Statistics Calculation ===");
+const scores = [85, 92, 78, 96, 88, 94, 87, 91];
+
+const stats = scores.reduce((stats, score) => {
+    stats.sum += score;
+    stats.count += 1;
+    stats.min = Math.min(stats.min, score);
+    stats.max = Math.max(stats.max, score);
+    return stats;
+}, { sum: 0, count: 0, min: Infinity, max: -Infinity });
+
+stats.average = Math.round(stats.sum / stats.count * 100) / 100;
+
+console.log("Score statistics:");
+console.log(`Average: ${stats.average}`);
+console.log(`Min: ${stats.min}, Max: ${stats.max}`);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div>
+                        <i class="fas fa-exclamation-triangle"></i> <strong> reduce() Complexity:</strong>
+                        <p>reduce() is the most complex of these methods. Always provide an initial value to avoid unexpected behavior. The accumulator is passed to each iteration and becomes the final result.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Method Chaining Section -->
+            <section class="content-section">
+                <h2>Method Chaining - Combining Powers</h2>
+                <p>These methods can be chained together to create powerful data processing pipelines:</p>
+
+                <div class="code-editor" id="editor4">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Method Chaining</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor4')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor4')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor4-code">
+// Advanced data processing with method chaining
+const sales = [
+    { product: "Laptop", amount: 1200, region: "North", month: "Jan" },
+    { product: "Phone", amount: 800, region: "South", month: "Jan" },
+    { product: "Tablet", amount: 400, region: "North", month: "Feb" },
+    { product: "Laptop", amount: 1100, region: "West", month: "Feb" },
+    { product: "Phone", amount: 750, region: "East", month: "Jan" },
+    { product: "Tablet", amount: 450, region: "South", month: "Feb" }
+];
+
+console.log("=== Method Chaining Example ===");
+console.log("Original sales data:", sales);
+
+// Chain: filter January sales, map to amounts, reduce to total
+const januaryTotal = sales
+    .filter(sale => sale.month === "Jan")    // Only January sales
+    .map(sale => sale.amount)                // Extract amounts
+    .reduce((total, amount) => total + amount, 0);  // Sum them up
+
+console.log("January total sales: $" + januaryTotal);
+
+// Chain: filter high-value sales, map to product names, get unique products
+const highValueProducts = sales
+    .filter(sale => sale.amount > 700)      // High-value sales only
+    .map(sale => sale.product)              // Get product names
+    .filter((product, index, array) => array.indexOf(product) === index); // Remove duplicates
+
+console.log("High-value products:", highValueProducts);
+
+console.log("\n=== Student Grade Processing ===");
+const studentGrades = [
+    { name: "Alice", scores: [85, 92, 88] },
+    { name: "Bob", scores: [78, 85, 80] },
+    { name: "Charlie", scores: [95, 88, 92] },
+    { name: "Diana", scores: [70, 75, 72] },
+    { name: "Eve", scores: [88, 90, 87] }
+];
+
+// Calculate averages and find honor roll students (average >= 85)
+const honorRoll = studentGrades
+    .map(student => ({
+        name: student.name,
+        average: student.scores.reduce((sum, score) => sum + score, 0) / student.scores.length
+    }))
+    .filter(student => student.average >= 85)
+    .map(student => `${student.name} (${student.average.toFixed(1)}%)`);
+
+console.log("Honor roll students:", honorRoll);
+
+console.log("\n=== E-commerce Analytics ===");
+const products = [
+    { name: "Gaming Laptop", price: 1500, category: "Electronics", rating: 4.5, reviews: 120 },
+    { name: "Office Chair", price: 200, category: "Furniture", rating: 4.2, reviews: 85 },
+    { name: "Smartphone", price: 700, category: "Electronics", rating: 4.8, reviews: 350 },
+    { name: "Desk Lamp", price: 50, category: "Furniture", rating: 4.0, reviews: 45 },
+    { name: "Tablet", price: 300, category: "Electronics", rating: 4.3, reviews: 200 }
+];
+
+// Find average price of highly-rated electronics
+const avgElectronicsPrice = products
+    .filter(product => product.category === "Electronics")  // Electronics only
+    .filter(product => product.rating >= 4.3)              // Well-rated only
+    .map(product => product.price)                          // Extract prices
+    .reduce((sum, price, index, array) => {                // Calculate average
+        sum += price;
+        return index === array.length - 1 ? sum / array.length : sum;
+    }, 0);
+
+console.log(`Average price of top-rated electronics: $${avgElectronicsPrice.toFixed(2)}`);
+
+console.log("\n=== Text Processing Pipeline ===");
+const text = "The Quick Brown Fox Jumps Over The Lazy Dog";
+
+const wordAnalysis = text
+    .toLowerCase()                                          // Convert to lowercase
+    .split(" ")                                            // Split into words
+    .filter(word => word.length > 3)                      // Words longer than 3 chars
+    .map(word => ({ word, length: word.length }))         // Create word objects
+    .reduce((analysis, item) => {                         // Build analysis
+        analysis.totalLength += item.length;
+        analysis.words.push(item.word);
+        analysis.avgLength = analysis.totalLength / analysis.words.length;
+        return analysis;
+    }, { totalLength: 0, words: [], avgLength: 0 });
+
+console.log("Word analysis:", wordAnalysis);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor4-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Exercises -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Price Calculator</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Use <code>map()</code> to add a 20% markup to all prices in the products array.</p>
+                    <div class="code-editor" id="exercise">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Price Calculator</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="checkExercise()">
+                                    <i class="fas fa-check"></i> Check Solution
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise-code">
+const products = [
+    { name: "Book", price: 15 },
+    { name: "Pen", price: 3 },
+    { name: "Notebook", price: 8 }
+];
+
+// Use map() to add 20% markup to each price
+const productsWithMarkup = products.map(product => ({
+    name: product.name,
+    originalPrice: product.price,
+    newPrice: product.price * 1.2
+}));
+
+console.log("Products with 20% markup:");
+productsWithMarkup.forEach(product => {
+    console.log(`${product.name}: $${product.originalPrice} → $${product.newPrice.toFixed(2)}`);
+});</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 2: Data Filtering App</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Which method would you use to select only items that meet certain criteria?</p>
+                    <div class="exercise-options" id="exercise2">
+                        <button class="option-btn" data-answer="wrong">map()</button>
+                        <button class="option-btn" data-answer="correct">filter()</button>
+                        <button class="option-btn" data-answer="wrong">reduce()</button>
+                        <button class="option-btn" data-answer="wrong">forEach()</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise2-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: Statistics Generator</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What does <code>reduce()</code> always return?</p>
+                    <div class="exercise-options" id="exercise3">
+                        <button class="option-btn" data-answer="wrong">Always an array</button>
+                        <button class="option-btn" data-answer="correct">A single value of any type</button>
+                        <button class="option-btn" data-answer="wrong">Always a number</button>
+                        <button class="option-btn" data-answer="wrong">Always an object</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Common Mistakes Section -->
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Forgetting to Return Values</strong>
+                            <p>In <code>map()</code>, <code>filter()</code>, and <code>reduce()</code>, always return a value from your callback function. Without a return, you'll get unexpected results.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Missing Initial Value in reduce()</strong>
+                            <p>Always provide an initial value as the second parameter to <code>reduce()</code>. Without it, the method uses the first array element, which can cause type errors.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Mutating Original Arrays</strong>
+                            <p>These methods return new arrays/values and shouldn't modify the original array. Avoid using methods like <code>push()</code> or direct assignment inside callbacks.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li><code>map()</code> transforms each element and returns a new array of the same length</li>
+                        <li><code>filter()</code> selects elements that pass a test and returns a new array</li>
+                        <li><code>reduce()</code> combines all elements into a single value using an accumulator</li>
+                        <li>These methods can be chained together for powerful data processing pipelines</li>
+                        <li>All methods return new values and never modify the original array</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Spacing before navigation -->
+            <div style="margin: 2rem 0;"></div>
+            
+            <!-- Lesson Navigation -->
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson3.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson5.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Run code function
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = outputPane.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            outputPane.innerHTML = '';
+            
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+            };
+            
+            try {
+                eval(code);
+                
+                if (logs.length > 0) {
+                    outputPane.innerHTML = logs.map(log => 
+                        `<div class="output-line">${escapeHtml(log)}</div>`
+                    ).join('');
+                } else {
+                    outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        // Copy code function
+        function copyCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            if (!codeInput) return;
+            
+            codeInput.select();
+            codeInput.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                const button = event.target.closest('.editor-btn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        }
+
+        // Escape HTML for safe output
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Check exercise function
+        function checkExercise() {
+            const code = document.getElementById('exercise-code').value;
+            const output = document.getElementById('exercise-output');
+            const feedback = document.getElementById('exercise-feedback');
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = output.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // Run the code first to show output
+            runCode('exercise');
+            
+            // Check if the solution meets requirements
+            const hasMap = /\.map\s*\(/.test(code);
+            const hasMarkup = /\*\s*1\.2|\*\s*1\.20/.test(code);
+            const hasReturnObject = /return\s*{|{[\s\S]*}/.test(code);
+            const hasConsoleLog = code.includes('console.log');
+            
+            // Check if the output contains any errors
+            const outputHasError = output.innerHTML.includes('output-error') || 
+                                  output.innerHTML.includes('Error:');
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            feedback.classList.remove('show', 'success', 'error');
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (hasMap && hasMarkup && hasReturnObject && hasConsoleLog && !outputHasError) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Perfect! You used map() to transform each product with a 20% price markup!';
+                } else if (outputHasError) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Your code has errors. Check the output above and fix any issues.';
+                } else if (!hasMap) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Use the map() method to transform each product in the array.';
+                } else if (!hasMarkup) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Apply a 20% markup by multiplying price by 1.2.';
+                } else if (!hasReturnObject) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Return an object with the original and new prices.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Include console.log statements to display your results.';
+                }
+            }, 150);
+        }
+
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(6, 4, true);
+            customModal.success('Outstanding! You\'ve mastered functional array methods. These are essential tools for modern JavaScript development!', 'Lesson Complete!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson5.html';
+            }, 2000);
+        }
+
+        // Handle quiz options
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.disabled) return;
+                    
+                    const exerciseContainer = this.closest('.exercise-options');
+                    const exerciseId = exerciseContainer.id;
+                    const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
+                    const isCorrect = this.getAttribute('data-answer') === 'correct';
+                    
+                    // Remove previous incorrect selections
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.classList.contains('incorrect')) {
+                            btn.classList.remove('incorrect', 'selected');
+                            btn.disabled = false;
+                        }
+                    });
+                    
+                    // Hide feedback first to create animation effect
+                    if (feedbackDiv) {
+                        feedbackDiv.style.display = 'none';
+                        feedbackDiv.className = 'exercise-feedback';
+                        feedbackDiv.classList.remove('show', 'success', 'error');
+                    }
+                    
+                    // Mark this button
+                    this.classList.add('selected');
+                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    if (isCorrect) {
+                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                            btn.disabled = true;
+                        });
+                    } else {
+                        this.disabled = true;
+                    }
+                    
+                    // Show feedback with animation
+                    if (feedbackDiv) {
+                        setTimeout(() => {
+                            feedbackDiv.style.display = 'block';
+                            feedbackDiv.className = 'exercise-feedback show ' + (isCorrect ? 'success' : 'error');
+                            
+                            let feedbackText;
+                            if (exerciseId === 'exercise2') {
+                                feedbackText = isCorrect ? 
+                                    'Correct! filter() creates a new array with only elements that pass the test function.' : 
+                                    'Not quite. filter() is specifically designed to select elements based on criteria.';
+                            } else if (exerciseId === 'exercise3') {
+                                feedbackText = isCorrect ? 
+                                    'Correct! reduce() can return any single value - number, string, object, array, etc.' : 
+                                    'Not quite. reduce() can return any type of value, not just specific types.';
+                            }
+                            
+                            feedbackDiv.textContent = feedbackText;
+                        }, 150);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

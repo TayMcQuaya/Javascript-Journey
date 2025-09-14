@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 5: Functions - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="module-overview">
+            <!-- Module Title and Description -->
+            <h1>Module 5: Functions</h1>
+            <p class="module-description">
+                Functions are the building blocks of JavaScript programming, allowing you to write reusable code and organize your programs efficiently. In this module, you'll master creating and using functions, understanding how they work behind the scenes, and leveraging advanced concepts like closures to write powerful, professional code.
+            </p>
+
+            <!-- Learning Objectives Section -->
+            <div class="module-objectives">
+                <h2><i class="fas fa-bullseye"></i> Learning Objectives</h2>
+                <ul>
+                    <li>Master function declaration and invocation patterns</li>
+                    <li>Understand parameters, arguments, and return values</li>
+                    <li>Learn modern arrow function syntax and when to use it</li>
+                    <li>Grasp scope, hoisting, and how JavaScript manages variables</li>
+                    <li>Apply closures to create private variables and factory functions</li>
+                    <li>Build reusable, maintainable code following best practices</li>
+                </ul>
+            </div>
+
+            <!-- Lessons Section -->
+            <div class="module-lessons">
+                <h2><i class="fas fa-list"></i> Lessons</h2>
+                <div class="lessons-grid">
+                    <div class="lesson-card" onclick="window.location.href='lesson1.html'">
+                        <div class="lesson-number">1</div>
+                        <div class="lesson-content">
+                            <h3>Function Basics</h3>
+                            <p>Learn how to create and use functions to make your code reusable and organized.</p>
+                            <div class="lesson-meta">
+                                <span><i class="fas fa-clock"></i> 40 min</span>
+                                <span><i class="fas fa-signal"></i> Beginner</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lesson-card" onclick="window.location.href='lesson2.html'">
+                        <div class="lesson-number">2</div>
+                        <div class="lesson-content">
+                            <h3>Function Parameters</h3>
+                            <p>Make your functions flexible by accepting inputs and handling multiple parameters.</p>
+                            <div class="lesson-meta">
+                                <span><i class="fas fa-clock"></i> 45 min</span>
+                                <span><i class="fas fa-signal"></i> Beginner</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lesson-card" onclick="window.location.href='lesson3.html'">
+                        <div class="lesson-number">3</div>
+                        <div class="lesson-content">
+                            <h3>Return Values</h3>
+                            <p>Get data back from functions and use returned values in your programs.</p>
+                            <div class="lesson-meta">
+                                <span><i class="fas fa-clock"></i> 35 min</span>
+                                <span><i class="fas fa-signal"></i> Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lesson-card" onclick="window.location.href='lesson4.html'">
+                        <div class="lesson-number">4</div>
+                        <div class="lesson-content">
+                            <h3>Arrow Functions</h3>
+                            <p>Master modern arrow function syntax and understand when to use it.</p>
+                            <div class="lesson-meta">
+                                <span><i class="fas fa-clock"></i> 45 min</span>
+                                <span><i class="fas fa-signal"></i> Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lesson-card" onclick="window.location.href='lesson5.html'">
+                        <div class="lesson-number">5</div>
+                        <div class="lesson-content">
+                            <h3>Scope and Hoisting</h3>
+                            <p>Understand how JavaScript manages variable visibility and function declarations.</p>
+                            <div class="lesson-meta">
+                                <span><i class="fas fa-clock"></i> 50 min</span>
+                                <span><i class="fas fa-signal"></i> Advanced</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lesson-card" onclick="window.location.href='lesson6.html'">
+                        <div class="lesson-number">6</div>
+                        <div class="lesson-content">
+                            <h3>Closures</h3>
+                            <p>Explore advanced function concepts to create powerful programming patterns.</p>
+                            <div class="lesson-meta">
+                                <span><i class="fas fa-clock"></i> 45 min</span>
+                                <span><i class="fas fa-signal"></i> Advanced</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Resources Section -->
+            <div class="module-resources">
+                <h2><i class="fas fa-book"></i> Additional Resources</h2>
+                <ul>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions" target="_blank" class="resource-link">MDN: Functions Guide</a></li>
+                    <li><a href="https://javascript.info/function-basics" target="_blank" class="resource-link">JavaScript.info: Functions</a></li>
+                    <li><a href="https://www.w3schools.com/js/js_functions.asp" target="_blank" class="resource-link">W3Schools: JavaScript Functions</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Embedded Styles -->
+    <style>
+        .module-overview {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .module-overview h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .module-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        .module-objectives, .module-lessons, .module-resources {
+            background-color: var(--bg-primary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+
+        .module-objectives h2, .module-lessons h2, .module-resources h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .module-objectives ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .module-objectives li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .module-objectives li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .lessons-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .lesson-card {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .lesson-card:hover {
+            background-color: var(--bg-tertiary);
+            transform: translateX(4px);
+        }
+
+        .lesson-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .lesson-content {
+            flex: 1;
+        }
+
+        .lesson-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .lesson-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .lesson-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .lesson-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resource-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .resource-link:hover {
+            text-decoration: underline;
+        }
+
+        .module-resources ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .module-resources li {
+            padding: 0.5rem 0;
+        }
+    </style>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/modal.js"></script>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

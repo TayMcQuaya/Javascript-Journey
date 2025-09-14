@@ -1,0 +1,2378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 5: Styling with JavaScript - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <!-- Lesson Header -->
+            <div class="lesson-header">
+                <h1>Lesson 5: Styling with JavaScript</h1>
+                <p class="lesson-subtitle">Master the art of dynamic styling - transform your web pages into interactive visual experiences</p>
+            </div>
+
+            <!-- Introduction Section -->
+            <section class="content-section">
+                <h2>Introduction</h2>
+                <p>Imagine JavaScript as a master painter who can change the colors, sizes, and positions of everything on a canvas in real-time. While CSS provides the initial "painting" of your webpage, JavaScript acts like a magical brush that can repaint, resize, and rearrange elements based on user interactions or any conditions you set.</p>
+                <p>Styling with JavaScript opens up a world of dynamic interfaces - buttons that change color when clicked, elements that grow and shrink with animations, themes that switch at the touch of a button, and layouts that adapt to user preferences. This is where static web pages transform into dynamic, interactive experiences.</p>
+            </section>
+
+            <!-- Interactive Demo Elements -->
+            <div style="background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: 0.5rem; padding: 1.5rem; margin: 1.5rem 0;">
+                <h3 style="margin-top: 0; color: var(--primary-color);">🎨 Live Styling Demo Playground</h3>
+                <div id="demo-playground" style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                    <div id="color-demo" style="padding: 1rem; background: #3b82f6; color: white; border-radius: 0.5rem; text-align: center; cursor: pointer;">
+                        Click me to change color!
+                    </div>
+                    <div id="size-demo" style="padding: 1rem; background: #10b981; color: white; border-radius: 0.5rem; text-align: center; cursor: pointer; transition: all 0.3s ease;">
+                        Click me to grow!
+                    </div>
+                    <div id="rotate-demo" style="padding: 1rem; background: #000000; color: #F7DF1E; border: 2px solid #F7DF1E; border-radius: 0.5rem; text-align: center; cursor: pointer; transition: transform 0.5s ease;">
+                        Click me to spin!
+                    </div>
+                    <div id="theme-demo" style="padding: 1rem; background: #8b5cf6; color: white; border-radius: 0.5rem; text-align: center; cursor: pointer; transition: all 0.3s ease;">
+                        Click me for surprise!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Content Section 1 -->
+            <section class="content-section">
+                <h2>The style Property</h2>
+                <p>The `style` property is your direct line to CSS styling from JavaScript. Think of it as having a CSS rulebook that you can rewrite in real-time. Every CSS property becomes accessible through camelCase naming (background-color becomes backgroundColor).</p>
+
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> CamelCase Convention:</strong>
+                        <p>CSS properties with hyphens (like background-color, font-size) become camelCase in JavaScript (backgroundColor, fontSize). This follows JavaScript naming conventions.</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Style Property Mastery</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">
+console.log("🎨 MASTERING THE STYLE PROPERTY 🎨");
+
+// Create a demo element to style
+const demoBox = document.createElement('div');
+demoBox.id = 'styling-demo-box';
+demoBox.textContent = 'Watch me transform!';
+demoBox.style.cssText = `
+    padding: 2rem;
+    margin: 1rem 0;
+    background: #e5e7eb;
+    border: 2px solid #9ca3af;
+    border-radius: 0.5rem;
+    text-align: center;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: pointer;
+`;
+
+// Add click interaction
+let clickCount = 0;
+demoBox.onclick = () => {
+    clickCount++;
+    const transforms = [
+        { bg: '#10b981', scale: '1.1', rotate: '5deg' },
+        { bg: '#f59e0b', scale: '0.9', rotate: '-5deg' },
+        { bg: '#8b5cf6', scale: '1.2', rotate: '10deg' },
+        { bg: '#ef4444', scale: '1', rotate: '0deg' }
+    ];
+    const transform = transforms[clickCount % transforms.length];
+    demoBox.style.backgroundColor = transform.bg;
+    demoBox.style.transform = `scale(${transform.scale}) rotate(${transform.rotate})`;
+    console.log(`🖱️ Click #${clickCount}: Applied transform`);
+};
+
+document.body.appendChild(demoBox);
+
+console.log("✅ Created demo box for styling experiments");
+console.log("💡 Click the box to see manual transformations!");
+
+console.log("\n=== BASIC STYLE PROPERTY USAGE ===");
+
+// Individual property changes
+setTimeout(() => {
+    console.log("📝 Changing individual style properties:");
+    demoBox.style.backgroundColor = '#3b82f6';
+    demoBox.style.color = 'white';
+    demoBox.style.fontSize = '1.25rem';
+    demoBox.style.padding = '2.5rem';
+    
+    console.log("  ✅ Background color: blue");
+    console.log("  ✅ Text color: white");
+    console.log("  ✅ Font size: larger");
+    console.log("  ✅ Padding: increased");
+}, 1000);
+
+// Multiple properties with cssText
+setTimeout(() => {
+    console.log("\n📝 Using cssText for multiple properties:");
+    demoBox.style.cssText += `
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        border-radius: 1rem;
+    `;
+    
+    console.log("  ✅ Transform: scaled and rotated");
+    console.log("  ✅ Box shadow: added depth");
+    console.log("  ✅ Border radius: more rounded");
+}, 3000);
+
+console.log("\n=== STYLE PROPERTY PATTERNS ===");
+
+// Reading current styles
+console.log("📖 Reading current styles:");
+console.log("Current background color:", demoBox.style.backgroundColor || "Not set via JS");
+console.log("Current padding:", demoBox.style.padding || "Not set via JS");
+console.log("Current transform:", demoBox.style.transform || "None");
+
+// Dynamic style calculations
+function createColoredElement(color, text) {
+    const element = document.createElement('div');
+    element.textContent = text;
+    element.style.cssText = `
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        margin: 0.25rem;
+        background: ${color};
+        color: white;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    `;
+    
+    // Add hover effects with JavaScript
+    element.addEventListener('mouseenter', () => {
+        element.style.transform = 'translateY(-2px) scale(1.05)';
+        element.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+    });
+    
+    element.addEventListener('mouseleave', () => {
+        element.style.transform = 'translateY(0) scale(1)';
+        element.style.boxShadow = 'none';
+    });
+    
+    return element;
+}
+
+// Create a container for colored elements
+const colorContainer = document.createElement('div');
+colorContainer.style.cssText = `
+    margin: 1rem 0;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 0.5rem;
+    border: 2px solid var(--border-color);
+`;
+
+const colors = [
+    { color: '#ef4444', name: 'Red' },
+    { color: '#10b981', name: 'Green' },
+    { color: '#3b82f6', name: 'Blue' },
+    { color: '#f59e0b', name: 'Yellow' },
+    { color: '#8b5cf6', name: 'Purple' }
+];
+
+console.log("\n🌈 Creating colorful elements with dynamic styles:");
+colors.forEach(({ color, name }) => {
+    const element = createColoredElement(color, name);
+    colorContainer.appendChild(element);
+    console.log(`  ✅ Created ${name} element with hover effects`);
+});
+
+document.body.appendChild(colorContainer);
+
+console.log("\n=== ADVANCED STYLING TECHNIQUES ===");
+
+// Style inheritance and computed styles
+setTimeout(() => {
+    console.log("📏 Working with computed styles:");
+    const computedStyle = window.getComputedStyle(demoBox);
+    console.log("Computed width:", computedStyle.width);
+    console.log("Computed height:", computedStyle.height);
+    console.log("Computed background color:", computedStyle.backgroundColor);
+    console.log("Computed font family:", computedStyle.fontFamily);
+}, 4000);
+
+// CSS custom properties (variables)
+setTimeout(() => {
+    console.log("\n🔧 Working with CSS custom properties:");
+    
+    // Set CSS custom properties
+    document.documentElement.style.setProperty('--demo-primary', '#6366f1');
+    document.documentElement.style.setProperty('--demo-secondary', '#ec4899');
+    document.documentElement.style.setProperty('--demo-size', '1.5rem');
+    
+    demoBox.style.cssText += `
+        background: linear-gradient(45deg, var(--demo-primary), var(--demo-secondary));
+        font-size: var(--demo-size);
+        border: 3px solid var(--demo-primary);
+    `;
+    
+    console.log("✅ Set CSS custom properties and applied gradient");
+    
+    // Read CSS custom properties
+    const primaryColor = getComputedStyle(document.documentElement)
+        .getPropertyValue('--demo-primary');
+    console.log("Primary color variable:", primaryColor.trim());
+}, 5000);
+
+// Performance considerations
+console.log("\n⚡ PERFORMANCE BEST PRACTICES:");
+console.log("✅ Use cssText for multiple properties (single reflow)");
+console.log("✅ Cache style references when modifying repeatedly");
+console.log("✅ Use CSS classes for complex styling when possible");
+console.log("✅ Batch DOM style changes together");
+console.log("⚠️ Avoid reading computed styles in loops");
+console.log("⚠️ Minimize style thrashing (read/write cycles)");
+
+// Clean up demo
+setTimeout(() => {
+    console.log("\n🧹 Cleaning up style demos...");
+    demoBox.remove();
+    colorContainer.remove();
+    console.log("✅ Demo elements removed");
+}, 10000);
+
+console.log("\n=== STYLE PROPERTY REFERENCE ===");
+console.log("Common CSS to JavaScript property mappings:");
+console.log("  background-color → backgroundColor");
+console.log("  font-size → fontSize");
+console.log("  border-radius → borderRadius");
+console.log("  margin-top → marginTop");
+console.log("  padding-left → paddingLeft");
+console.log("  text-align → textAlign");
+console.log("  z-index → zIndex");
+console.log("  box-shadow → boxShadow");
+</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 2 -->
+            <section class="content-section">
+                <h2>Adding and Removing CSS Classes</h2>
+                <p>While the style property gives you precise control over individual CSS properties, working with CSS classes is often more maintainable and performant. Think of classes as pre-designed outfits that you can quickly put on or take off an element, while direct styling is like adjusting individual pieces of clothing.</p>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">CSS Class Manipulation</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">
+console.log("🎭 CSS CLASS MANIPULATION MASTERY 🎭");
+
+// First, let's create some CSS classes dynamically
+const styleSheet = document.createElement('style');
+styleSheet.textContent = `
+    .highlight {
+        background: linear-gradient(45deg, #ff6b6b, #feca57);
+        color: white;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .bounce {
+        animation: bounceEffect 0.6s ease;
+    }
+    
+    @keyframes bounceEffect {
+        0%, 20%, 60%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-20px); }
+        80% { transform: translateY(-10px); }
+    }
+    
+    .fade-in {
+        opacity: 0;
+        animation: fadeInEffect 0.5s ease forwards;
+    }
+    
+    @keyframes fadeInEffect {
+        to { opacity: 1; }
+    }
+    
+    .premium {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        border: 2px solid gold;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+    
+    .error {
+        background: #fee2e2;
+        color: #dc2626;
+        border: 2px solid #fca5a5;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+    }
+    
+    .success {
+        background: #dcfce7;
+        color: #16a34a;
+        border: 2px solid #86efac;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+    }
+    
+    .warning {
+        background: #fef3c7;
+        color: #d97706;
+        border: 2px solid #fcd34d;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+    }
+    
+    .card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin: 0.5rem 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .card.active {
+        border-color: #3b82f6;
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+        transform: translateY(-2px);
+    }
+    
+    .dark-theme {
+        background: #1f2937;
+        color: #f9fafb;
+        border-color: #374151;
+    }
+    
+    .hidden {
+        display: none;
+    }
+    
+    .visible {
+        display: block;
+    }
+`;
+document.head.appendChild(styleSheet);
+
+console.log("✅ Created dynamic CSS classes");
+
+// Create demo container
+const classDemo = document.createElement('div');
+classDemo.id = 'class-demo-container';
+classDemo.style.cssText = `
+    border: 2px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    background: var(--bg-secondary);
+`;
+
+const title = document.createElement('h3');
+title.textContent = '🎭 Class Manipulation Demo';
+title.style.cssText = 'margin-top: 0; color: var(--primary-color);';
+classDemo.appendChild(title);
+
+// Create test element
+const testElement = document.createElement('div');
+testElement.textContent = 'I am a shapeshifter element!';
+testElement.className = 'card';
+classDemo.appendChild(testElement);
+
+document.body.appendChild(classDemo);
+
+console.log("\n=== BASIC CLASS MANIPULATION ===");
+
+// className property (old school way)
+console.log("📝 Using className property:");
+console.log("Original classes:", testElement.className);
+testElement.className += ' highlight';
+console.log("After adding highlight:", testElement.className);
+
+// classList API (modern way)
+setTimeout(() => {
+    console.log("\n📝 Using classList API (modern approach):");
+    
+    // Add classes
+    testElement.classList.add('bounce', 'premium');
+    console.log("After adding bounce + premium:", Array.from(testElement.classList));
+    
+    // Check if class exists
+    console.log("Has 'premium' class:", testElement.classList.contains('premium'));
+    console.log("Has 'basic' class:", testElement.classList.contains('basic'));
+}, 1500);
+
+setTimeout(() => {
+    // Remove classes
+    testElement.classList.remove('highlight', 'bounce');
+    console.log("After removing highlight + bounce:", Array.from(testElement.classList));
+    
+    // Toggle classes
+    console.log("\n🔄 Toggling classes:");
+    const wasAdded = testElement.classList.toggle('active');
+    console.log("Toggled 'active':", wasAdded ? "added" : "removed");
+    console.log("Current classes:", Array.from(testElement.classList));
+}, 3000);
+
+setTimeout(() => {
+    // Replace classes
+    testElement.classList.replace('premium', 'success');
+    console.log("Replaced 'premium' with 'success':", Array.from(testElement.classList));
+}, 4000);
+
+console.log("\n=== PRACTICAL CLASS EXAMPLES ===");
+
+// Status indicator system
+function createStatusIndicator() {
+    const container = document.createElement('div');
+    container.style.cssText = 'margin: 1rem 0;';
+    
+    const label = document.createElement('h4');
+    label.textContent = '📊 Status Indicator Demo';
+    label.style.marginBottom = '0.5rem';
+    container.appendChild(label);
+    
+    const statusElement = document.createElement('div');
+    statusElement.textContent = 'System Status: Normal';
+    statusElement.className = 'success';
+    container.appendChild(statusElement);
+    
+    // Create control buttons
+    const controls = document.createElement('div');
+    controls.style.cssText = 'margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;';
+    
+    const statuses = [
+        { class: 'success', text: 'System Status: All Good', label: 'Success' },
+        { class: 'warning', text: 'System Status: Warning', label: 'Warning' },
+        { class: 'error', text: 'System Status: Critical Error', label: 'Error' },
+        { class: 'premium', text: 'System Status: Premium Mode', label: 'Premium' }
+    ];
+    
+    statuses.forEach(({ class: statusClass, text, label }) => {
+        const button = document.createElement('button');
+        button.textContent = label;
+        button.style.cssText = `
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        `;
+        
+        button.onclick = () => {
+            // Remove all status classes
+            statusElement.className = '';
+            // Add new status class
+            statusElement.classList.add(statusClass);
+            statusElement.textContent = text;
+            console.log(`Status changed to: ${label}`);
+        };
+        
+        controls.appendChild(button);
+    });
+    
+    container.appendChild(controls);
+    return container;
+}
+
+// Theme switcher
+function createThemeSwitcher() {
+    const container = document.createElement('div');
+    container.style.cssText = 'margin: 1rem 0;';
+    
+    const label = document.createElement('h4');
+    label.textContent = '🌓 Theme Switcher Demo';
+    label.style.marginBottom = '0.5rem';
+    container.appendChild(label);
+    
+    const themeDemo = document.createElement('div');
+    themeDemo.className = 'card';
+    themeDemo.innerHTML = `
+        <h5 style="margin-top: 0;">Sample Card</h5>
+        <p>This card demonstrates theme switching using CSS classes.</p>
+        <p>Watch how it transforms between light and dark themes!</p>
+    `;
+    container.appendChild(themeDemo);
+    
+    const switchButton = document.createElement('button');
+    switchButton.textContent = 'Switch to Dark Theme';
+    switchButton.style.cssText = `
+        margin-top: 1rem;
+        padding: 0.75rem 1.5rem;
+        background: #374151;
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+    `;
+    
+    let isDark = false;
+    switchButton.onclick = () => {
+        if (isDark) {
+            themeDemo.classList.remove('dark-theme');
+            switchButton.textContent = 'Switch to Dark Theme';
+            switchButton.style.background = '#374151';
+            isDark = false;
+            console.log("Switched to light theme");
+        } else {
+            themeDemo.classList.add('dark-theme');
+            switchButton.textContent = 'Switch to Light Theme';
+            switchButton.style.background = '#1f2937';
+            isDark = true;
+            console.log("Switched to dark theme");
+        }
+    };
+    
+    container.appendChild(switchButton);
+    return container;
+}
+
+// Add demo components
+setTimeout(() => {
+    console.log("\n🎛️ Creating interactive demos:");
+    classDemo.appendChild(createStatusIndicator());
+    console.log("✅ Status indicator created");
+}, 5000);
+
+setTimeout(() => {
+    classDemo.appendChild(createThemeSwitcher());
+    console.log("✅ Theme switcher created");
+}, 6000);
+
+console.log("\n=== CLASSLIST API REFERENCE ===");
+console.log("classList methods:");
+console.log("  add(class1, class2, ...) - Add one or more classes");
+console.log("  remove(class1, class2, ...) - Remove one or more classes");
+console.log("  toggle(class, force) - Toggle class (optional force boolean)");
+console.log("  contains(class) - Check if class exists (returns boolean)");
+console.log("  replace(oldClass, newClass) - Replace one class with another");
+console.log("  forEach(callback) - Iterate over classes");
+console.log("  length - Number of classes");
+
+console.log("\n=== PERFORMANCE TIPS ===");
+console.log("✅ Use classList.add/remove for single classes");
+console.log("✅ Use classList.replace instead of remove + add");
+console.log("✅ Batch class changes when possible");
+console.log("✅ Cache classList references for repeated operations");
+console.log("⚠️ Avoid excessive class toggling in animations");
+console.log("⚠️ Don't use className for complex class management");
+
+// Clean up after demo
+setTimeout(() => {
+    console.log("\n🧹 Cleaning up class demos...");
+    classDemo.remove();
+    styleSheet.remove();
+    console.log("✅ Demo and styles cleaned up");
+}, 15000);
+</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div>
+                        <i class="fas fa-exclamation-triangle"></i> <strong> Performance Consideration:</strong>
+                        <p>Using CSS classes is generally more performant than setting individual style properties because the browser can optimize class-based styling better than inline styles.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 3 -->
+            <section class="content-section">
+                <h2>CSS Variables and Computed Styles</h2>
+                <p>CSS variables (custom properties) are like global settings that JavaScript can read and modify. Think of them as control knobs for your entire website's appearance. Combined with computed styles, you can create truly dynamic and responsive styling systems.</p>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">CSS Variables & Animation</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">
+console.log("🎨 CSS VARIABLES & COMPUTED STYLES MAGIC 🎨");
+
+// Set up some CSS variables for our demo
+document.documentElement.style.setProperty('--demo-primary-color', '#3b82f6');
+document.documentElement.style.setProperty('--demo-secondary-color', '#10b981');
+document.documentElement.style.setProperty('--demo-accent-color', '#f59e0b');
+document.documentElement.style.setProperty('--demo-animation-duration', '0.3s');
+document.documentElement.style.setProperty('--demo-border-radius', '0.5rem');
+
+console.log("✅ Set CSS custom properties (variables)");
+
+console.log("\n=== WORKING WITH CSS VARIABLES ===");
+
+// Create demo styles using CSS variables
+const variableStyles = document.createElement('style');
+variableStyles.textContent = `
+    .theme-controlled {
+        background: var(--demo-primary-color);
+        color: white;
+        padding: 1.5rem;
+        border-radius: var(--demo-border-radius);
+        transition: all var(--demo-animation-duration) ease;
+        margin: 0.5rem 0;
+        cursor: pointer;
+        border: 2px solid var(--demo-secondary-color);
+    }
+    
+    .gradient-box {
+        background: linear-gradient(45deg, 
+            var(--demo-primary-color), 
+            var(--demo-secondary-color), 
+            var(--demo-accent-color)
+        );
+        color: white;
+        padding: 2rem;
+        border-radius: var(--demo-border-radius);
+        text-align: center;
+        font-weight: bold;
+        margin: 1rem 0;
+        transition: all var(--demo-animation-duration) ease;
+    }
+    
+    .animated-element {
+        width: 100px;
+        height: 100px;
+        background: var(--demo-accent-color);
+        border-radius: var(--demo-border-radius);
+        margin: 1rem auto;
+        transition: transform var(--demo-animation-duration) ease;
+        cursor: pointer;
+    }
+    
+    .color-swatch {
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin: 0.25rem;
+        cursor: pointer;
+        border: 3px solid white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        transition: transform 0.2s ease;
+    }
+    
+    .color-swatch:hover {
+        transform: scale(1.1);
+    }
+`;
+document.head.appendChild(variableStyles);
+
+// Create demo container
+const variableDemo = document.createElement('div');
+variableDemo.style.cssText = `
+    border: 2px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    background: var(--bg-secondary);
+`;
+
+const demoTitle = document.createElement('h3');
+demoTitle.textContent = '🎨 CSS Variables Control Center';
+demoTitle.style.cssText = 'margin-top: 0; color: var(--primary-color);';
+variableDemo.appendChild(demoTitle);
+
+// Reading CSS variables
+console.log("📖 Reading CSS variables:");
+const rootStyles = getComputedStyle(document.documentElement);
+const primaryColor = rootStyles.getPropertyValue('--demo-primary-color').trim();
+const secondaryColor = rootStyles.getPropertyValue('--demo-secondary-color').trim();
+const accentColor = rootStyles.getPropertyValue('--demo-accent-color').trim();
+
+console.log("Primary color:", primaryColor);
+console.log("Secondary color:", secondaryColor);
+console.log("Accent color:", accentColor);
+
+// Create elements that use CSS variables
+const themeElement = document.createElement('div');
+themeElement.className = 'theme-controlled';
+themeElement.textContent = 'I respond to CSS variable changes!';
+variableDemo.appendChild(themeElement);
+
+const gradientBox = document.createElement('div');
+gradientBox.className = 'gradient-box';
+gradientBox.textContent = 'Multi-color gradient using CSS variables';
+variableDemo.appendChild(gradientBox);
+
+const animatedElement = document.createElement('div');
+animatedElement.className = 'animated-element';
+animatedElement.title = 'Click me!';
+variableDemo.appendChild(animatedElement);
+
+// Apply the CSS variables to see changes immediately
+const updateElementStyles = () => {
+    const rootStyles = getComputedStyle(document.documentElement);
+    const borderRadius = rootStyles.getPropertyValue('--demo-border-radius');
+    const animationDuration = rootStyles.getPropertyValue('--demo-animation-duration');
+    
+    // Update all elements that should respond to these variables
+    [themeElement, gradientBox, animatedElement].forEach(el => {
+        if (el) {
+            el.style.borderRadius = borderRadius;
+            el.style.transition = `all ${animationDuration} ease`;
+        }
+    });
+};
+
+// Color palette controls
+const colorPalette = document.createElement('div');
+colorPalette.innerHTML = '<h4>🎨 Click colors to change theme:</h4>';
+
+const colors = [
+    { name: 'Blue Ocean', primary: '#3b82f6', secondary: '#1e40af', accent: '#60a5fa' },
+    { name: 'Green Forest', primary: '#10b981', secondary: '#047857', accent: '#34d399' },
+    { name: 'Purple Galaxy', primary: '#8b5cf6', secondary: '#7c3aed', accent: '#a78bfa' },
+    { name: 'Orange Sunset', primary: '#f59e0b', secondary: '#d97706', accent: '#fbbf24' },
+    { name: 'Pink Blossom', primary: '#ec4899', secondary: '#be185d', accent: '#f472b6' },
+    { name: 'Red Fire', primary: '#ef4444', secondary: '#dc2626', accent: '#f87171' }
+];
+
+colors.forEach((colorScheme, index) => {
+    const swatch = document.createElement('div');
+    swatch.className = 'color-swatch';
+    swatch.style.background = colorScheme.primary;
+    swatch.title = colorScheme.name;
+    
+    swatch.onclick = () => {
+        console.log(`\n🎨 Switching to ${colorScheme.name} theme:`);
+        document.documentElement.style.setProperty('--demo-primary-color', colorScheme.primary);
+        document.documentElement.style.setProperty('--demo-secondary-color', colorScheme.secondary);
+        document.documentElement.style.setProperty('--demo-accent-color', colorScheme.accent);
+        
+        console.log(`  Primary: ${colorScheme.primary}`);
+        console.log(`  Secondary: ${colorScheme.secondary}`);
+        console.log(`  Accent: ${colorScheme.accent}`);
+        console.log("  ✅ Theme applied instantly!");
+    };
+    
+    colorPalette.appendChild(swatch);
+});
+
+variableDemo.appendChild(colorPalette);
+
+document.body.appendChild(variableDemo);
+
+console.log("\n=== COMPUTED STYLES ANALYSIS ===");
+
+// Analyzing computed styles
+setTimeout(() => {
+    console.log("🔍 Analyzing computed styles:");
+    const computedStyles = window.getComputedStyle(themeElement);
+    
+    console.log("Element dimensions:");
+    console.log(`  Width: ${computedStyles.width}`);
+    console.log(`  Height: ${computedStyles.height}`);
+    console.log(`  Padding: ${computedStyles.padding}`);
+    console.log(`  Margin: ${computedStyles.margin}`);
+    
+    console.log("Color information:");
+    console.log(`  Background: ${computedStyles.backgroundColor}`);
+    console.log(`  Color: ${computedStyles.color}`);
+    console.log(`  Border: ${computedStyles.border}`);
+    
+    console.log("Layout information:");
+    console.log(`  Position: ${computedStyles.position}`);
+    console.log(`  Display: ${computedStyles.display}`);
+    console.log(`  Float: ${computedStyles.float}`);
+}, 2000);
+
+console.log("\n=== DYNAMIC ANIMATION SYSTEM ===");
+
+// Create animation controls
+const animationControls = document.createElement('div');
+animationControls.innerHTML = '<h4>⚡ Animation Controls:</h4>';
+animationControls.style.marginTop = '1rem';
+
+const animationButtons = [
+    {
+        label: 'Faster Animations',
+        action: () => {
+            document.documentElement.style.setProperty('--demo-animation-duration', '0.1s');
+            updateElementStyles();
+            console.log("⚡ Animation speed: Ultra fast");
+        }
+    },
+    {
+        label: 'Normal Speed',
+        action: () => {
+            document.documentElement.style.setProperty('--demo-animation-duration', '0.3s');
+            updateElementStyles();
+            console.log("⚡ Animation speed: Normal");
+        }
+    },
+    {
+        label: 'Slow Motion',
+        action: () => {
+            document.documentElement.style.setProperty('--demo-animation-duration', '1s');
+            updateElementStyles();
+            console.log("⚡ Animation speed: Slow motion");
+        }
+    },
+    {
+        label: 'More Rounded',
+        action: () => {
+            document.documentElement.style.setProperty('--demo-border-radius', '2rem');
+            updateElementStyles();
+            console.log("📐 Border radius: Very rounded");
+        }
+    },
+    {
+        label: 'Sharp Corners',
+        action: () => {
+            document.documentElement.style.setProperty('--demo-border-radius', '0px');
+            updateElementStyles();
+            console.log("📐 Border radius: Sharp corners");
+        }
+    },
+    {
+        label: 'Reset Radius',
+        action: () => {
+            document.documentElement.style.setProperty('--demo-border-radius', '0.5rem');
+            updateElementStyles();
+            console.log("📐 Border radius: Normal");
+        }
+    }
+];
+
+animationButtons.forEach((button, index) => {
+    const btn = document.createElement('button');
+    btn.textContent = button.label;
+    btn.style.cssText = `
+        margin: 0.25rem;
+        padding: 0.5rem 1rem;
+        background: var(--primary-color);
+        color: var(--bg-primary);
+        border: none;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        font-size: 0.875rem;
+    `;
+    btn.onclick = button.action;
+    animationControls.appendChild(btn);
+});
+
+variableDemo.appendChild(animationControls);
+
+// Add click interaction to animated element
+let rotationAngle = 0;
+animatedElement.onclick = () => {
+    rotationAngle += 90;
+    animatedElement.style.transform = `rotate(${rotationAngle}deg) scale(1.2)`;
+    console.log(`🔄 Rotated element to ${rotationAngle} degrees`);
+    
+    setTimeout(() => {
+        animatedElement.style.transform = `rotate(${rotationAngle}deg) scale(1)`;
+    }, parseInt(getComputedStyle(document.documentElement).getPropertyValue('--demo-animation-duration')) * 1000);
+};
+
+console.log("\n=== RESPONSIVE DESIGN WITH VARIABLES ===");
+
+// Media query responsive variables
+setTimeout(() => {
+    const mediaStyles = document.createElement('style');
+    mediaStyles.textContent = `
+        @media (max-width: 768px) {
+            :root {
+                --demo-border-radius: 1rem;
+                --demo-animation-duration: 0.2s;
+            }
+            .gradient-box {
+                padding: 1rem;
+                font-size: 0.875rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            :root {
+                --demo-border-radius: 1.5rem;
+                --demo-animation-duration: 0.15s;
+            }
+            .color-swatch {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    `;
+    document.head.appendChild(mediaStyles);
+    
+    console.log("📱 Added responsive CSS variable adjustments");
+    console.log("  Tablet: Increased border radius, faster animations");
+    console.log("  Mobile: Even more rounded, smaller swatches");
+}, 3000);
+
+console.log("\n=== CSS VARIABLES BEST PRACTICES ===");
+console.log("✅ Use descriptive names (--color-primary vs --blue)");
+console.log("✅ Organize variables in logical groups");
+console.log("✅ Set fallback values: var(--color, #defaultcolor)");
+console.log("✅ Use variables for repeated values across components");
+console.log("✅ Update variables for theme switching");
+console.log("✅ Combine with media queries for responsive design");
+console.log("⚠️ Don't overuse - stick to commonly changed values");
+console.log("⚠️ Consider browser support (IE doesn't support CSS variables)");
+
+// Clean up demo
+setTimeout(() => {
+    console.log("\n🧹 Cleaning up CSS variables demo...");
+    variableDemo.remove();
+    variableStyles.remove();
+    
+    // Reset CSS variables
+    document.documentElement.style.removeProperty('--demo-primary-color');
+    document.documentElement.style.removeProperty('--demo-secondary-color');
+    document.documentElement.style.removeProperty('--demo-accent-color');
+    document.documentElement.style.removeProperty('--demo-animation-duration');
+    document.documentElement.style.removeProperty('--demo-border-radius');
+    
+    console.log("✅ Demo cleaned up and CSS variables reset");
+}, 20000);
+</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 1 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Theme Switcher</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Create a comprehensive theme switcher that demonstrates both direct styling and CSS class manipulation:</p>
+                    
+                    <div class="code-editor" id="exercise1">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Theme Switcher App</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('exercise1')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise1()">
+                                    <i class="fas fa-play"></i> Build Theme Switcher
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise1-code">
+// Your task: Build a complete theme switching system
+
+class ThemeSwitcher {
+    constructor() {
+        this.currentTheme = 'light';
+        this.themes = {
+            light: {
+                name: 'Light Mode',
+                background: '#ffffff',
+                text: '#1f2937',
+                primary: '#3b82f6',
+                secondary: '#f3f4f6',
+                accent: '#10b981'
+            },
+            dark: {
+                name: 'Dark Mode',
+                background: '#1f2937',
+                text: '#f9fafb',
+                primary: '#60a5fa',
+                secondary: '#374151',
+                accent: '#34d399'
+            },
+            ocean: {
+                name: 'Ocean Theme',
+                background: '#0c4a6e',
+                text: '#e0f2fe',
+                primary: '#0284c7',
+                secondary: '#075985',
+                accent: '#06b6d4'
+            },
+            forest: {
+                name: 'Forest Theme',
+                background: '#14532d',
+                text: '#f0fdf4',
+                primary: '#16a34a',
+                secondary: '#166534',
+                accent: '#22c55e'
+            }
+        };
+        this.container = null;
+        this.init();
+    }
+    
+    init() {
+        console.log("🎨 INITIALIZING THEME SWITCHER 🎨");
+        
+        // Your code: Create the main container
+        this.container = document.createElement('div');
+        this.container.className = 'theme-switcher-app';
+        this.container.style.cssText = `
+            border: 2px solid #e5e7eb;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 1rem 0;
+            background: white;
+            max-width: 800px;
+            transition: all 0.3s ease;
+        `;
+        
+        // Create header
+        const header = document.createElement('h3');
+        header.textContent = '🎨 Advanced Theme Switcher';
+        header.className = 'theme-header';
+        header.style.cssText = 'margin-top: 0; color: #3b82f6;';
+        this.container.appendChild(header);
+        
+        // Your code: Create sample content to be themed
+        const sampleContent = document.createElement('div');
+        sampleContent.className = 'sample-content';
+        sampleContent.innerHTML = `
+            <h4>Sample Content</h4>
+            <p>This is a sample paragraph that will change appearance with different themes.</p>
+            <div style="padding: 1rem; background: #f3f4f6; border-radius: 0.5rem; margin: 1rem 0;">
+                <strong>Info Box:</strong> This box also responds to theme changes.
+            </div>
+        `;
+        this.container.appendChild(sampleContent);
+        
+        // Your code: Create theme selection buttons
+        const themeControls = document.createElement('div');
+        themeControls.className = 'theme-controls';
+        themeControls.style.cssText = 'display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1rem 0;';
+        
+        Object.entries(this.themes).forEach(([themeKey, themeData]) => {
+            const button = document.createElement('button');
+            button.textContent = themeData.name;
+            button.className = 'theme-button';
+            button.style.cssText = `
+                padding: 0.75rem 1.5rem;
+                border: 2px solid ${themeData.primary};
+                background: ${themeKey === this.currentTheme ? themeData.primary : 'white'};
+                color: ${themeKey === this.currentTheme ? 'white' : themeData.primary};
+                border-radius: 0.5rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-weight: 500;
+            `;
+            
+            // Add click handler to switch themes
+            button.onclick = () => {
+                this.applyTheme(themeKey);
+            };
+            
+            themeControls.appendChild(button);
+        });
+        
+        this.container.appendChild(themeControls);
+        
+        // Your code: Create CSS variable display
+        const variableDisplay = document.createElement('div');
+        variableDisplay.className = 'variable-display';
+        variableDisplay.style.cssText = `
+            background: #f9fafb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 0.875rem;
+            border: 1px solid #e5e7eb;
+        `;
+        this.container.appendChild(variableDisplay);
+        
+        // Your code: Create dynamic style controls
+        const styleControls = document.createElement('div');
+        styleControls.className = 'style-controls';
+        styleControls.innerHTML = `
+            <h5>Dynamic Style Controls:</h5>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                <button onclick="this.parentElement.parentElement.parentElement.style.transform = 'scale(1.05)'">
+                    Scale Up
+                </button>
+                <button onclick="this.parentElement.parentElement.parentElement.style.transform = 'scale(1)'">
+                    Reset Scale
+                </button>
+                <button onclick="this.parentElement.parentElement.parentElement.style.borderRadius = '2rem'">
+                    Round Corners
+                </button>
+                <button onclick="this.parentElement.parentElement.parentElement.style.borderRadius = '1rem'">
+                    Normal Corners
+                </button>
+            </div>
+        `;
+        
+        // Style the control buttons
+        const controlButtons = styleControls.querySelectorAll('button');
+        controlButtons.forEach(btn => {
+            btn.style.cssText = `
+                padding: 0.5rem 1rem;
+                background: #6b7280;
+                color: white;
+                border: none;
+                border-radius: 0.25rem;
+                cursor: pointer;
+                font-size: 0.8rem;
+            `;
+        });
+        
+        this.container.appendChild(styleControls);
+        
+        // Add to page
+        document.body.appendChild(this.container);
+        
+        // Initialize with current theme
+        this.applyTheme(this.currentTheme);
+        
+        console.log("✅ Theme switcher UI created");
+    }
+    
+    applyTheme(themeKey) {
+        if (!this.themes[themeKey]) return;
+        
+        this.currentTheme = themeKey;
+        const theme = this.themes[themeKey];
+        
+        console.log(`🎨 Applying ${theme.name} theme`);
+        
+        // Apply theme to main container
+        this.container.style.background = theme.background;
+        this.container.style.color = theme.text;
+        this.container.style.borderColor = theme.primary;
+        
+        // Update header color to ensure visibility
+        const header = this.container.querySelector('.theme-header');
+        if (header) {
+            header.style.color = theme.primary;
+        }
+        
+        // Update sample content
+        const sampleContent = this.container.querySelector('.sample-content');
+        if (sampleContent) {
+            const infoBox = sampleContent.querySelector('div');
+            if (infoBox) {
+                infoBox.style.background = theme.secondary;
+                infoBox.style.color = theme.text;
+            }
+        }
+        
+        // Update button states
+        const buttons = this.container.querySelectorAll('.theme-button');
+        buttons.forEach(btn => {
+            const btnThemeKey = btn.textContent.toLowerCase().replace(' mode', '').replace(' theme', '');
+            if (btn.textContent === theme.name) {
+                btn.style.background = theme.primary;
+                btn.style.color = theme.background;
+                btn.style.borderColor = theme.primary;
+            } else {
+                btn.style.background = theme.background;
+                btn.style.color = theme.primary;
+                btn.style.borderColor = theme.primary;
+            }
+        });
+        
+        // Update variable display
+        const variableDisplay = this.container.querySelector('.variable-display');
+        if (variableDisplay) {
+            variableDisplay.style.background = theme.secondary;
+            variableDisplay.style.color = theme.text;
+            variableDisplay.style.borderColor = theme.primary;
+        }
+        
+        // Update control buttons
+        const controlButtons = this.container.querySelectorAll('.style-controls button');
+        controlButtons.forEach(btn => {
+            btn.style.background = theme.primary;
+            btn.style.color = theme.background;
+        });
+        
+        // Update CSS variables
+        document.documentElement.style.setProperty('--theme-background', theme.background);
+        document.documentElement.style.setProperty('--theme-text', theme.text);
+        document.documentElement.style.setProperty('--theme-primary', theme.primary);
+        document.documentElement.style.setProperty('--theme-secondary', theme.secondary);
+        document.documentElement.style.setProperty('--theme-accent', theme.accent);
+        
+        // Update variable display content
+        this.updateVariableDisplay();
+        
+        console.log(`✅ ${theme.name} applied successfully`);
+    }
+    
+    updateVariableDisplay() {
+        const display = this.container.querySelector('.variable-display');
+        const theme = this.themes[this.currentTheme];
+        
+        if (display && theme) {
+            display.innerHTML = `
+                <strong>Current Theme Variables:</strong><br>
+                <span style="font-size: 0.8rem; word-break: break-all;">
+                --theme-background: ${theme.background}<br>
+                --theme-text: ${theme.text}<br>
+                --theme-primary: ${theme.primary}<br>
+                --theme-secondary: ${theme.secondary}<br>
+                --theme-accent: ${theme.accent}
+                </span>
+            `;
+        }
+    }
+    
+    destroy() {
+        if (this.container && this.container.parentNode) {
+            this.container.remove();
+            console.log("🧹 Theme switcher removed");
+        }
+    }
+}
+
+// Create and test the theme switcher
+console.log("🚀 CREATING THEME SWITCHER APPLICATION 🚀");
+
+const themeSwitcher = new ThemeSwitcher();
+
+// Auto demo
+setTimeout(() => {
+    console.log("🎭 Auto-demo: Switching to dark theme");
+    themeSwitcher.applyTheme('dark');
+}, 2000);
+
+setTimeout(() => {
+    console.log("🎭 Auto-demo: Switching to ocean theme");
+    themeSwitcher.applyTheme('ocean');
+}, 4000);
+
+setTimeout(() => {
+    console.log("🎭 Auto-demo: Back to light theme");
+    themeSwitcher.applyTheme('light');
+}, 6000);
+
+// Clean up after demo
+setTimeout(() => {
+    themeSwitcher.destroy();
+}, 15000);
+
+console.log("\n✅ THEME SWITCHER IMPLEMENTATION CHECKLIST:");
+console.log("1. Apply theme colors to container using style property");
+console.log("2. Update sample content styling");
+console.log("3. Set CSS custom properties (variables)");
+console.log("4. Update button states to show active theme");
+console.log("5. Display current variable values");
+console.log("6. Handle theme switching in button click handlers");
+console.log("7. Use both direct styling and CSS classes");
+console.log("8. Ensure smooth transitions between themes");
+</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise1-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 2 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 2: CSS Property Quiz</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Which CSS property should be written as "backgroundColor" when using JavaScript's style property?</p>
+                    <div class="exercise-options" id="exercise2">
+                        <button class="option-btn" data-answer="wrong">background_color</button>
+                        <button class="option-btn" data-answer="correct">background-color</button>
+                        <button class="option-btn" data-answer="wrong">backgroundcolor</button>
+                        <button class="option-btn" data-answer="wrong">BackgroundColor</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise2-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 3 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: CSS Class Toggle System</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Create an interactive element showcase that demonstrates various class manipulation techniques:</p>
+                    
+                    <div class="code-editor" id="exercise3">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Class Toggle Showcase</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('exercise3')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise3()">
+                                    <i class="fas fa-play"></i> Build Showcase
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise3-code">
+// Your task: Create a comprehensive class manipulation showcase
+
+function createClassToggleShowcase() {
+    console.log("🎭 CREATING CLASS TOGGLE SHOWCASE 🎭");
+    
+    // Create showcase styles
+    const showcaseStyles = document.createElement('style');
+    showcaseStyles.textContent = `
+        .showcase-item {
+            padding: 1.5rem;
+            margin: 0.5rem;
+            background: #f3f4f6;
+            color: #1f2937;
+            border: 2px solid #d1d5db;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+        }
+        
+        /* Ensure text is always visible */
+        .dark-theme .showcase-item {
+            color: #1f2937;
+        }
+        
+        .highlight {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            transform: scale(1.05);
+            border-color: #ff6b6b;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+        }
+        
+        .success {
+            background: #10b981;
+            color: white;
+            border-color: #047857;
+        }
+        
+        .warning {
+            background: #f59e0b;
+            color: white;
+            border-color: #d97706;
+        }
+        
+        .error {
+            background: #ef4444;
+            color: white;
+            border-color: #dc2626;
+        }
+        
+        .info {
+            background: #3b82f6;
+            color: white;
+            border-color: #1d4ed8;
+        }
+        
+        .premium {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: gold;
+            border-width: 3px;
+            border-style: solid;
+        }
+        
+        .bounce {
+            animation: bounceAnimation 0.6s ease;
+        }
+        
+        @keyframes bounceAnimation {
+            0%, 20%, 60%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            80% { transform: translateY(-5px); }
+        }
+        
+        .pulse {
+            animation: pulseAnimation 1s ease infinite;
+        }
+        
+        @keyframes pulseAnimation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .fade-in {
+            animation: fadeInAnimation 0.5s ease;
+        }
+        
+        @keyframes fadeInAnimation {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .rotate {
+            transform: rotate(15deg);
+        }
+        
+        .hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .large {
+            font-size: 1.5rem;
+            padding: 2rem;
+        }
+        
+        .small {
+            font-size: 0.875rem;
+            padding: 0.75rem;
+        }
+    `;
+    document.head.appendChild(showcaseStyles);
+    
+    // Create main container
+    const container = document.createElement('div');
+    container.className = 'class-showcase-container';
+    container.style.cssText = `
+        border: 2px solid var(--border-color);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin: 1rem 0;
+        background: var(--bg-secondary);
+        max-width: 800px;
+    `;
+    
+    const title = document.createElement('h3');
+    title.textContent = '🎭 Interactive Class Toggle Showcase';
+    title.style.cssText = 'margin-top: 0; color: var(--primary-color); text-align: center;';
+    container.appendChild(title);
+    
+    // Create showcase items
+    const showcaseGrid = document.createElement('div');
+    showcaseGrid.style.cssText = `
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 1.5rem 0;
+    `;
+    
+    const showcaseItems = [
+        { id: 'item1', text: 'Click for Highlight', classes: [] },
+        { id: 'item2', text: 'Status Indicator', classes: [] },
+        { id: 'item3', text: 'Animation Demo', classes: [] },
+        { id: 'item4', text: 'Size Changer', classes: [] },
+        { id: 'item5', text: 'Visibility Toggle', classes: [] },
+        { id: 'item6', text: 'Multi-Class Demo', classes: [] }
+    ];
+    
+    showcaseItems.forEach(item => {
+        const element = document.createElement('div');
+        element.id = item.id;
+        element.className = 'showcase-item';
+        element.textContent = item.text;
+        
+        // Your code: Add click handlers for different class manipulations
+        element.onclick = () => {
+            switch(item.id) {
+                case 'item1':
+                    // Toggle highlight class
+                    element.classList.toggle('highlight');
+                    break;
+                    
+                case 'item2':
+                    // Cycle through status classes: success -> warning -> error -> info -> default
+                    const statusClasses = ['success', 'warning', 'error', 'info'];
+                    let currentStatus = statusClasses.find(cls => element.classList.contains(cls));
+                    
+                    // Remove current status
+                    if (currentStatus) {
+                        element.classList.remove(currentStatus);
+                    }
+                    
+                    // Find next status
+                    const currentIndex = statusClasses.indexOf(currentStatus);
+                    const nextIndex = (currentIndex + 1) % statusClasses.length;
+                    if (currentIndex === statusClasses.length - 1) {
+                        // Back to default (no status class)
+                    } else {
+                        element.classList.add(statusClasses[nextIndex]);
+                    }
+                    break;
+                    
+                case 'item3':
+                    // Add bounce or pulse animation, remove after animation completes
+                    const animations = ['bounce', 'pulse', 'shake', 'fade-in'];
+                    const randomAnim = animations[Math.floor(Math.random() * animations.length)];
+                    element.classList.add(randomAnim);
+                    setTimeout(() => {
+                        element.classList.remove(randomAnim);
+                    }, 600);
+                    break;
+                    
+                case 'item4':
+                    // Toggle between large and small classes
+                    if (element.classList.contains('large')) {
+                        element.classList.replace('large', 'small');
+                    } else if (element.classList.contains('small')) {
+                        element.classList.replace('small', 'large');
+                    } else {
+                        element.classList.add('large');
+                    }
+                    break;
+                    
+                case 'item5':
+                    // Toggle visibility
+                    if (element.classList.contains('hidden')) {
+                        element.classList.remove('hidden');
+                        element.classList.add('fade-in');
+                        setTimeout(() => element.classList.remove('fade-in'), 500);
+                    } else {
+                        element.classList.add('hidden');
+                        setTimeout(() => {
+                            element.classList.remove('hidden');
+                            element.classList.add('fade-in');
+                            setTimeout(() => element.classList.remove('fade-in'), 500);
+                        }, 300);
+                    }
+                    break;
+                    
+                case 'item6':
+                    // Add multiple classes: premium + pulse + large
+                    if (element.classList.contains('premium')) {
+                        element.classList.remove('premium', 'large');
+                    } else {
+                        element.classList.add('premium', 'pulse', 'large');
+                        setTimeout(() => {
+                            element.classList.remove('pulse');
+                        }, 600);
+                    }
+                    break;
+            }
+            
+            console.log(`${item.id} classes:`, Array.from(element.classList));
+        };
+        
+        showcaseGrid.appendChild(element);
+    });
+    
+    container.appendChild(showcaseGrid);
+    
+    // Create control panel
+    const controlPanel = document.createElement('div');
+    controlPanel.innerHTML = `
+        <h4>🎛️ Global Controls:</h4>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;"></div>
+    `;
+    
+    const controlsContainer = controlPanel.querySelector('div');
+    
+    const globalControls = [
+        {
+            label: 'Highlight All',
+            action: () => {
+                // Add highlight class to all showcase items
+                const items = showcaseGrid.querySelectorAll('.showcase-item');
+                items.forEach(item => item.classList.add('highlight'));
+                console.log('Added highlight to all items');
+            }
+        },
+        {
+            label: 'Remove All Classes',
+            action: () => {
+                // Reset all items to just 'showcase-item' class
+                const items = showcaseGrid.querySelectorAll('.showcase-item');
+                items.forEach(item => {
+                    item.className = 'showcase-item';
+                });
+                console.log('Reset all items to default');
+            }
+        },
+        {
+            label: 'Random Colors',
+            action: () => {
+                // Apply random status classes to all items
+                const statusClasses = ['success', 'warning', 'error', 'info', 'premium'];
+                const items = showcaseGrid.querySelectorAll('.showcase-item');
+                items.forEach(item => {
+                    // Remove existing status classes
+                    statusClasses.forEach(cls => item.classList.remove(cls));
+                    // Add random status
+                    const randomStatus = statusClasses[Math.floor(Math.random() * statusClasses.length)];
+                    item.classList.add(randomStatus);
+                });
+                console.log('Applied random status colors');
+            }
+        },
+        {
+            label: 'Animate All',
+            action: () => {
+                // Add fade-in class to all items
+                const items = showcaseGrid.querySelectorAll('.showcase-item');
+                items.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('fade-in');
+                        setTimeout(() => item.classList.remove('fade-in'), 500);
+                    }, index * 100);
+                });
+                console.log('Added fade-in animation to all');
+            }
+        }
+    ];
+    
+    globalControls.forEach(control => {
+        const button = document.createElement('button');
+        button.textContent = control.label;
+        button.style.cssText = `
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+        `;
+        button.onclick = control.action;
+        controlsContainer.appendChild(button);
+    });
+    
+    container.appendChild(controlPanel);
+    
+    // Add usage instructions
+    const instructions = document.createElement('div');
+    instructions.innerHTML = `
+        <h4>📖 Instructions:</h4>
+        <ul style="font-size: 0.875rem; margin: 0; padding-left: 1.5rem;">
+            <li><strong>Item 1:</strong> Toggle highlight effect</li>
+            <li><strong>Item 2:</strong> Cycle through status colors</li>
+            <li><strong>Item 3:</strong> Trigger bounce/pulse animations</li>
+            <li><strong>Item 4:</strong> Switch between large/small sizes</li>
+            <li><strong>Item 5:</strong> Show/hide element</li>
+            <li><strong>Item 6:</strong> Apply multiple classes at once</li>
+        </ul>
+    `;
+    container.appendChild(instructions);
+    
+    // Add to page
+    document.body.appendChild(container);
+    
+    console.log("✅ Class toggle showcase created");
+    console.log("👆 Click on the items to see different class manipulations");
+    
+    // Clean up after demo
+    setTimeout(() => {
+        console.log("🧹 Cleaning up showcase...");
+        container.remove();
+        showcaseStyles.remove();
+        console.log("✅ Showcase cleaned up");
+    }, 25000);
+    
+    return {
+        container,
+        showcaseItems: showcaseGrid.children
+    };
+}
+
+// Create the showcase
+const showcase = createClassToggleShowcase();
+
+console.log("\n✅ CLASS TOGGLE IMPLEMENTATION CHECKLIST:");
+console.log("1. Use classList.toggle() for highlight effects");
+console.log("2. Use classList.contains() to check current state");
+console.log("3. Use classList.add() and classList.remove() for status cycles");
+console.log("4. Use classList.replace() for efficient class swapping");
+console.log("5. Handle animation classes with setTimeout for removal");
+console.log("6. Apply multiple classes at once with classList.add(class1, class2)");
+console.log("7. Use querySelectorAll for global operations");
+console.log("8. Log class changes for debugging");
+</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise3-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Common Mistakes Section -->
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Overusing Inline Styles</strong>
+                            <p>Avoid setting individual style properties when CSS classes would be more maintainable. Use the style property for dynamic calculations, but prefer classes for predefined styling patterns.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Forgetting CSS Property Name Conversion</strong>
+                            <p>Remember that CSS properties with hyphens become camelCase in JavaScript: "background-color" becomes "backgroundColor", "font-size" becomes "fontSize".</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Not Removing Animation Classes</strong>
+                            <p>Animation classes like "bounce" or "fade-in" should be removed after the animation completes to prevent conflicts with future animations. Use setTimeout or animation event listeners for cleanup.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>The style property provides direct access to CSS styling, using camelCase for hyphenated properties</li>
+                        <li>CSS classes are more performant and maintainable than individual style properties for complex styling</li>
+                        <li>classList API offers powerful methods: add, remove, toggle, contains, and replace for class manipulation</li>
+                        <li>CSS variables create dynamic theming systems that JavaScript can read and modify in real-time</li>
+                        <li>Computed styles reveal the final calculated values after CSS cascade and inheritance rules apply</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Spacing before navigation -->
+            <div style="margin: 2rem 0;"></div>
+            
+            <!-- Lesson Navigation -->
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson4.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Module 8 <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="app.startNextModule(8)">
+                    Start Module 9 <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(8, 5, true);
+            customModal.success('Congratulations! You have completed Module 8: DOM Manipulation! You can now select elements, modify content, create dynamic interfaces, and style them with JavaScript. You are ready to make your web pages truly interactive!', 'Module 8 Complete!');
+            
+            setTimeout(() => {
+                window.location.href = '../module9/index.html';
+            }, 3000);
+        }
+
+        // Add interactivity to demo elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const colorDemo = document.getElementById('color-demo');
+            const sizeDemo = document.getElementById('size-demo');
+            const rotateDemo = document.getElementById('rotate-demo');
+            const themeDemo = document.getElementById('theme-demo');
+            
+            const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
+            let colorIndex = 0;
+            
+            if (colorDemo) {
+                colorDemo.addEventListener('click', function() {
+                    colorIndex = (colorIndex + 1) % colors.length;
+                    this.style.backgroundColor = colors[colorIndex];
+                    this.textContent = `Color ${colorIndex + 1}/6`;
+                });
+            }
+            
+            let isLarge = false;
+            if (sizeDemo) {
+                sizeDemo.addEventListener('click', function() {
+                    if (isLarge) {
+                        this.style.transform = 'scale(1)';
+                        this.textContent = 'Click me to grow!';
+                        isLarge = false;
+                    } else {
+                        this.style.transform = 'scale(1.2)';
+                        this.textContent = 'Click to shrink!';
+                        isLarge = true;
+                    }
+                });
+            }
+            
+            let rotation = 0;
+            if (rotateDemo) {
+                rotateDemo.addEventListener('click', function() {
+                    rotation += 90;
+                    this.style.transform = `rotate(${rotation}deg)`;
+                    this.textContent = `Rotated ${rotation}°`;
+                });
+            }
+            
+            const surprises = [
+                { bg: '#ff6b6b', text: 'Surprise! 🎉', color: 'white' },
+                { bg: '#4ecdc4', text: 'Magic! ✨', color: 'white' },
+                { bg: '#ffe66d', text: 'Wow! 🌟', color: '#333' },
+                { bg: '#ff8b94', text: 'Amazing! 🚀', color: 'white' },
+                { bg: '#a8e6cf', text: 'Cool! 😎', color: '#333' }
+            ];
+            let surpriseIndex = 0;
+            
+            if (themeDemo) {
+                themeDemo.addEventListener('click', function() {
+                    const surprise = surprises[surpriseIndex];
+                    this.style.backgroundColor = surprise.bg;
+                    this.style.color = surprise.color;
+                    this.textContent = surprise.text;
+                    surpriseIndex = (surpriseIndex + 1) % surprises.length;
+                });
+            }
+        });
+
+        // Copy code function
+        function copyCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            if (!codeInput) return;
+            
+            codeInput.select();
+            codeInput.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                const button = event.target.closest('.editor-btn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        }
+
+        // Run code function
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            
+            // Clear output and hide label
+            const outputContainer = outputPane.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // For editor1, editor2, editor3 - build outside the output box
+            if (editorId === 'editor1' || editorId === 'editor2' || editorId === 'editor3') {
+                outputPane.innerHTML = '<div class="output-line muted">Building demo outside of this box...</div>';
+                
+                // Remove any existing demo for this editor
+                const existingDemo = document.getElementById(`${editorId}-demo`);
+                if (existingDemo) {
+                    existingDemo.remove();
+                }
+                
+                // Create container for the demo after the code editor
+                const editorSection = document.getElementById(editorId).closest('.content-section');
+                const demoContainer = document.createElement('div');
+                demoContainer.id = `${editorId}-demo`;
+                demoContainer.style.cssText = 'margin: 2rem 0; padding: 1rem; background: var(--bg-secondary); border-radius: 0.5rem;';
+                
+                // Insert after the code editor
+                const codeEditor = document.getElementById(editorId);
+                codeEditor.insertAdjacentElement('afterend', demoContainer);
+                
+                const originalConsoleLog = console.log;
+                const logs = [];
+                
+                console.log = (...args) => {
+                    logs.push(args.map(arg => {
+                        if (typeof arg === 'object') {
+                            return JSON.stringify(arg, null, 2);
+                        }
+                        return String(arg);
+                    }).join(' '));
+                };
+                
+                try {
+                    // Override document.body.appendChild temporarily
+                    const originalAppendChild = document.body.appendChild;
+                    const originalRemoveChild = document.body.removeChild;
+                    
+                    document.body.appendChild = function(element) {
+                        return demoContainer.appendChild(element);
+                    };
+                    
+                    document.body.removeChild = function(element) {
+                        if (element.parentNode === demoContainer) {
+                            return demoContainer.removeChild(element);
+                        }
+                        return originalRemoveChild.call(this, element);
+                    };
+                    
+                    // Execute the code
+                    eval(code);
+                    
+                    // Restore original methods
+                    document.body.appendChild = originalAppendChild;
+                    document.body.removeChild = originalRemoveChild;
+                    
+                    // Show console logs in the output pane
+                    if (logs.length > 0) {
+                        const consoleOutput = document.createElement('div');
+                        consoleOutput.innerHTML = '<div class="output-line muted">Console output:</div>' + 
+                            logs.slice(0, 20).map(log => 
+                                `<div class="output-line">${escapeHtml(log)}</div>`
+                            ).join('') + 
+                            (logs.length > 20 ? '<div class="output-line muted">... and more (see demo below)</div>' : '');
+                        outputPane.innerHTML = '';
+                        outputPane.appendChild(consoleOutput);
+                    }
+                } catch (error) {
+                    outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+                } finally {
+                    console.log = originalConsoleLog;
+                }
+            } else {
+                // For other editors, use the normal sandbox approach
+                outputPane.innerHTML = '';
+                
+                const demoContainer = document.createElement('div');
+                demoContainer.id = 'demo-output-container';
+                demoContainer.style.cssText = 'padding: 1rem; background: var(--bg-secondary); border-radius: 0.5rem; margin-top: 1rem;';
+                
+                const consoleOutput = document.createElement('div');
+                consoleOutput.style.cssText = 'margin-bottom: 1rem;';
+                
+                outputPane.appendChild(consoleOutput);
+                outputPane.appendChild(demoContainer);
+                
+                const originalConsoleLog = console.log;
+                const logs = [];
+                
+                console.log = (...args) => {
+                    logs.push(args.map(arg => {
+                        if (typeof arg === 'object') {
+                            return JSON.stringify(arg, null, 2);
+                        }
+                        return String(arg);
+                    }).join(' '));
+                };
+                
+                try {
+                    const originalAppendChild = document.body.appendChild;
+                    const originalRemoveChild = document.body.removeChild;
+                    const originalInsertBefore = document.body.insertBefore;
+                    
+                    document.body.appendChild = function(element) {
+                        return demoContainer.appendChild(element);
+                    };
+                    
+                    document.body.removeChild = function(element) {
+                        return demoContainer.removeChild(element);
+                    };
+                    
+                    document.body.insertBefore = function(newElement, referenceElement) {
+                        return demoContainer.insertBefore(newElement, referenceElement);
+                    };
+                    
+                    eval(code);
+                    
+                    document.body.appendChild = originalAppendChild;
+                    document.body.removeChild = originalRemoveChild;
+                    document.body.insertBefore = originalInsertBefore;
+                    
+                    if (logs.length > 0) {
+                        consoleOutput.innerHTML = logs.map(log => 
+                            `<div class="output-line">${escapeHtml(log)}</div>`
+                        ).join('');
+                    } else {
+                        consoleOutput.innerHTML = '<div class="output-line muted">No output</div>';
+                    }
+                } catch (error) {
+                    outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+                } finally {
+                    console.log = originalConsoleLog;
+                }
+            }
+        }
+
+        // Escape HTML function
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Exercise 1 checker
+        function checkExercise1() {
+            const code = document.getElementById('exercise1-code').value;
+            const output = document.getElementById('exercise1-output');
+            const feedback = document.getElementById('exercise1-feedback');
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = output.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // Clear output and show console logs only
+            output.innerHTML = '<div class="output-line muted">Building theme switcher outside of this box...</div>';
+            
+            // Remove any existing theme switcher
+            const existingThemeSwitcher = document.getElementById('exercise1-theme-switcher');
+            if (existingThemeSwitcher) {
+                existingThemeSwitcher.remove();
+            }
+            
+            // Create container for the theme switcher after the exercise
+            const exerciseSection = document.getElementById('exercise1').closest('.exercise-section');
+            const themeSwitcherContainer = document.createElement('div');
+            themeSwitcherContainer.id = 'exercise1-theme-switcher';
+            themeSwitcherContainer.style.cssText = 'margin: 2rem 0; padding: 1rem; background: var(--bg-secondary); border-radius: 0.5rem;';
+            
+            // Insert after the exercise section
+            exerciseSection.insertAdjacentElement('afterend', themeSwitcherContainer);
+            
+            // Execute the code to build the theme switcher
+            try {
+                // Override document.body.appendChild temporarily
+                const originalAppendChild = document.body.appendChild;
+                document.body.appendChild = function(element) {
+                    // If it's the theme switcher container, append to our container
+                    if (element.className && element.className.includes('theme-switcher-app')) {
+                        return themeSwitcherContainer.appendChild(element);
+                    }
+                    return originalAppendChild.call(this, element);
+                };
+                
+                eval(code);
+                
+                // Restore original method
+                document.body.appendChild = originalAppendChild;
+            } catch (error) {
+                output.innerHTML = `<div class="output-error">Error: ${error.message}</div>`;
+            }
+            
+            // Check if the output contains any errors
+            const outputHasError = output.innerHTML.includes('output-error') || 
+                                  output.innerHTML.includes('Error:');
+            
+            const hasStyleProperty = code.includes('.style.') && (code.includes('backgroundColor') || code.includes('color'));
+            const hasSetProperty = code.includes('setProperty');
+            const hasThemeApplication = code.includes('applyTheme');
+            const hasButtonClick = code.includes('button.onclick') || code.includes('addEventListener');
+            const hasVariableDisplay = code.includes('updateVariableDisplay') || code.includes('variable-display');
+            const hasCSSText = code.includes('cssText') || code.includes('style.background');
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            feedback.classList.remove('show', 'success', 'error');
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (!outputHasError && hasStyleProperty && hasSetProperty && hasThemeApplication && hasButtonClick && hasVariableDisplay) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Excellent! Your theme switcher demonstrates comprehensive styling with JavaScript, including direct style manipulation, CSS variables, and dynamic updates. This is professional-level styling control!';
+                } else if (outputHasError) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Your code has errors. Make sure to implement all the required methods in the ThemeSwitcher class correctly.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    let missing = [];
+                    if (!hasStyleProperty) missing.push('direct style property usage');
+                    if (!hasSetProperty) missing.push('CSS variable setting');
+                    if (!hasThemeApplication) missing.push('applyTheme implementation');
+                    if (!hasButtonClick) missing.push('button click handlers');
+                    if (!hasVariableDisplay) missing.push('variable display updates');
+                    feedback.textContent = `Missing: ${missing.join(', ')}. Complete the theme switcher implementation.`;
+                }
+            }, 150);
+        }
+
+        // Exercise 3 checker
+        function checkExercise3() {
+            const code = document.getElementById('exercise3-code').value;
+            const output = document.getElementById('exercise3-output');
+            const feedback = document.getElementById('exercise3-feedback');
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = output.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // Clear output and show console logs only
+            output.innerHTML = '<div class="output-line muted">Building class toggle showcase outside of this box...</div>';
+            
+            // Remove any existing showcase
+            const existingShowcase = document.getElementById('exercise3-showcase');
+            if (existingShowcase) {
+                existingShowcase.remove();
+            }
+            
+            // Create container for the showcase after the exercise
+            const exerciseSection = document.getElementById('exercise3').closest('.exercise-section');
+            const showcaseContainer = document.createElement('div');
+            showcaseContainer.id = 'exercise3-showcase';
+            showcaseContainer.style.cssText = 'margin: 2rem 0; padding: 1rem; background: var(--bg-secondary); border-radius: 0.5rem;';
+            
+            // Insert after the exercise section
+            exerciseSection.insertAdjacentElement('afterend', showcaseContainer);
+            
+            // Execute the code to build the showcase
+            try {
+                // Override document.body.appendChild temporarily
+                const originalAppendChild = document.body.appendChild;
+                document.body.appendChild = function(element) {
+                    // If it's the showcase container, append to our container
+                    if (element.className && element.className.includes('class-showcase-container')) {
+                        return showcaseContainer.appendChild(element);
+                    }
+                    return originalAppendChild.call(this, element);
+                };
+                
+                eval(code);
+                
+                // Restore original method
+                document.body.appendChild = originalAppendChild;
+            } catch (error) {
+                output.innerHTML = `<div class="output-error">Error: ${error.message}</div>`;
+            }
+            
+            // Check if the output contains any errors
+            const outputHasError = output.innerHTML.includes('output-error') || 
+                                  output.innerHTML.includes('Error:');
+            
+            const hasClassListToggle = code.includes('classList.toggle');
+            const hasClassListAdd = code.includes('classList.add');
+            const hasClassListRemove = code.includes('classList.remove');
+            const hasClassListContains = code.includes('classList.contains') || code.includes('classList.replace');
+            const hasQuerySelectorAll = code.includes('querySelectorAll');
+            const hasClickHandlers = code.includes('onclick') || code.includes('addEventListener');
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            feedback.classList.remove('show', 'success', 'error');
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (!outputHasError && hasClassListToggle && hasClassListAdd && hasClassListRemove && hasQuerySelectorAll && hasClickHandlers) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Outstanding! Your class toggle showcase demonstrates all the major classList methods and interactive patterns. This is a comprehensive demonstration of CSS class manipulation!';
+                } else if (outputHasError) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Your code has errors. Make sure to implement all the click handlers and class manipulation methods correctly.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    let missing = [];
+                    if (!hasClassListToggle) missing.push('classList.toggle usage');
+                    if (!hasClassListAdd) missing.push('classList.add usage');
+                    if (!hasClassListRemove) missing.push('classList.remove usage');
+                    if (!hasQuerySelectorAll) missing.push('querySelectorAll for global operations');
+                    if (!hasClickHandlers) missing.push('click event handlers');
+                    feedback.textContent = `Missing: ${missing.join(', ')}. Implement the class manipulation functionality.`;
+                }
+            }, 150);
+        }
+
+        // Exercise 2 - Multiple choice handler
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.disabled) return;
+                    
+                    const exerciseContainer = this.closest('.exercise-options');
+                    const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
+                    const isCorrect = this.getAttribute('data-answer') === 'correct';
+                    
+                    // Remove previous incorrect selections (but not correct ones)
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.classList.contains('incorrect')) {
+                            btn.classList.remove('incorrect', 'selected');
+                            btn.disabled = false;
+                        }
+                    });
+                    
+                    // Hide feedback first to create animation effect
+                    if (feedbackDiv) {
+                        feedbackDiv.style.display = 'none';
+                        feedbackDiv.className = 'exercise-feedback';
+                        feedbackDiv.classList.remove('show', 'success', 'error');
+                    }
+                    
+                    // Mark this button
+                    this.classList.add('selected');
+                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    if (isCorrect) {
+                        // Correct answer - disable all buttons
+                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                            btn.disabled = true;
+                        });
+                    } else {
+                        // Wrong answer - disable only this button
+                        this.disabled = true;
+                    }
+                    
+                    // Show feedback with animation
+                    if (feedbackDiv) {
+                        setTimeout(() => {
+                            feedbackDiv.style.display = 'block';
+                            feedbackDiv.className = 'exercise-feedback show ' + (isCorrect ? 'success' : 'error');
+                            if (isCorrect) {
+                                feedbackDiv.textContent = 'Correct! "background-color" is the CSS property that becomes "backgroundColor" in JavaScript due to camelCase naming convention.';
+                            } else {
+                                feedbackDiv.textContent = 'Not quite. Look for the standard CSS property name with a hyphen that follows the kebab-case naming convention.';
+                            }
+                        }, 150);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

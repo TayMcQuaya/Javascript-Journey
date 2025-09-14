@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 6: Closures - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="../../styles/style-guide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <!-- Lesson Header -->
+            <div class="lesson-header">
+                <h1>Lesson 6: Closures</h1>
+                <p class="lesson-subtitle">Master one of JavaScript's most powerful features for creating private variables and factory functions</p>
+            </div>
+
+            <!-- Introduction Section -->
+            <section class="content-section">
+                <h2>What Are Closures?</h2>
+                <p>Imagine you have a treasure chest (outer function) with a secret compartment (inner function). Even after you close the chest and put it away, the secret compartment still remembers what treasures were in the main chest. Closures work similarly - inner functions remember variables from outer functions, even after the outer function has finished running.</p>
+                <p>Closures are a fundamental concept in JavaScript that enable powerful patterns like data privacy, factory functions, and modules. They're used extensively in modern JavaScript development.</p>
+            </section>
+
+            <!-- Core Content -->
+            <section class="content-section">
+                <h2>Basic Closure Example</h2>
+                <p>A closure is created when an inner function accesses variables from its outer function:</p>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Basic Closure</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">
+// Outer function
+function outerFunction(x) {
+    // Variable in outer function
+    const outerVariable = x;
+    
+    // Inner function - this creates a closure
+    function innerFunction(y) {
+        // Inner function can access outer variables
+        return outerVariable + y;
+    }
+    
+    // Return the inner function
+    return innerFunction;
+}
+
+// Create a closure
+const addFive = outerFunction(5);
+
+// The outer function has finished, but the closure remembers outerVariable!
+console.log("addFive(3) =", addFive(3)); // 5 + 3 = 8
+console.log("addFive(7) =", addFive(7)); // 5 + 7 = 12
+
+// Create another closure with different outer variable
+const addTen = outerFunction(10);
+console.log("addTen(3) =", addTen(3)); // 10 + 3 = 13
+
+// Each closure maintains its own copy of the outer variables
+console.log("addFive still works:", addFive(2)); // Still 5 + 2 = 7
+
+console.log("\n=== What's happening ===");
+console.log("addFive 'remembers' that outerVariable was 5");
+console.log("addTen 'remembers' that outerVariable was 10");
+console.log("This is the power of closures!");</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box" style="margin-top: 1.5rem;">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> Key Concepts:</strong>
+                        <p><strong>Closure:</strong> Inner function + access to outer function's variables</p>
+                        <p><strong>Persistence:</strong> Variables are kept alive even after outer function returns</p>
+                        <p><strong>Privacy:</strong> Outer variables are not directly accessible from outside</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Practical Example: Counter Factory</h2>
+                <p>Closures are perfect for creating private variables and factory functions:</p>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Counter Factory</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">
+// Counter factory function
+function createCounter(startValue = 0) {
+    let count = startValue; // Private variable!
+    
+    // Return an object with methods that can access 'count'
+    return {
+        increment: function() {
+            count++;
+            return count;
+        },
+        decrement: function() {
+            count--;
+            return count;
+        },
+        getValue: function() {
+            return count;
+        },
+        reset: function() {
+            count = startValue;
+            return count;
+        }
+    };
+}
+
+// Create independent counters
+const counter1 = createCounter(0);
+const counter2 = createCounter(100);
+
+console.log("=== Counter 1 ===");
+console.log("Initial value:", counter1.getValue());
+console.log("After increment:", counter1.increment());
+console.log("After increment:", counter1.increment());
+console.log("After decrement:", counter1.decrement());
+
+console.log("\n=== Counter 2 ===");
+console.log("Initial value:", counter2.getValue());
+console.log("After decrement:", counter2.decrement());
+console.log("After decrement:", counter2.decrement());
+
+console.log("\n=== Privacy Demo ===");
+// You cannot access 'count' directly - it's private!
+console.log("counter1.count:", counter1.count); // undefined
+console.log("Direct access blocked - count is private!");
+
+console.log("\n=== Reset Demo ===");
+console.log("Counter 1 before reset:", counter1.getValue());
+console.log("Counter 1 after reset:", counter1.reset());</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2>Advanced Closure Patterns</h2>
+                <p>Closures enable sophisticated programming patterns like modules and data encapsulation:</p>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Advanced Patterns</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">
+// Bank Account Factory with validation
+function createBankAccount(accountHolder, initialBalance = 0) {
+    let balance = initialBalance;
+    let transactions = [];
+    
+    // Private helper function
+    function addTransaction(type, amount) {
+        transactions.push({
+            type: type,
+            amount: amount,
+            date: new Date().toLocaleString(),
+            balance: balance
+        });
+    }
+    
+    return {
+        getAccountHolder: () => accountHolder,
+        
+        deposit: function(amount) {
+            if (amount <= 0) {
+                console.log("Deposit amount must be positive");
+                return balance;
+            }
+            balance += amount;
+            addTransaction("deposit", amount);
+            console.log(`Deposited $${amount}. New balance: $${balance}`);
+            return balance;
+        },
+        
+        withdraw: function(amount) {
+            if (amount <= 0) {
+                console.log("Withdrawal amount must be positive");
+                return balance;
+            }
+            if (amount > balance) {
+                console.log("Insufficient funds!");
+                return balance;
+            }
+            balance -= amount;
+            addTransaction("withdrawal", amount);
+            console.log(`Withdrew $${amount}. New balance: $${balance}`);
+            return balance;
+        },
+        
+        getBalance: () => balance,
+        
+        getTransactionHistory: function() {
+            return [...transactions]; // Return a copy, not the original
+        }
+    };
+}
+
+// Create accounts
+console.log("=== Creating Bank Accounts ===");
+const aliceAccount = createBankAccount("Alice", 1000);
+const bobAccount = createBankAccount("Bob", 500);
+
+console.log(`${aliceAccount.getAccountHolder()}'s initial balance: $${aliceAccount.getBalance()}`);
+console.log(`${bobAccount.getAccountHolder()}'s initial balance: $${bobAccount.getBalance()}`);
+
+console.log("\n=== Transactions ===");
+aliceAccount.deposit(200);
+aliceAccount.withdraw(150);
+bobAccount.withdraw(600); // Should fail
+bobAccount.deposit(100);
+
+console.log("\n=== Privacy Test ===");
+console.log("Can't access balance directly:", aliceAccount.balance); // undefined
+console.log("Must use getBalance():", aliceAccount.getBalance());
+
+console.log("\n=== Transaction History ===");
+const history = aliceAccount.getTransactionHistory();
+console.log(`${aliceAccount.getAccountHolder()}'s transactions:`, history.length, "total");</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="real-world-example" style="margin-top: 1.5rem;">
+                    <h3><i class="fas fa-shield-alt"></i> Real-World Example: React Hooks</h3>
+                    <p>React's <code>useState</code> hook uses closures to maintain state between component renders. Each component instance gets its own closure with private state variables!</p>
+                </div>
+            </section>
+
+            <!-- Practice Exercises -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Closure Understanding</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What makes a closure different from a regular function?</p>
+                    <div class="exercise-options" id="exercise1">
+                        <button class="option-btn" data-answer="wrong">Closures are faster than regular functions</button>
+                        <button class="option-btn" data-answer="correct">Closures can access variables from outer functions</button>
+                        <button class="option-btn" data-answer="wrong">Closures don't need parameters</button>
+                        <button class="option-btn" data-answer="wrong">Closures are only used for loops</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 2: Create a Multiplier Factory</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Create a function called <code>createMultiplier</code> that takes a number and returns a function that multiplies its input by that number. Test it by creating a "double" function.</p>
+                    <div class="code-editor" id="exercise">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Your Solution</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn" onclick="checkExercise()">
+                                    <i class="fas fa-check"></i> Check Solution
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise-code">
+// Create your multiplier factory here
+
+
+// Create a doubler function and test it
+const double = createMultiplier(2);
+console.log("double(5) =", double(5)); // Should output 10</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: Closure Persistence</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What will this code output?</p>
+                    <div class="code-block">
+                        <pre><code>function outer(x) {
+    return function(y) {
+        return x + y;
+    };
+}
+
+const addThree = outer(3);
+console.log(addThree(4));</code></pre>
+                    </div>
+                    <div class="exercise-options" id="exercise3">
+                        <button class="option-btn" data-answer="wrong">4</button>
+                        <button class="option-btn" data-answer="correct">7</button>
+                        <button class="option-btn" data-answer="wrong">3</button>
+                        <button class="option-btn" data-answer="wrong">undefined</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Common Mistakes Section -->
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Memory Leaks with Closures</strong>
+                            <p>Closures keep references to their outer variables, which can prevent garbage collection. Be careful with closures that hold onto large objects or DOM elements.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Loop Closure Confusion</strong>
+                            <p>Using <code>var</code> in loops with closures can cause unexpected behavior. Use <code>let</code> instead, or understand that all closures will share the same variable reference.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Overusing Closures</strong>
+                            <p>While powerful, closures add complexity and memory overhead. Use them when you need data privacy or factory patterns, not for simple functions.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>Closures allow inner functions to access variables from outer functions</li>
+                        <li>Variables in closures persist even after the outer function has returned</li>
+                        <li>Closures provide data privacy and enable factory function patterns</li>
+                        <li>Each closure maintains its own copy of the outer function's variables</li>
+                        <li>Common uses include counters, modules, and maintaining private state</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Spacing before navigation -->
+            <div style="margin: 2rem 0;"></div>
+            
+            <!-- Lesson Navigation -->
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson5.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Module 5 <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='../module6/index.html'">
+                    Start Module 6 <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Run code function
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = outputPane.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            outputPane.innerHTML = '';
+            
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+            };
+            
+            try {
+                eval(code);
+                
+                if (logs.length > 0) {
+                    outputPane.innerHTML = logs.map(log => 
+                        `<div class="output-line">${escapeHtml(log)}</div>`
+                    ).join('');
+                } else {
+                    outputPane.innerHTML = '<div class="output-line muted">No output</div>';
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        // Copy code function
+        function copyCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            if (!codeInput) return;
+            
+            codeInput.select();
+            codeInput.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                const button = event.target.closest('.editor-btn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        }
+
+        // Escape HTML for safe output
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Check exercise function
+        function checkExercise() {
+            const code = document.getElementById('exercise-code').value;
+            const output = document.getElementById('exercise-output');
+            const feedback = document.getElementById('exercise-feedback');
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = output.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // Run the code first to show output
+            runCode('exercise');
+            
+            // Check if the solution is correct
+            const hasCreateMultiplier = /function\s+createMultiplier\s*\(\s*\w+\s*\)/.test(code);
+            const hasReturnFunction = code.includes('return function') || /return\s*\(\s*\w+\s*\)\s*=>/.test(code);
+            const hasMultiplication = /return\s+\w+\s*\*\s*\w+/.test(code) || /\w+\s*\*\s*\w+/.test(code);
+            const hasDoubleUsage = code.includes('createMultiplier(2)') && code.includes('double(5)');
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            feedback.classList.remove('show', 'success', 'error');
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (hasCreateMultiplier && hasReturnFunction && hasMultiplication && hasDoubleUsage) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Perfect! You created a closure-based multiplier factory!';
+                } else if (hasCreateMultiplier && hasReturnFunction && !hasMultiplication) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Good structure! Make sure the inner function multiplies the input by the outer parameter.';
+                } else if (hasCreateMultiplier && !hasReturnFunction) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Good start! Your function should return another function that does the multiplication.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Create a function that takes a multiplier and returns a function that multiplies its input.';
+                }
+            }, 150);
+        }
+
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(5, 6, true);
+            customModal.success('Congratulations! You\'ve completed Module 5 and mastered JavaScript functions!', 'Module Complete!');
+            
+            // Show next module button after a delay
+            setTimeout(() => {
+                const nextBtn = document.getElementById('nextModuleBtn');
+                if (nextBtn) {
+                    nextBtn.style.display = 'inline-block';
+                }
+            }, 2000);
+        }
+
+        // Handle quiz options
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.disabled) return;
+                    
+                    const exerciseContainer = this.closest('.exercise-options');
+                    const exerciseId = exerciseContainer.id;
+                    const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
+                    const isCorrect = this.getAttribute('data-answer') === 'correct';
+                    
+                    // Remove previous incorrect selections
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.classList.contains('incorrect')) {
+                            btn.classList.remove('incorrect', 'selected');
+                            btn.disabled = false;
+                        }
+                    });
+                    
+                    // Hide feedback first to create animation effect
+                    if (feedbackDiv) {
+                        feedbackDiv.style.display = 'none';
+                        feedbackDiv.className = 'exercise-feedback';
+                        feedbackDiv.classList.remove('show', 'success', 'error');
+                    }
+                    
+                    // Mark this button
+                    this.classList.add('selected');
+                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    if (isCorrect) {
+                        // Correct answer - disable all buttons
+                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                            btn.disabled = true;
+                        });
+                    } else {
+                        // Wrong answer - disable only this button
+                        this.disabled = true;
+                    }
+                    
+                    // Show feedback with animation
+                    if (feedbackDiv) {
+                        setTimeout(() => {
+                            feedbackDiv.style.display = 'block';
+                            feedbackDiv.className = 'exercise-feedback show ' + (isCorrect ? 'success' : 'error');
+                            
+                            let feedbackText;
+                            if (exerciseId === 'exercise1') {
+                                feedbackText = isCorrect ? 
+                                    'Correct! Closures allow inner functions to access and remember outer variables.' : 
+                                    'Not quite. The key feature of closures is accessing outer function variables.';
+                            } else if (exerciseId === 'exercise3') {
+                                feedbackText = isCorrect ? 
+                                    'Correct! The closure remembers x = 3, so 3 + 4 = 7.' : 
+                                    'Not quite. The inner function adds x (3) and y (4) together.';
+                            }
+                            
+                            feedbackDiv.textContent = feedbackText;
+                        }, 150);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

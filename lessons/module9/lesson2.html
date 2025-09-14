@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2: Event Types - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <!-- Lesson Header -->
+            <div class="lesson-header">
+                <h1>Lesson 2: Event Types</h1>
+                <p class="lesson-subtitle">Explore the different types of events that JavaScript can handle, from mouse clicks to keyboard presses</p>
+            </div>
+
+            <!-- Introduction Section -->
+            <section class="content-section">
+                <h2>Introduction</h2>
+                <p>JavaScript can respond to many different types of user interactions. Each type of event provides specific information about what happened, allowing you to create rich, interactive experiences.</p>
+                <p>Think of events like different types of notifications on your phone - you have text messages, app notifications, calls, and alarms. Each type requires a different response. Similarly, web pages can respond to clicks, key presses, mouse movements, and more.</p>
+            </section>
+
+            <!-- Core Content Section 1: Mouse Events -->
+            <section class="content-section">
+                <h2>Mouse Events</h2>
+                <p>Mouse events are the most common type of user interaction on desktop devices. They track various mouse actions like clicking, moving, and hovering.</p>
+
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> Common Mouse Events:</strong>
+                        <p>click, dblclick, mousedown, mouseup, mousemove, mouseenter, mouseleave, mouseover, mouseout</p>
+                    </div>
+                </div>
+
+                <!-- Code Editor -->
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Mouse Events Demo</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">
+// Create an interactive area
+const mouseArea = document.createElement('div');
+mouseArea.style.cssText = `
+    width: 300px;
+    height: 200px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 20px auto;
+    user-select: none;
+`;
+mouseArea.textContent = 'Try different mouse interactions!';
+
+// Event tracker
+const eventLog = document.createElement('div');
+eventLog.style.cssText = 'margin-top: 20px; padding: 10px; background: #f0f0f0; border-radius: 5px; font-family: monospace;';
+eventLog.textContent = 'Mouse events will appear here...';
+
+// Add different mouse event listeners
+mouseArea.addEventListener('click', () => {
+    eventLog.textContent = 'Event: CLICK - Single click detected';
+    mouseArea.style.transform = 'scale(0.95)';
+    setTimeout(() => mouseArea.style.transform = 'scale(1)', 100);
+});
+
+mouseArea.addEventListener('dblclick', () => {
+    eventLog.textContent = 'Event: DOUBLE CLICK - Double click detected';
+    mouseArea.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+});
+
+mouseArea.addEventListener('mouseenter', () => {
+    eventLog.textContent = 'Event: MOUSE ENTER - Mouse entered the area';
+    mouseArea.style.transform = 'scale(1.05)';
+});
+
+mouseArea.addEventListener('mouseleave', () => {
+    eventLog.textContent = 'Event: MOUSE LEAVE - Mouse left the area';
+    mouseArea.style.transform = 'scale(1)';
+    mouseArea.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+});
+
+mouseArea.addEventListener('contextmenu', (e) => {
+    e.preventDefault(); // Prevent right-click menu
+    eventLog.textContent = 'Event: RIGHT CLICK - Context menu prevented';
+    mouseArea.style.background = 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)';
+});
+
+// Add elements to page
+document.body.appendChild(mouseArea);
+document.body.appendChild(eventLog);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 2: Keyboard Events -->
+            <section class="content-section">
+                <h2>Keyboard Events</h2>
+                <p>Keyboard events allow you to respond to user keyboard input. These events are essential for creating keyboard shortcuts, form validation, and games.</p>
+
+                <div class="warning-box">
+                    <div>
+                        <i class="fas fa-exclamation-triangle"></i> <strong> Note about keypress:</strong>
+                        <p>The keypress event is deprecated. Use keydown or keyup instead for better compatibility.</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Keyboard Events Demo</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">
+// Create an input field
+const inputField = document.createElement('input');
+inputField.type = 'text';
+inputField.placeholder = 'Type something here...';
+inputField.style.cssText = `
+    width: 300px;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+`;
+
+// Create key display
+const keyDisplay = document.createElement('div');
+keyDisplay.style.cssText = `
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    min-height: 100px;
+`;
+keyDisplay.innerHTML = '<strong>Key Information:</strong><br>Start typing to see event details...';
+
+// Track key events
+inputField.addEventListener('keydown', (event) => {
+    inputField.style.borderColor = '#4CAF50';
+    keyDisplay.innerHTML = `
+        <strong>Event: keydown</strong><br>
+        Key: ${event.key}<br>
+        Code: ${event.code}<br>
+        Shift: ${event.shiftKey}<br>
+        Ctrl: ${event.ctrlKey}<br>
+        Alt: ${event.altKey}
+    `;
+    
+    // Prevent default for certain keys
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        keyDisplay.innerHTML += '<br><em>Enter key prevented!</em>';
+    }
+});
+
+inputField.addEventListener('keyup', (event) => {
+    inputField.style.borderColor = '#2196F3';
+    keyDisplay.innerHTML += `<br><em>Key released: ${event.key}</em>`;
+});
+
+inputField.addEventListener('focus', () => {
+    inputField.style.borderColor = '#9C27B0';
+});
+
+inputField.addEventListener('blur', () => {
+    inputField.style.borderColor = '#ddd';
+});
+
+// Add elements to page
+document.body.appendChild(inputField);
+document.body.appendChild(keyDisplay);
+
+// Focus the input automatically
+inputField.focus();</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Content Section 3: Form Events -->
+            <section class="content-section">
+                <h2>Form Events</h2>
+                <p>Form events are triggered by interactions with form elements like inputs, selects, and textareas. These events are crucial for form validation and handling user input.</p>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Form Events Demo</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">
+// Create a mini form
+const form = document.createElement('form');
+form.style.cssText = 'padding: 20px; background: #f5f5f5; border-radius: 8px;';
+
+// Name input
+const nameLabel = document.createElement('label');
+nameLabel.innerHTML = 'Name: ';
+nameLabel.style.cssText = 'display: block; margin-bottom: 10px; font-weight: bold;';
+const nameInput = document.createElement('input');
+nameInput.type = 'text';
+nameInput.style.cssText = 'width: 200px; padding: 8px; margin-left: 10px;';
+nameLabel.appendChild(nameInput);
+
+// Email input
+const emailLabel = document.createElement('label');
+emailLabel.innerHTML = 'Email: ';
+emailLabel.style.cssText = 'display: block; margin-bottom: 10px; font-weight: bold;';
+const emailInput = document.createElement('input');
+emailInput.type = 'email';
+emailInput.style.cssText = 'width: 200px; padding: 8px; margin-left: 10px;';
+emailLabel.appendChild(emailInput);
+
+// Favorite color select
+const colorLabel = document.createElement('label');
+colorLabel.innerHTML = 'Favorite Color: ';
+colorLabel.style.cssText = 'display: block; margin-bottom: 10px; font-weight: bold;';
+const colorSelect = document.createElement('select');
+colorSelect.style.cssText = 'width: 150px; padding: 8px; margin-left: 10px; color: var(--text-primary);';
+colorSelect.innerHTML = `
+    <option value="">Choose a color...</option>
+    <option value="red">Red</option>
+    <option value="blue">Blue</option>
+    <option value="green">Green</option>
+    <option value="yellow">Yellow</option>
+`;
+colorLabel.appendChild(colorSelect);
+
+// Submit button
+const submitBtn = document.createElement('button');
+submitBtn.type = 'submit';
+submitBtn.textContent = 'Submit Form';
+submitBtn.style.cssText = 'margin-top: 15px; padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;';
+
+// Event log
+const formLog = document.createElement('div');
+formLog.style.cssText = 'margin-top: 20px; padding: 15px; background: white; border-radius: 5px; min-height: 60px;';
+formLog.textContent = 'Form events will appear here...';
+
+// Add event listeners
+nameInput.addEventListener('input', (e) => {
+    formLog.textContent = `Input event: Name field value = "${e.target.value}"`;
+});
+
+emailInput.addEventListener('change', (e) => {
+    formLog.textContent = `Change event: Email changed to "${e.target.value}"`;
+});
+
+colorSelect.addEventListener('change', (e) => {
+    formLog.textContent = `Change event: Selected color = "${e.target.value}"`;
+    if (e.target.value) {
+        formLog.style.backgroundColor = e.target.value;
+        formLog.style.color = e.target.value === 'yellow' ? 'black' : 'white';
+    }
+});
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault(); // Prevent page reload
+    formLog.textContent = `Submit event: Form submitted! Name: ${nameInput.value}, Email: ${emailInput.value}, Color: ${colorSelect.value}`;
+    formLog.style.backgroundColor = '#4CAF50';
+    formLog.style.color = 'white';
+});
+
+// Assemble form
+form.appendChild(nameLabel);
+form.appendChild(emailLabel);
+form.appendChild(colorLabel);
+form.appendChild(submitBtn);
+document.body.appendChild(form);
+document.body.appendChild(formLog);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 1 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Event Type Quiz</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Which event should you use to detect when a user finishes typing in an input field and moves to another element?</p>
+                    <div class="exercise-options" id="exercise1">
+                        <button class="option-btn" data-answer="wrong">input</button>
+                        <button class="option-btn" data-answer="wrong">keyup</button>
+                        <button class="option-btn" data-answer="correct">blur</button>
+                        <button class="option-btn" data-answer="wrong">focus</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Practice Exercise 2 -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 2: Create a Hover Counter</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Complete the code to count how many times the user hovers over the box:</p>
+                    
+                    <div class="code-editor" id="exercise2">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Complete the Code</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('exercise2')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise2()">
+                                    <i class="fas fa-play"></i> Check Solution
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise2-code">
+// Create a hover box
+const hoverBox = document.createElement('div');
+hoverBox.style.cssText = `
+    width: 200px;
+    height: 200px;
+    background: #3498db;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 20px auto;
+    font-size: 20px;
+`;
+hoverBox.textContent = 'Hover over me!';
+
+// Counter display
+const counterDisplay = document.createElement('div');
+counterDisplay.style.cssText = 'text-align: center; font-size: 18px; margin-top: 20px;';
+counterDisplay.textContent = 'Hover count: 0';
+
+// Counter variable
+let hoverCount = 0;
+
+// YOUR CODE HERE: Add an event listener for mouseenter
+// Increment hoverCount and update the display
+
+hoverBox.addEventListener('mouseenter', function() {
+    // Add your code here
+    
+});
+
+document.body.appendChild(hoverBox);
+document.body.appendChild(counterDisplay);</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise2-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise2-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Common Mistakes Section -->
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Confusing mouseenter/mouseleave with mouseover/mouseout</strong>
+                            <p>mouseenter and mouseleave don't bubble and only fire when entering/leaving the element itself. mouseover and mouseout bubble and fire when entering/leaving child elements too.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Using keypress instead of keydown</strong>
+                            <p>The keypress event is deprecated. Use keydown for detecting when a key is pressed, or keyup for when it's released.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Forgetting to prevent form submission</strong>
+                            <p>Always use event.preventDefault() in form submit handlers if you want to handle the submission with JavaScript instead of reloading the page.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>Mouse events handle all mouse interactions including clicks, movement, and hovering</li>
+                        <li>Keyboard events (keydown, keyup) let you respond to keyboard input</li>
+                        <li>Form events (input, change, submit) are essential for handling user form interactions</li>
+                        <li>Different events provide different information through the event object</li>
+                        <li>Choose the right event type for your specific use case to create better user experiences</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Spacing before navigation -->
+            <div style="margin: 2rem 0;"></div>
+            
+            <!-- Lesson Navigation -->
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson1.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson3.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(9, 2, true);
+            customModal.success('Lesson completed! Moving to the next lesson...', 'Congratulations!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson3.html';
+            }, 2000);
+        }
+
+        // Run code function for Module 9 with DOM manipulation
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            
+            // Clear the parent container to remove the "Output will appear here..." label
+            const outputContainer = outputPane.parentElement;
+            const outputLabel = outputContainer.querySelector('.output-label');
+            if (outputLabel) {
+                outputLabel.style.display = 'none';
+            }
+            
+            // For Module 9 (Events), build demos outside the output box
+            outputPane.innerHTML = '<div style="color: var(--js-yellow); font-style: italic;">Building demo outside of this box...</div>';
+            
+            // Check if demo container already exists
+            let demoContainer = document.getElementById(`${editorId}-demo`);
+            if (demoContainer) {
+                demoContainer.remove();
+            }
+            
+            // Create demo container after the code editor
+            demoContainer = document.createElement('div');
+            demoContainer.id = `${editorId}-demo`;
+            demoContainer.style.cssText = 'margin: 2rem 0; padding: 1rem; background: var(--bg-secondary); border-radius: 0.5rem;';
+            
+            // Insert after code editor
+            const codeEditor = document.getElementById(editorId);
+            codeEditor.insertAdjacentElement('afterend', demoContainer);
+            
+            // Override document.body.appendChild to redirect to demo container
+            const originalAppendChild = document.body.appendChild;
+            const originalPrepend = document.body.prepend;
+            const originalInsertBefore = document.body.insertBefore;
+            
+            document.body.appendChild = function(element) {
+                return demoContainer.appendChild(element);
+            };
+            
+            document.body.prepend = function(element) {
+                return demoContainer.prepend(element);
+            };
+            
+            document.body.insertBefore = function(newNode, referenceNode) {
+                return demoContainer.insertBefore(newNode, referenceNode);
+            };
+            
+            // Capture console.log output
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+                originalConsoleLog(...args);
+            };
+            
+            try {
+                // Execute the code
+                eval(code);
+                
+                // Add console output if any
+                if (logs.length > 0) {
+                    const consoleOutput = document.createElement('div');
+                    consoleOutput.style.cssText = 'margin-top: 1rem; padding: 0.5rem; background: #1e1e1e; color: var(--js-yellow); border-radius: 4px; font-family: monospace;';
+                    consoleOutput.innerHTML = '<div style="color: var(--js-yellow);">Console output:</div>' + logs.map(log => `<div style="color: var(--js-yellow);">${escapeHtml(log)}</div>`).join('');
+                    outputPane.innerHTML = '';
+                    outputPane.appendChild(consoleOutput);
+                }
+            } catch (error) {
+                outputPane.innerHTML = `<div class="output-error">Error: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                // Restore original methods
+                document.body.appendChild = originalAppendChild;
+                document.body.prepend = originalPrepend;
+                document.body.insertBefore = originalInsertBefore;
+                console.log = originalConsoleLog;
+            }
+        }
+
+        // Check Exercise 2
+        function checkExercise2() {
+            const code = document.getElementById('exercise2-code').value;
+            const feedback = document.getElementById('exercise2-feedback');
+            
+            // First, check if the user has added their solution
+            const hasUserCode = code.includes('// Add your code here') && 
+                               !code.includes('hoverCount++');
+            
+            if (hasUserCode) {
+                // User hasn't added their code yet, provide the solution
+                const solutionCode = code.replace(
+                    '// Add your code here\n    ',
+                    `hoverCount++;
+    counterDisplay.textContent = 'Hover count: ' + hoverCount;
+    hoverBox.style.backgroundColor = '#2ecc71';
+    setTimeout(() => {
+        hoverBox.style.backgroundColor = '#3498db';
+    }, 200);`
+                );
+                document.getElementById('exercise2-code').value = solutionCode;
+            }
+            
+            // Run the code
+            runCode('exercise2');
+            
+            // Check if solution is correct
+            const hasIncrement = code.includes('hoverCount++') || code.includes('++hoverCount') || code.includes('hoverCount = hoverCount + 1');
+            const hasDisplayUpdate = code.includes('counterDisplay.textContent') || code.includes('counterDisplay.innerHTML');
+            
+            // Hide feedback first to create animation effect
+            feedback.style.display = 'none';
+            feedback.className = 'exercise-feedback';
+            
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                if (hasIncrement && hasDisplayUpdate || !hasUserCode) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Perfect! The hover counter is working. Try hovering over the box!';
+                } else if (!hasIncrement) {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Remember to increment the hoverCount variable.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Don\'t forget to update the counterDisplay text.';
+                }
+            }, 150);
+        }
+
+        // Copy code function
+        function copyCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            if (!codeInput) return;
+            
+            codeInput.select();
+            codeInput.setSelectionRange(0, 99999); // For mobile
+            
+            try {
+                document.execCommand('copy');
+                const button = event.target.closest('.copy-btn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        }
+
+        // Escape HTML helper
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Handle quiz options
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle all exercise option buttons
+            document.querySelectorAll('.option-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Skip if button is already disabled
+                    if (this.disabled) return;
+                    
+                    const exerciseContainer = this.closest('.exercise-options');
+                    const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
+                    const isCorrect = this.getAttribute('data-answer') === 'correct';
+                    
+                    // Remove previous incorrect selections (but not correct ones)
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.classList.contains('incorrect')) {
+                            btn.classList.remove('incorrect', 'selected');
+                            btn.disabled = false;
+                        }
+                    });
+                    
+                    // Hide feedback first to create animation effect
+                    if (feedbackDiv) {
+                        feedbackDiv.style.display = 'none';
+                        feedbackDiv.className = 'exercise-feedback';
+                    }
+                    
+                    // Mark this button
+                    this.classList.add('selected');
+                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    if (isCorrect) {
+                        // Correct answer - disable all buttons
+                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                            btn.disabled = true;
+                        });
+                    } else {
+                        // Wrong answer - disable only this button
+                        this.disabled = true;
+                    }
+                    
+                    // Show feedback with animation
+                    if (feedbackDiv) {
+                        setTimeout(() => {
+                            feedbackDiv.style.display = 'block';
+                            feedbackDiv.className = 'exercise-feedback show ' + (isCorrect ? 'success' : 'error');
+                            feedbackDiv.textContent = isCorrect ? 
+                                'Correct! The blur event fires when an element loses focus.' : 
+                                'Not quite. Try again!';
+                        }, 150);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
