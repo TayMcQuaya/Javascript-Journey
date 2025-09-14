@@ -22,7 +22,7 @@ Each module page should be located at: `/lessons/module[X]/index.html`
     <link rel="stylesheet" href="../../styles/footer.css">
     <link rel="stylesheet" href="../../styles/header-enhanced.css">
     <link rel="stylesheet" href="../../styles/modal.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
     <!-- Navigation Bar (Identical for all pages) -->
@@ -170,6 +170,7 @@ Each module page should be located at: `/lessons/module[X]/index.html`
 
         .lesson-card {
             display: flex;
+            align-items: center;
             gap: 1.5rem;
             padding: 1.5rem;
             background-color: var(--bg-secondary);
@@ -272,7 +273,7 @@ Each module page should be located at: `/lessons/module[X]/index.html`
                     <i class="fab fa-github"></i>
                 </a>
                 <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
-                    <i class="fab fa-twitter"></i>
+                    <i class="fa-brands fa-x-twitter"></i>
                 </a>
             </div>
             <div class="copyright">

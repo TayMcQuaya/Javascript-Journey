@@ -12,8 +12,7 @@
     <link rel="stylesheet" href="../../styles/footer.css">
     <link rel="stylesheet" href="../../styles/header-enhanced.css">
     <link rel="stylesheet" href="../../styles/modal.css">
-    <link rel="stylesheet" href="../../styles/style-guide.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -49,7 +48,7 @@
         <article class="lesson-content">
             <!-- Lesson Header -->
             <div class="lesson-header">
-                <h1>Lesson 2: Selecting Elements</h1>
+                <h1>Module 8:<br>Lesson 2: Selecting Elements</h1>
                 <p class="lesson-subtitle">Learn to find and target specific HTML elements like a digital treasure hunter</p>
             </div>
 
@@ -61,26 +60,28 @@
             </section>
 
             <!-- Interactive Demo Elements -->
-            <div style="background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: 0.5rem; padding: 1.5rem; margin: 1.5rem 0;">
+            <div style="background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: 0.5rem; padding: 1.5rem; margin: 1.5rem 0; text-align: center;">
                 <h3 style="margin-top: 0; color: var(--primary-color);">🎯 Element Selection Playground</h3>
                 <div id="search-playground">
                     <p id="unique-paragraph">I have a unique ID: "unique-paragraph"</p>
                     <p class="highlight-text">I have class "highlight-text"</p>
                     <p class="highlight-text special">I have classes "highlight-text" and "special"</p>
-                    <button class="demo-btn" data-role="primary">Primary Button</button>
-                    <button class="demo-btn" data-role="secondary">Secondary Button</button>
-                    <ul id="fruit-list">
+                    <div style="margin: 0.5rem 0;">
+                        <button class="demo-btn" data-role="primary" onclick="customModal.alert('Primary button clicked! Notice it has data-role=&quot;primary&quot; attribute', 'Button Clicked')" style="margin: 0.25rem;">Primary Button</button>
+                        <button class="demo-btn" data-role="secondary" onclick="customModal.alert('Secondary button clicked! Notice it has data-role=&quot;secondary&quot; attribute', 'Button Clicked')" style="margin: 0.25rem;">Secondary Button</button>
+                    </div>
+                    <ul id="fruit-list" style="display: inline-block; text-align: left; margin: 1rem auto;">
                         <li class="fruit">Apple</li>
                         <li class="fruit featured">Banana</li>
                         <li class="fruit">Orange</li>
                         <li class="fruit featured">Grape</li>
                     </ul>
-                    <div class="nested-container">
-                        <span class="nested-item first">First nested item</span>
-                        <span class="nested-item">Second nested item</span>
+                    <div class="nested-container" style="margin: 0.5rem 0;">
+                        <span class="nested-item first" style="margin: 0 0.5rem;">First nested item</span>
+                        <span class="nested-item" style="margin: 0 0.5rem;">Second nested item</span>
                     </div>
                 </div>
-                <div id="selection-results" style="margin-top: 1rem; padding: 1rem; background: var(--bg-tertiary); border-radius: 0.25rem; font-family: monospace; font-size: 0.875rem;"></div>
+                <div id="selection-results" style="margin-top: 1rem; padding: 1rem; background: var(--bg-tertiary); border-radius: 0.25rem; font-family: monospace; font-size: 0.875rem; text-align: left;"></div>
             </div>
 
             <!-- Core Content Section 1 -->
@@ -932,7 +933,7 @@ console.log("\n🧠 SMART SEARCHER TEST");
                     <i class="fab fa-github"></i>
                 </a>
                 <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
-                    <i class="fab fa-twitter"></i>
+                    <i class="fa-brands fa-x-twitter"></i>
                 </a>
             </div>
             <div class="copyright">
@@ -972,6 +973,71 @@ console.log("\n🧠 SMART SEARCHER TEST");
             }, 2000);
         }
 
+        // Demo selection function - global scope for onclick handlers
+        function demoSelection(method, selector) {
+            const resultsDiv = document.getElementById('selection-results');
+            let result;
+            let output = `${method}('${selector}'):\n`;
+            
+            try {
+                switch (method) {
+                    case 'getElementById':
+                        const id = selector.replace('#', '');
+                        result = document.getElementById(id);
+                        if (result) {
+                            output += `✅ Found: <${result.tagName.toLowerCase()}>\n`;
+                            output += `   Text: "${result.textContent}"\n`;
+                            // Highlight the element
+                            result.style.backgroundColor = 'rgba(51, 115, 220, 0.2)';
+                            result.style.outline = '2px solid var(--primary-color)';
+                            setTimeout(() => {
+                                result.style.backgroundColor = '';
+                                result.style.outline = '';
+                            }, 2000);
+                        } else {
+                            output += `❌ Not found\n`;
+                        }
+                        break;
+                        
+                    case 'querySelector':
+                        result = document.querySelector(selector);
+                        if (result) {
+                            output += `✅ Found: <${result.tagName.toLowerCase()}>\n`;
+                            output += `   Text: "${result.textContent}"\n`;
+                            // Highlight the element
+                            result.style.backgroundColor = 'rgba(51, 115, 220, 0.2)';
+                            result.style.outline = '2px solid var(--primary-color)';
+                            setTimeout(() => {
+                                result.style.backgroundColor = '';
+                                result.style.outline = '';
+                            }, 2000);
+                        } else {
+                            output += `❌ Not found\n`;
+                        }
+                        break;
+                        
+                    case 'querySelectorAll':
+                        result = document.querySelectorAll(selector);
+                        output += `✅ Found: ${result.length} elements\n`;
+                        result.forEach((el, index) => {
+                            output += `   ${index + 1}: "${el.textContent}"\n`;
+                            // Highlight the elements
+                            el.style.backgroundColor = 'rgba(51, 115, 220, 0.2)';
+                            el.style.outline = '2px solid var(--primary-color)';
+                            setTimeout(() => {
+                                el.style.backgroundColor = '';
+                                el.style.outline = '';
+                            }, 2000);
+                        });
+                        break;
+                }
+            } catch (error) {
+                output += `❌ Error: ${error.message}\n`;
+            }
+            
+            resultsDiv.textContent = output;
+        }
+
         // Interactive selection demonstrator
         document.addEventListener('DOMContentLoaded', function() {
             const resultsDiv = document.getElementById('selection-results');
@@ -988,49 +1054,6 @@ console.log("\n🧠 SMART SEARCHER TEST");
                 playgroundDiv.appendChild(interactiveButtons);
             }
         });
-
-        function demoSelection(method, selector) {
-            const resultsDiv = document.getElementById('selection-results');
-            let result;
-            let output = `${method}('${selector}'):\n`;
-            
-            try {
-                switch (method) {
-                    case 'getElementById':
-                        const id = selector.replace('#', '');
-                        result = document.getElementById(id);
-                        if (result) {
-                            output += `✅ Found: <${result.tagName.toLowerCase()}>\n`;
-                            output += `   Text: "${result.textContent}"\n`;
-                        } else {
-                            output += `❌ Not found\n`;
-                        }
-                        break;
-                        
-                    case 'querySelector':
-                        result = document.querySelector(selector);
-                        if (result) {
-                            output += `✅ Found: <${result.tagName.toLowerCase()}>\n`;
-                            output += `   Text: "${result.textContent}"\n`;
-                        } else {
-                            output += `❌ Not found\n`;
-                        }
-                        break;
-                        
-                    case 'querySelectorAll':
-                        result = document.querySelectorAll(selector);
-                        output += `✅ Found: ${result.length} elements\n`;
-                        result.forEach((el, index) => {
-                            output += `   ${index + 1}: "${el.textContent}"\n`;
-                        });
-                        break;
-                }
-            } catch (error) {
-                output += `❌ Error: ${error.message}\n`;
-            }
-            
-            resultsDiv.textContent = output;
-        }
 
         // Copy code function
         function copyCode(editorId) {

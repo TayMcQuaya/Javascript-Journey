@@ -24,7 +24,7 @@ Each lesson page should be located at: `/lessons/module[X]/lesson[Y].html`
     <link rel="stylesheet" href="../../styles/header-enhanced.css">
     <link rel="stylesheet" href="../../styles/modal.css">
     <link rel="stylesheet" href="../../styles/style-guide.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -60,7 +60,7 @@ Each lesson page should be located at: `/lessons/module[X]/lesson[Y].html`
         <article class="lesson-content">
             <!-- Lesson Header -->
             <div class="lesson-header">
-                <h1>Lesson [Y]: [Lesson Title]</h1>
+                <h1>Module [X]:<br>Lesson [Y]: [Lesson Title]</h1>
                 <p class="lesson-subtitle">[Brief, engaging subtitle that summarizes the lesson]</p>
             </div>
 
@@ -197,7 +197,7 @@ console.log("Hello, World!");</textarea>
                     <i class="fab fa-github"></i>
                 </a>
                 <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
-                    <i class="fab fa-twitter"></i>
+                    <i class="fa-brands fa-x-twitter"></i>
                 </a>
             </div>
             <div class="copyright">
@@ -246,11 +246,13 @@ console.log("Hello, World!");</textarea>
 ### 1. Lesson Header
 ```html
 <div class="lesson-header">
-    <h1>Lesson [Number]: [Title]</h1>
+    <h1>Module [X]:<br>Lesson [Number]: [Title]</h1>
     <p class="lesson-subtitle">[Engaging subtitle]</p>
 </div>
 ```
-- **Always** include lesson number in h1
+- **Always** include module number and lesson number in h1
+- Module number should be on its own line using `<br>` tag
+- Format: "Module [X]:<br>Lesson [Y]: [Title]"
 - Subtitle should be engaging and summarize the lesson
 
 ### 2. Content Sections

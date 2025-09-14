@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../../styles/header-enhanced.css">
     <link rel="stylesheet" href="../../styles/modal.css">
     <link rel="stylesheet" href="../../styles/style-guide.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -49,7 +49,7 @@
         <article class="lesson-content">
             <!-- Lesson Header -->
             <div class="lesson-header">
-                <h1>Lesson 1: Introduction to the DOM</h1>
+                <h1>Module 8:<br>Lesson 1: Introduction to the DOM</h1>
                 <p class="lesson-subtitle">Discover how JavaScript brings web pages to life by manipulating the Document Object Model</p>
             </div>
 
@@ -61,19 +61,23 @@
             </section>
 
             <!-- Interactive Demo Elements -->
-            <div style="background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: 0.5rem; padding: 1.5rem; margin: 1.5rem 0;">
+            <div style="background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: 0.5rem; padding: 1.5rem; margin: 1.5rem 0; text-align: center;">
                 <h3 style="margin-top: 0; color: var(--primary-color);">🎭 Live DOM Demo Elements</h3>
                 <p id="demo-text">This text can be changed with JavaScript!</p>
-                <button id="demo-button" style="background: var(--primary-color); color: var(--bg-primary); border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer;">Click me to see DOM magic!</button>
-                <div id="demo-list">
-                    <h4>Shopping List:</h4>
+                <div>
+                    <button id="demo-button" style="background: var(--primary-color); color: var(--bg-primary); border: none; padding: 0.5rem 1rem; border-radius: 0.25rem; cursor: pointer; margin: 0.5rem 0; display: inline-block;">Click me to see DOM magic!</button>
+                </div>
+                <div id="demo-list" style="display: inline-block; text-align: left; margin: 1rem auto;">
+                    <h4 style="text-align: center;">Shopping List:</h4>
                     <ul>
                         <li>Apples</li>
                         <li>Bread</li>
                         <li>Milk</li>
                     </ul>
                 </div>
-                <img id="demo-image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzMzNzNkYyIvPgogIDx0ZXh0IHg9IjUwIiB5PSI1NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RE9NIEltYWdlPC90ZXh0Pgo8L3N2Zz4K" alt="DOM Demo Image" style="margin-top: 1rem; border-radius: 0.25rem;">
+                <div>
+                    <img id="demo-image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzMzNzNkYyIvPgogIDx0ZXh0IHg9IjUwIiB5PSI1NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RE9NIEltYWdlPC90ZXh0Pgo8L3N2Zz4K" alt="DOM Demo Image" style="margin-top: 1rem; border-radius: 0.25rem;">
+                </div>
             </div>
 
             <!-- Core Content Section 1 -->
@@ -562,7 +566,7 @@ console.log("💡 Tip: Use the inspector to click on elements and see them highl
                     <i class="fab fa-github"></i>
                 </a>
                 <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
-                    <i class="fab fa-twitter"></i>
+                    <i class="fa-brands fa-x-twitter"></i>
                 </a>
             </div>
             <div class="copyright">

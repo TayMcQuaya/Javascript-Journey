@@ -1,5 +1,14 @@
 # JavaScript Journey - UI & Content Guidelines
 
+## Technical Requirements
+
+### External Dependencies
+- **Font Awesome**: Version 6.5.2
+  - CDN: `https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css`
+  - X/Twitter icon: `fa-brands fa-x-twitter`
+  - GitHub icon: `fab fa-github`
+  - Note: Version 6.5.2 required for X (formerly Twitter) icon support
+
 ## Design System Overview
 
 ### Color Palette
@@ -87,6 +96,22 @@ Borders: #F7DF1E (Yellow)
 - Primary buttons: Black/Yellow theme colors
 - Secondary buttons: Subtle background colors
 
+#### Module Page Components
+**Lesson Cards**
+- Display: Flex with `align-items: center` for vertical centering
+- Lesson numbers: Circled numbers (50x50px) left-aligned, vertically centered
+- Content: Title, description, and metadata aligned as a group
+- Hover effect: Subtle transform translateX(4px) for visual feedback
+- Structure:
+  ```css
+  .lesson-card {
+      display: flex;
+      align-items: center; /* Vertically centers number with content */
+      gap: 1.5rem;
+      padding: 1.5rem;
+  }
+  ```
+
 ## Content Guidelines
 
 ### Lesson Structure
@@ -95,12 +120,14 @@ Each lesson MUST follow this structure:
 1. **Header Section**
    ```html
    <div class="lesson-header">
-       <h1>Lesson X: Lesson Title</h1>
+       <h1>Module X:<br>Lesson Y: Lesson Title</h1>
        <p class="lesson-subtitle">Brief description</p>
    </div>
    ```
-   - Always include lesson number in the h1 title
-   - Format: "Lesson [number]: [title]"
+   - Always include module number and lesson number in the h1 title
+   - Format: "Module [X]:<br>Lesson [Y]: [title]"
+   - The module number should be on its own line using `<br>` tag
+   - This helps users understand which module they're in at all times
 
 2. **Introduction**
    - What the concept is
@@ -313,7 +340,7 @@ Every page must include:
                 <i class="fab fa-github"></i>
             </a>
             <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
-                <i class="fab fa-twitter"></i>
+                <i class="fa-brands fa-x-twitter"></i>
             </a>
         </div>
         <div class="copyright">

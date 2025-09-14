@@ -140,7 +140,12 @@ When creating a new module/lesson:
    - For text on colored backgrounds: `var(--bg-primary)`
    - Code areas: Hard-coded `#1e1e1e` for consistency
 
-4. **Navigation Patterns**:
+4. **External Dependencies**:
+   - Font Awesome: Version 6.5.2 (updated from 6.4.0 for X/Twitter icon support)
+   - X/Twitter icon: Use `fa-brands fa-x-twitter` (not `fab fa-twitter` or `fab fa-x`)
+   - CDN Link: `https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css`
+
+5. **Navigation Patterns**:
    - Previous Module: Only on first lesson of module 2+
    - Next Module: Only on last lesson of each module
    - Complete Module: Replace "Complete Lesson" on last lesson
