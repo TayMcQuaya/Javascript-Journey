@@ -122,8 +122,8 @@ class App {
         this.currentModule = moduleId;
         Storage.save(Storage.KEYS.CURRENT_MODULE, moduleId);
         
-        // Show "coming soon" notification for module 10
-        if (moduleId == 10) {
+        // Show "coming soon" notification for future modules
+        if (moduleId > 10) {
             customModal.alert('This module will be coming soon!', 'Coming Soon', {
                 icon: 'fas fa-clock',
                 confirmText: 'OK'
@@ -137,8 +137,8 @@ class App {
     startNextModule(currentModuleId) {
         const nextModuleId = currentModuleId + 1;
         
-        // Show "coming soon" notification for module 10
-        if (nextModuleId == 10) {
+        // Show "coming soon" notification for future modules
+        if (nextModuleId > 10) {
             customModal.alert('This module will be coming soon!', 'Coming Soon', {
                 icon: 'fas fa-clock',
                 confirmText: 'OK'

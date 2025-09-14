@@ -336,11 +336,14 @@ Every page must include:
     <div class="footer-content">
         <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
         <div class="social-links">
-            <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <i class="fab fa-github"></i>
+            <a href="https://taymcquaya.com" target="_blank" rel="noopener noreferrer" aria-label="Personal Website">
+                <i class="fas fa-globe"></i>
             </a>
             <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
                 <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <i class="fab fa-github"></i>
             </a>
         </div>
         <div class="copyright">
@@ -349,6 +352,9 @@ Every page must include:
     </div>
 </footer>
 ```
+
+**Social Links Order**: Website → X (Twitter) → GitHub
+**Icons**: Personal website uses globe icon (`fas fa-globe`)
 
 ### Image Assets
 Replace placeholders with actual logos:

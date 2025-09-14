@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 4: Weather App - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <!-- Lesson Header -->
+            <div class="lesson-header">
+                <h1>Module 10:<br>Lesson 4: Weather App</h1>
+                <p class="lesson-subtitle">Build a weather application with API concepts and local storage</p>
+            </div>
+
+            <!-- Introduction Section -->
+            <section class="content-section">
+                <h2>Introduction</h2>
+                <p>Weather apps are perfect for learning how to work with external data, handle loading states, and manage user preferences. While real weather apps use APIs, we'll simulate API calls to focus on the JavaScript concepts without requiring API keys.</p>
+                <p>Think about your favorite weather app - it shows current conditions, forecasts, handles different locations, and remembers your preferences. Our app will demonstrate all these features using simulated data and teach you the patterns used in real-world applications!</p>
+            </section>
+
+            <!-- Project Preview -->
+            <section class="content-section">
+                <h2>What We're Building</h2>
+                <div id="weather-app-demo" style="padding: 2rem; background: var(--bg-secondary); border-radius: 0.5rem; border: 2px solid var(--border-color);">
+                    <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 1.5rem;">🌤️ Weather Dashboard</h3>
+                    
+                    <div id="demo-weather-container">
+                        <!-- Weather will be rendered here -->
+                    </div>
+                    
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem; justify-content: center;">
+                        <button onclick="loadDemoWeather('New York')" style="padding: 0.5rem 1rem; background: var(--primary-color); color: var(--bg-primary); border: none; border-radius: 0.25rem; cursor: pointer;">
+                            New York
+                        </button>
+                        <button onclick="loadDemoWeather('London')" style="padding: 0.5rem 1rem; background: var(--primary-color); color: var(--bg-primary); border: none; border-radius: 0.25rem; cursor: pointer;">
+                            London
+                        </button>
+                        <button onclick="loadDemoWeather('Tokyo')" style="padding: 0.5rem 1rem; background: var(--primary-color); color: var(--bg-primary); border: none; border-radius: 0.25rem; cursor: pointer;">
+                            Tokyo
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Simulation Section -->
+            <section class="content-section">
+                <h2>Step 1: Simulating Weather Data</h2>
+                <p>Before building the app, let's create realistic weather data. In real apps, this comes from APIs, but we'll simulate it to focus on JavaScript concepts.</p>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Weather Data Simulation</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">
+// Weather data simulation (replaces API calls)
+const weatherDatabase = {
+    "New York": {
+        city: "New York",
+        country: "USA",
+        current: {
+            temperature: 72,
+            condition: "Partly Cloudy",
+            humidity: 65,
+            windSpeed: 8,
+            icon: "partly-cloudy"
+        },
+        forecast: [
+            { day: "Today", high: 75, low: 68, condition: "Partly Cloudy" },
+            { day: "Tomorrow", high: 78, low: 70, condition: "Sunny" },
+            { day: "Wednesday", high: 73, low: 65, condition: "Rainy" },
+            { day: "Thursday", high: 69, low: 62, condition: "Cloudy" },
+            { day: "Friday", high: 71, low: 64, condition: "Sunny" }
+        ]
+    },
+    "London": {
+        city: "London",
+        country: "UK",
+        current: {
+            temperature: 16,
+            condition: "Rainy",
+            humidity: 80,
+            windSpeed: 12,
+            icon: "rainy"
+        },
+        forecast: [
+            { day: "Today", high: 18, low: 14, condition: "Rainy" },
+            { day: "Tomorrow", high: 20, low: 15, condition: "Cloudy" },
+            { day: "Wednesday", high: 17, low: 13, condition: "Rainy" },
+            { day: "Thursday", high: 19, low: 14, condition: "Partly Cloudy" },
+            { day: "Friday", high: 22, low: 16, condition: "Sunny" }
+        ]
+    },
+    "Tokyo": {
+        city: "Tokyo",
+        country: "Japan",
+        current: {
+            temperature: 26,
+            condition: "Sunny",
+            humidity: 55,
+            windSpeed: 6,
+            icon: "sunny"
+        },
+        forecast: [
+            { day: "Today", high: 28, low: 23, condition: "Sunny" },
+            { day: "Tomorrow", high: 30, low: 25, condition: "Hot" },
+            { day: "Wednesday", high: 27, low: 22, condition: "Partly Cloudy" },
+            { day: "Thursday", high: 24, low: 20, condition: "Rainy" },
+            { day: "Friday", high: 25, low: 21, condition: "Cloudy" }
+        ]
+    }
+};
+
+// Function to simulate API call with loading time
+function fetchWeatherData(city) {
+    console.log(`🌐 Fetching weather for ${city}...`);
+    
+    return new Promise((resolve, reject) => {
+        // Simulate network delay
+        setTimeout(() => {
+            const data = weatherDatabase[city];
+            
+            if (data) {
+                console.log(`✅ Weather data received for ${city}`);
+                resolve(data);
+            } else {
+                console.log(`❌ City '${city}' not found`);
+                reject(new Error(`Weather data not available for ${city}`));
+            }
+        }, Math.random() * 2000 + 500); // 0.5-2.5 second delay
+    });
+}
+
+// Function to get weather icon emoji
+function getWeatherIcon(condition) {
+    const icons = {
+        "Sunny": "☀️",
+        "Partly Cloudy": "⛅",
+        "Cloudy": "☁️",
+        "Rainy": "🌧️",
+        "Hot": "🌡️",
+        "Snow": "❄️"
+    };
+    
+    return icons[condition] || "🌤️";
+}
+
+// Function to convert temperature units
+function convertTemperature(celsius, unit = 'C') {
+    if (unit === 'F') {
+        return Math.round((celsius * 9/5) + 32);
+    }
+    return celsius;
+}
+
+// Test the weather data functions
+console.log("Weather Data System:");
+console.log("=".repeat(40));
+
+console.log("Available cities:", Object.keys(weatherDatabase));
+
+// Test data fetching
+fetchWeatherData("New York")
+    .then(data => {
+        console.log("\nFetched data for New York:");
+        console.log(`Location: ${data.city}, ${data.country}`);
+        console.log(`Temperature: ${data.current.temperature}°C`);
+        console.log(`Condition: ${data.current.condition} ${getWeatherIcon(data.current.condition)}`);
+        console.log(`Humidity: ${data.current.humidity}%`);
+        console.log(`Wind Speed: ${data.current.windSpeed} mph`);
+        console.log("\n5-Day Forecast:");
+        data.forecast.forEach(day => {
+            console.log(`${day.day}: ${day.high}°/${day.low}° ${day.condition} ${getWeatherIcon(day.condition)}`);
+        });
+    })
+    .catch(error => {
+        console.error("Error:", error.message);
+    });
+
+// Test error handling
+fetchWeatherData("Mars")
+    .then(data => console.log(data))
+    .catch(error => console.log(`Error handled: ${error.message}`));
+
+console.log("\nTemperature conversion test:");
+console.log(`20°C = ${convertTemperature(20, 'F')}°F`);
+console.log(`0°C = ${convertTemperature(0, 'F')}°F`);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Error Handling Section -->
+            <section class="content-section">
+                <h2>Step 2: Error Handling & Loading States</h2>
+                <p>Real applications need to handle errors gracefully and show loading states. Let's implement robust error handling for our weather app.</p>
+
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> User Experience:</strong>
+                        <p>Always show loading states and meaningful error messages to keep users informed about what's happening.</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Error Handling</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">
+// Weather App Error Handling System
+class WeatherApp {
+    constructor() {
+        this.isLoading = false;
+        this.currentData = null;
+        this.favorites = [];
+        this.temperatureUnit = 'C'; // 'C' or 'F'
+        
+        console.log("🌤️ Weather App initialized");
+    }
+    
+    // Show loading state
+    showLoading(city) {
+        this.isLoading = true;
+        console.log(`🔄 Loading weather for ${city}...`);
+        console.log("├─ Showing loading spinner");
+        console.log("├─ Disabling user input");
+        console.log("└─ Preparing UI for new data");
+    }
+    
+    // Hide loading state
+    hideLoading() {
+        this.isLoading = false;
+        console.log("✅ Loading complete");
+        console.log("├─ Hiding loading spinner");
+        console.log("└─ Enabling user input");
+    }
+    
+    // Handle different types of errors
+    handleError(error, city) {
+        this.hideLoading();
+        
+        console.log("❌ Error occurred:");
+        console.log(`├─ City: ${city}`);
+        console.log(`├─ Error: ${error.message}`);
+        
+        // Determine error type and appropriate message
+        let userMessage;
+        let errorType;
+        
+        if (error.message.includes('not available') || error.message.includes('not found')) {
+            errorType = 'CITY_NOT_FOUND';
+            userMessage = `Sorry, we couldn't find weather data for "${city}". Please check the spelling and try again.`;
+        } else if (error.message.includes('network') || error.message.includes('fetch')) {
+            errorType = 'NETWORK_ERROR';
+            userMessage = "Unable to connect to weather service. Please check your internet connection and try again.";
+        } else if (error.message.includes('timeout')) {
+            errorType = 'TIMEOUT_ERROR';
+            userMessage = "Request timed out. Please try again.";
+        } else {
+            errorType = 'UNKNOWN_ERROR';
+            userMessage = "Something went wrong. Please try again later.";
+        }
+        
+        console.log(`├─ Error Type: ${errorType}`);
+        console.log(`└─ User Message: "${userMessage}"`);
+        
+        // In real app, this would update the UI
+        this.showErrorMessage(userMessage, errorType);
+        
+        return { errorType, userMessage };
+    }
+    
+    // Display error message to user
+    showErrorMessage(message, type) {
+        const errorEmoji = {
+            'CITY_NOT_FOUND': '🗺️',
+            'NETWORK_ERROR': '🌐',
+            'TIMEOUT_ERROR': '⏰',
+            'UNKNOWN_ERROR': '⚠️'
+        };
+        
+        console.log("\n" + "=".repeat(50));
+        console.log(`${errorEmoji[type]} ERROR MESSAGE TO USER:`);
+        console.log(message);
+        console.log("=".repeat(50));
+    }
+    
+    // Load weather with full error handling
+    async loadWeather(city) {
+        try {
+            // Validate input
+            if (!city || city.trim() === '') {
+                throw new Error('City name is required');
+            }
+            
+            city = city.trim();
+            this.showLoading(city);
+            
+            // Simulate API call
+            const weatherData = await this.fetchWeatherData(city);
+            
+            this.hideLoading();
+            this.currentData = weatherData;
+            
+            console.log(`🎉 Successfully loaded weather for ${city}`);
+            this.displayWeather(weatherData);
+            
+            return weatherData;
+            
+        } catch (error) {
+            this.handleError(error, city);
+            throw error; // Re-throw for caller to handle if needed
+        }
+    }
+    
+    // Simulate weather API call with potential failures
+    fetchWeatherData(city) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                // Simulate different error scenarios
+                const random = Math.random();
+                
+                if (random < 0.1) {
+                    reject(new Error('Network error: Unable to connect to weather service'));
+                } else if (random < 0.15) {
+                    reject(new Error('Request timeout: Please try again'));
+                } else if (!weatherDatabase[city]) {
+                    reject(new Error(`Weather data not available for ${city}`));
+                } else {
+                    resolve(weatherDatabase[city]);
+                }
+            }, Math.random() * 1500 + 500);
+        });
+    }
+    
+    // Display weather data
+    displayWeather(data) {
+        console.log("\n🌤️ WEATHER DISPLAY");
+        console.log("=".repeat(30));
+        console.log(`📍 ${data.city}, ${data.country}`);
+        console.log(`🌡️ ${data.current.temperature}°${this.temperatureUnit}`);
+        console.log(`☁️ ${data.current.condition}`);
+        console.log(`💧 Humidity: ${data.current.humidity}%`);
+        console.log(`💨 Wind: ${data.current.windSpeed} mph`);
+        console.log("=".repeat(30));
+    }
+    
+    // Retry failed request
+    async retryWeatherRequest(city, maxRetries = 3) {
+        for (let attempt = 1; attempt <= maxRetries; attempt++) {
+            try {
+                console.log(`🔄 Attempt ${attempt}/${maxRetries} for ${city}`);
+                return await this.loadWeather(city);
+            } catch (error) {
+                if (attempt === maxRetries) {
+                    console.log(`😞 All ${maxRetries} attempts failed for ${city}`);
+                    throw error;
+                }
+                
+                const delay = attempt * 1000; // Increasing delay
+                console.log(`⏳ Waiting ${delay}ms before retry...`);
+                await new Promise(resolve => setTimeout(resolve, delay));
+            }
+        }
+    }
+}
+
+// Test the error handling system
+const weatherApp = new WeatherApp();
+
+console.log("Testing Weather App Error Handling:");
+console.log("=".repeat(50));
+
+// Test successful request
+weatherApp.loadWeather("New York")
+    .then(data => console.log("✅ Success case handled"))
+    .catch(error => console.log("❌ This shouldn't happen"));
+
+// Test error cases
+setTimeout(() => {
+    console.log("\n" + "=".repeat(50));
+    console.log("Testing error cases:");
+    
+    // Invalid city
+    weatherApp.loadWeather("InvalidCity")
+        .catch(error => console.log("✅ Invalid city error handled"));
+    
+    // Empty input
+    weatherApp.loadWeather("")
+        .catch(error => console.log("✅ Empty input error handled"));
+    
+}, 1000);
+
+// Test retry mechanism
+setTimeout(() => {
+    console.log("\n" + "=".repeat(50));
+    console.log("Testing retry mechanism:");
+    
+    weatherApp.retryWeatherRequest("Tokyo")
+        .then(() => console.log("✅ Retry successful"))
+        .catch(() => console.log("✅ Retry mechanism tested"));
+        
+}, 3000);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Local Storage Section -->
+            <section class="content-section">
+                <h2>Step 3: Local Storage & Favorites</h2>
+                <p>Let's add the ability to save favorite locations and user preferences using localStorage, just like real weather apps do!</p>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Local Storage System</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">
+// Weather App Local Storage System
+class WeatherStorage {
+    constructor() {
+        this.storageKeys = {
+            favorites: 'weatherApp_favorites',
+            lastLocation: 'weatherApp_lastLocation',
+            preferences: 'weatherApp_preferences',
+            weatherCache: 'weatherApp_cache'
+        };
+        
+        console.log("💾 Weather Storage System initialized");
+        this.loadUserPreferences();
+    }
+    
+    // Save favorite locations
+    saveFavorites(favorites) {
+        try {
+            const favoritesData = {
+                locations: favorites,
+                lastUpdated: new Date().toISOString(),
+                version: '1.0'
+            };
+            
+            // Simulate localStorage.setItem()
+            console.log("💾 Saving favorites to localStorage:");
+            console.log(`Key: ${this.storageKeys.favorites}`);
+            console.log(`Data:`, JSON.stringify(favoritesData, null, 2));
+            
+            // In real app: localStorage.setItem(this.storageKeys.favorites, JSON.stringify(favoritesData));
+            
+            console.log("✅ Favorites saved successfully");
+            return true;
+            
+        } catch (error) {
+            console.error("❌ Error saving favorites:", error.message);
+            return false;
+        }
+    }
+    
+    // Load favorite locations
+    loadFavorites() {
+        try {
+            // Simulate localStorage.getItem()
+            const mockStoredData = JSON.stringify({
+                locations: [
+                    { city: "New York", country: "USA", addedDate: "2025-01-01" },
+                    { city: "London", country: "UK", addedDate: "2025-01-02" },
+                    { city: "Tokyo", country: "Japan", addedDate: "2025-01-03" }
+                ],
+                lastUpdated: "2025-01-15T12:00:00.000Z",
+                version: "1.0"
+            });
+            
+            console.log("📂 Loading favorites from localStorage...");
+            
+            if (mockStoredData) {
+                const favoritesData = JSON.parse(mockStoredData);
+                console.log("✅ Favorites loaded:");
+                console.log(`Last updated: ${favoritesData.lastUpdated}`);
+                console.log(`Found ${favoritesData.locations.length} favorite locations:`);
+                
+                favoritesData.locations.forEach((location, index) => {
+                    console.log(`  ${index + 1}. ${location.city}, ${location.country} (added: ${location.addedDate})`);
+                });
+                
+                return favoritesData.locations;
+            } else {
+                console.log("📭 No favorites found, starting with empty list");
+                return [];
+            }
+            
+        } catch (error) {
+            console.error("❌ Error loading favorites:", error.message);
+            return [];
+        }
+    }
+    
+    // Add location to favorites
+    addToFavorites(city, country) {
+        const favorites = this.loadFavorites();
+        
+        // Check if already exists
+        const exists = favorites.some(fav => 
+            fav.city.toLowerCase() === city.toLowerCase() && 
+            fav.country.toLowerCase() === country.toLowerCase()
+        );
+        
+        if (exists) {
+            console.log(`⚠️ ${city}, ${country} is already in favorites`);
+            return false;
+        }
+        
+        const newFavorite = {
+            city,
+            country,
+            addedDate: new Date().toISOString().split('T')[0] // YYYY-MM-DD
+        };
+        
+        favorites.push(newFavorite);
+        console.log(`⭐ Added ${city}, ${country} to favorites`);
+        
+        return this.saveFavorites(favorites);
+    }
+    
+    // Remove location from favorites
+    removeFromFavorites(city, country) {
+        const favorites = this.loadFavorites();
+        const initialLength = favorites.length;
+        
+        const updatedFavorites = favorites.filter(fav => 
+            !(fav.city.toLowerCase() === city.toLowerCase() && 
+              fav.country.toLowerCase() === country.toLowerCase())
+        );
+        
+        if (updatedFavorites.length === initialLength) {
+            console.log(`⚠️ ${city}, ${country} not found in favorites`);
+            return false;
+        }
+        
+        console.log(`🗑️ Removed ${city}, ${country} from favorites`);
+        return this.saveFavorites(updatedFavorites);
+    }
+    
+    // Save user preferences
+    savePreferences(preferences) {
+        try {
+            const prefsData = {
+                temperatureUnit: preferences.temperatureUnit || 'C',
+                theme: preferences.theme || 'auto',
+                notifications: preferences.notifications || false,
+                autoLocation: preferences.autoLocation || false,
+                language: preferences.language || 'en',
+                lastUpdated: new Date().toISOString()
+            };
+            
+            console.log("⚙️ Saving user preferences:");
+            console.log(JSON.stringify(prefsData, null, 2));
+            
+            // In real app: localStorage.setItem(this.storageKeys.preferences, JSON.stringify(prefsData));
+            
+            console.log("✅ Preferences saved");
+            return true;
+            
+        } catch (error) {
+            console.error("❌ Error saving preferences:", error.message);
+            return false;
+        }
+    }
+    
+    // Load user preferences
+    loadUserPreferences() {
+        try {
+            // Simulate stored preferences
+            const mockPrefs = JSON.stringify({
+                temperatureUnit: 'C',
+                theme: 'auto',
+                notifications: true,
+                autoLocation: false,
+                language: 'en',
+                lastUpdated: '2025-01-15T10:00:00.000Z'
+            });
+            
+            if (mockPrefs) {
+                const preferences = JSON.parse(mockPrefs);
+                console.log("⚙️ User preferences loaded:");
+                console.log(`Temperature unit: ${preferences.temperatureUnit}`);
+                console.log(`Theme: ${preferences.theme}`);
+                console.log(`Notifications: ${preferences.notifications ? 'enabled' : 'disabled'}`);
+                console.log(`Auto location: ${preferences.autoLocation ? 'enabled' : 'disabled'}`);
+                
+                return preferences;
+            } else {
+                console.log("⚙️ No preferences found, using defaults");
+                return this.getDefaultPreferences();
+            }
+            
+        } catch (error) {
+            console.error("❌ Error loading preferences:", error.message);
+            return this.getDefaultPreferences();
+        }
+    }
+    
+    // Default preferences
+    getDefaultPreferences() {
+        return {
+            temperatureUnit: 'C',
+            theme: 'auto',
+            notifications: false,
+            autoLocation: false,
+            language: 'en'
+        };
+    }
+    
+    // Cache weather data for offline use
+    cacheWeatherData(city, data) {
+        try {
+            const cacheEntry = {
+                city,
+                data,
+                cachedAt: new Date().toISOString(),
+                expiresAt: new Date(Date.now() + 10 * 60 * 1000).toISOString() // 10 minutes
+            };
+            
+            console.log(`📦 Caching weather data for ${city}`);
+            console.log(`Cache expires at: ${cacheEntry.expiresAt}`);
+            
+            // In real app: localStorage.setItem(`${this.storageKeys.weatherCache}_${city}`, JSON.stringify(cacheEntry));
+            
+            return true;
+        } catch (error) {
+            console.error("❌ Error caching weather data:", error.message);
+            return false;
+        }
+    }
+    
+    // Clear expired cache entries
+    clearExpiredCache() {
+        console.log("🧹 Clearing expired weather cache...");
+        
+        // In real app, this would iterate through localStorage keys
+        // and remove expired entries
+        
+        console.log("✅ Expired cache entries cleared");
+    }
+}
+
+// Test the storage system
+const weatherStorage = new WeatherStorage();
+
+console.log("\nTesting Weather Storage System:");
+console.log("=".repeat(50));
+
+// Test favorites
+console.log("\n1. Testing Favorites:");
+weatherStorage.addToFavorites("Paris", "France");
+weatherStorage.addToFavorites("Sydney", "Australia");
+weatherStorage.addToFavorites("New York", "USA"); // Duplicate
+
+const favorites = weatherStorage.loadFavorites();
+console.log(`\nLoaded ${favorites.length} favorites`);
+
+weatherStorage.removeFromFavorites("London", "UK");
+
+// Test preferences
+console.log("\n2. Testing Preferences:");
+weatherStorage.savePreferences({
+    temperatureUnit: 'F',
+    theme: 'dark',
+    notifications: true
+});
+
+const prefs = weatherStorage.loadUserPreferences();
+
+// Test caching
+console.log("\n3. Testing Cache:");
+weatherStorage.cacheWeatherData("Berlin", { temp: 20, condition: "Sunny" });
+weatherStorage.clearExpiredCache();</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dynamic UI Updates -->
+            <section class="content-section">
+                <h2>Step 4: Dynamic UI Updates</h2>
+                <p>Let's create smooth, responsive UI updates that make our weather app feel professional and polished.</p>
+
+                <div class="warning-box">
+                    <div>
+                        <i class="fas fa-exclamation-triangle"></i> <strong> Performance Tip:</strong>
+                        <p>Update the DOM efficiently by batching changes and avoiding unnecessary re-renders.</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor4">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">UI Updates</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor4')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor4')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor4-code">
+// Weather App UI Update System
+class WeatherUI {
+    constructor(containerId) {
+        this.container = containerId;
+        this.isAnimating = false;
+        this.currentCity = null;
+        
+        console.log("🎨 Weather UI System initialized");
+    }
+    
+    // Update current weather display
+    updateCurrentWeather(weatherData) {
+        console.log(`🎨 Updating current weather display for ${weatherData.city}`);
+        
+        const currentWeatherHTML = `
+            <div class="current-weather-card">
+                <div class="location-header">
+                    <h2>${weatherData.city}, ${weatherData.country}</h2>
+                    <button class="favorite-btn" onclick="toggleFavorite('${weatherData.city}', '${weatherData.country}')">
+                        ⭐
+                    </button>
+                </div>
+                
+                <div class="weather-main">
+                    <div class="temperature">
+                        <span class="temp-value">${weatherData.current.temperature}</span>
+                        <span class="temp-unit">°C</span>
+                    </div>
+                    <div class="weather-icon">
+                        ${this.getWeatherIcon(weatherData.current.condition)}
+                    </div>
+                </div>
+                
+                <div class="weather-condition">
+                    <h3>${weatherData.current.condition}</h3>
+                </div>
+                
+                <div class="weather-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Humidity</span>
+                        <span class="detail-value">${weatherData.current.humidity}%</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Wind Speed</span>
+                        <span class="detail-value">${weatherData.current.windSpeed} mph</span>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        console.log("Generated current weather HTML:");
+        console.log(currentWeatherHTML);
+        
+        // Simulate DOM update
+        console.log("✅ Current weather display updated");
+        this.animateContentChange();
+    }
+    
+    // Update forecast display
+    updateForecast(forecast) {
+        console.log("🎨 Updating 5-day forecast");
+        
+        const forecastHTML = forecast.map(day => `
+            <div class="forecast-day">
+                <div class="forecast-date">${day.day}</div>
+                <div class="forecast-icon">${this.getWeatherIcon(day.condition)}</div>
+                <div class="forecast-temps">
+                    <span class="high-temp">${day.high}°</span>
+                    <span class="low-temp">${day.low}°</span>
+                </div>
+                <div class="forecast-condition">${day.condition}</div>
+            </div>
+        `).join('');
+        
+        console.log("Generated forecast HTML with", forecast.length, "days");
+        console.log("✅ Forecast display updated");
+    }
+    
+    // Show loading animation
+    showLoadingState(city) {
+        this.isAnimating = true;
+        
+        const loadingHTML = `
+            <div class="loading-container">
+                <div class="loading-spinner">
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                </div>
+                <div class="loading-text">
+                    <h3>Getting weather for ${city}...</h3>
+                    <p>Please wait while we fetch the latest data</p>
+                </div>
+                <div class="loading-dots">
+                    <span class="dot">●</span>
+                    <span class="dot">●</span>
+                    <span class="dot">●</span>
+                </div>
+            </div>
+        `;
+        
+        console.log(`🔄 Showing loading state for ${city}`);
+        console.log("├─ Spinner animation started");
+        console.log("├─ User input disabled");
+        console.log("└─ Loading message displayed");
+        
+        // Simulate loading animation progression
+        setTimeout(() => this.updateLoadingProgress(25), 200);
+        setTimeout(() => this.updateLoadingProgress(50), 600);
+        setTimeout(() => this.updateLoadingProgress(75), 1000);
+        setTimeout(() => this.updateLoadingProgress(100), 1400);
+    }
+    
+    // Update loading progress
+    updateLoadingProgress(percentage) {
+        if (!this.isAnimating) return;
+        
+        console.log(`📊 Loading progress: ${percentage}%`);
+        
+        const messages = {
+            25: "Connecting to weather service...",
+            50: "Fetching current conditions...",
+            75: "Loading forecast data...",
+            100: "Almost ready..."
+        };
+        
+        if (messages[percentage]) {
+            console.log(`├─ ${messages[percentage]}`);
+        }
+    }
+    
+    // Hide loading state
+    hideLoadingState() {
+        if (!this.isAnimating) return;
+        
+        this.isAnimating = false;
+        console.log("✅ Hiding loading state");
+        console.log("├─ Stopping spinner animation");
+        console.log("├─ Enabling user input");
+        console.log("└─ Preparing for content display");
+    }
+    
+    // Show error message with retry option
+    showError(message, errorType, city) {
+        const errorEmojis = {
+            'CITY_NOT_FOUND': '🗺️',
+            'NETWORK_ERROR': '🌐',
+            'TIMEOUT_ERROR': '⏰',
+            'UNKNOWN_ERROR': '⚠️'
+        };
+        
+        const errorHTML = `
+            <div class="error-container">
+                <div class="error-icon">
+                    ${errorEmojis[errorType] || '⚠️'}
+                </div>
+                <div class="error-message">
+                    <h3>Oops! Something went wrong</h3>
+                    <p>${message}</p>
+                </div>
+                <div class="error-actions">
+                    <button class="retry-btn" onclick="retryWeatherRequest('${city}')">
+                        🔄 Try Again
+                    </button>
+                    <button class="home-btn" onclick="showPopularCities()">
+                        🏠 Popular Cities
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        console.log("❌ Showing error message:");
+        console.log(`├─ Type: ${errorType}`);
+        console.log(`├─ City: ${city}`);
+        console.log(`└─ Message: ${message}`);
+        
+        this.animateErrorDisplay();
+    }
+    
+    // Animate content changes
+    animateContentChange() {
+        console.log("🎬 Starting content change animation");
+        console.log("├─ Fade out old content");
+        
+        setTimeout(() => {
+            console.log("├─ Update content");
+        }, 200);
+        
+        setTimeout(() => {
+            console.log("└─ Fade in new content");
+        }, 400);
+    }
+    
+    // Animate error display
+    animateErrorDisplay() {
+        console.log("🎬 Starting error animation");
+        console.log("├─ Shake animation");
+        console.log("├─ Highlight error message");
+        console.log("└─ Pulse retry button");
+    }
+    
+    // Update temperature unit display
+    updateTemperatureUnit(data, unit) {
+        console.log(`🌡️ Converting temperatures to ${unit === 'F' ? 'Fahrenheit' : 'Celsius'}`);
+        
+        const convertTemp = (celsius) => {
+            if (unit === 'F') {
+                return Math.round((celsius * 9/5) + 32);
+            }
+            return celsius;
+        };
+        
+        console.log("Temperature conversions:");
+        console.log(`├─ Current: ${data.current.temperature}°C → ${convertTemp(data.current.temperature)}°${unit}`);
+        
+        data.forecast.forEach((day, index) => {
+            const highConverted = convertTemp(day.high);
+            const lowConverted = convertTemp(day.low);
+            console.log(`├─ ${day.day}: ${day.high}°/${day.low}°C → ${highConverted}°/${lowConverted}°${unit}`);
+        });
+        
+        console.log("✅ Temperature unit updated");
+    }
+    
+    // Get weather icon emoji
+    getWeatherIcon(condition) {
+        const icons = {
+            "Sunny": "☀️",
+            "Partly Cloudy": "⛅",
+            "Cloudy": "☁️",
+            "Rainy": "🌧️",
+            "Hot": "🌡️",
+            "Snow": "❄️"
+        };
+        
+        return icons[condition] || "🌤️";
+    }
+    
+    // Update favorites list
+    updateFavoritesList(favorites) {
+        console.log(`⭐ Updating favorites list (${favorites.length} items)`);
+        
+        favorites.forEach((fav, index) => {
+            console.log(`├─ ${index + 1}. ${fav.city}, ${fav.country}`);
+        });
+        
+        const favoritesHTML = favorites.map(fav => `
+            <div class="favorite-item" onclick="loadWeatherForFavorite('${fav.city}')">
+                <span class="favorite-city">${fav.city}, ${fav.country}</span>
+                <button class="remove-favorite" onclick="removeFavorite('${fav.city}', '${fav.country}')">
+                    🗑️
+                </button>
+            </div>
+        `).join('');
+        
+        console.log("✅ Favorites list updated");
+    }
+}
+
+// Test the UI system
+const weatherUI = new WeatherUI('weather-container');
+
+console.log("Testing Weather UI System:");
+console.log("=".repeat(50));
+
+// Test loading state
+console.log("\n1. Testing Loading State:");
+weatherUI.showLoadingState("Paris");
+
+// Test current weather update
+setTimeout(() => {
+    console.log("\n2. Testing Weather Display:");
+    const sampleData = {
+        city: "Paris",
+        country: "France",
+        current: {
+            temperature: 22,
+            condition: "Sunny",
+            humidity: 60,
+            windSpeed: 10
+        },
+        forecast: [
+            { day: "Today", high: 24, low: 18, condition: "Sunny" },
+            { day: "Tomorrow", high: 26, low: 20, condition: "Partly Cloudy" }
+        ]
+    };
+    
+    weatherUI.hideLoadingState();
+    weatherUI.updateCurrentWeather(sampleData);
+    weatherUI.updateForecast(sampleData.forecast);
+}, 2000);
+
+// Test error handling
+setTimeout(() => {
+    console.log("\n3. Testing Error Display:");
+    weatherUI.showError(
+        "Unable to find weather data for this location", 
+        "CITY_NOT_FOUND", 
+        "InvalidCity"
+    );
+}, 4000);
+
+// Test temperature conversion
+setTimeout(() => {
+    console.log("\n4. Testing Temperature Conversion:");
+    const tempData = {
+        current: { temperature: 25 },
+        forecast: [
+            { day: "Today", high: 28, low: 22, condition: "Sunny" },
+            { day: "Tomorrow", high: 30, low: 24, condition: "Hot" }
+        ]
+    };
+    
+    weatherUI.updateTemperatureUnit(tempData, 'F');
+}, 5000);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor4-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Complete Weather App -->
+            <section class="content-section">
+                <h2>Step 5: Complete Weather App</h2>
+                <p>Now let's put everything together into a complete, professional weather application!</p>
+
+                <div class="code-editor" id="editor5">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Complete Weather App</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor5')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="buildCompleteWeatherApp()">
+                                <i class="fas fa-play"></i> Build App
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor5-code">
+// Complete Weather Application
+class CompleteWeatherApp {
+    constructor() {
+        this.ui = new WeatherUI();
+        this.storage = new WeatherStorage();
+        this.currentData = null;
+        this.favorites = [];
+        this.preferences = {};
+        
+        this.init();
+    }
+    
+    // Initialize the application
+    async init() {
+        console.log("🌤️ Initializing Complete Weather App");
+        console.log("=".repeat(50));
+        
+        try {
+            // Load user data
+            this.preferences = this.storage.loadUserPreferences();
+            this.favorites = this.storage.loadFavorites();
+            
+            console.log(`⚙️ Loaded ${Object.keys(this.preferences).length} preferences`);
+            console.log(`⭐ Loaded ${this.favorites.length} favorite locations`);
+            
+            // Load last viewed location or default
+            const lastLocation = this.getLastLocation() || "New York";
+            console.log(`📍 Loading weather for: ${lastLocation}`);
+            
+            await this.loadWeather(lastLocation);
+            
+            console.log("🎉 Weather App initialization complete!");
+            
+        } catch (error) {
+            console.error("❌ Error during initialization:", error.message);
+            this.showWelcomeScreen();
+        }
+    }
+    
+    // Load weather for a city
+    async loadWeather(cityName) {
+        try {
+            console.log(`\n🌍 Loading weather for: ${cityName}`);
+            
+            // Show loading state
+            this.ui.showLoadingState(cityName);
+            
+            // Check cache first
+            const cachedData = this.getCachedWeather(cityName);
+            if (cachedData) {
+                console.log("📦 Using cached data");
+                this.displayWeather(cachedData);
+                return cachedData;
+            }
+            
+            // Fetch fresh data
+            const weatherData = await this.fetchWeatherData(cityName);
+            
+            // Cache the data
+            this.storage.cacheWeatherData(cityName, weatherData);
+            
+            // Update last location
+            this.saveLastLocation(cityName);
+            
+            // Display the weather
+            this.displayWeather(weatherData);
+            
+            console.log(`✅ Successfully loaded weather for ${cityName}`);
+            return weatherData;
+            
+        } catch (error) {
+            console.error(`❌ Error loading weather for ${cityName}:`, error.message);
+            this.handleWeatherError(error, cityName);
+            throw error;
+        }
+    }
+    
+    // Display weather data
+    displayWeather(weatherData) {
+        this.ui.hideLoadingState();
+        this.currentData = weatherData;
+        
+        console.log("\n🌤️ WEATHER DISPLAY");
+        console.log("=".repeat(40));
+        console.log(`📍 Location: ${weatherData.city}, ${weatherData.country}`);
+        console.log(`🌡️ Temperature: ${weatherData.current.temperature}°C`);
+        console.log(`☁️ Condition: ${weatherData.current.condition}`);
+        console.log(`💧 Humidity: ${weatherData.current.humidity}%`);
+        console.log(`💨 Wind: ${weatherData.current.windSpeed} mph`);
+        
+        // Show 5-day forecast
+        console.log("\n📅 5-Day Forecast:");
+        weatherData.forecast.forEach(day => {
+            const icon = this.getWeatherIcon(day.condition);
+            console.log(`  ${day.day}: ${day.high}°/${day.low}° ${day.condition} ${icon}`);
+        });
+        
+        console.log("=".repeat(40));
+        
+        // Update UI components
+        this.ui.updateCurrentWeather(weatherData);
+        this.ui.updateForecast(weatherData.forecast);
+        
+        // Update temperature unit if needed
+        if (this.preferences.temperatureUnit === 'F') {
+            this.ui.updateTemperatureUnit(weatherData, 'F');
+        }
+    }
+    
+    // Handle weather loading errors
+    handleWeatherError(error, cityName) {
+        this.ui.hideLoadingState();
+        
+        let errorType = 'UNKNOWN_ERROR';
+        if (error.message.includes('not available')) {
+            errorType = 'CITY_NOT_FOUND';
+        } else if (error.message.includes('network')) {
+            errorType = 'NETWORK_ERROR';
+        } else if (error.message.includes('timeout')) {
+            errorType = 'TIMEOUT_ERROR';
+        }
+        
+        this.ui.showError(error.message, errorType, cityName);
+    }
+    
+    // Add city to favorites
+    addToFavorites(city, country) {
+        const success = this.storage.addToFavorites(city, country);
+        
+        if (success) {
+            this.favorites = this.storage.loadFavorites();
+            this.ui.updateFavoritesList(this.favorites);
+            
+            console.log(`⭐ ${city} added to favorites`);
+            this.showNotification(`${city} added to favorites!`, 'success');
+        } else {
+            console.log(`⚠️ Failed to add ${city} to favorites`);
+            this.showNotification(`${city} is already in favorites`, 'info');
+        }
+    }
+    
+    // Remove city from favorites
+    removeFromFavorites(city, country) {
+        const success = this.storage.removeFromFavorites(city, country);
+        
+        if (success) {
+            this.favorites = this.storage.loadFavorites();
+            this.ui.updateFavoritesList(this.favorites);
+            
+            console.log(`🗑️ ${city} removed from favorites`);
+            this.showNotification(`${city} removed from favorites`, 'info');
+        }
+    }
+    
+    // Toggle temperature unit
+    toggleTemperatureUnit() {
+        const currentUnit = this.preferences.temperatureUnit || 'C';
+        const newUnit = currentUnit === 'C' ? 'F' : 'C';
+        
+        this.preferences.temperatureUnit = newUnit;
+        this.storage.savePreferences(this.preferences);
+        
+        console.log(`🌡️ Temperature unit changed to: ${newUnit}`);
+        
+        if (this.currentData) {
+            this.ui.updateTemperatureUnit(this.currentData, newUnit);
+        }
+        
+        this.showNotification(`Temperature unit changed to °${newUnit}`, 'info');
+    }
+    
+    // Search for weather by city name
+    async searchWeather(searchQuery) {
+        if (!searchQuery || searchQuery.trim() === '') {
+            this.showNotification('Please enter a city name', 'warning');
+            return;
+        }
+        
+        const cityName = searchQuery.trim();
+        console.log(`🔍 Searching weather for: "${cityName}"`);
+        
+        try {
+            await this.loadWeather(cityName);
+        } catch (error) {
+            // Error is already handled in loadWeather
+            console.log("Search failed, showing suggestions...");
+            this.showPopularCities();
+        }
+    }
+    
+    // Show popular cities as suggestions
+    showPopularCities() {
+        const popularCities = [
+            "New York", "London", "Tokyo", "Paris", "Sydney", 
+            "Los Angeles", "Berlin", "Singapore", "Dubai", "Rome"
+        ];
+        
+        console.log("\n🌍 Popular Cities:");
+        console.log("=".repeat(30));
+        popularCities.forEach((city, index) => {
+            console.log(`${index + 1}. ${city}`);
+        });
+        console.log("=".repeat(30));
+        
+        // In real app, this would update the UI with clickable city buttons
+        console.log("💡 Click on any city to view its weather");
+    }
+    
+    // Show notification to user
+    showNotification(message, type = 'info') {
+        const emojis = {
+            'success': '✅',
+            'error': '❌',
+            'warning': '⚠️',
+            'info': 'ℹ️'
+        };
+        
+        console.log(`${emojis[type]} ${message}`);
+        
+        // In real app, this would show a toast notification
+    }
+    
+    // Get weather icon
+    getWeatherIcon(condition) {
+        const icons = {
+            "Sunny": "☀️",
+            "Partly Cloudy": "⛅",
+            "Cloudy": "☁️",
+            "Rainy": "🌧️",
+            "Hot": "🌡️",
+            "Snow": "❄️"
+        };
+        return icons[condition] || "🌤️";
+    }
+    
+    // Utility methods
+    fetchWeatherData(city) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const data = weatherDatabase[city];
+                if (data) {
+                    resolve(data);
+                } else {
+                    reject(new Error(`Weather data not available for ${city}`));
+                }
+            }, Math.random() * 1500 + 500);
+        });
+    }
+    
+    getCachedWeather(city) {
+        // Simulate cache check
+        return null; // No cache for demo
+    }
+    
+    saveLastLocation(city) {
+        console.log(`💾 Saving last location: ${city}`);
+    }
+    
+    getLastLocation() {
+        return "New York"; // Default for demo
+    }
+    
+    showWelcomeScreen() {
+        console.log("\n🎉 Welcome to Weather App!");
+        console.log("Enter a city name to get started.");
+    }
+}
+
+// Create and initialize the complete weather app
+console.log("🚀 Creating Complete Weather Application");
+console.log("=".repeat(60));
+
+const completeWeatherApp = new CompleteWeatherApp();
+
+// Simulate user interactions
+setTimeout(() => {
+    console.log("\n" + "=".repeat(60));
+    console.log("🎮 Simulating User Interactions:");
+    console.log("=".repeat(60));
+    
+    completeWeatherApp.searchWeather("London");
+}, 3000);
+
+setTimeout(() => {
+    completeWeatherApp.addToFavorites("London", "UK");
+}, 5000);
+
+setTimeout(() => {
+    completeWeatherApp.toggleTemperatureUnit();
+}, 7000);
+
+setTimeout(() => {
+    completeWeatherApp.searchWeather("Tokyo");
+}, 9000);
+
+setTimeout(() => {
+    console.log("\n" + "=".repeat(60));
+    console.log("📊 Final App Status:");
+    console.log(`Current location: ${completeWeatherApp.currentData?.city || 'None'}`);
+    console.log(`Favorites count: ${completeWeatherApp.favorites.length}`);
+    console.log(`Temperature unit: ${completeWeatherApp.preferences.temperatureUnit || 'C'}`);
+    console.log("=".repeat(60));
+}, 12000);</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Click "Build App" to see the complete weather application!</div>
+                            <pre id="editor5-output"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="complete-weather-container" style="display: none; margin-top: 2rem; padding: 2rem; background: var(--bg-secondary); border-radius: 0.5rem; border: 2px solid var(--border-color);">
+                    <!-- Complete weather app will be injected here -->
+                </div>
+            </section>
+
+            <!-- Practice Exercises -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: API Error Handling</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Which JavaScript concept is best for handling asynchronous operations like API calls?</p>
+                    <div class="exercise-options" id="exercise1">
+                        <button class="option-btn" data-answer="wrong">for loops</button>
+                        <button class="option-btn" data-answer="wrong">if statements</button>
+                        <button class="option-btn" data-answer="correct">Promises and async/await</button>
+                        <button class="option-btn" data-answer="wrong">switch statements</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 2: Data Storage</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What happens to localStorage data when the user closes the browser?</p>
+                    <div class="exercise-options" id="exercise2">
+                        <button class="option-btn" data-answer="wrong">It gets deleted automatically</button>
+                        <button class="option-btn" data-answer="correct">It remains saved for future visits</button>
+                        <button class="option-btn" data-answer="wrong">It gets sent to the server</button>
+                        <button class="option-btn" data-answer="wrong">It gets converted to sessionStorage</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise2-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: Build Your Own Feature</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Add a weather alert system that notifies users of severe weather conditions.</p>
+                    
+                    <div class="code-editor" id="exercise3">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Weather Alert System</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('exercise3')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise3()">
+                                    <i class="fas fa-play"></i> Check Solution
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise3-code">
+// Weather Alert System
+function checkWeatherAlerts(weatherData) {
+    const alerts = [];
+    
+    // Check for high temperature alert (above 35°C)
+    
+    
+    // Check for high wind alert (above 25 mph)
+    
+    
+    // Check for storm conditions
+    
+    
+    return alerts;
+}
+
+function displayAlert(alertType, message) {
+    const alertEmoji = {
+        'heat': '🌡️',
+        'wind': '💨',
+        'storm': '⛈️',
+        'general': '⚠️'
+    };
+    
+    // Add your alert display logic here
+    
+    
+}
+
+// Test your alert system
+const severeWeatherData = {
+    current: {
+        temperature: 38,
+        condition: "Thunderstorm",
+        windSpeed: 30,
+        humidity: 85
+    }
+};
+
+const mildWeatherData = {
+    current: {
+        temperature: 22,
+        condition: "Sunny",
+        windSpeed: 8,
+        humidity: 60
+    }
+};
+
+console.log("Testing severe weather:");
+const severeAlerts = checkWeatherAlerts(severeWeatherData);
+console.log("Alerts:", severeAlerts);
+
+console.log("\nTesting mild weather:");
+const mildAlerts = checkWeatherAlerts(mildWeatherData);
+console.log("Alerts:", mildAlerts);</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise3-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Common Mistakes Section -->
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Not Handling Network Failures</strong>
+                            <p>Always implement retry logic and graceful error handling for API calls. Network requests can fail for many reasons.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Forgetting Loading States</strong>
+                            <p>Show loading indicators during API calls so users know the app is working. Silence feels like a broken app.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Not Caching Data</strong>
+                            <p>Cache weather data to improve performance and provide offline functionality. Users expect apps to work even with poor connections.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>Weather apps demonstrate real-world JavaScript patterns and best practices</li>
+                        <li>Always handle errors gracefully with meaningful messages and retry options</li>
+                        <li>Use localStorage to persist user preferences and favorite locations</li>
+                        <li>Implement loading states and smooth animations for better user experience</li>
+                        <li>Cache data to improve performance and provide offline functionality</li>
+                        <li>Structure your app with classes to organize complex functionality</li>
+                        <li>Async/await makes handling API calls clean and readable</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Module Completion -->
+            <section class="content-section" style="background: linear-gradient(135deg, #000000 0%, #3498db 100%); padding: 3rem; border-radius: 1rem; color: #F7DF1E; text-align: center; margin: 3rem 0;">
+                <h2 style="color: #F7DF1E; font-size: 2.5rem; margin-bottom: 1rem;">🎉 Congratulations!</h2>
+                <p style="font-size: 1.3rem; margin-bottom: 2rem; color: #F7DF1E; opacity: 0.95;">
+                    You've completed Module 10 and built four amazing projects! You've mastered advanced JavaScript concepts and created real-world applications.
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+                    <div style="background: rgba(247, 223, 30, 0.1); padding: 1.5rem; border-radius: 0.5rem;">
+                        <h4 style="color: #F7DF1E; margin-bottom: 0.5rem;">📝 Todo List App</h4>
+                        <p style="color: #F7DF1E; opacity: 0.9; font-size: 0.9rem;">DOM manipulation, localStorage, event handling</p>
+                    </div>
+                    <div style="background: rgba(247, 223, 30, 0.1); padding: 1.5rem; border-radius: 0.5rem;">
+                        <h4 style="color: #F7DF1E; margin-bottom: 0.5rem;">🧮 Calculator App</h4>
+                        <p style="color: #F7DF1E; opacity: 0.9; font-size: 0.9rem;">Complex logic, state management, UI updates</p>
+                    </div>
+                    <div style="background: rgba(247, 223, 30, 0.1); padding: 1.5rem; border-radius: 0.5rem;">
+                        <h4 style="color: #F7DF1E; margin-bottom: 0.5rem;">🧠 Quiz Game</h4>
+                        <p style="color: #F7DF1E; opacity: 0.9; font-size: 0.9rem;">Timers, arrays, game logic, dynamic content</p>
+                    </div>
+                    <div style="background: rgba(247, 223, 30, 0.1); padding: 1.5rem; border-radius: 0.5rem;">
+                        <h4 style="color: #F7DF1E; margin-bottom: 0.5rem;">🌤️ Weather App</h4>
+                        <p style="color: #F7DF1E; opacity: 0.9; font-size: 0.9rem;">API concepts, error handling, async programming</p>
+                    </div>
+                </div>
+                <p style="font-size: 1.1rem; margin-top: 2rem; color: #F7DF1E; opacity: 0.95;">
+                    You now have the skills to build complex, interactive web applications. Keep practicing and building amazing projects!
+                </p>
+            </section>
+
+            <!-- Spacing before navigation -->
+            <div style="margin: 2rem 0;"></div>
+            
+            <!-- Lesson Navigation -->
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson3.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Module 10 <i class="fas fa-trophy"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://taymcquaya.com" target="_blank" rel="noopener noreferrer" aria-label="Personal Website">
+                    <i class="fas fa-globe"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Demo weather data
+        const demoWeatherData = {
+            "New York": {
+                city: "New York",
+                country: "USA",
+                temp: 72,
+                condition: "Partly Cloudy",
+                humidity: 65,
+                wind: 8,
+                icon: "⛅"
+            },
+            "London": {
+                city: "London", 
+                country: "UK",
+                temp: 16,
+                condition: "Rainy",
+                humidity: 80,
+                wind: 12,
+                icon: "🌧️"
+            },
+            "Tokyo": {
+                city: "Tokyo",
+                country: "Japan", 
+                temp: 26,
+                condition: "Sunny",
+                humidity: 55,
+                wind: 6,
+                icon: "☀️"
+            }
+        };
+
+        function loadDemoWeather(city) {
+            const container = document.getElementById('demo-weather-container');
+            const data = demoWeatherData[city];
+            
+            if (!data) return;
+            
+            container.innerHTML = `
+                <div style="text-align: center; padding: 1rem;">
+                    <h4 style="color: var(--text-primary); margin-bottom: 1rem;">${data.city}, ${data.country}</h4>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+                        <span style="font-size: 3rem;">${data.icon}</span>
+                        <span style="font-size: 2.5rem; color: var(--text-primary);">${data.temp}°C</span>
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 1.1rem;">${data.condition}</p>
+                    <div style="display: flex; justify-content: space-around; color: var(--text-secondary);">
+                        <div>💧 ${data.humidity}%</div>
+                        <div>💨 ${data.wind} mph</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize with New York
+        loadDemoWeather('New York');
+
+        // Complete lesson function - this is the final lesson
+        function completeLesson() {
+            Storage.saveProgress(10, 4, true);
+            Storage.completeModule(10); // Mark entire module as complete
+            
+            customModal.success(
+                'Incredible! You\'ve completed all of Module 10 and built four amazing projects! You\'ve mastered advanced JavaScript concepts and are ready for real-world development!', 
+                'Module 10 Complete! 🎉'
+            );
+            
+            setTimeout(() => {
+                window.location.href = '../../index.html';
+            }, 3000);
+        }
+
+        // Run code function
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            outputPane.innerHTML = '';
+            
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+            };
+            
+            try {
+                eval(code);
+                
+                if (logs.length > 0) {
+                    outputPane.innerHTML = logs.join('\n');
+                    outputPane.style.color = 'var(--js-yellow)';
+                } else {
+                    outputPane.textContent = 'No output';
+                }
+            } catch (error) {
+                outputPane.textContent = 'Error: ' + error.message;
+                outputPane.style.color = 'var(--danger-color, #e74c3c)';
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        // Copy code function
+        function copyCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            if (!codeInput) return;
+            
+            codeInput.select();
+            codeInput.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                const button = event.target.closest('.editor-btn');
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy code:', err);
+            }
+        }
+
+        // Build complete weather app
+        function buildCompleteWeatherApp() {
+            runCode('editor5');
+            
+            const container = document.getElementById('complete-weather-container');
+            container.style.display = 'block';
+            container.innerHTML = `
+                <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 1.5rem;">🌤️ Your Complete Weather App!</h3>
+                <p style="text-align: center; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Outstanding! You've built a professional weather application with error handling, local storage, 
+                    loading states, and a complete user interface. This demonstrates mastery of advanced JavaScript concepts!
+                </p>
+                <div style="text-align: center; padding: 2rem; background: var(--bg-primary); border-radius: 0.5rem; border: 1px solid var(--border-color);">
+                    <h4 style="color: var(--text-primary); margin-bottom: 1rem;">🎯 Skills Mastered:</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: left;">
+                        <div style="color: var(--text-secondary);">✅ Async/await patterns</div>
+                        <div style="color: var(--text-secondary);">✅ Error handling</div>
+                        <div style="color: var(--text-secondary);">✅ Local storage</div>
+                        <div style="color: var(--text-secondary);">✅ UI state management</div>
+                        <div style="color: var(--text-secondary);">✅ Data caching</div>
+                        <div style="color: var(--text-secondary);">✅ Class-based architecture</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Check Exercise 3
+        function checkExercise3() {
+            const codeInput = document.getElementById('exercise3-code');
+            const outputPane = document.getElementById('exercise3-output');
+            const feedback = document.getElementById('exercise3-feedback');
+            
+            const code = codeInput.value;
+            const hasTemperatureCheck = code.includes('35') || code.includes('temperature');
+            const hasWindCheck = code.includes('25') || code.includes('windSpeed');
+            const hasStormCheck = code.includes('storm') || code.includes('Thunderstorm');
+            const hasAlertDisplay = code.includes('console.log') || code.includes('alert');
+            
+            // Run the code
+            runCode('exercise3');
+            
+            // Show feedback
+            setTimeout(() => {
+                if (hasTemperatureCheck && hasWindCheck && hasStormCheck && hasAlertDisplay) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Perfect! You\'ve implemented a complete weather alert system that checks for multiple severe conditions!';
+                } else if (hasTemperatureCheck || hasWindCheck || hasStormCheck) {
+                    feedback.className = 'exercise-feedback show warning';
+                    feedback.textContent = 'Good progress! Add checks for temperature (>35°C), wind speed (>25mph), and storm conditions.';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    feedback.textContent = 'Implement alert checks: high temperature, strong winds, and storm conditions. Display alerts to users.';
+                }
+            }, 150);
+        }
+
+        // Exercise handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.disabled) return;
+                    
+                    const exerciseContainer = this.closest('.exercise-options');
+                    const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
+                    const isCorrect = this.getAttribute('data-answer') === 'correct';
+                    
+                    // Remove previous incorrect selections
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.classList.contains('incorrect')) {
+                            btn.classList.remove('incorrect', 'selected');
+                            btn.disabled = false;
+                        }
+                    });
+                    
+                    // Mark this button
+                    this.classList.add('selected');
+                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    if (isCorrect) {
+                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                            btn.disabled = true;
+                        });
+                    } else {
+                        this.disabled = true;
+                    }
+                    
+                    // Show feedback
+                    if (feedbackDiv) {
+                        setTimeout(() => {
+                            feedbackDiv.style.display = 'block';
+                            feedbackDiv.className = 'exercise-feedback show ' + (isCorrect ? 'success' : 'error');
+                            
+                            if (exerciseContainer.id === 'exercise1') {
+                                feedbackDiv.textContent = isCorrect ? 
+                                    'Correct! Promises and async/await are essential for handling asynchronous operations like API calls.' : 
+                                    'Not quite. Promises and async/await are designed specifically for asynchronous operations.';
+                            } else if (exerciseContainer.id === 'exercise2') {
+                                feedbackDiv.textContent = isCorrect ? 
+                                    'Excellent! localStorage persists data across browser sessions, unlike sessionStorage which clears on close.' : 
+                                    'Try again. localStorage data persists even after the browser is closed and reopened.';
+                            }
+                        }, 150);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

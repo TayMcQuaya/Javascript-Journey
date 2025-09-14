@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2: Calculator - JavaScript Journey</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/themes.css">
+    <link rel="stylesheet" href="../../styles/lesson.css">
+    <link rel="stylesheet" href="../../styles/dark-mode-fixes.css">
+    <link rel="stylesheet" href="../../styles/code-highlighting.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
+    <link rel="stylesheet" href="../../styles/header-enhanced.css">
+    <link rel="stylesheet" href="../../styles/modal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-code"></i>
+                    <span>JavaScript Journey</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn" onclick="window.location.href='../../index.html'">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" id="progressBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </button>
+                <button class="nav-btn" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    <span>Reset</span>
+                </button>
+                <button class="nav-btn" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-container">
+        <article class="lesson-content">
+            <!-- Lesson Header -->
+            <div class="lesson-header">
+                <h1>Module 10:<br>Lesson 2: Calculator</h1>
+                <p class="lesson-subtitle">Create a functional calculator with JavaScript</p>
+            </div>
+
+            <!-- Introduction Section -->
+            <section class="content-section">
+                <h2>Introduction</h2>
+                <p>Calculators are everywhere - on your phone, computer, and even your watch. Building one is a fantastic way to practice handling user input, performing calculations, and managing application state.</p>
+                <p>Think of a calculator as a state machine: it remembers the current number, the operation you chose, and waits for the next input. It's like having a conversation where you say "5", then "plus", then "3", and it responds with "8"!</p>
+            </section>
+
+            <!-- Project Preview -->
+            <section class="content-section">
+                <h2>What We're Building</h2>
+                <div id="calc-demo" style="padding: 2rem; background: var(--bg-secondary); border-radius: 0.5rem; border: 2px solid var(--border-color);">
+                    <div style="max-width: 320px; margin: 0 auto;">
+                        <h3 style="text-align: center; color: var(--primary-color); margin-bottom: 1.5rem;">🧮 JavaScript Calculator</h3>
+                        
+                        <!-- Calculator Display -->
+                        <div style="background: var(--bg-primary); border: 2px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; text-align: right;">
+                            <div id="calc-history" style="font-size: 0.875rem; color: var(--text-secondary); min-height: 1.2rem;"></div>
+                            <div id="calc-display" style="font-size: 2rem; color: var(--text-primary); font-weight: bold;">0</div>
+                        </div>
+                        
+                        <!-- Calculator Buttons -->
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;">
+                            <!-- Row 1 -->
+                            <button onclick="calcClear()" style="grid-column: span 2;" class="calc-btn calc-btn-func">Clear</button>
+                            <button onclick="calcDelete()" class="calc-btn calc-btn-func">←</button>
+                            <button onclick="calcOperation('/')" class="calc-btn calc-btn-op">÷</button>
+                            
+                            <!-- Row 2 -->
+                            <button onclick="calcNumber('7')" class="calc-btn">7</button>
+                            <button onclick="calcNumber('8')" class="calc-btn">8</button>
+                            <button onclick="calcNumber('9')" class="calc-btn">9</button>
+                            <button onclick="calcOperation('*')" class="calc-btn calc-btn-op">×</button>
+                            
+                            <!-- Row 3 -->
+                            <button onclick="calcNumber('4')" class="calc-btn">4</button>
+                            <button onclick="calcNumber('5')" class="calc-btn">5</button>
+                            <button onclick="calcNumber('6')" class="calc-btn">6</button>
+                            <button onclick="calcOperation('-')" class="calc-btn calc-btn-op">−</button>
+                            
+                            <!-- Row 4 -->
+                            <button onclick="calcNumber('1')" class="calc-btn">1</button>
+                            <button onclick="calcNumber('2')" class="calc-btn">2</button>
+                            <button onclick="calcNumber('3')" class="calc-btn">3</button>
+                            <button onclick="calcOperation('+')" class="calc-btn calc-btn-op">+</button>
+                            
+                            <!-- Row 5 -->
+                            <button onclick="calcNumber('0')" style="grid-column: span 2;" class="calc-btn">0</button>
+                            <button onclick="calcDecimal()" class="calc-btn">.</button>
+                            <button onclick="calcEquals()" class="calc-btn calc-btn-equals">=</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <style>
+                    .calc-btn {
+                        padding: 1rem;
+                        font-size: 1.25rem;
+                        border: none;
+                        border-radius: 0.25rem;
+                        cursor: pointer;
+                        background: var(--bg-tertiary);
+                        color: var(--text-primary);
+                        transition: all 0.2s;
+                    }
+                    .calc-btn:hover {
+                        transform: scale(1.05);
+                        background: var(--bg-primary);
+                    }
+                    .calc-btn:active {
+                        transform: scale(0.95);
+                    }
+                    .calc-btn-op {
+                        background: var(--primary-color);
+                        color: var(--bg-primary);
+                        font-weight: bold;
+                    }
+                    .calc-btn-func {
+                        background: var(--danger-color, #e74c3c);
+                        color: white;
+                    }
+                    .calc-btn-equals {
+                        background: var(--success-color, #27ae60);
+                        color: white;
+                        font-weight: bold;
+                    }
+                </style>
+            </section>
+
+            <!-- Calculator State Management -->
+            <section class="content-section">
+                <h2>Step 1: Calculator State</h2>
+                <p>A calculator needs to track several pieces of information: the current display value, the previous value, the selected operation, and whether we're waiting for a new number.</p>
+
+                <div class="info-box">
+                    <div>
+                        <i class="fas fa-lightbulb"></i> <strong> State Management:</strong>
+                        <p>Think of state as the calculator's memory - it needs to remember numbers and operations between button clicks.</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor1">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Calculator State</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor1-code">
+// Calculator State Object
+const calculator = {
+    displayValue: '0',        // What's shown on screen
+    firstOperand: null,       // First number in calculation
+    waitingForOperand: false, // Ready for new number?
+    operator: null,           // Current operation (+, -, *, /)
+    history: ''              // Shows calculation history
+};
+
+// Function to reset calculator
+function resetCalculator() {
+    calculator.displayValue = '0';
+    calculator.firstOperand = null;
+    calculator.waitingForOperand = false;
+    calculator.operator = null;
+    calculator.history = '';
+    
+    console.log("Calculator reset!");
+    console.log("State:", calculator);
+}
+
+// Function to input a digit
+function inputDigit(digit) {
+    const { displayValue, waitingForOperand } = calculator;
+    
+    if (waitingForOperand) {
+        // Start new number
+        calculator.displayValue = String(digit);
+        calculator.waitingForOperand = false;
+    } else {
+        // Append to current number
+        calculator.displayValue = displayValue === '0' 
+            ? String(digit) 
+            : displayValue + digit;
+    }
+    
+    console.log(`Input: ${digit}`);
+    console.log(`Display: ${calculator.displayValue}`);
+}
+
+// Test the state management
+console.log("Initial state:");
+console.log(calculator);
+
+console.log("\n--- Testing inputs ---");
+inputDigit(5);
+inputDigit(3);
+inputDigit(7);
+
+console.log("\n--- Final state ---");
+console.log(calculator);
+
+console.log("\n--- Reset test ---");
+resetCalculator();</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor1-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Operations Implementation -->
+            <section class="content-section">
+                <h2>Step 2: Mathematical Operations</h2>
+                <p>Now let's implement the core calculation logic. We need functions to handle each operation and chain calculations together.</p>
+
+                <div class="code-editor" id="editor2">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Operations</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor2')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor2')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor2-code">
+// Perform calculation based on operator
+function calculate(firstOperand, secondOperand, operator) {
+    switch(operator) {
+        case '+':
+            return firstOperand + secondOperand;
+        case '-':
+            return firstOperand - secondOperand;
+        case '*':
+            return firstOperand * secondOperand;
+        case '/':
+            // Handle division by zero
+            if (secondOperand === 0) {
+                console.log("Error: Division by zero!");
+                return 'Error';
+            }
+            return firstOperand / secondOperand;
+        case '=':
+            return secondOperand;
+        default:
+            return secondOperand;
+    }
+}
+
+// Handle operator button clicks
+function handleOperator(nextOperator) {
+    const inputValue = parseFloat('25'); // Simulated current value
+    const firstOperand = 10; // Simulated previous value
+    const operator = '+'; // Simulated current operator
+    
+    console.log(`\nOperation: ${firstOperand} ${operator} ${inputValue}`);
+    
+    if (firstOperand === null) {
+        // First number entered
+        console.log("Storing first operand:", inputValue);
+    } else if (operator) {
+        // Perform calculation
+        const result = calculate(firstOperand, inputValue, operator);
+        console.log(`Result: ${result}`);
+        console.log(`Display: ${String(result)}`);
+    }
+    
+    console.log(`Next operator: ${nextOperator}`);
+}
+
+// Format display value (handle decimals)
+function formatDisplay(value) {
+    // Round to avoid floating point issues
+    const rounded = Math.round(value * 100000000) / 100000000;
+    
+    // Convert to string and limit length
+    let display = String(rounded);
+    if (display.length > 12) {
+        // Use exponential notation for large numbers
+        display = rounded.toExponential(6);
+    }
+    
+    return display;
+}
+
+// Test calculations
+console.log("=== Testing Calculations ===");
+console.log("5 + 3 =", calculate(5, 3, '+'));
+console.log("10 - 7 =", calculate(10, 7, '-'));
+console.log("4 * 6 =", calculate(4, 6, '*'));
+console.log("15 / 3 =", calculate(15, 3, '/'));
+console.log("10 / 0 =", calculate(10, 0, '/'));
+
+console.log("\n=== Testing Display Formatting ===");
+console.log("Large number:", formatDisplay(123456789));
+console.log("Decimal:", formatDisplay(0.1 + 0.2));
+console.log("Small decimal:", formatDisplay(0.0000001));
+
+console.log("\n=== Testing Operation Handler ===");
+handleOperator('*');</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor2-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Decimal and Special Cases -->
+            <section class="content-section">
+                <h2>Step 3: Decimal Points and Edge Cases</h2>
+                <p>A good calculator handles decimal numbers and prevents common errors like multiple decimal points or division by zero.</p>
+
+                <div class="warning-box">
+                    <div>
+                        <i class="fas fa-exclamation-triangle"></i> <strong> Floating Point Precision:</strong>
+                        <p>JavaScript can have precision issues with decimals (0.1 + 0.2 = 0.30000000000000004). We need to round appropriately!</p>
+                    </div>
+                </div>
+
+                <div class="code-editor" id="editor3">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Decimal Handling</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor3')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor3')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor3-code">
+// Handle decimal point input
+function inputDecimal() {
+    let displayValue = '25'; // Current display
+    
+    // Check if display already contains a decimal
+    if (displayValue.indexOf('.') === -1) {
+        // Add decimal point
+        displayValue += '.';
+        console.log("Added decimal:", displayValue);
+    } else {
+        console.log("Decimal already exists!");
+    }
+    
+    return displayValue;
+}
+
+// Handle percentage conversion
+function handlePercentage(value) {
+    const number = parseFloat(value);
+    const result = number / 100;
+    
+    console.log(`${number}% = ${result}`);
+    return String(result);
+}
+
+// Handle sign change (+/-)
+function toggleSign(value) {
+    const number = parseFloat(value);
+    const result = number * -1;
+    
+    console.log(`Toggle sign: ${number} → ${result}`);
+    return String(result);
+}
+
+// Validate input to prevent errors
+function validateInput(input) {
+    // Check for valid number format
+    const isValid = /^-?\d*\.?\d*$/.test(input);
+    
+    if (!isValid) {
+        console.log(`Invalid input: "${input}"`);
+        return false;
+    }
+    
+    // Check length limit (prevent overflow)
+    if (input.length > 15) {
+        console.log("Input too long!");
+        return false;
+    }
+    
+    return true;
+}
+
+// Handle special key inputs (keyboard support)
+function handleKeyPress(key) {
+    const validKeys = {
+        '0-9': 'digit',
+        '.': 'decimal',
+        '+': 'operator',
+        '-': 'operator',
+        '*': 'operator',
+        '/': 'operator',
+        'Enter': 'equals',
+        '=': 'equals',
+        'Escape': 'clear',
+        'Backspace': 'delete'
+    };
+    
+    console.log(`Key pressed: "${key}"`);
+    
+    // Determine action based on key
+    if (key >= '0' && key <= '9') {
+        console.log("Action: Input digit", key);
+    } else if (key === '.') {
+        console.log("Action: Add decimal");
+    } else if ('+-*/'.includes(key)) {
+        console.log("Action: Operation", key);
+    } else if (key === 'Enter' || key === '=') {
+        console.log("Action: Calculate result");
+    } else if (key === 'Escape') {
+        console.log("Action: Clear calculator");
+    } else if (key === 'Backspace') {
+        console.log("Action: Delete last digit");
+    } else {
+        console.log("Invalid key!");
+    }
+}
+
+// Test decimal and special functions
+console.log("=== Testing Decimal Input ===");
+inputDecimal();
+inputDecimal(); // Should show "already exists"
+
+console.log("\n=== Testing Special Functions ===");
+handlePercentage('50');
+toggleSign('42');
+toggleSign('-15');
+
+console.log("\n=== Testing Input Validation ===");
+console.log("Valid '123.45':", validateInput('123.45'));
+console.log("Valid '-99':", validateInput('-99'));
+console.log("Invalid 'abc':", validateInput('abc'));
+console.log("Invalid '12.34.56':", validateInput('12.34.56'));
+
+console.log("\n=== Testing Keyboard Input ===");
+['5', '+', '3', '=', 'Escape'].forEach(key => handleKeyPress(key));</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor3-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Complete Calculator Implementation -->
+            <section class="content-section">
+                <h2>Step 4: Complete Calculator</h2>
+                <p>Let's put everything together into a fully functional calculator class!</p>
+
+                <div class="code-editor" id="editor4">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active">Complete Calculator</button>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="editor-btn copy-btn" onclick="copyCode('editor4')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="editor-btn run-btn" onclick="runCode('editor4')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <textarea class="code-input" id="editor4-code">
+// Complete Calculator Class
+class Calculator {
+    constructor() {
+        this.clear();
+    }
+    
+    clear() {
+        this.displayValue = '0';
+        this.firstOperand = null;
+        this.waitingForOperand = false;
+        this.operator = null;
+        console.log('🔄 Calculator cleared');
+    }
+    
+    inputDigit(digit) {
+        if (this.waitingForOperand) {
+            this.displayValue = String(digit);
+            this.waitingForOperand = false;
+        } else {
+            this.displayValue = this.displayValue === '0' 
+                ? String(digit) 
+                : this.displayValue + digit;
+        }
+        console.log(`📝 Input: ${digit} → Display: ${this.displayValue}`);
+    }
+    
+    inputDecimal() {
+        if (this.waitingForOperand) {
+            this.displayValue = '0.';
+            this.waitingForOperand = false;
+            return;
+        }
+        
+        if (!this.displayValue.includes('.')) {
+            this.displayValue += '.';
+            console.log(`📝 Added decimal → ${this.displayValue}`);
+        }
+    }
+    
+    handleOperator(nextOperator) {
+        const inputValue = parseFloat(this.displayValue);
+        
+        if (this.firstOperand === null && !isNaN(inputValue)) {
+            this.firstOperand = inputValue;
+        } else if (this.operator) {
+            const result = this.calculate(this.firstOperand, inputValue, this.operator);
+            
+            this.displayValue = `${parseFloat(result.toFixed(7))}`;
+            this.firstOperand = result;
+        }
+        
+        this.waitingForOperand = true;
+        this.operator = nextOperator;
+        
+        console.log(`🔧 Operator: ${nextOperator}`);
+    }
+    
+    calculate(firstOperand, secondOperand, operator) {
+        switch(operator) {
+            case '+': return firstOperand + secondOperand;
+            case '-': return firstOperand - secondOperand;
+            case '*': return firstOperand * secondOperand;
+            case '/': return secondOperand !== 0 ? firstOperand / secondOperand : 0;
+            default: return secondOperand;
+        }
+    }
+    
+    equals() {
+        if (this.operator && this.firstOperand !== null) {
+            const inputValue = parseFloat(this.displayValue);
+            const result = this.calculate(this.firstOperand, inputValue, this.operator);
+            
+            console.log(`📊 ${this.firstOperand} ${this.operator} ${inputValue} = ${result}`);
+            
+            this.displayValue = `${parseFloat(result.toFixed(7))}`;
+            this.firstOperand = null;
+            this.operator = null;
+            this.waitingForOperand = false;
+        }
+    }
+    
+    delete() {
+        if (this.displayValue.length > 1) {
+            this.displayValue = this.displayValue.slice(0, -1);
+        } else {
+            this.displayValue = '0';
+        }
+        console.log(`⌫ Delete → ${this.displayValue}`);
+    }
+}
+
+// Create and test the calculator
+const calc = new Calculator();
+
+console.log("🧮 CALCULATOR TEST");
+console.log("=" .repeat(40));
+
+// Test calculation: 15 + 7 = 22
+console.log("\n📝 Calculate: 15 + 7");
+calc.inputDigit(1);
+calc.inputDigit(5);
+calc.handleOperator('+');
+calc.inputDigit(7);
+calc.equals();
+console.log(`Result: ${calc.displayValue}`);
+
+// Test decimal: 3.14 * 2 = 6.28
+console.log("\n📝 Calculate: 3.14 * 2");
+calc.clear();
+calc.inputDigit(3);
+calc.inputDecimal();
+calc.inputDigit(1);
+calc.inputDigit(4);
+calc.handleOperator('*');
+calc.inputDigit(2);
+calc.equals();
+console.log(`Result: ${calc.displayValue}`);
+
+// Test chain: 10 + 5 - 3 = 12
+console.log("\n📝 Chain: 10 + 5 - 3");
+calc.clear();
+calc.inputDigit(1);
+calc.inputDigit(0);
+calc.handleOperator('+');
+calc.inputDigit(5);
+calc.handleOperator('-'); // This should calculate 10+5=15 first
+calc.inputDigit(3);
+calc.equals();
+console.log(`Result: ${calc.displayValue}`);
+
+console.log("\n" + "=" .repeat(40));
+console.log("✅ Calculator test complete!");</textarea>
+                        <div class="code-output">
+                            <div class="output-label">Output will appear here...</div>
+                            <pre id="editor4-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Exercises -->
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 1: Operation Order</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>What will be displayed after this sequence: 5 → + → 3 → * → 2 → = ?</p>
+                    <div class="exercise-options" id="exercise1">
+                        <button class="option-btn" data-answer="wrong">10</button>
+                        <button class="option-btn" data-answer="wrong">11</button>
+                        <button class="option-btn" data-answer="correct">16</button>
+                        <button class="option-btn" data-answer="wrong">13</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise1-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 2: Decimal Handling</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Which check prevents multiple decimal points in a number?</p>
+                    <div class="exercise-options" id="exercise2">
+                        <button class="option-btn" data-answer="wrong">displayValue.hasDecimal()</button>
+                        <button class="option-btn" data-answer="correct">displayValue.includes('.')</button>
+                        <button class="option-btn" data-answer="wrong">displayValue.indexOf('.') > 0</button>
+                        <button class="option-btn" data-answer="wrong">displayValue.contains('.')</button>
+                    </div>
+                    <div class="exercise-feedback" id="exercise2-feedback"></div>
+                </div>
+            </section>
+
+            <section class="exercise-section">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-puzzle-piece"></i> Practice Exercise 3: Add Memory Functions</h3>
+                </div>
+                <div class="exercise-content">
+                    <p>Extend the calculator with memory functions (M+, M-, MR, MC).</p>
+                    
+                    <div class="code-editor" id="exercise3">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active">Memory Functions</button>
+                            </div>
+                            <div class="editor-actions">
+                                <button class="editor-btn copy-btn" onclick="copyCode('exercise3')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="editor-btn run-btn" onclick="checkExercise3()">
+                                    <i class="fas fa-play"></i> Check Solution
+                                </button>
+                            </div>
+                        </div>
+                        <div class="editor-content">
+                            <textarea class="code-input" id="exercise3-code">
+// Add memory functions to the calculator
+class CalculatorWithMemory {
+    constructor() {
+        this.displayValue = '0';
+        this.memory = 0; // Add memory storage
+    }
+    
+    // Memory Clear - Clear memory
+    memoryClear() {
+        // Your code here
+        
+        console.log("Memory cleared");
+    }
+    
+    // Memory Recall - Display memory value
+    memoryRecall() {
+        // Your code here
+        
+        console.log("Memory recalled:", this.memory);
+        return this.memory;
+    }
+    
+    // Memory Add - Add display to memory
+    memoryAdd() {
+        // Your code here
+        
+        console.log("Added to memory:", this.displayValue);
+    }
+    
+    // Memory Subtract - Subtract display from memory
+    memorySubtract() {
+        // Your code here
+        
+        console.log("Subtracted from memory:", this.displayValue);
+    }
+}
+
+// Test the memory functions
+const memCalc = new CalculatorWithMemory();
+memCalc.displayValue = '10';
+memCalc.memoryAdd();
+memCalc.displayValue = '5';
+memCalc.memorySubtract();
+console.log("Final memory value:", memCalc.memoryRecall());</textarea>
+                            <div class="code-output">
+                                <div class="output-label">Output will appear here...</div>
+                                <pre id="exercise3-output"></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exercise-feedback" id="exercise3-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Common Mistakes Section -->
+            <section class="content-section">
+                <h2>Common Mistakes to Avoid</h2>
+                <div class="mistake-box">
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Floating Point Errors</strong>
+                            <p>JavaScript's 0.1 + 0.2 equals 0.30000000000000004. Always round results appropriately using toFixed() or Math.round().</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> Not Handling Edge Cases</strong>
+                            <p>Always check for division by zero, maximum display length, and invalid operations to prevent crashes.</p>
+                        </div>
+                    </div>
+                    <div class="mistake-item">
+                        <div>
+                            <i class="fas fa-times-circle"></i> <strong> State Management Issues</strong>
+                            <p>Forgetting to reset flags like waitingForOperand can cause unexpected behavior. Test all operation sequences!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="content-section">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>Calculators are state machines that track numbers and operations</li>
+                        <li>Always handle edge cases like division by zero and decimal points</li>
+                        <li>Use parseFloat() for number conversion and toFixed() for display</li>
+                        <li>Keyboard support makes the calculator more user-friendly</li>
+                        <li>Chain operations require careful state management</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Spacing before navigation -->
+            <div style="margin: 2rem 0;"></div>
+            
+            <!-- Lesson Navigation -->
+            <div class="lesson-navigation">
+                <button class="btn btn-secondary" onclick="window.location.href='lesson1.html'">
+                    <i class="fas fa-arrow-left"></i> Previous Lesson
+                </button>
+                
+                <button class="btn btn-primary" onclick="completeLesson()">
+                    Complete Lesson <i class="fas fa-check"></i>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="window.location.href='lesson3.html'">
+                    Next Lesson <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>Made by TayMcQuaya with <span class="heart">❤️</span></p>
+            <div class="social-links">
+                <a href="https://taymcquaya.com" target="_blank" rel="noopener noreferrer" aria-label="Personal Website">
+                    <i class="fas fa-globe"></i>
+                </a>
+                <a href="https://x.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="https://github.com/TayMcQuaya" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 JavaScript Journey&trade; - All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reset Modal -->
+    <div class="modal" id="resetModal">
+        <div class="modal-content">
+            <h3>Reset Progress</h3>
+            <p>Choose what you want to reset:</p>
+            <div class="modal-buttons">
+                <button class="btn btn-danger" id="resetAllBtn">Reset All Progress</button>
+                <button class="btn btn-warning" id="resetModuleBtn">Reset Current Module</button>
+                <button class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/progress.js"></script>
+    <script src="../../js/exercises.js"></script>
+    <script src="../../js/modal.js"></script>
+    <script>
+        // Demo calculator state
+        let calcState = {
+            display: '0',
+            firstOperand: null,
+            operator: null,
+            waitingForOperand: false
+        };
+
+        function updateCalcDisplay() {
+            document.getElementById('calc-display').textContent = calcState.display;
+            document.getElementById('calc-history').textContent = 
+                calcState.firstOperand !== null && calcState.operator ? 
+                `${calcState.firstOperand} ${calcState.operator}` : '';
+        }
+
+        function calcNumber(num) {
+            if (calcState.waitingForOperand) {
+                calcState.display = num;
+                calcState.waitingForOperand = false;
+            } else {
+                calcState.display = calcState.display === '0' ? num : calcState.display + num;
+            }
+            updateCalcDisplay();
+        }
+
+        function calcOperation(op) {
+            const inputValue = parseFloat(calcState.display);
+            
+            if (calcState.firstOperand === null) {
+                calcState.firstOperand = inputValue;
+            } else if (calcState.operator) {
+                const result = performCalculation();
+                calcState.display = String(result);
+                calcState.firstOperand = result;
+            }
+            
+            calcState.waitingForOperand = true;
+            calcState.operator = op;
+            updateCalcDisplay();
+        }
+
+        function calcEquals() {
+            if (calcState.operator && calcState.firstOperand !== null) {
+                const result = performCalculation();
+                calcState.display = String(result);
+                calcState.firstOperand = null;
+                calcState.operator = null;
+                calcState.waitingForOperand = false;
+                updateCalcDisplay();
+            }
+        }
+
+        function performCalculation() {
+            const inputValue = parseFloat(calcState.display);
+            let result = 0;
+            
+            switch(calcState.operator) {
+                case '+': result = calcState.firstOperand + inputValue; break;
+                case '-': result = calcState.firstOperand - inputValue; break;
+                case '*': result = calcState.firstOperand * inputValue; break;
+                case '/': result = inputValue !== 0 ? calcState.firstOperand / inputValue : 0; break;
+            }
+            
+            return parseFloat(result.toFixed(8));
+        }
+
+        function calcClear() {
+            calcState = {
+                display: '0',
+                firstOperand: null,
+                operator: null,
+                waitingForOperand: false
+            };
+            updateCalcDisplay();
+        }
+
+        function calcDelete() {
+            if (calcState.display.length > 1) {
+                calcState.display = calcState.display.slice(0, -1);
+            } else {
+                calcState.display = '0';
+            }
+            updateCalcDisplay();
+        }
+
+        function calcDecimal() {
+            if (calcState.waitingForOperand) {
+                calcState.display = '0.';
+                calcState.waitingForOperand = false;
+            } else if (!calcState.display.includes('.')) {
+                calcState.display += '.';
+            }
+            updateCalcDisplay();
+        }
+
+        // Initialize display
+        updateCalcDisplay();
+
+        // Complete lesson function
+        function completeLesson() {
+            Storage.saveProgress(10, 2, true);
+            customModal.success('Great job! You\'ve built a fully functional calculator!', 'Project Complete!');
+            
+            setTimeout(() => {
+                window.location.href = 'lesson3.html';
+            }, 2000);
+        }
+
+        // Run code function
+        function runCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            const outputPane = document.getElementById(`${editorId}-output`);
+            
+            if (!codeInput || !outputPane) return;
+            
+            const code = codeInput.value;
+            outputPane.innerHTML = '';
+            
+            const originalConsoleLog = console.log;
+            const logs = [];
+            
+            console.log = (...args) => {
+                logs.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+            };
+            
+            try {
+                eval(code);
+                
+                if (logs.length > 0) {
+                    outputPane.innerHTML = logs.join('\n');
+                    outputPane.style.color = 'var(--js-yellow)';
+                } else {
+                    outputPane.textContent = 'No output';
+                }
+            } catch (error) {
+                outputPane.textContent = 'Error: ' + error.message;
+                outputPane.style.color = 'var(--danger-color, #e74c3c)';
+            } finally {
+                console.log = originalConsoleLog;
+            }
+        }
+
+        // Copy code function
+        function copyCode(editorId) {
+            const codeInput = document.getElementById(`${editorId}-code`);
+            if (!codeInput) return;
+            
+            codeInput.select();
+            codeInput.setSelectionRange(0, 99999);
+            
+            try {
+                document.execCommand('copy');
+                const button = event.target.closest('.editor-btn');
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy code:', err);
+            }
+        }
+
+        // Check Exercise 3
+        function checkExercise3() {
+            const codeInput = document.getElementById('exercise3-code');
+            const outputPane = document.getElementById('exercise3-output');
+            const feedback = document.getElementById('exercise3-feedback');
+            
+            const code = codeInput.value;
+            const hasMemoryClear = code.includes('this.memory = 0');
+            const hasMemoryRecall = code.includes('return this.memory') || code.includes('this.displayValue = this.memory');
+            const hasMemoryAdd = code.includes('this.memory += parseFloat') || code.includes('this.memory = this.memory +');
+            const hasMemorySubtract = code.includes('this.memory -= parseFloat') || code.includes('this.memory = this.memory -');
+            
+            // Run the code
+            runCode('exercise3');
+            
+            // Show feedback
+            setTimeout(() => {
+                if (hasMemoryClear && hasMemoryAdd && hasMemorySubtract) {
+                    feedback.className = 'exercise-feedback show success';
+                    feedback.textContent = 'Excellent! You\'ve successfully implemented all memory functions!';
+                } else {
+                    feedback.className = 'exercise-feedback show error';
+                    let missing = [];
+                    if (!hasMemoryClear) missing.push('memory clear');
+                    if (!hasMemoryAdd) missing.push('memory add');
+                    if (!hasMemorySubtract) missing.push('memory subtract');
+                    feedback.textContent = `Missing implementations for: ${missing.join(', ')}. Remember to use parseFloat() for the display value.`;
+                }
+            }, 150);
+        }
+
+        // Exercise handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.option-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.disabled) return;
+                    
+                    const exerciseContainer = this.closest('.exercise-options');
+                    const feedbackDiv = this.closest('.exercise-content').querySelector('.exercise-feedback');
+                    const isCorrect = this.getAttribute('data-answer') === 'correct';
+                    
+                    // Remove previous incorrect selections
+                    exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                        if (btn.classList.contains('incorrect')) {
+                            btn.classList.remove('incorrect', 'selected');
+                            btn.disabled = false;
+                        }
+                    });
+                    
+                    // Mark this button
+                    this.classList.add('selected');
+                    this.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    
+                    if (isCorrect) {
+                        exerciseContainer.querySelectorAll('.option-btn').forEach(btn => {
+                            btn.disabled = true;
+                        });
+                    } else {
+                        this.disabled = true;
+                    }
+                    
+                    // Show feedback
+                    if (feedbackDiv) {
+                        setTimeout(() => {
+                            feedbackDiv.style.display = 'block';
+                            feedbackDiv.className = 'exercise-feedback show ' + (isCorrect ? 'success' : 'error');
+                            
+                            if (exerciseContainer.id === 'exercise1') {
+                                feedbackDiv.textContent = isCorrect ? 
+                                    'Correct! Calculators process operations left to right: 5+3=8, then 8*2=16.' : 
+                                    'Think about how calculators work: when you press *, it first calculates 5+3.';
+                            } else if (exerciseContainer.id === 'exercise2') {
+                                feedbackDiv.textContent = isCorrect ? 
+                                    'Perfect! The includes() method checks if a string contains a specific character.' : 
+                                    'Try again. We need a method that checks if a string contains a decimal point.';
+                            }
+                        }, 150);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
